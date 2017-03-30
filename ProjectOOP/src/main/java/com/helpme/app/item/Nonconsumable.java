@@ -1,7 +1,16 @@
 package com.helpme.app.item;
 
+import com.helpme.app.character.Character;
+
 /**
  * Created by kopa on 2017-03-30.
  */
-public class Nonconsumable {
+public class Nonconsumable implements Item{
+    public void applyAttackEffect(Character target) {
+
+    }
+
+    public void applySelfEffect(Character self) {
+
+    }
 }
