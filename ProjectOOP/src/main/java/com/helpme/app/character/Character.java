@@ -15,16 +15,16 @@ public abstract class Character {
     protected int equippedItemIndex;
     protected Item[] inventory;
 
-    public void attack(Character target){
+    public void attack(Character target) {
         inventory[equippedItemIndex].applyAttackEffect(target);
     }
 
-    public void selfie(){
+    public void selfie() {
         inventory[equippedItemIndex].applySelfEffect(this);
     }
 
-    public void move(Tile.Direction moveDirection){
-        switch (moveDirection){
+    public void move(Tile.Direction moveDirection) {
+        switch (moveDirection) {
             case NORTH:
                 position.moveUp();
                 break;
@@ -40,16 +40,17 @@ public abstract class Character {
         }
     }
 
-    private void rotate(int i){
+    private void rotate(int i) {
         Tile.Direction[] directions = Tile.Direction.values();
         int length = directions.length;
         direction = directions[(direction.ordinal() + i) % length];
     }
-    public void rotateRight(){
+
+    public void rotateRight() {
         rotate(1);
     }
 
-    public void rotateLeft(){
+    public void rotateLeft() {
         rotate(-1);
     }
 }

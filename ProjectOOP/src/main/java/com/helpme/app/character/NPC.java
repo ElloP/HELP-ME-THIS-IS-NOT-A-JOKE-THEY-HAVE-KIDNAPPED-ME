@@ -7,4 +7,8 @@ import com.helpme.app.tile.Tile;
  */
 public class NPC extends Character {
     private String response;
+
+    public String getResponse() {
+        return response;
+    }
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 public class Level {
     Map<Vector2, Tile> tiles = new HashMap<Vector2, Tile>();
 
-
+    
 }
 
 
