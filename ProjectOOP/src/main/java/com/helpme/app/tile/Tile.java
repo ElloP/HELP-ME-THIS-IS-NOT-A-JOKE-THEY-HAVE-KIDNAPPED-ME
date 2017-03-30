@@ -7,7 +7,7 @@ import com.helpme.app.tile.edge.Edge;
  */
 public class Tile {
     public enum Direction {
-        NORTH, SOUTH, EAST, WEST
+        NORTH, EAST, SOUTH, WEST
     }
 
     private Edge[] edges = new Edge[4];

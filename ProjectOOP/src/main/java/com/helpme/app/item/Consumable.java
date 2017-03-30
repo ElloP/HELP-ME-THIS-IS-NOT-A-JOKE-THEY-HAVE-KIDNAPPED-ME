@@ -5,7 +5,7 @@ import com.helpme.app.character.Character;
 /**
  * Created by kopa on 2017-03-30.
  */
-public class Consumable implements Item {
+public class Consumable extends Item {
     public void applyAttackEffect(Character target) {
 
     }

@@ -5,7 +5,7 @@ import com.helpme.app.character.Character;
 /**
  * Created by kopa on 2017-03-30.
  */
-public class Nonconsumable implements Item{
+public class Nonconsumable extends Item{
     public void applyAttackEffect(Character target) {
 
     }
