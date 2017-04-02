@@ -1,4 +1,4 @@
-package com.helpme.app.Utils;
+package com.helpme.app.utils;
 
 /**
  * Created by Olle on 2017-03-30.
