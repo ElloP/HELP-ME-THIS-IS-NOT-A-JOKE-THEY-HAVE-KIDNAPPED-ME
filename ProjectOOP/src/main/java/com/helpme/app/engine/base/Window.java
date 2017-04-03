@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Created by Olle on 2017-04-02.
+ * Authored by Olle on 2017-04-02.
  */
 public class Window {
 
