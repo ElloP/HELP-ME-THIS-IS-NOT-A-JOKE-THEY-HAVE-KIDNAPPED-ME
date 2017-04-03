@@ -14,10 +14,12 @@ public class Level {
 
     Player player;
     Map<Coordinate, Tile> tiles = new HashMap<>();
+    Coordinate startingPosition;
 
-    public Level(Map<Coordinate, Tile> tiles, Player player) {
+    public Level(Map<Coordinate, Tile> tiles, Player player, Coordinate startingPosition) {
         this.tiles = tiles;
         this.player = player;
+        this.startingPosition = startingPosition;
     }
 
     private void movePlayer(Direction direction){

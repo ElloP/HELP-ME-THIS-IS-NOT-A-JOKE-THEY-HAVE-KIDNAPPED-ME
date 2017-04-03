@@ -3,6 +3,7 @@ package com.helpme.app.character;
 import com.helpme.app.item.Item;
 import com.helpme.app.tile.Tile;
 import com.helpme.app.utilities.Coordinate;
+import com.helpme.app.utilities.Type;
 
 import static com.helpme.app.utilities.Type.*;
 
@@ -43,9 +44,7 @@ public abstract class Character {
     }
 
     private void rotate(int i) {
-        Direction[] directions = Direction.values();
-        int length = directions.length;
-        direction = directions[(direction.ordinal() + i) % length];
+        direction = Type.rotateDirection(direction, i);
     }
 
     public void rotateRight() {
@@ -54,6 +53,11 @@ public abstract class Character {
 
     public void rotateLeft() {
         rotate(-1);
+    }
+
+    public void setPosition(int x, int y){
+        position.x = x;
+        position.y = y;
     }
 
     public Coordinate getPosition() {

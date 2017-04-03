@@ -29,4 +29,9 @@ public class Coordinate {
         return string.hashCode();
     }
 
+    @Override
+    public String toString(){
+        return "(" + x + ", " + y + ")";
+    }
+
 }

@@ -124,7 +124,7 @@ public class App {
             glfwSwapBuffers(window); // swap the color buffers
 
 
-            if (InputHandler.isKeyboardKeyPressed(GLFW_KEY_ESCAPE)) {
+            if (InputHandler.isKeyboardKeyPress(GLFW_KEY_ESCAPE)) {
                 System.out.println("GDSGDS");
             }
 
