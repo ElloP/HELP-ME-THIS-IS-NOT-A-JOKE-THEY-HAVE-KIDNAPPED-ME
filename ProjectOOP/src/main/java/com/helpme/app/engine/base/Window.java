@@ -22,7 +22,7 @@ public class Window {
         return glfwWindowShouldClose(window);
     }
 
-    // ----------- Initiation and clean up -----------
+    // ----------- Initiation, update and clean up -----------
 
     public void initWindow(int width, int height, String title) {
         if(!glfwInit()) {
@@ -45,6 +45,12 @@ public class Window {
         glfwMakeContextCurrent(window);
 
         GL.createCapabilities();
+    }
+
+    public void update() { //tells window to swap the framebuffers and get input from mouse and keyboard
+        glfwPollEvents();
+
+        glfwSwapBuffers(window);
     }
 
     public void destroy() {
