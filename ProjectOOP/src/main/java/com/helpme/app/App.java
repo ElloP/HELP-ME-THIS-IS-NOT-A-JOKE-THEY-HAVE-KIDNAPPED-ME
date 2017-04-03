@@ -1,6 +1,8 @@
 package com.helpme.app;
 
-import com.helpme.app.utilities.KeyboardHandler;
+import com.helpme.app.utilities.InputHandler;
+import com.helpme.app.world.World;
+import jdk.internal.util.xml.impl.Input;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -20,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class App {
     // The window handle
-
+    private InputHandler inputHandler = new InputHandler();
     private long window;
 
     public void run() {
@@ -44,7 +46,7 @@ public class App {
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW. Most GLFW functions will not work before doing this.
-        if ( !glfwInit() )
+        if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
 
         // Configure GLFW
@@ -54,16 +56,23 @@ public class App {
 
         // Create the window
         window = glfwCreateWindow(300, 300, "Hello World!", NULL, NULL);
-        if ( window == NULL )
+        if (window == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
 
-
-        KeyboardHandler keyboardInput = new KeyboardHandler();
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> keyboardInput.invoke(window, key, scancode, action, mods));
+        glfwSetKeyCallback(window, (l, i, i1, i2, i3) -> inputHandler.setKeyboardKey(l, i, i1, i2, i3));
+
+        // Setup a cursor position callback. It will be called every time the mouse cursor position changes
+        glfwSetCursorPosCallback(window, (l, v, v1) -> inputHandler.setCursorPosition(l, v, v1));
+
+        // Setup a cursor enter callback. It will be called every time the mouse cursor enters or leaves the window
+        glfwSetCursorEnterCallback(window, (l, b) -> inputHandler.setCursorEntered(l,b));
+
+        // Setup a mouse button callback. It will be called every time a mouse button is clicked
+        glfwSetMouseButtonCallback(window, (l, i, i1, i2) -> inputHandler.setMouseButton(l, i, i1, i2));
 
         // Get the thread stack and push a new frame
-        try ( MemoryStack stack = stackPush() ) {
+        try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1); // int*
             IntBuffer pHeight = stack.mallocInt(1); // int*
 
@@ -91,6 +100,9 @@ public class App {
     }
 
     private void loop() {
+
+        World game = new World();
+
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -101,16 +113,25 @@ public class App {
         // Set the clear color
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
+
+
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        while ( !glfwWindowShouldClose(window) ) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+        while (!glfwWindowShouldClose(window)) {
+            glfwPollEvents(); // poll for events first
 
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
             glfwSwapBuffers(window); // swap the color buffers
 
-            // Poll for window events. The key callback above will only be
-            // invoked during this call.
-            glfwPollEvents();
+
+            if (InputHandler.isKeyboardKeyPressed(GLFW_KEY_ESCAPE)) {
+                System.out.println("GDSGDS");
+            }
+
+            game.update();
+
+
+            inputHandler.update(); // update "press" and "release" states to their respective up or down
         }
     }
 

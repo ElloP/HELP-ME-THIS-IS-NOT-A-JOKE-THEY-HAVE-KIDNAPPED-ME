@@ -6,7 +6,7 @@ import com.helpme.app.utilities.Coordinate;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import static com.helpme.app.utilities.Type.*;
 /**
  * Created by kopa on 2017-03-30.
  */
@@ -20,33 +20,37 @@ public class Level {
         this.player = player;
     }
 
-    public void movePlayerForward() {
-        Tile tile = tiles.get(player.getPosition());
-        if (tile.exit(player.getDirection())) {
-
+    private void movePlayer(Direction direction){
+        Tile playerTile = tiles.get(player.getPosition());
+        if (playerTile.checkEdge(direction)) {
+            player.move(direction);
         }
     }
 
-    public void movePlayerBackward() {
-
-    }
-
-    public void rotatePlayerRight() {
-
-    }
-
-    public void rotatePlayerLeft() {
-
-    }
-
-    public void movePlayerLeft() {
+    public void movePlayerForward() {
+        movePlayer(player.getDirection());
 
     }
 
     public void movePlayerRight() {
-
+        movePlayer(rotateDirection(player.getDirection(),1));
     }
 
+    public void movePlayerBackward() {
+        movePlayer(rotateDirection(player.getDirection(),2));
+    }
+
+    public void movePlayerLeft() {
+        movePlayer(rotateDirection(player.getDirection(),3));
+    }
+
+    public void rotatePlayerRight() {
+        player.rotateRight();
+    }
+
+    public void rotatePlayerLeft() {
+        player.rotateLeft();
+    }
 }
 
 

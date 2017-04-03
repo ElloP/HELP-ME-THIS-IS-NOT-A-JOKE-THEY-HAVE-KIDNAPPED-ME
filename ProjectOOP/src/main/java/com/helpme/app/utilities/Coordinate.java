@@ -24,8 +24,7 @@ public class Coordinate {
     }
 
 
-    public int hashCode()
-    {
+    public int hashCode() {
         String string = "" + x + y;
         return string.hashCode();
     }

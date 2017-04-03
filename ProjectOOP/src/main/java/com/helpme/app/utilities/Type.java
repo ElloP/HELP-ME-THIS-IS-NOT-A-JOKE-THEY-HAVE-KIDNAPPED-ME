@@ -11,4 +11,8 @@ public class Type {
     public enum Direction {
         NORTH, EAST, SOUTH, WEST
     }
+
+    public static Direction rotateDirection(Direction direction, int clockwise) {
+        return Direction.values()[(direction.ordinal() + clockwise) % Direction.values().length];
+    }
 }
