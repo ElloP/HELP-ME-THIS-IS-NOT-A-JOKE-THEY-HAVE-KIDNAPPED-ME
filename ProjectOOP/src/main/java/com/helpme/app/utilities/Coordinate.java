@@ -3,7 +3,7 @@ package com.helpme.app.utilities;
 /**
  * Created by kopa on 2017-03-30.
  */
-public class Vector2 {
+public class Coordinate {
     public int x = 0;
     public int y = 0;
 

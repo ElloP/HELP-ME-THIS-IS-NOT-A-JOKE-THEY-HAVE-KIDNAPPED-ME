@@ -2,7 +2,9 @@ package com.helpme.app.character;
 
 import com.helpme.app.item.Item;
 import com.helpme.app.tile.Tile;
-import com.helpme.app.utilities.Vector2;
+import com.helpme.app.utilities.Coordinate;
+
+import static com.helpme.app.utilities.Type.*;
 
 /**
  * Created by kopa on 2017-03-30.
@@ -10,8 +12,8 @@ import com.helpme.app.utilities.Vector2;
 public abstract class Character {
     protected float hitpoints;
     protected float damage;
-    protected Vector2 position;
-    protected Tile.Direction direction;
+    protected Coordinate position;
+    protected Direction direction;
     protected int equippedItemIndex;
     protected Item[] inventory;
 
@@ -23,7 +25,7 @@ public abstract class Character {
         inventory[equippedItemIndex].applySelfEffect(this);
     }
 
-    public void move(Tile.Direction moveDirection) {
+    public void move(Direction moveDirection) {
         switch (moveDirection) {
             case NORTH:
                 position.moveUp();
@@ -41,7 +43,7 @@ public abstract class Character {
     }
 
     private void rotate(int i) {
-        Tile.Direction[] directions = Tile.Direction.values();
+        Direction[] directions = Direction.values();
         int length = directions.length;
         direction = directions[(direction.ordinal() + i) % length];
     }
@@ -52,5 +54,13 @@ public abstract class Character {
 
     public void rotateLeft() {
         rotate(-1);
+    }
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }
