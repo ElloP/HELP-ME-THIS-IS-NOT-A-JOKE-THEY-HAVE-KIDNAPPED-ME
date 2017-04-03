@@ -1,7 +1,7 @@
 package com.helpme.app.utils;
 
 /**
- * Created by Olle on 2017-03-30.
+ * Authored by Olle on 2017-03-30.
  */
 public class Vector2 {
     public int x;
