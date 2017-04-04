@@ -1,10 +1,10 @@
 package com.helpme.app.world;
 
+import com.helpme.app.character.Monster;
 import com.helpme.app.utilities.InputHandler;
 
+import static com.helpme.app.utilities.Type.Direction.*;
 import static org.lwjgl.glfw.GLFW.*;
-
-import com.helpme.app.character.Player;
 
 /**
  * Created by kopa on 2017-03-30.
@@ -12,11 +12,15 @@ import com.helpme.app.character.Player;
 public class World {
     private Level[] levels;
     private int currentLevelIndex = 0;
-    private Player player;
+    private Monster player;
 
-    public World(Level[] levels, Player player){
+    public World(Level[] levels, Monster player){
         this.levels = levels;
         this.player = player;
+    }
+
+    public void startLevel(){
+        getCurrentLevel().init(player);
     }
 
     public void update() {
@@ -59,7 +63,7 @@ public class World {
         return levels[currentLevelIndex];
     }
 
-    public Player getPlayer() {
+    public Monster getPlayer() {
         return player;
     }
 }

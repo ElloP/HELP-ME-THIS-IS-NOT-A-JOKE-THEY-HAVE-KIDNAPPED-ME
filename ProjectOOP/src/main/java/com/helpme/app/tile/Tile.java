@@ -26,4 +26,8 @@ public class Tile {
     public void setEdge(Direction direction, Edge edge){
         edges[direction.ordinal()] = edge;
     }
+
+    public static Tile empty(){
+        return new Tile(null,null,null,null);
+    }
 }

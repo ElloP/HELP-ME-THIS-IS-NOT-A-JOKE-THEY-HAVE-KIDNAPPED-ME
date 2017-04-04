@@ -1,14 +1,20 @@
 package com.helpme.app;
 
+import com.helpme.app.character.Monster;
+import com.helpme.app.tile.Tile;
+import com.helpme.app.utilities.Coordinate;
 import com.helpme.app.utilities.InputHandler;
+import com.helpme.app.world.Level;
 import com.helpme.app.world.World;
-import jdk.internal.util.xml.impl.Input;
+import com.helpme.app.world.WorldView;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -101,7 +107,14 @@ public class App {
 
     private void loop() {
 
-        World game = new World();
+        Map<Coordinate, Tile> tiles = new HashMap<>();
+        tiles.put(new Coordinate(0,0), Tile.empty());
+        tiles.put(new Coordinate(1,0), Tile.empty());
+        tiles.put(new Coordinate(2,0), Tile.empty());
+        tiles.put(new Coordinate(2,1), Tile.empty());
+        Level testLevel = new Level(tiles, new Coordinate(0,0));
+        World game = new World(new Level[] {testLevel}, new Monster());
+        game.startLevel();
 
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
@@ -129,7 +142,7 @@ public class App {
             }
 
             game.update();
-
+            WorldView.show(game);
 
             inputHandler.update(); // update "press" and "release" states to their respective up or down
         }

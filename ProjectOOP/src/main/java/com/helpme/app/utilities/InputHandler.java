@@ -23,7 +23,11 @@ public class InputHandler {
     }
 
     public void setKeyboardKey(long window, int key, int scancode, int action, int mods) {
-        setState(mouseButtons, key, action);
+        setState(keyboardKeys, key, action);
+    }
+
+    public void setMouseButton(long window, int button, int action, int mods) {
+        setState(mouseButtons, button, action);
     }
 
     public void update() {
@@ -57,10 +61,6 @@ public class InputHandler {
                 }
                 break;
         }
-    }
-
-    public void setMouseButton(long window, int button, int action, int mods) {
-        setState(mouseButtons, button, action);
     }
 
     public void setCursorEntered(long window, boolean entered) {
