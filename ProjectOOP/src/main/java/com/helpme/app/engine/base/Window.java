@@ -32,7 +32,7 @@ public class Window {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //NOTE(Olle): sets opengl version
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //NOTE(Olle): forward compatibility needed on certain versions of OS X
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //NOTE(Olle): core profile disables legacy openGL operations
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //NOTE(Olle): base profile disables legacy openGL operations
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //NOTE(Olle):disables resizability
 
         window = glfwCreateWindow(width, height, title, NULL, NULL); //NOTE(Olle): creates and sets the window variable
