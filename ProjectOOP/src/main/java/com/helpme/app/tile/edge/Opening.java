@@ -5,6 +5,7 @@ package com.helpme.app.tile.edge;
  */
 public class Opening implements Edge {
     public boolean traverse() {
+        System.out.println("Went through opening");
         return true;
     }
 }

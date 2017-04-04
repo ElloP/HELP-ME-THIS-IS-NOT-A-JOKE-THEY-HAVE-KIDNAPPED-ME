@@ -15,9 +15,11 @@ public class Door implements Edge {
 
     public boolean unlock(Item item) {
         if(key.equals(item)){
+            System.out.println("Unlocked door");
             unlocked = true;
             return true;
         }
+        System.out.println("Door is locked and you don't have the key");
         return false;
     }
 }

@@ -18,8 +18,9 @@ import static com.helpme.app.utilities.Type.Direction.*;
 public class Level {
 
     private Monster player;
-    private Map<Coordinate, Tile> tiles = new HashMap<>();
+    private Map<Coordinate, Tile> tiles;
     private Coordinate startingPosition;
+
 
     public Level(Map<Coordinate, Tile> tiles, Coordinate startingPosition) {
         this.tiles = tiles;
@@ -63,7 +64,7 @@ public class Level {
 
         Tile playerTile = tiles.get(player.getPosition());
 
-        if(playerTile == null) return;
+        if (playerTile == null) return;
 
         if (playerTile.checkEdge(direction)) {
             player.move(direction);

@@ -1,5 +1,6 @@
 package com.helpme.app.tile;
 
+import com.helpme.app.character.Monster;
 import com.helpme.app.tile.edge.Edge;
 
 import static com.helpme.app.utilities.Type.*;
@@ -12,11 +13,30 @@ import static com.helpme.app.utilities.Type.Direction.*;
 public class Tile {
     private Edge[] edges = new Edge[4];
 
+    private Monster occupant;
+
     public Tile(Edge north, Edge east, Edge south, Edge west) {
         edges[NORTH.ordinal()] = north;
         edges[EAST.ordinal()] = east;
         edges[SOUTH.ordinal()] = south;
         edges[WEST.ordinal()] = west;
+    }
+
+
+    public boolean isOccupied(){
+        return occupant != null;
+    }
+
+    public boolean putMonster(Monster monster) {
+        if(isOccupied()) return false;
+        occupant = monster;
+        return true;
+    }
+
+    public boolean removeMonster() {
+        if(!isOccupied()) return false;
+        occupant = null;
+        return true;
     }
 
     public boolean checkEdge(Direction direction) {

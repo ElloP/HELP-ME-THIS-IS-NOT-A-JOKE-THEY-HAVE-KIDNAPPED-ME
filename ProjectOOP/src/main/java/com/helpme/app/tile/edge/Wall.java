@@ -5,6 +5,7 @@ package com.helpme.app.tile.edge;
  */
 public class Wall implements Edge{
     public boolean traverse() {
+        System.out.println("Blocked by wall");
         return false;
     }
 }

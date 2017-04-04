@@ -20,14 +20,14 @@ public class WorldView {
         Monster player = world.getPlayer();
         Coordinate position = player.getPosition();
 
-        drawSquare(position.x+offset.x, position.y+offset.y, 10,  10, Color.blue);
+        drawSquare(0+offset.x, 0+offset.y, 1000,  1000, Color.blue);
     }
 
     public static void drawSquare(float xPos, float yPos, float width, float height, Color color) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
         // set the color of the quad (R,G,B,A)
-        GL11.glColor3f(color.getRed(), color.getGreen(), color.getBlue());
+        GL11.glColor3f(0, color.getGreen(), color.getBlue());
 
         // draw quad
         GL11.glBegin(GL11.GL_QUADS);
