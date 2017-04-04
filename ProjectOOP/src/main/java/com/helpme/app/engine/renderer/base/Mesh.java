@@ -1,4 +1,4 @@
-package com.helpme.app.engine.renderer;
+package com.helpme.app.engine.renderer.base;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;

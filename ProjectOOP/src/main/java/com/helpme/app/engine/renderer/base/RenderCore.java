@@ -1,4 +1,4 @@
-package com.helpme.app.engine.renderer;
+package com.helpme.app.engine.renderer.base;
 
 
 import static org.lwjgl.opengl.GL11.*;

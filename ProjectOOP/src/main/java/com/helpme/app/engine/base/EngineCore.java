@@ -1,7 +1,7 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.renderer.Mesh;
-import com.helpme.app.engine.renderer.RenderCore;
+import com.helpme.app.engine.renderer.base.Mesh;
+import com.helpme.app.engine.renderer.base.RenderCore;
 
 /**
  * Authored by Olle on 2017-04-02.
