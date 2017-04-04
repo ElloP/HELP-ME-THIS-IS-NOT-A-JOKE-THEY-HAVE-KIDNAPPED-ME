@@ -18,4 +18,8 @@ public class Door extends Edge {
 
         return locked;
     }
+
+    public boolean walkOver() {
+        return !locked;
+    }
 }

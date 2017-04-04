@@ -9,11 +9,11 @@ import java.util.ArrayList;
  * Created by kopa on 2017-03-30.
  */
 public abstract class Character {
-	private int hp;
-	private String name;
-	private ArrayList<Item> items;
+	protected int hp;
+	protected String name;
+	protected ArrayList<Item> items;
     //Becomes a two-way dependence
-    private Tile tile;
+    protected Tile tile;
 
 	public int getHp() {
 		return hp;

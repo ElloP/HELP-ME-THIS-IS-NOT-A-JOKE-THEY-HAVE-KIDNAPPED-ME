@@ -5,7 +5,7 @@ package com.helpme.app.item;
  */
 public class Nonconsumable extends Item {
     public void useOnSelf() {
-        
+
     }
 
     public void attackWith() {
