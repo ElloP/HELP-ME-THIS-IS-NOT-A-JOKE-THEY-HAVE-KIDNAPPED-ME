@@ -13,6 +13,7 @@ public class Type {
     }
 
     public static Direction rotateDirection(Direction direction, int clockwise) {
-        return Direction.values()[(direction.ordinal() + clockwise) % Direction.values().length];
+        int directionIndex = Math.floorMod(direction.ordinal() + clockwise, Direction.values().length);
+        return Direction.values()[directionIndex];
     }
 }
