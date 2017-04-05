@@ -57,6 +57,10 @@ public class Monster {
         return direction.clone();
     }
 
+    public Item[] getInventory(){
+        return inventory;
+    }
+
     @Override
     public Monster clone() {
         return new Monster(inventory, position, direction);

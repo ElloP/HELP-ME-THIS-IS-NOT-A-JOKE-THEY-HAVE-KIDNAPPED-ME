@@ -1,51 +1,65 @@
 package com.helpme.app;
 
 import com.helpme.app.character.Monster;
+import com.helpme.app.item.Item;
 import com.helpme.app.tile.Tile;
+import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.Vector4f;
 import com.helpme.app.world.Level;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AppTest {
     public Level testLevel;
 
     @Before
     public void setUp() {
-        Map<Vector2f, Tile> tiles = new HashMap<>();
-        tiles.put(new Vector2f(0, 0), Tile.empty());
-        tiles.put(new Vector2f(1, 0), Tile.empty());
-        tiles.put(new Vector2f(2, 0), Tile.empty());
-        tiles.put(new Vector2f(1, 1), Tile.empty());
-        tiles.put(new Vector2f(2, 1), Tile.empty());
-        tiles.put(new Vector2f(3, 1), Tile.empty());
-        tiles.put(new Vector2f(1, 2), Tile.empty());
-        tiles.put(new Vector2f(2, 2), Tile.empty());
-        tiles.put(new Vector2f(3, 2), Tile.empty());
-        tiles.put(new Vector2f(1, 2), Tile.empty());
-        tiles.put(new Vector2f(2, 3), Tile.empty());
-        tiles.put(new Vector2f(3, 3), Tile.empty());
-        tiles.put(new Vector2f(5, 5), Tile.empty());
+        List<Vector2f> tiles = new ArrayList<>();
+        Map<Vector4f, Door> doors = new HashMap<>();
+        List<Monster> monsters = new ArrayList<>();
+        Monster player = new Monster(new Item[]{new Item("key")}, Vector2f.zero, Vector2f.up);
+        Monster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
+
+        tiles.add(new Vector2f(0, 0));
+        tiles.add(new Vector2f(1, 0));
+        tiles.add(new Vector2f(2, 0));
+        tiles.add(new Vector2f(1, 1));
+        tiles.add(new Vector2f(2, 1));
+        tiles.add(new Vector2f(3, 1));
+        tiles.add(new Vector2f(1, 2));
+        tiles.add(new Vector2f(2, 2));
+        tiles.add(new Vector2f(3, 2));
+        tiles.add(new Vector2f(1, 2));
+        tiles.add(new Vector2f(2, 3));
+        tiles.add(new Vector2f(3, 3));
+
+        tiles.add(new Vector2f(5, 5));
+
+        tiles.add(new Vector2f(6, 2));
+        tiles.add(new Vector2f(7, 2));
+        tiles.add(new Vector2f(8, 2));
+        tiles.add(new Vector2f(9, 2));
+
+        doors.put(new Vector4f(6,2, Vector2f.right), new Door(true, null));
+        doors.put(new Vector4f(8,2, Vector2f.left), new Door(false, null));
+        doors.put(new Vector4f(8,2, Vector2f.right), new Door(true, new Item("key")));
+
 
         /**
          *         []
          *
          *   [][][]
-         *   [][][]
+         *   [][][]  [|[]/]|]
          *   [][][]
          * [][][]
          */
 
-        Monster player = new Monster(null, Vector2f.zero, Vector2f.up);
-        Monster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
-        List<Monster> monsters = new ArrayList<>();
+
         monsters.add(enemy);
-        testLevel = new Level(tiles, monsters, player, Vector2f.zero);
+        testLevel = new Level(tiles, doors, monsters, player, Vector2f.zero);
     }
 
     @Test
@@ -115,6 +129,36 @@ public class AppTest {
         testLevel.movePlayerForward();
         testLevel.movePlayerForward();
         testLevel.movePlayerLeft();
+        assert (testLevel.getPlayer().getPosition().equals(tileTo));
+    }
+
+    @Test
+    public void testWalkThroughUnlockedDoor(){
+        Vector2f tileStart = new Vector2f(7,2);
+        Vector2f tileTo = new Vector2f(8,2);
+        testLevel.teleportPlayer(tileStart);
+        testLevel.rotatePlayerRight();
+        testLevel.movePlayerForward();
+        assert (testLevel.getPlayer().getPosition().equals(tileTo));
+    }
+
+    @Test
+    public void testBlockedByLockedDoor(){
+        Vector2f tileStart = new Vector2f(7,2);
+        testLevel.teleportPlayer(tileStart);
+        testLevel.rotatePlayerLeft();
+        testLevel.movePlayerForward();
+        assert (testLevel.getPlayer().getPosition().equals(tileStart));
+    }
+
+    @Test
+    public void testUnlockDoorAndWalkThrough(){
+        Vector2f tileStart = new Vector2f(8,2);
+        Vector2f tileTo = new Vector2f(9,2);
+        testLevel.teleportPlayer(tileStart);
+        testLevel.rotatePlayerRight();
+        testLevel.movePlayerForward();
+        testLevel.movePlayerForward();
         assert (testLevel.getPlayer().getPosition().equals(tileTo));
     }
 }

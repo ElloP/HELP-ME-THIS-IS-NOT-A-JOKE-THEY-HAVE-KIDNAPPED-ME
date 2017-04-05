@@ -1,5 +1,6 @@
 package com.helpme.app.tile;
 
+import com.helpme.app.item.Item;
 import com.helpme.app.tile.edge.Edge;
 import com.helpme.app.utils.Vector2f;
 
@@ -12,6 +13,11 @@ public class Tile {
     public boolean tryExit(Vector2f direction){
         return edges[Vector2fToIndex(direction)].traverse();
     }
+
+    public boolean tryUnlock(Vector2f direction, Item[] potentialKeys){
+        return edges[Vector2fToIndex(direction)].unlock(potentialKeys);
+    }
+
 
     public void setEdge(Edge edge, Vector2f direction){
         edges[Vector2fToIndex(direction)] = edge;
