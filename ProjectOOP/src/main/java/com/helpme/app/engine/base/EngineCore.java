@@ -14,31 +14,18 @@ public class EngineCore {
 
     // ----------- Engine EngineCore variables and constructor -----------
 
-    private Window window;
+    private boolean engineStopped;
 
-    private RenderCore renderer;
-
-    private Shader shader;
-
-    private boolean engineStopped = false;
-
-    private Mesh mesh;
+    private Game game;
 
     private final double OPTIMAL_FRAMERATE = 1 / 60.0f; //NOTE(Olle): sets optimal update rate to 60 hz (or one frame per 16 ms)
 
-    private EngineCore() {
-        start();
+    public EngineCore() {
+        RenderCore.init();
+        engineStopped = false;
+        game = new Game();
     }
 
-    private float[] vertices = new float[] { //NOTE(Olle): Testing triangle
-            -0.5f, -0.5f, 0.0f,
-            0.0f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f
-    };
-
-    private int[] indices = new int[] {
-        0,1,2
-    };
 
     // ----------- Engine EngineCore functions including main loop -----------
 
@@ -46,15 +33,6 @@ public class EngineCore {
         if(engineStopped) {
             return;
         }
-
-        window = new Window();
-        window.initWindow(800,600, "Hello World!");
-
-        renderer = new RenderCore();
-
-        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
-
-        mesh = new Mesh(vertices, indices);
 
         run();
     }
@@ -73,14 +51,14 @@ public class EngineCore {
             frameCounter += frameTime;
 
             while(frameTime > 0.0) {
-                if(window.shouldClose()) {
+                if(Window.shouldClose()) {
                     stop();
                 }
 
                 Time.deltaTime = Math.min(frameTime, OPTIMAL_FRAMERATE);
 
-                //TODO (Olle): get input
-                //TODO (Olle): update game state
+                game.input();
+                game.update();
 
                 frameTime -= Time.deltaTime;
                 if(frameCounter >= 1.0) {
@@ -93,9 +71,7 @@ public class EngineCore {
             render();
             frames++;
         }
-
-        mesh.destroy();
-        window.destroy(); //NOTE(Olle): clean up after main loop
+        cleanUp(); //NOTE(Olle): clean up after main loop
     }
 
     private void stop() {
@@ -107,13 +83,20 @@ public class EngineCore {
     }
 
     private void render() {
-        renderer.clearWindow();
-        shader.useProgram();
-        mesh.draw();
-        window.update();
+        RenderCore.clearWindow();
+        game.draw();
+        Window.update();
+    }
+
+    private void cleanUp() {
+        Window.destroy();
     }
 
     public static void main(String args[]) {
-        new EngineCore();
+        Window.initWindow(800,600, "Hello World!");
+
+        EngineCore ec = new EngineCore();
+        ec.start();
+
     }
 }

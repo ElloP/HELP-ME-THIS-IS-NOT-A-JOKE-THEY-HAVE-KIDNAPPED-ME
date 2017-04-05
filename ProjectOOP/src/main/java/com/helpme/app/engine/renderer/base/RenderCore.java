@@ -9,48 +9,44 @@ import static org.lwjgl.opengl.GL30.*;
  */
 public class RenderCore {
 
-    public RenderCore() {
-        init();
-    }
-
-    public void init() {
+    public static void init() {
         setClearColor();
         enableFaceCulling();
         enableDepthTest();
         enableGammaCorrection();
     }
 
-    public void setClearColor() {
+    public static void setClearColor() {
         glClearColor(0.0f,0.0f,0.0f,0.0f);
     }
 
-    public void enableFaceCulling() {
+    public static void enableFaceCulling() {
         glFrontFace(GL_CW);
         glCullFace(GL_BACK);
         glEnable(GL_CULL_FACE);
     }
 
-    public void disableFaceCulling() {
+    public static void disableFaceCulling() {
         glDisable(GL_CULL_FACE);
     }
 
-    public void enableDepthTest() {
+    public static void enableDepthTest() {
         glEnable(GL_DEPTH_TEST);
     }
 
-    public void disableDepthTest() {
+    public static void disableDepthTest() {
         glDisable(GL_DEPTH_TEST);
     }
 
-    public void enableGammaCorrection() {
+    public static void enableGammaCorrection() {
         glEnable(GL_FRAMEBUFFER_SRGB);
     }
 
-    public void disableGammaCorrection() {
+    public static void disableGammaCorrection() {
         glDisable(GL_FRAMEBUFFER_SRGB);
     }
 
-    public void clearWindow() {
+    public static void clearWindow() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 }

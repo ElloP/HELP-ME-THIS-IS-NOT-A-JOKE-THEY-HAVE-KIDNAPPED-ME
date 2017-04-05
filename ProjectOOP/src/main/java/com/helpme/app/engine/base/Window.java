@@ -14,17 +14,17 @@ public class Window {
 
     // ----------- Window essentials -----------
 
-    private long window;
+    private static long window;
 
     public long getWindow() { return window; }
 
-    public boolean shouldClose() {
+    public static boolean shouldClose() {
         return glfwWindowShouldClose(window);
     }
 
     // ----------- Initiation, update and clean up -----------
 
-    public void initWindow(int width, int height, String title) {
+    public static void initWindow(int width, int height, String title) {
         if(!glfwInit()) {
             throw new IllegalStateException("GLFW failed to initialize!");
         }
@@ -47,13 +47,13 @@ public class Window {
         GL.createCapabilities();
     }
 
-    public void update() { //NOTE(Olle): tells window to swap the framebuffers and get input from mouse and keyboard
+    public static void update() { //NOTE(Olle): tells window to swap the framebuffers and get input from mouse and keyboard
         glfwPollEvents();
 
         glfwSwapBuffers(window);
     }
 
-    public void destroy() {
+    public static void destroy() {
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
 
@@ -62,26 +62,26 @@ public class Window {
 
     // ----------- Settings -----------
 
-    public void exitWithESC() { //NOTE(Olle): closes window with ESC. good to have during development
+    public static void exitWithESC() { //NOTE(Olle): closes window with ESC. good to have during development
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true);
         });
     }
 
-    public void lockMouse() {
+    public static void lockMouse() {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 
-    public void unlockMouse() {
+    public static void unlockMouse() {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
-    public void enableVSync() {
+    public static void enableVSync() {
         glfwSwapInterval(1);
     }
 
-    public void disableVSync() {
+    public static void disableVSync() {
         glfwSwapInterval(0);
     }
 
