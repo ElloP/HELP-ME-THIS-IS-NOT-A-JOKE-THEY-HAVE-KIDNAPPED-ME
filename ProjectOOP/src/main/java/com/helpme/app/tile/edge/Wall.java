@@ -3,5 +3,8 @@ package com.helpme.app.tile.edge;
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Wall {
+public class Wall implements Edge {
+    public boolean traverse() {
+        return false;
+    }
 }
