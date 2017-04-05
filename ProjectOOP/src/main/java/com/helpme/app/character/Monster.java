@@ -11,7 +11,13 @@ public class Monster {
     private Vector2f position;
     private Vector2f direction;
 
-    public void setPosition(Vector2f position){
+    public Monster(Item[] inventory, Vector2f position, Vector2f direction) {
+        this.inventory = inventory;
+        this.position = position;
+        this.direction = direction;
+    }
+
+    public void setPosition(Vector2f position) {
         this.position = position.toInt();
     }
 
@@ -43,21 +49,17 @@ public class Monster {
         move(direction.left());
     }
 
-    public Vector2f getPosition(){
+    public Vector2f getPosition() {
         return position.clone();
     }
 
-    public Vector2f getDirection(){
+    public Vector2f getDirection() {
         return direction.clone();
     }
 
     @Override
-    public Monster clone(){
-        Monster monster = new Monster();
-        monster.inventory = inventory.clone();
-        monster.direction = direction;
-        monster.position = position;
-        return monster;
+    public Monster clone() {
+        return new Monster(inventory, direction, position);
     }
 
 }

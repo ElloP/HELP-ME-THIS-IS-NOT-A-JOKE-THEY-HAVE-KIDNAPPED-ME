@@ -70,6 +70,7 @@ public class Vector2f {
     public static final Vector2f right = new Vector2f(1, 0);
     public static final Vector2f down = new Vector2f(0, -1);
     public static final Vector2f left = new Vector2f(-1, 0);
+    public static final Vector2f zero = new Vector2f(0, 0);
 
     public static boolean equals(Vector2f vec0, Vector2f vec1) {
         return vec0.x == vec1.x && vec0.y == vec1.y;

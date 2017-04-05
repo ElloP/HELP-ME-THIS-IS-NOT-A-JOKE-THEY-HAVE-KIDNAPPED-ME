@@ -33,4 +33,8 @@ public class Tile {
 
         return -1;
     }
+
+    public static Tile empty(){
+        return new Tile();
+    }
 }
