@@ -14,4 +14,9 @@ public class Item {
     public boolean equals(Object o) {
         return name == ((Item) o).name;
     }
+
+    @Override
+    public Item clone(){
+        return new Item(name);
+    }
 }

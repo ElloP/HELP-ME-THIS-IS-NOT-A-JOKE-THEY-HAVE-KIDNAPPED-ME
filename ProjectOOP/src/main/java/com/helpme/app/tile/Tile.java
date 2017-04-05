@@ -13,6 +13,10 @@ public class Tile {
         return edges[Vector2fToIndex(direction)].traverse();
     }
 
+    public void setEdge(Edge edge, Vector2f direction){
+        edges[Vector2fToIndex(direction)] = edge;
+    }
+
     private int Vector2fToIndex(Vector2f vec0){
         if(vec0 == Vector2f.up){
             return 0;

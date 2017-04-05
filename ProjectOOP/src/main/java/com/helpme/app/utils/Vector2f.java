@@ -4,6 +4,8 @@ package com.helpme.app.utils;
  * Created by Olle on 2017-03-30.
  */
 public class Vector2f {
+    private final float RIGHT_ANGLE = (float) Math.PI / 2;
+
     public float x;
     public float y;
 
@@ -22,6 +24,25 @@ public class Vector2f {
         return this;
     }
 
+    public Vector2f forward(){
+        return this.clone();
+    }
+
+    public Vector2f right(){
+        return Vector2f.rotateI(this, RIGHT_ANGLE * 1);
+    }
+
+    public Vector2f backward(){
+        return Vector2f.rotateI(this, RIGHT_ANGLE * 2);
+    }
+
+    public Vector2f left(){
+        return Vector2f.rotateI(this, RIGHT_ANGLE * 3);
+    }
+
+    public Vector2f rotateRightAngle(int times) {
+        return Vector2f.rotateI(this, RIGHT_ANGLE * times);
+    }
     @Override
     public boolean equals(Object o){
         Vector2f vec0 = (Vector2f) o;
@@ -36,6 +57,11 @@ public class Vector2f {
     @Override
     public String toString(){
         return "(" + x + ", " + y + ")";
+    }
+
+    @Override
+    public Vector2f clone(){
+        return new Vector2f(x, y);
     }
 
 
