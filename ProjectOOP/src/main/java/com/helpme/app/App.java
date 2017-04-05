@@ -116,6 +116,11 @@ public class App {
         World game = new World(new Level[] {testLevel}, new Monster());
         game.startLevel();
 
+        /**
+         *        []
+         *    [][][]
+         */
+
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,

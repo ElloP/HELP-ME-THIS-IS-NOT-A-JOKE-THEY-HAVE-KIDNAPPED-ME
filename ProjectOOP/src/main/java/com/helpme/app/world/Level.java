@@ -5,6 +5,7 @@ import com.helpme.app.tile.Tile;
 import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
 import com.helpme.app.utilities.Coordinate;
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,20 +72,45 @@ public class Level {
         }
     }
 
+    private void tileTransaction(Coordinate from, Coordinate to) {
+        Tile current = tiles.get(from).copy();
+        Tile destination = tiles.get(to).copy();
+
+        try {
+            if (current == null){
+                throw new Exception("current is null");
+            }
+            if(destination == null) {
+                throw new Exception("destination is null");
+            }
+            if(destination.isOccupied()){
+                throw new Exception("target tile is occupied");
+            }
+
+            destination.putMonster(current.removeMonster());
+
+            tiles.put(from, current);
+            tiles.put(to, destination);
+        }
+        catch(Exception e){
+            System.out.println("Exception in tileTransaction()");
+        }
+    }
+
     public void movePlayerForward() {
-        movePlayer(0);
+        movePlayer(NORTH.ordinal());
     }
 
     public void movePlayerRight() {
-        movePlayer(1);
+        movePlayer(EAST.ordinal());
     }
 
     public void movePlayerBackward() {
-        movePlayer(2);
+        movePlayer(SOUTH.ordinal());
     }
 
     public void movePlayerLeft() {
-        movePlayer(3);
+        movePlayer(WEST.ordinal());
     }
 
     public void rotatePlayerRight() {

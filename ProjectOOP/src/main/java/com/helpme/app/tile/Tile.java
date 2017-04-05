@@ -33,10 +33,10 @@ public class Tile {
         return true;
     }
 
-    public boolean removeMonster() {
-        if(!isOccupied()) return false;
+    public Monster removeMonster() {
+        Monster monster = occupant;
         occupant = null;
-        return true;
+        return monster;
     }
 
     public boolean checkEdge(Direction direction) {
@@ -45,6 +45,13 @@ public class Tile {
 
     public void setEdge(Direction direction, Edge edge){
         edges[direction.ordinal()] = edge;
+    }
+
+    public Tile copy(){
+        Tile tile = Tile.empty();
+        tile.edges = edges.clone();
+        tile.occupant = occupant;
+        return tile;
     }
 
     public static Tile empty(){
