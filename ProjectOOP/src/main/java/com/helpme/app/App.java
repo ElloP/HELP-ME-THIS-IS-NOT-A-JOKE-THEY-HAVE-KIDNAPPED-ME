@@ -10,7 +10,7 @@ public class App {
     public void run(){
         Vector2f vec = new Vector2f(0,1);
         System.out.println(vec.x + ", " + vec.y);
-        vec = Vector2f.rotateI(vec, (float)Math.PI/2);
+        vec = vec.rotateRightAngle(-1);
         System.out.println(vec.x + ", " + vec.y);
     }
 

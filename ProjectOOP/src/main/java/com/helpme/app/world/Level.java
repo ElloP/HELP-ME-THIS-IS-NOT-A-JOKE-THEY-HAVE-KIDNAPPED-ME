@@ -43,39 +43,43 @@ public class Level {
     private boolean isMovementAllowed(Vector2f position, Vector2f direction) {
         Tile tile = tiles.get(position);
         Vector2f destination = Vector2f.add(position, direction);
-        if(isExitBlocked(tile, direction)) return false;
-        if(isOccupied(destination)) return false;
+        if(!isExitOpen(tile, direction)) {
+            return false;
+        }
+        if(!isVacant(destination)){
+            return false;
+        }
         return true;
     }
 
-    private boolean isExitBlocked(Tile tile, Vector2f direction){
+    private boolean isExitOpen(Tile tile, Vector2f direction){
         return tile.tryExit(direction);
     }
 
-    private boolean isOccupied(Vector2f position){
+    private boolean isVacant(Vector2f position){
         for(Monster monster : monsters){
-            if(monster.getPosition() == position) return true;
+            if(monster.getPosition().equals(position)) return false;
         }
-        return false;
+        return true;
     }
 
     public void movePlayerForward() {
-        if(isMovementAllowed(player.getPosition(), player.getDirection())) return;
+        if(!isMovementAllowed(player.getPosition(), player.getDirection())) return;
         player.moveForward();
     }
 
     public void movePlayerRight() {
-        if(isMovementAllowed(player.getPosition(), player.getDirection().right())) return;
+        if(!isMovementAllowed(player.getPosition(), player.getDirection().right())) return;
         player.moveRight();
     }
 
     public void movePlayerBackward() {
-        if(isMovementAllowed(player.getPosition(), player.getDirection().backward())) return;
+        if(!isMovementAllowed(player.getPosition(), player.getDirection().backward())) return;
         player.moveBackward();
     }
 
     public void movePlayerLeft() {
-        if(isMovementAllowed(player.getPosition(), player.getDirection().left())) return;
+        if(!isMovementAllowed(player.getPosition(), player.getDirection().left())) return;
         player.moveLeft();
     }
 
@@ -87,5 +91,10 @@ public class Level {
         player.rotateLeft();
     }
 
+    public boolean teleportPlayer(Vector2f position){
+        if(tiles.get(position) == null) return false;
+        player.setPosition(position);
+        return true;
+    }
 
 }

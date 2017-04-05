@@ -29,7 +29,7 @@ public class Vector2f {
     }
 
     public Vector2f right(){
-        return Vector2f.rotateI(this, RIGHT_ANGLE * 1);
+        return Vector2f.rotateI(this, RIGHT_ANGLE);
     }
 
     public Vector2f backward(){
@@ -109,6 +109,7 @@ public class Vector2f {
     }
 
     public static Vector2f rotateI(Vector2f vec0, float radians) {
+        radians = -radians; // NOTE (Jacob): To make the default rotation clockwise
         Matrix2f rotationMatrix = new Matrix2f(
                 (float) Math.cos(radians), (float) -Math.sin(radians),
                 (float) Math.sin(radians), (float) Math.cos(radians));

@@ -18,16 +18,16 @@ public class Tile {
     }
 
     private int Vector2fToIndex(Vector2f vec0){
-        if(vec0 == Vector2f.up){
+        if(vec0.equals(Vector2f.up)){
             return 0;
         }
-        if(vec0 == Vector2f.right){
+        if(vec0.equals(Vector2f.right)){
             return 1;
         }
-        if(vec0 == Vector2f.down){
+        if(vec0.equals(Vector2f.down)){
             return 2;
         }
-        if(vec0 == Vector2f.left){
+        if(vec0.equals(Vector2f.left)){
             return 3;
         }
 

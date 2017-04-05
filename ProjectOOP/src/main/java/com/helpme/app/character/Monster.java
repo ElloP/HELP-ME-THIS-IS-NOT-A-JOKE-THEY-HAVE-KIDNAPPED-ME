@@ -22,11 +22,11 @@ public class Monster {
     }
 
     public void rotateRight() {
-        direction = direction.rotateRightAngle(-1);
+        direction = direction.rotateRightAngle(1);
     }
 
     public void rotateLeft() {
-        direction = direction.rotateRightAngle(1);
+        direction = direction.rotateRightAngle(-1);
     }
 
     private void move(Vector2f direction) {
@@ -59,7 +59,7 @@ public class Monster {
 
     @Override
     public Monster clone() {
-        return new Monster(inventory, direction, position);
+        return new Monster(inventory, position, direction);
     }
 
 }
