@@ -23,11 +23,9 @@ public class Game {
             3,2,1
     };
 
-    double test = 0.0f;
-
     public Game() {
-        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
         mesh = new Mesh(vertices, indices);
+        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
         shader.addUniform("test");
     }
 
@@ -35,12 +33,12 @@ public class Game {
         //TODO(Olle): Handle input
     }
 
+    float test = 0.0f;
+
     public void update() {
         //TODO(Olle): update game
-
         test += Time.deltaTime;
-
-        shader.setUniform("test", (float) Math.sin(test));
+        shader.setUniform("test", (float) Math.abs(Math.sin(test)));
     }
 
     public void draw() {

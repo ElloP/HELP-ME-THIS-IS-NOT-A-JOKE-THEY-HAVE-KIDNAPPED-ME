@@ -14,7 +14,7 @@ public class EngineCore {
 
     private Game game;
 
-    private final double OPTIMAL_FRAMERATE = 1 / 60.0f; //NOTE(Olle): sets optimal update rate to 60 hz (or one frame per 16 ms)
+    private final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
 
     public EngineCore() {
         RenderCore.init();
@@ -35,38 +35,40 @@ public class EngineCore {
 
     private void run() {
         int frames = 0;
-        double frameCounter = 0.0;
+        long frameCounter = 0;
 
-        double currentTime = Time.getTimeInSeconds();
+        long currentTime = Time.getTime();
 
         while(!engineStopped) {
-            double newTime = Time.getTimeInSeconds();
-            double frameTime = newTime - currentTime;
+            long newTime = Time.getTime();
+            long frameTime = newTime - currentTime;
             currentTime = newTime;
 
-            frameCounter += frameTime;
-
             while(frameTime > 0.0) {
-                if(Window.shouldClose()) {
+
+                Time.deltaTime = Math.min(frameTime, OPTIMAL_FRAMERATE);
+                frameCounter += Time.deltaTime;
+                frameTime -= Time.deltaTime;
+
+                if (Window.shouldClose()) {
                     stop();
                 }
 
-                Time.deltaTime = Math.min(frameTime, OPTIMAL_FRAMERATE);
+                Time.deltaTime = Time.deltaTime / Time.SECOND; //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
 
+                //TODO(Olle): Update inputhandler
                 game.input();
                 game.update();
 
-                frameTime -= Time.deltaTime;
-                if(frameCounter >= 1.0) {
+                if (frameCounter >= Time.SECOND) {
                     System.out.println(frames);
                     frames = 0;
                     frameCounter = 0;
                 }
-
             }
             render();
             frames++;
-        }
+            }
         cleanUp(); //NOTE(Olle): clean up after main loop
     }
 
@@ -90,6 +92,7 @@ public class EngineCore {
 
     public static void main(String args[]) {
         Window.initWindow(800,600, "Hello World!");
+        Window.disableVSync();
 
         EngineCore ec = new EngineCore();
         ec.start();

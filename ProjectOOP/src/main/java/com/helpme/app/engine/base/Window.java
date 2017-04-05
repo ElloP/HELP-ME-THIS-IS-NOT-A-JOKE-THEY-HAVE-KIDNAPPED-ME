@@ -48,9 +48,9 @@ public class Window {
     }
 
     public static void update() { //NOTE(Olle): tells window to swap the framebuffers and get input from mouse and keyboard
-        glfwPollEvents();
-
         glfwSwapBuffers(window);
+
+        glfwPollEvents();
     }
 
     public static void destroy() {
