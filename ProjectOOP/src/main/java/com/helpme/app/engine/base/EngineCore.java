@@ -1,10 +1,6 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.renderer.base.Mesh;
 import com.helpme.app.engine.renderer.base.RenderCore;
-import com.helpme.app.engine.renderer.base.Shader;
-
-import java.io.File;
 
 /**
  * Authored by Olle on 2017-04-02.
@@ -41,10 +37,10 @@ public class EngineCore {
         int frames = 0;
         double frameCounter = 0.0;
 
-        double currentTime = Time.getTime();
+        double currentTime = Time.getTimeInSeconds();
 
         while(!engineStopped) {
-            double newTime = Time.getTime();
+            double newTime = Time.getTimeInSeconds();
             double frameTime = newTime - currentTime;
             currentTime = newTime;
 

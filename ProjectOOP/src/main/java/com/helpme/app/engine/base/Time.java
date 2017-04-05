@@ -8,7 +8,11 @@ public class Time {
 
     public static double deltaTime;
 
-    public static double getTime() {
+    public static double getTimeInSeconds() {
         return System.nanoTime() / Time.SECOND; //NOTE(Olle): returns time in seconds
+    }
+
+    public static long getTime() {
+        return System.nanoTime();
     }
 }

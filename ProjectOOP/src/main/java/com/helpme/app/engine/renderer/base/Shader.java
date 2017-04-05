@@ -3,6 +3,7 @@ package com.helpme.app.engine.renderer.base;
 import com.helpme.app.utils.ResourceLoader;
 
 import java.io.File;
+import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -11,15 +12,22 @@ import static org.lwjgl.opengl.GL20.*;
  */
 
 public class Shader {
+    // ----------- Shader variables -----------
+
+    //TODO(Olle): Find better way of finding the path string
     private final String SHADERPATH = new File("").getAbsolutePath() + "/src/main/java/com/helpme/app/engine/renderer/shaders/";
 
     private int shaderProgram;
+    private HashMap<String, Integer> uniforms;
 
     public int getShaderProgram() {
         return shaderProgram;
     }
 
+    // ----------- Shader creation functions and constructor -----------
     public Shader(String vertexShaderPath, String fragmentShaderPath) {
+        uniforms = new HashMap<>();
+
         createShaderProgram();
 
         createVertexShader(vertexShaderPath);
@@ -81,5 +89,27 @@ public class Shader {
         }
 
         glAttachShader(shaderProgram, shader);
+    }
+
+    // ----------- Shader usage functions -----------
+    public void addUniform(String uniform) {
+        int uniformLocation = glGetUniformLocation(shaderProgram, uniform);
+
+        if(uniformLocation == -1) {
+            System.err.println("UNIFORM_COULD_NOT_BE_FOUND::" + uniform);
+            new Exception().printStackTrace();
+            System.exit(1);
+        }
+        uniforms.put(uniform, uniformLocation);
+    }
+
+    //TODO(Olle): Add more possible uniform datatypes
+    //NOTE(Olle): (for later) you have to use floatbuffers (dont forget to flip it) to send matrices to shaders in Java
+    public void setUniform(String uniformName, int value) {
+        glUniform1i(uniforms.get(uniformName), value);
+    }
+
+    public void setUniform(String uniformName, float value) {
+        glUniform1f(uniforms.get(uniformName), value);
     }
 }

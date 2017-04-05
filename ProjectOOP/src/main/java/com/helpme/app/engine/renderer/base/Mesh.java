@@ -13,9 +13,9 @@ import org.lwjgl.system.MemoryUtil;
  */
 
 public class Mesh {
-    private int VAO;
-    private int VBO;
-    private int EBO;
+    private int vao; //NOTE(Olle): Vertex Array Object (saves drawing settings)
+    private int vbo; //NOTE(Olle): Vertex Buffer Object (buffer to send vertices to graphics card)
+    private int ebo; //NOTE(Olle): Element Buffer Object (buffer to send drawing orders to graphics card)
 
     private int vertexCount;
 
@@ -35,16 +35,16 @@ public class Mesh {
         vertexBuffer.put(vertices).flip();
         indexBuffer.put(indices).flip();
 
-        VAO = glGenVertexArrays();
-        VBO = glGenBuffers();
-        EBO = glGenBuffers();
+        vao = glGenVertexArrays();
+        vbo = glGenBuffers();
+        ebo = glGenBuffers();
 
-        glBindVertexArray(VAO);
+        glBindVertexArray(vao);
 
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, false, VERTEXSIZE * FLOATSIZE, 0);
@@ -60,7 +60,7 @@ public class Mesh {
     }
 
     public void draw() { //TODO(Olle): find a better place to draw mesh
-        glBindVertexArray(VAO);
+        glBindVertexArray(vao);
 
         glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 
@@ -70,10 +70,10 @@ public class Mesh {
     public void destroy() {
         glDisableVertexAttribArray(0);
 
-        glDeleteBuffers(VBO);
-        glDeleteBuffers(EBO);
+        glDeleteBuffers(vbo);
+        glDeleteBuffers(ebo);
 
         glBindVertexArray(0);
-        glDeleteVertexArrays(VAO);
+        glDeleteVertexArrays(vao);
     }
 }
