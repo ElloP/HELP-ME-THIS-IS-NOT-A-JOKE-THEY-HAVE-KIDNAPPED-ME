@@ -21,7 +21,7 @@ public class RenderCore {
     }
 
     public void setClearColor() {
-        glClearColor(1.0f,0.0f,0.0f,0.0f);
+        glClearColor(0.0f,0.0f,0.0f,0.0f);
     }
 
     public void enableFaceCulling() {

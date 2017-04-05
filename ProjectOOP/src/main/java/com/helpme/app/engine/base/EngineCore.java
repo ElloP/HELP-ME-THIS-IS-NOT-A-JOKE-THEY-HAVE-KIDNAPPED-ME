@@ -2,6 +2,9 @@ package com.helpme.app.engine.base;
 
 import com.helpme.app.engine.renderer.base.Mesh;
 import com.helpme.app.engine.renderer.base.RenderCore;
+import com.helpme.app.engine.renderer.base.Shader;
+
+import java.io.File;
 
 /**
  * Authored by Olle on 2017-04-02.
@@ -15,6 +18,8 @@ public class EngineCore {
 
     private RenderCore renderer;
 
+    private Shader shader;
+
     private boolean engineStopped = false;
 
     private Mesh mesh;
@@ -26,9 +31,9 @@ public class EngineCore {
     }
 
     private float[] vertices = new float[] { //NOTE(Olle): Testing triangle
-            -1.0f, -1.0f, 0.0f,
-            0.0f, 1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f
+            -0.5f, -0.5f, 0.0f,
+            0.0f, 0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f
     };
 
     private int[] indices = new int[] {
@@ -46,6 +51,8 @@ public class EngineCore {
         window.initWindow(800,600, "Hello World!");
 
         renderer = new RenderCore();
+
+        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
 
         mesh = new Mesh(vertices, indices);
 
@@ -101,6 +108,7 @@ public class EngineCore {
 
     private void render() {
         renderer.clearWindow();
+        shader.useProgram();
         mesh.draw();
         window.update();
     }

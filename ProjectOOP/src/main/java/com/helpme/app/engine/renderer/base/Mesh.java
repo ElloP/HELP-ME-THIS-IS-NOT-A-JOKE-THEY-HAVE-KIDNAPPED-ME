@@ -11,6 +11,7 @@ import org.lwjgl.system.MemoryUtil;
 /**
  * Authored by Olle on 2017-04-04.
  */
+
 public class Mesh {
     private int VAO;
     private int VBO;
