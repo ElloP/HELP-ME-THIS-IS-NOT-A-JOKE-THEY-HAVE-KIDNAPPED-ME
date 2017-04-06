@@ -15,7 +15,7 @@ public class Vector2f {
         this.y = y;
     }
 
-    public float length(){
+    public float magnitude(){
         return (float) Math.hypot(this.x, this.y);
     }
 
@@ -27,4 +27,28 @@ public class Vector2f {
         return new Vector2f(this.x * multiplier, this.y * multiplier);
     }
 
+    public Vector2f scalarAdd(float adder){
+        return new Vector2f(this.x + adder, this.y + adder);
+    }
+
+    public Vector2f copy(){
+        return new Vector2f(this.x, this.y);
+    }
+
+    public Vector2f normalize(){
+        float length = this.magnitude();
+        return new Vector2f(this.x / length, this.y / length);
+    }
+
+    public Vector2f add(Vector2f vec){
+        return new Vector2f(this.x + vec.x, this.y + vec.y);
+    }
+
+    public Vector2f sub(Vector2f vec){
+        return new Vector2f(this.x - vec.x, this.y - vec.y);
+    }
+    
+    public boolean equals(Vector2f vec){
+        return this.x == vec.x && this.y == vec.y;
+    }
 }
