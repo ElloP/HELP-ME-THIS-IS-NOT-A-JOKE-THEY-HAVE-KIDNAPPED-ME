@@ -19,7 +19,7 @@ public class Vector3f {
     }
 
     public float length(){
-        return (float) Math.sqrt(this.x * this.x, this.y * this.y, this.z * this.z);
+        return (float) Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }
 
     public float dotProduct(Vector3f vec){
@@ -27,8 +27,6 @@ public class Vector3f {
     }
 
     public Vector3f scalarMul(float multiplier){
-        this.x *= multiplier;
-        this.y *= multiplier;
-        this.z *= multiplier;
+        return new Vector3f(this.x * multiplier, this.y * multiplier, this.z * multiplier);
     }
 }
