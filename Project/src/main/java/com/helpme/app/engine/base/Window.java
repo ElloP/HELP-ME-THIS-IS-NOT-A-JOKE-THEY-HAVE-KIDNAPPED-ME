@@ -14,28 +14,28 @@ public class Window {
 
     // ----------- Window essentials -----------
 
-    private long window;
+    private static long window;
 
     public long getWindow() { return window; }
 
-    public boolean shouldClose() {
+    public static boolean shouldClose() {
         return glfwWindowShouldClose(window);
     }
 
     // ----------- Initiation, update and clean up -----------
 
-    public void initWindow(int width, int height, String title) {
+    public static void initWindow(int width, int height, String title) {
         if(!glfwInit()) {
             throw new IllegalStateException("GLFW failed to initialize!");
         }
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //sets opengl version
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //NOTE(Olle): sets opengl version
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //forward compatibility needed on certain versions of OS X
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //core profile disables legacy openGL operations
-        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //disables resizability
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //NOTE(Olle): forward compatibility needed on certain versions of OS X
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //NOTE(Olle): base profile disables legacy openGL operations
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //NOTE(Olle):disables resizability
 
-        window = glfwCreateWindow(width, height, title, NULL, NULL); //creates and sets the window variable
+        window = glfwCreateWindow(width, height, title, NULL, NULL); //NOTE(Olle): creates and sets the window variable
         if(window == NULL) {
             throw new RuntimeException("GLFW failed to create window");
         }
@@ -47,13 +47,13 @@ public class Window {
         GL.createCapabilities();
     }
 
-    public void update() { //tells window to swap the framebuffers and get input from mouse and keyboard
-        glfwPollEvents();
-
+    public static void update() { //NOTE(Olle): tells window to swap the framebuffers and get input from mouse and keyboard
         glfwSwapBuffers(window);
+
+        glfwPollEvents();
     }
 
-    public void destroy() {
+    public static void destroy() {
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
 
@@ -62,26 +62,26 @@ public class Window {
 
     // ----------- Settings -----------
 
-    public void exitWithESC() { //closes window with ESC. good to have during development
+    public static void exitWithESC() { //NOTE(Olle): closes window with ESC. good to have during development
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true);
         });
     }
 
-    public void lockMouse() {
+    public static void lockMouse() {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 
-    public void unlockMouse() {
+    public static void unlockMouse() {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
-    public void enableVSync() {
+    public static void enableVSync() {
         glfwSwapInterval(1);
     }
 
-    public void disableVSync() {
+    public static void disableVSync() {
         glfwSwapInterval(0);
     }
 

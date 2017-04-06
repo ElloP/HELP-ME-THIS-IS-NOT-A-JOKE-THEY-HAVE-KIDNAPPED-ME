@@ -1,14 +1,18 @@
 package com.helpme.app.engine.base;
 
 /**
- * Created by Olle on 2017-04-03.
+ * Authored by Olle on 2017-04-03.
  */
 public class Time {
     public static final long SECOND = 1000000000;
 
-    public static long deltaTime;
+    public static double deltaTime;
 
     public static long getTime() {
-        return System.nanoTime();
+        return System.nanoTime(); //NOTE(Olle): returns time in nanoseconds
+    }
+
+    public static double getTimeInSeconds() {
+        return System.nanoTime() / Time.SECOND; //NOTE(Olle): returns time in seconds
     }
 }
