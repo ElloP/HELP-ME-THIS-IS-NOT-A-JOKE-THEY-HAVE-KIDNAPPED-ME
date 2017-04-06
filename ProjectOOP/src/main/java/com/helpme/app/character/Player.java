@@ -14,8 +14,8 @@ public class Player extends Character {
 
     }
 
-    public void move(){
-        switch (direction){
+    public void move(Direction dir){
+        switch (dir){
             case North:
                 if (this.tile.walkPast(Direction.North) != null)
                     this.tile = this.tile.walkPast(Direction.North);
