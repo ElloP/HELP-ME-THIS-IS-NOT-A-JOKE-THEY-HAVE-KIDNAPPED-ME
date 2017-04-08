@@ -1,12 +1,17 @@
 package com.helpme.app.character;
 
 import com.helpme.app.item.Item;
+import com.helpme.app.tile.edge.IEdge;
+import com.helpme.app.tile.edge.Traverse;
 import com.helpme.app.utils.Vector2f;
+import com.sun.javafx.geom.Edge;
+
+import java.util.List;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Monster {
+public class Monster implements IInventory, IMonster{
     private Item[] inventory;
     private Vector2f position;
     private Vector2f direction;
@@ -15,10 +20,6 @@ public class Monster {
         this.inventory = inventory;
         this.position = position;
         this.direction = direction;
-    }
-
-    public void setPosition(Vector2f position) {
-        this.position = position.toInt();
     }
 
     public void rotateRight() {
@@ -49,6 +50,10 @@ public class Monster {
         move(direction.left());
     }
 
+    public void setPosition(Vector2f position) {
+        this.position = position.toInt();
+    }
+
     public Vector2f getPosition() {
         return position.clone();
     }
@@ -59,6 +64,17 @@ public class Monster {
 
     public Item[] getInventory(){
         return inventory;
+    }
+
+    public boolean hasItem(Item item){
+        for(Item monsterItem : inventory){
+            if(item.equals(monsterItem)) return true;
+        }
+        return false;
+    }
+
+    public boolean traverse(IEdge edge){
+        return edge.accept(new Traverse(this));
     }
 
     @Override

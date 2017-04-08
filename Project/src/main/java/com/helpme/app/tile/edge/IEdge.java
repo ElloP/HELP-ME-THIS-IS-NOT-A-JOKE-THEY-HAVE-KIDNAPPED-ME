@@ -6,10 +6,6 @@ import com.helpme.app.item.Item;
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Wall implements IEdge {
-
-    @Override
-    public boolean accept(IEdgeVisitor visitor) {
-        return visitor.visit(this);
-    }
+public interface IEdge {
+    boolean accept(IEdgeVisitor visitor);
 }

@@ -1,8 +1,8 @@
 package com.helpme.app;
 
+import com.helpme.app.character.IMonster;
 import com.helpme.app.character.Monster;
 import com.helpme.app.item.Item;
-import com.helpme.app.tile.Tile;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.Vector4f;
@@ -19,9 +19,9 @@ public class AppTest {
     public void setUp() {
         List<Vector2f> tiles = new ArrayList<>();
         Map<Vector4f, Door> doors = new HashMap<>();
-        List<Monster> monsters = new ArrayList<>();
-        Monster player = new Monster(new Item[]{new Item("key")}, Vector2f.zero, Vector2f.up);
-        Monster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
+        List<IMonster> monsters = new ArrayList<>();
+        IMonster player = new Monster(new Item[]{new Item("key")}, Vector2f.zero, Vector2f.up);
+        IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
 
         tiles.add(new Vector2f(0, 0));
         tiles.add(new Vector2f(1, 0));
@@ -42,6 +42,7 @@ public class AppTest {
         tiles.add(new Vector2f(7, 2));
         tiles.add(new Vector2f(8, 2));
         tiles.add(new Vector2f(9, 2));
+        tiles.add(new Vector2f(10, 2));
 
         doors.put(new Vector4f(6,2, Vector2f.right), new Door(true, null));
         doors.put(new Vector4f(8,2, Vector2f.left), new Door(false, null));
@@ -52,7 +53,7 @@ public class AppTest {
          *         []
          *
          *   [][][]
-         *   [][][]  [|[]/]|]
+         *   [][][]  [|[]/]|][]
          *   [][][]
          * [][][]
          */
@@ -89,7 +90,7 @@ public class AppTest {
     @Test
     public void testBlockedByWall() {
         Vector2f tileSingle = new Vector2f(5, 5);
-        testLevel.teleportPlayer(tileSingle);
+        testLevel.setPlayerPosition(tileSingle);
         testLevel.movePlayerForward();
         assert (testLevel.getPlayer().getPosition().equals(tileSingle));
         testLevel.movePlayerRight();
@@ -115,7 +116,7 @@ public class AppTest {
     @Test
     public void testBlockedByMonster(){
         Vector2f tileStart = new Vector2f(2,1);
-        testLevel.teleportPlayer(tileStart);
+        testLevel.setPlayerPosition(tileStart);
         testLevel.movePlayerForward();
         assert (testLevel.getPlayer().getPosition().equals(tileStart));
     }
@@ -124,7 +125,7 @@ public class AppTest {
     public void testWalkAroundMonster(){
         Vector2f tileStart = new Vector2f(2,1);
         Vector2f tileTo = new Vector2f(2,3);
-        testLevel.teleportPlayer(tileStart);
+        testLevel.setPlayerPosition(tileStart);
         testLevel.movePlayerRight();
         testLevel.movePlayerForward();
         testLevel.movePlayerForward();
@@ -136,7 +137,7 @@ public class AppTest {
     public void testWalkThroughUnlockedDoor(){
         Vector2f tileStart = new Vector2f(7,2);
         Vector2f tileTo = new Vector2f(8,2);
-        testLevel.teleportPlayer(tileStart);
+        testLevel.setPlayerPosition(tileStart);
         testLevel.rotatePlayerRight();
         testLevel.movePlayerForward();
         assert (testLevel.getPlayer().getPosition().equals(tileTo));
@@ -145,7 +146,7 @@ public class AppTest {
     @Test
     public void testBlockedByLockedDoor(){
         Vector2f tileStart = new Vector2f(7,2);
-        testLevel.teleportPlayer(tileStart);
+        testLevel.setPlayerPosition(tileStart);
         testLevel.rotatePlayerLeft();
         testLevel.movePlayerForward();
         assert (testLevel.getPlayer().getPosition().equals(tileStart));
@@ -155,7 +156,7 @@ public class AppTest {
     public void testUnlockDoorAndWalkThrough(){
         Vector2f tileStart = new Vector2f(8,2);
         Vector2f tileTo = new Vector2f(9,2);
-        testLevel.teleportPlayer(tileStart);
+        testLevel.setPlayerPosition(tileStart);
         testLevel.rotatePlayerRight();
         testLevel.movePlayerForward();
         testLevel.movePlayerForward();

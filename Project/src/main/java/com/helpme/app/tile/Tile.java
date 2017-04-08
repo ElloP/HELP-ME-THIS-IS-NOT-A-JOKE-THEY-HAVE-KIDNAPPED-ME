@@ -1,38 +1,29 @@
 package com.helpme.app.tile;
 
 import com.helpme.app.item.Item;
-import com.helpme.app.tile.edge.Edge;
+import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
 public class Tile {
-    Edge[] edges = new Edge[4];
+    IEdge[] edges = new IEdge[4];
 
-    public boolean tryExit(Vector2f direction) {
+    public IEdge getEdge(Vector2f direction) {
         try {
-            return edges[Vector2fToIndex(direction)].traverse();
+            return edges[Vector2fToIndex(direction)];
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e);
-            return false;
-        }
-    }
-
-    public boolean tryUnlock(Vector2f direction, Item[] potentialKeys) {
-        try {
-            return edges[Vector2fToIndex(direction)].unlock(potentialKeys);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e);
-            return false;
+            return null;
         }
     }
 
 
-    public void setEdge(Edge edge, Vector2f direction) {
+    public void setEdge(IEdge edge, Vector2f direction) {
         try {
             edges[Vector2fToIndex(direction)] = edge;
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e);
         }
     }
