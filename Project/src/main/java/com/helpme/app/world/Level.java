@@ -1,6 +1,6 @@
 package com.helpme.app.world;
 
-import com.helpme.app.character.Monster;
+import com.helpme.app.character.IMonster;
 import com.helpme.app.item.Item;
 import com.helpme.app.tile.Tile;
 import com.helpme.app.tile.edge.Door;
@@ -17,11 +17,11 @@ import java.util.Map;
  * Created by Jacob on 2017-03-30.
  */
 public class Level {
-    Monster player;
+    IMonster player;
     Map<Vector2f, Tile> tiles;
-    List<Monster> monsters;
+    List<IMonster> monsters;
 
-    public Level(List<Vector2f> tiles, Map<Vector4f, Door> doors, List<Monster> monsters, Monster player, Vector2f startingPosition) {
+    public Level(List<Vector2f> tiles, Map<Vector4f, Door> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
         this.monsters = monsters;
         this.player = player.clone();
@@ -69,36 +69,31 @@ public class Level {
         }
     }
 
-    public Monster getPlayer() {
+    public IMonster getPlayer() {
         return player.clone();
     }
 
-    private boolean isMovementAllowed(Monster monster, Vector2f direction) {
+    private boolean isMovementAllowed(IMonster monster, Vector2f direction) {
         Vector2f position = monster.getPosition();
         Vector2f destination = Vector2f.add(position, direction);
-        Item[] potentialKeys = monster.getInventory();
         Tile tile = tiles.get(position);
 
-        if (!isExitOpen(tile, direction)) {
-            tryUnlockExit(tile, direction, potentialKeys);
+        if (!isTraversable(monster, tile, direction)) {
             return false;
         }
         if (!isVacant(destination)) {
             return false;
         }
+
         return true;
     }
 
-    private boolean tryUnlockExit(Tile tile, Vector2f direction, Item[] potentialKeys){
-        return tile.tryUnlock(direction, potentialKeys);
-    }
-
-    private boolean isExitOpen(Tile tile, Vector2f direction) {
-        return tile.tryExit(direction);
+    private boolean isTraversable(IMonster monster, Tile tile, Vector2f direction) {
+        return monster.traverse(tile.getEdge(direction));
     }
 
     private boolean isVacant(Vector2f position) {
-        for (Monster monster : monsters) {
+        for (IMonster monster : monsters) {
             if (monster.getPosition().equals(position)) return false;
         }
         return true;
@@ -132,7 +127,7 @@ public class Level {
         player.rotateLeft();
     }
 
-    public void teleportPlayer(Vector2f position) {
+    public void setPlayerPosition(Vector2f position) {
         if (tiles.get(position) == null) return;
         player.setPosition(position);
     }

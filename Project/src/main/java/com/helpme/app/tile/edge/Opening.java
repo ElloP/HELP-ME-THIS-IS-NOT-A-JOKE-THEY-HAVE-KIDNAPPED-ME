@@ -1,17 +1,15 @@
 package com.helpme.app.tile.edge;
 
+import com.helpme.app.character.Monster;
 import com.helpme.app.item.Item;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Opening implements Edge {
-    public boolean traverse() {
-        return true;
-    }
+public class Opening implements IEdge {
 
     @Override
-    public boolean unlock(Item[] potentialKeys) {
-        return false;
+    public boolean accept(IEdgeVisitor visitor) {
+        return visitor.visit(this);
     }
 }
