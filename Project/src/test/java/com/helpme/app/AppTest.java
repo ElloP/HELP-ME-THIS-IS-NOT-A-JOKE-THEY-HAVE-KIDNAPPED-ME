@@ -4,6 +4,7 @@ import com.helpme.app.character.IMonster;
 import com.helpme.app.character.Monster;
 import com.helpme.app.item.Item;
 import com.helpme.app.tile.edge.Door;
+import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.Vector4f;
 import com.helpme.app.world.Level;
@@ -18,7 +19,7 @@ public class AppTest {
     @Before
     public void setUp() {
         List<Vector2f> tiles = new ArrayList<>();
-        Map<Vector4f, Door> doors = new HashMap<>();
+        List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();
         IMonster player = new Monster(new Item[]{new Item("key")}, Vector2f.zero, Vector2f.up);
         IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
@@ -44,10 +45,9 @@ public class AppTest {
         tiles.add(new Vector2f(9, 2));
         tiles.add(new Vector2f(10, 2));
 
-        doors.put(new Vector4f(6,2, Vector2f.right), new Door(true, null));
-        doors.put(new Vector4f(8,2, Vector2f.left), new Door(false, null));
-        doors.put(new Vector4f(8,2, Vector2f.right), new Door(true, new Item("key")));
-
+        doors.add(new Tuple3<>(new Vector2f(6,2), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.left, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.right, new Door(true, new Item("key"))));
 
         /**
          *         []

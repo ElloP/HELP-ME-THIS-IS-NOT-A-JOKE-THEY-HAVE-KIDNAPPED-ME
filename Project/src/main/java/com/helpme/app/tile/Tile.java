@@ -7,7 +7,7 @@ import com.helpme.app.utils.Vector2f;
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Tile {
+public class Tile implements ITile {
     IEdge[] edges = new IEdge[4];
 
     public IEdge getEdge(Vector2f direction) {
@@ -45,7 +45,7 @@ public class Tile {
         return -1;
     }
 
-    public static Tile empty() {
+    public static ITile empty() {
         return new Tile();
     }
 }
