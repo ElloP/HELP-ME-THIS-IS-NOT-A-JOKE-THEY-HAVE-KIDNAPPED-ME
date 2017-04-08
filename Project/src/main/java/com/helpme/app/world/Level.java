@@ -8,7 +8,6 @@ import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.Vector2f;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +16,10 @@ import java.util.Map;
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Level {
-    IMonster player;
-    Map<Vector2f, ITile> tiles;
-    List<IMonster> monsters;
+public class Level implements ILevel{
+    private IMonster player;
+    private Map<Vector2f, ITile> tiles;
+    private List<IMonster> monsters;
 
     public Level(List<Vector2f> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
@@ -70,67 +69,24 @@ public class Level {
         }
     }
 
-    public IMonster getPlayer() {
-        return player.clone();
-    }
 
-    private boolean isMovementAllowed(IMonster monster, Vector2f direction) {
-        Vector2f position = monster.getPosition();
-        Vector2f destination = Vector2f.add(position, direction);
+
+    public boolean isEdgeBlocked(IMonster monster, Vector2f position, Vector2f direction) {
         ITile tile = tiles.get(position);
-
-        if (!isTraversable(monster, tile, direction)) {
-            return false;
-        }
-        if (!isVacant(destination)) {
-            return false;
-        }
-
-        return true;
+        return !monster.traverse(tile.getEdge(direction));
     }
 
-    private boolean isTraversable(IMonster monster, ITile tile, Vector2f direction) {
-        return monster.traverse(tile.getEdge(direction));
-    }
-
-    private boolean isVacant(Vector2f position) {
+    public boolean isTileOccupied(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) return false;
+            if (monster.getPosition().equals(position)) return true;
         }
-        return true;
+        return false;
     }
 
-    public void movePlayerForward() {
-        if (!isMovementAllowed(player, player.getDirection())) return;
-        player.moveForward();
+    public boolean isTileValid(Vector2f position){
+        return tiles.get(position) != null;
     }
 
-    public void movePlayerRight() {
-        if (!isMovementAllowed(player, player.getDirection().right())) return;
-        player.moveRight();
-    }
 
-    public void movePlayerBackward() {
-        if (!isMovementAllowed(player, player.getDirection().backward())) return;
-        player.moveBackward();
-    }
-
-    public void movePlayerLeft() {
-        if (!isMovementAllowed(player, player.getDirection().left())) return;
-        player.moveLeft();
-    }
-
-    public void rotatePlayerRight() {
-        player.rotateRight();
-    }
-
-    public void rotatePlayerLeft() {
-        player.rotateLeft();
-    }
-
-    public void setPlayerPosition(Vector2f position) {
-        if (tiles.get(position) == null) return;
-        player.setPosition(position);
-    }
 
 }

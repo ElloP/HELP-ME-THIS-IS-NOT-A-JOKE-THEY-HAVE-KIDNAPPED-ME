@@ -1,6 +1,7 @@
 package com.helpme.app.tile.edge;
 
 import com.helpme.app.character.Monster;
+import com.helpme.app.item.IItem;
 import com.helpme.app.item.Item;
 
 /**
@@ -8,9 +9,9 @@ import com.helpme.app.item.Item;
  */
 public class Door implements IEdge {
     private boolean locked;
-    private Item key;
+    private IItem key;
 
-    public Door(boolean locked, Item key) {
+    public Door(boolean locked, IItem key) {
         this.locked = locked;
         this.key = key == null ? new Item("Skeleton Key") : key;
     }

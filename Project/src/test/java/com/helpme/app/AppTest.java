@@ -7,14 +7,16 @@ import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.Vector4f;
+import com.helpme.app.world.ILevel;
 import com.helpme.app.world.Level;
+import com.helpme.app.world.PlayerController;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
 
 public class AppTest {
-    public Level testLevel;
+    public PlayerController testPlayerController;
 
     @Before
     public void setUp() {
@@ -60,106 +62,107 @@ public class AppTest {
 
 
         monsters.add(enemy);
-        testLevel = new Level(tiles, doors, monsters, player, Vector2f.zero);
+        ILevel level = new Level(tiles, doors, monsters, player, Vector2f.zero);
+        testPlayerController = new PlayerController(player, level);
     }
 
     @Test
     public void testRotateRight() {
-        testLevel.rotatePlayerRight();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.right));
-        testLevel.rotatePlayerRight();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.down));
-        testLevel.rotatePlayerRight();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.left));
-        testLevel.rotatePlayerRight();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.up));
+        testPlayerController.rotatePlayerRight();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.right));
+        testPlayerController.rotatePlayerRight();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.down));
+        testPlayerController.rotatePlayerRight();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.left));
+        testPlayerController.rotatePlayerRight();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.up));
     }
 
     @Test
     public void testRotateLeft() {
-        testLevel.rotatePlayerLeft();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.left));
-        testLevel.rotatePlayerLeft();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.down));
-        testLevel.rotatePlayerLeft();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.right));
-        testLevel.rotatePlayerLeft();
-        assert (testLevel.getPlayer().getDirection().equals(Vector2f.up));
+        testPlayerController.rotatePlayerLeft();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.left));
+        testPlayerController.rotatePlayerLeft();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.down));
+        testPlayerController.rotatePlayerLeft();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.right));
+        testPlayerController.rotatePlayerLeft();
+        assert (testPlayerController.getPlayer().getDirection().equals(Vector2f.up));
     }
 
     @Test
     public void testBlockedByWall() {
         Vector2f tileSingle = new Vector2f(5, 5);
-        testLevel.setPlayerPosition(tileSingle);
-        testLevel.movePlayerForward();
-        assert (testLevel.getPlayer().getPosition().equals(tileSingle));
-        testLevel.movePlayerRight();
-        assert (testLevel.getPlayer().getPosition().equals(tileSingle));
-        testLevel.movePlayerBackward();
-        assert (testLevel.getPlayer().getPosition().equals(tileSingle));
-        testLevel.movePlayerLeft();
-        assert (testLevel.getPlayer().getPosition().equals(tileSingle));
+        testPlayerController.setPlayerPosition(tileSingle);
+        testPlayerController.movePlayerForward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileSingle));
+        testPlayerController.movePlayerRight();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileSingle));
+        testPlayerController.movePlayerBackward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileSingle));
+        testPlayerController.movePlayerLeft();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileSingle));
     }
 
     @Test
     public void testMoveThroughOpening() {
         Vector2f tileTo = new Vector2f(2, 1);
 
-        testLevel.rotatePlayerRight();
-        testLevel.movePlayerForward();
-        testLevel.movePlayerForward();
-        testLevel.rotatePlayerLeft();
-        testLevel.movePlayerForward();
-        assert (testLevel.getPlayer().getPosition().equals(tileTo));
+        testPlayerController.rotatePlayerRight();
+        testPlayerController.movePlayerForward();
+        testPlayerController.movePlayerForward();
+        testPlayerController.rotatePlayerLeft();
+        testPlayerController.movePlayerForward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileTo));
     }
 
     @Test
     public void testBlockedByMonster(){
         Vector2f tileStart = new Vector2f(2,1);
-        testLevel.setPlayerPosition(tileStart);
-        testLevel.movePlayerForward();
-        assert (testLevel.getPlayer().getPosition().equals(tileStart));
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.movePlayerForward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileStart));
     }
 
     @Test
     public void testWalkAroundMonster(){
         Vector2f tileStart = new Vector2f(2,1);
         Vector2f tileTo = new Vector2f(2,3);
-        testLevel.setPlayerPosition(tileStart);
-        testLevel.movePlayerRight();
-        testLevel.movePlayerForward();
-        testLevel.movePlayerForward();
-        testLevel.movePlayerLeft();
-        assert (testLevel.getPlayer().getPosition().equals(tileTo));
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.movePlayerRight();
+        testPlayerController.movePlayerForward();
+        testPlayerController.movePlayerForward();
+        testPlayerController.movePlayerLeft();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileTo));
     }
 
     @Test
     public void testWalkThroughUnlockedDoor(){
         Vector2f tileStart = new Vector2f(7,2);
         Vector2f tileTo = new Vector2f(8,2);
-        testLevel.setPlayerPosition(tileStart);
-        testLevel.rotatePlayerRight();
-        testLevel.movePlayerForward();
-        assert (testLevel.getPlayer().getPosition().equals(tileTo));
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.rotatePlayerRight();
+        testPlayerController.movePlayerForward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileTo));
     }
 
     @Test
     public void testBlockedByLockedDoor(){
         Vector2f tileStart = new Vector2f(7,2);
-        testLevel.setPlayerPosition(tileStart);
-        testLevel.rotatePlayerLeft();
-        testLevel.movePlayerForward();
-        assert (testLevel.getPlayer().getPosition().equals(tileStart));
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.rotatePlayerLeft();
+        testPlayerController.movePlayerForward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileStart));
     }
 
     @Test
     public void testUnlockDoorAndWalkThrough(){
         Vector2f tileStart = new Vector2f(8,2);
         Vector2f tileTo = new Vector2f(9,2);
-        testLevel.setPlayerPosition(tileStart);
-        testLevel.rotatePlayerRight();
-        testLevel.movePlayerForward();
-        testLevel.movePlayerForward();
-        assert (testLevel.getPlayer().getPosition().equals(tileTo));
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.rotatePlayerRight();
+        testPlayerController.movePlayerForward();
+        testPlayerController.movePlayerForward();
+        assert (testPlayerController.getPlayer().getPosition().equals(tileTo));
     }
 }

@@ -1,5 +1,6 @@
 package com.helpme.app.character;
 
+import com.helpme.app.item.IItem;
 import com.helpme.app.item.Item;
 import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.tile.edge.Traverse;
@@ -12,11 +13,11 @@ import java.util.List;
  * Created by Jacob on 2017-03-30.
  */
 public class Monster implements IInventory, IMonster{
-    private Item[] inventory;
+    private IItem[] inventory;
     private Vector2f position;
     private Vector2f direction;
 
-    public Monster(Item[] inventory, Vector2f position, Vector2f direction) {
+    public Monster(IItem[] inventory, Vector2f position, Vector2f direction) {
         this.inventory = inventory;
         this.position = position;
         this.direction = direction;
@@ -62,12 +63,12 @@ public class Monster implements IInventory, IMonster{
         return direction.clone();
     }
 
-    public Item[] getInventory(){
+    public IItem[] getInventory(){
         return inventory;
     }
 
     public boolean hasItem(Item item){
-        for(Item monsterItem : inventory){
+        for(IItem monsterItem : inventory){
             if(item.equals(monsterItem)) return true;
         }
         return false;

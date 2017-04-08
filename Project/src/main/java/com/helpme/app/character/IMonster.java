@@ -1,6 +1,6 @@
 package com.helpme.app.character;
 
-import com.helpme.app.item.Item;
+import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 
@@ -18,6 +18,6 @@ public interface IMonster {
     boolean traverse(IEdge edge);
     Vector2f getPosition();
     Vector2f getDirection();
-    Item[] getInventory();
+    IItem[] getInventory();
     Monster clone();
 }
