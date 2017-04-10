@@ -4,7 +4,7 @@ import com.helpme.app.character.IMonster;
 import com.helpme.app.utils.Vector2f;
 
 /**
- * Created by kopa on 2017-04-08.
+ * Created by Jacob on 2017-04-08.
  */
 public class PlayerController implements IController{
     private IMonster player;

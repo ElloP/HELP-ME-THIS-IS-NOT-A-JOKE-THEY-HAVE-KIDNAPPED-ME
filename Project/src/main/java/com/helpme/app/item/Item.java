@@ -8,9 +8,10 @@ import com.helpme.app.item.visitor.IItemVisitor;
  * Created by Jacob on 2017-03-30.
  */
 public class Item implements IItem {
-    private String name;
     private IEffect attackEffect;
     private IEffect selfieEffect;
+
+    protected String name;
 
     public Item(String name) {
         this.name = name;
@@ -38,8 +39,13 @@ public class Item implements IItem {
     }
 
     @Override
-    public Item clone(){
+    public Object clone() throws CloneNotSupportedException{
         return new Item(name, attackEffect, selfieEffect);
+    }
+
+    @Override
+    public String toString(){
+        return "Item: " + name;
     }
 
     @Override

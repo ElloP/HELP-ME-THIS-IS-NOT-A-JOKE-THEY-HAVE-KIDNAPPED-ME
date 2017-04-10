@@ -4,9 +4,7 @@ import com.helpme.app.character.IInventory;
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.Inventory;
 import com.helpme.app.character.Monster;
-import com.helpme.app.item.IItem;
-import com.helpme.app.item.IItemFactory;
-import com.helpme.app.item.Item;
+import com.helpme.app.item.*;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
@@ -28,10 +26,12 @@ public class AppTest {
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();
 
-        IInventory inventory = new Inventory(new IItem[]{IItemFactory.redKey()}, IItemFactory.fists());
+        IInventory inventory = new Inventory(new IItem[]{IItemFactory.club()}, IItemFactory.fists(), new ArrayList<>());
 
         IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up);
         IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
+
+        inventory.addKey(IKeyFactory.redKey());
 
         tiles.add(new Vector2f(0, 0));
         tiles.add(new Vector2f(1, 0));
@@ -56,7 +56,7 @@ public class AppTest {
 
         doors.add(new Tuple3<>(new Vector2f(6,2), Vector2f.right, new Door(true, null)));
         doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.left, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.right, new Door(true, IItemFactory.redKey())));
+        doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.right, new Door(true, IKeyFactory.redKey())));
 
         /**
          *         []

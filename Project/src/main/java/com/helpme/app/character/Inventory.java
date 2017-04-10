@@ -7,7 +7,7 @@ import com.helpme.app.item.visitor.Increment;
 import java.util.List;
 
 /**
- * Created by kopa on 2017-04-09.
+ * Created by Jacob on 2017-04-09.
  */
 public class Inventory implements IInventory {
     private IItem defaultItem;
@@ -92,5 +92,10 @@ public class Inventory implements IInventory {
     @Override
     public int itemLimit() {
         return items.length;
+    }
+
+    @Override
+    public boolean hasKey(IKey key) {
+        return keychain.contains(key);
     }
 }

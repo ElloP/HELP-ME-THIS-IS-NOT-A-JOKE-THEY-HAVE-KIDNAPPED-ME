@@ -1,7 +1,7 @@
 package com.helpme.app.character;
 
 /**
- * Created by kopa on 2017-04-09.
+ * Created by Jacob on 2017-04-09.
  */
 public interface IStats {
     void damage(float amount);

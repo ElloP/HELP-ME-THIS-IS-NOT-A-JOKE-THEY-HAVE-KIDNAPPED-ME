@@ -14,12 +14,4 @@ public interface IItemFactory {
     static IItem club() {
         return new Item("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
     }
-
-    static IItem redKey() {
-        return new Key("Red Key");
-    }
-
-    static IItem skeletonKey() {
-        return new Key("Skeleton Key");
-    }
 }

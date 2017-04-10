@@ -5,10 +5,12 @@ import com.helpme.app.item.visitor.IItemVisitor;
 /**
  * Created by kopa on 2017-04-08.
  */
-public interface IItem{
+public interface IItem extends Cloneable{
     @Override
     boolean equals(Object o);
-    Item clone();
+
+    @Override
+    String toString();
 
     boolean accept(IItemVisitor visitor);
 }

@@ -4,9 +4,9 @@ import com.helpme.app.item.IItem;
 import com.helpme.app.item.IKey;
 
 /**
- * Created by kopa on 2017-04-08.
+ * Created by Jacob on 2017-04-08.
  */
-public interface IInventory {
+public interface IInventory extends IKeyChain {
     boolean hasItem(IItem item);
     IItem getItem(int index);
     IItem getActiveItem();

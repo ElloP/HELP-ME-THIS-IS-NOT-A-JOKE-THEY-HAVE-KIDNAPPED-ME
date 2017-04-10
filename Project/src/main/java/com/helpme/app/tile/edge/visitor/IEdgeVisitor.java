@@ -6,7 +6,7 @@ import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
 
 /**
- * Created by kopa on 2017-04-08.
+ * Created by Jacob on 2017-04-08.
  */
 public interface IEdgeVisitor {
     boolean visit(Door door);

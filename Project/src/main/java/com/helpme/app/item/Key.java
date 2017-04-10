@@ -15,4 +15,9 @@ public class Key extends Item implements IKey {
     public boolean accept(IItemVisitor visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    public IKey clone() {
+        return new Key(name);
+    }
 }
