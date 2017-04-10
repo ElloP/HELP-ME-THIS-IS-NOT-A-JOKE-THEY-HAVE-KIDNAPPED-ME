@@ -8,9 +8,9 @@ import com.helpme.app.tile.edge.visitor.IEdgeVisitor;
  */
 public class Door implements IEdge {
     private boolean locked;
-    private IKey key;
+    private IItem key;
 
-    public Door(boolean locked, IKey key) {
+    public Door(boolean locked, IItem key) {
         this.locked = locked;
         this.key = key == null ? IKeyFactory.skeletonKey() : key;
     }
@@ -24,8 +24,8 @@ public class Door implements IEdge {
         return locked;
     }
 
-    public IKey getKey() {
-        return key.copy();
+    public IItem getKey() {
+        return key.clone();
     }
 
     public void unlock() {

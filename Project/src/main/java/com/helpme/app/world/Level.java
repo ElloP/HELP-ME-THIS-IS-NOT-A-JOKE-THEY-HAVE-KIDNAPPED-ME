@@ -12,9 +12,7 @@ import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jacob on 2017-03-30.
@@ -24,7 +22,7 @@ public class Level implements ILevel{
     private Map<Vector2f, ITile> tiles;
     private List<IMonster> monsters;
 
-    public Level(List<Tuple2<Vector2f, List<IItem>>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
+    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
         this.monsters = monsters;
         this.player = player.clone();
@@ -33,16 +31,16 @@ public class Level implements ILevel{
         generateLevel(tiles, doors);
     }
 
-    private void generateLevel(List<Tuple2<Vector2f, List<IItem>>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
+    private void generateLevel(List<Tuple2<Vector2f,IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
         generateTiles(tiles);
         generateEdges();
         generateDoors(doors);
     }
 
-    private void generateTiles(List<Tuple2<Vector2f, List<IItem>>> tiles) {
-        for(Tuple2<Vector2f, List<IItem>> tuple : tiles){
+    private void generateTiles(List<Tuple2<Vector2f, IItem[]>> tiles) {
+        for(Tuple2<Vector2f, IItem[]> tuple : tiles){
             Vector2f position = tuple.a;
-            List<IItem> items = tuple.b;
+            List<IItem> items = tuple.b == null ? null : new ArrayList<>(Arrays.asList(tuple.b));
             this.tiles.put(position, ITileFactory.tile(items));
         }
     }
@@ -57,7 +55,9 @@ public class Level implements ILevel{
             ITile oppositeTile = tiles.get(oppositePosition);
             Door door = tuple.c;
 
-            if (oppositeTile == null || defaultTile == null || door == null) continue;
+            if (oppositeTile == null || defaultTile == null || door == null) {
+                continue;
+            }
 
             defaultTile.setEdge(door, defaultDirection);
             oppositeTile.setEdge(door, oppositeDirection);
@@ -83,7 +83,9 @@ public class Level implements ILevel{
 
     public boolean isTileOccupied(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) return true;
+            if (monster.getPosition().equals(position)) {
+                return true;
+            }
         }
         return false;
     }
@@ -91,6 +93,33 @@ public class Level implements ILevel{
     @Override
     public boolean isTileValid(Vector2f position){
         return tiles.get(position) != null;
+    }
+
+    @Override
+    public List<IItem> popTileItems(Vector2f position) {
+        ITile tile = tiles.get(position);
+        if(tile == null) {
+            return null;
+        }
+        return tile.popItems();
+    }
+
+    @Override
+    public void addTileItem(Vector2f position, IItem item){
+        ITile tile = tiles.get(position);
+        if(tile == null || item == null) {
+            return;
+        }
+        tile.addItem(item);
+    }
+
+    @Override
+    public void addTileItems(Vector2f position, IItem[] items){
+        ITile tile = tiles.get(position);
+        if(tile == null || items == null) {
+            return;
+        }
+        tile.addItems(items);
     }
 
     @Override
