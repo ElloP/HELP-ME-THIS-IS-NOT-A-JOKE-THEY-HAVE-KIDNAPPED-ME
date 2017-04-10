@@ -1,6 +1,4 @@
 package com.helpme.app.tile.edge;
-
-import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.Item;
 

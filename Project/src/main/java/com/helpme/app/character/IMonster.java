@@ -15,9 +15,11 @@ public interface IMonster {
     void moveBackward();
     void moveLeft();
     void setPosition(Vector2f position);
+    void changeActiveItem(int itemIndex);
+    void attack(IStats target);
+    void selfie();
     boolean traverse(IEdge edge);
     Vector2f getPosition();
     Vector2f getDirection();
-    IItem[] getInventory();
     Monster clone();
 }
