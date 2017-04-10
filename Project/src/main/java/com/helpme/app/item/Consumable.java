@@ -14,31 +14,40 @@ public class Consumable extends Item {
         setStacks(stacks);
     }
 
-    private void setStacks(int stacks){
+    private void setStacks(int stacks) {
         this.stacks = stacks <= 0 ? 0 : stacks;
     }
 
-    public boolean addStack(){
-        stacks++;
+    public boolean addStack(int amount) {
+        stacks += amount;
         return true;
     }
 
-    public boolean removeStack(){
+    public boolean removeStack() {
         stacks--;
         return true;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return stacks <= 0;
     }
 
+    public int getStacks() {
+        return stacks;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Consumable: " + name;
     }
 
     @Override
     public boolean accept(IItemVisitor visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public IItem clone(){
+        return new Consumable(name, stacks, getAttackEffect(), getSelfieEffect());
     }
 }

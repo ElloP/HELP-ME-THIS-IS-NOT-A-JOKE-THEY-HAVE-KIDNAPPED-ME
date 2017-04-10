@@ -97,7 +97,10 @@ public class PlayerController implements IController {
                 level.addTileItem(position, item);
             }
         }
+    }
 
+    public void setPlayerItems(IItem[] items){
+        player.setItems(items);
     }
 
     public void usePlayerSelfie() {

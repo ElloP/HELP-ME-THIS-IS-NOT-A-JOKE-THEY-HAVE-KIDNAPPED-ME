@@ -130,6 +130,11 @@ public class Monster implements IMonster {
     }
 
     @Override
+    public void setItems(IItem[] items) {
+        inventory.setItems(items);
+    }
+
+    @Override
     public void damage(float amount) {
         amount = Math.abs(amount);
         hitpoints.y -= amount;

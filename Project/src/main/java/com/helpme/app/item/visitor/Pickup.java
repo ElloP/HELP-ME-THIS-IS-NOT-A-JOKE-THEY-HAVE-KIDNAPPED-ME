@@ -2,7 +2,6 @@ package com.helpme.app.item.visitor;
 
 import com.helpme.app.character.IInventory;
 import com.helpme.app.item.Consumable;
-import com.helpme.app.item.IItem;
 import com.helpme.app.item.Item;
 import com.helpme.app.item.Key;
 
@@ -19,9 +18,9 @@ public class Pickup implements IItemVisitor {
     @Override
     public boolean visit(Consumable consumable) {
         if(inventory.hasItem(consumable)){
-            return inventory.addStack(consumable);
+            return inventory.addStack(consumable, consumable.getStacks());
         }
-        return false;
+        return inventory.addItem(consumable);
     }
 
     @Override

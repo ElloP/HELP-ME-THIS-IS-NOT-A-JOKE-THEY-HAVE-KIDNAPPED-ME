@@ -21,4 +21,9 @@ public class Key extends Item implements IItem {
     public String toString(){
         return "Key: " + name;
     }
+
+    @Override
+    public IItem clone(){
+        return new Key(name);
+    }
 }

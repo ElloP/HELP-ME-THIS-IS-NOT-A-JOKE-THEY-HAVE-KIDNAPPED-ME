@@ -25,6 +25,7 @@ public interface IMonster extends IStats{
     Vector2f getDirection();
     Vector2f getHitpoints();
     IInventory getInventory();
+    void setItems(IItem[] items);
     Monster clone();
 
 }
