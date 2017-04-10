@@ -16,11 +16,10 @@ public class Pickup implements IItemVisitor {
         this.inventory = inventory;
     }
 
-
     @Override
     public boolean visit(Consumable consumable) {
         if(inventory.hasItem(consumable)){
-            inventory.addStack(consumable);
+            return inventory.addStack(consumable);
         }
         return false;
     }
