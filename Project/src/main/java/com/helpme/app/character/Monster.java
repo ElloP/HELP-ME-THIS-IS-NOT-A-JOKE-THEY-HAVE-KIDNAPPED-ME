@@ -1,18 +1,16 @@
 package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
-import com.helpme.app.item.Item;
+import com.helpme.app.item.visitor.Attack;
+import com.helpme.app.item.visitor.Selfie;
 import com.helpme.app.tile.edge.IEdge;
-import com.helpme.app.tile.edge.Traverse;
+import com.helpme.app.tile.edge.visitor.Traverse;
 import com.helpme.app.utils.Vector2f;
-import com.sun.javafx.geom.Edge;
-
-import java.util.List;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Monster implements IMonster, IStats{
+public class Monster implements IMonster{
     private IInventory inventory;
     private Vector2f position;
     private Vector2f direction;
@@ -29,13 +27,18 @@ public class Monster implements IMonster, IStats{
     @Override
     public void attack(IStats target){
         IItem activeItem = inventory.getActiveItem();
-        activeItem.attack(target);
+        activeItem.accept(new Attack(target));
     }
 
     @Override
     public void selfie(){
         IItem activeItem = inventory.getActiveItem();
-        activeItem.selfie(this);
+        activeItem.accept(new Selfie(this));
+    }
+
+    @Override
+    public Vector2f targetTile() {
+        return Vector2f.add(position, direction);
     }
 
     @Override

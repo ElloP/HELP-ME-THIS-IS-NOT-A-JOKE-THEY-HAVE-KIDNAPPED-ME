@@ -69,13 +69,13 @@ public class Level implements ILevel{
         }
     }
 
-
-
+    @Override
     public boolean isEdgeBlocked(IMonster monster, Vector2f position, Vector2f direction) {
         ITile tile = tiles.get(position);
         return !monster.traverse(tile.getEdge(direction));
     }
 
+    @Override
     public boolean isTileOccupied(Vector2f position) {
         for (IMonster monster : monsters) {
             if (monster.getPosition().equals(position)) return true;
@@ -83,10 +83,18 @@ public class Level implements ILevel{
         return false;
     }
 
+    @Override
     public boolean isTileValid(Vector2f position){
         return tiles.get(position) != null;
     }
 
+    @Override
+    public IMonster getMonster(Vector2f position) {
+        for (IMonster monster : monsters) {
+            if (monster.getPosition().equals(position)) return monster;
+        }
+        return null;
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.helpme.app.item;
 
 import com.helpme.app.character.IStats;
 import com.helpme.app.item.effect.IEffect;
+import com.helpme.app.item.visitor.IItemVisitor;
 
 /**
  * Created by Jacob on 2017-03-30.
@@ -11,12 +12,24 @@ public class Item implements IItem {
     private IEffect attackEffect;
     private IEffect selfieEffect;
 
-    protected int stacks = 1;
+    public Item(String name) {
+        this.name = name;
+        this.attackEffect = stats -> {};
+        this.selfieEffect = stats -> {};
+    }
 
     public Item(String name, IEffect attackEffect, IEffect selfieEffect) {
         this.name = name;
         this.attackEffect = attackEffect;
         this.selfieEffect = selfieEffect;
+    }
+
+    public IEffect getAttackEffect(){
+        return attackEffect;
+    }
+
+    public IEffect getSelfieEffect(){
+        return selfieEffect;
     }
 
     @Override
@@ -30,24 +43,7 @@ public class Item implements IItem {
     }
 
     @Override
-    public void attack(IStats stats) {
-        attackEffect.apply(stats);
+    public boolean accept(IItemVisitor visitor) {
+        return visitor.visit(this);
     }
-
-    @Override
-    public void selfie(IStats stats) {
-        selfieEffect.apply(stats);
-    }
-
-    @Override
-    public boolean addStack() {
-        return false;
-    }
-
-    @Override
-    public boolean removeStack() {
-        return false;
-    }
-
-
 }

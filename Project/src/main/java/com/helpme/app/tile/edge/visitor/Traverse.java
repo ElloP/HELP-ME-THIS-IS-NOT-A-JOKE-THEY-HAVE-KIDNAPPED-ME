@@ -1,8 +1,9 @@
-package com.helpme.app.tile.edge;
+package com.helpme.app.tile.edge.visitor;
 
 import com.helpme.app.character.IInventory;
-import com.helpme.app.character.Monster;
-import com.helpme.app.item.Item;
+import com.helpme.app.tile.edge.Door;
+import com.helpme.app.tile.edge.Opening;
+import com.helpme.app.tile.edge.Wall;
 
 /**
  * Created by kopa on 2017-04-08.

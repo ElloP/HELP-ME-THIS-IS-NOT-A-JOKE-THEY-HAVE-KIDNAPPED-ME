@@ -7,7 +7,7 @@ import com.helpme.app.utils.Vector2f;
 /**
  * Created by kopa on 2017-04-08.
  */
-public interface IMonster {
+public interface IMonster extends IStats{
     void rotateRight();
     void rotateLeft();
     void moveForward();
@@ -18,6 +18,7 @@ public interface IMonster {
     void changeActiveItem(int itemIndex);
     void attack(IStats target);
     void selfie();
+    Vector2f targetTile();
     boolean traverse(IEdge edge);
     Vector2f getPosition();
     Vector2f getDirection();

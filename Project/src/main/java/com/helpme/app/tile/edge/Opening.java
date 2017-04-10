@@ -1,7 +1,6 @@
 package com.helpme.app.tile.edge;
 
-import com.helpme.app.character.Monster;
-import com.helpme.app.item.Item;
+import com.helpme.app.tile.edge.visitor.IEdgeVisitor;
 
 /**
  * Created by Jacob on 2017-03-30.

@@ -1,6 +1,6 @@
 package com.helpme.app.item;
 
-import com.helpme.app.character.IStats;
+import com.helpme.app.item.visitor.IItemVisitor;
 
 /**
  * Created by kopa on 2017-04-08.
@@ -10,9 +10,5 @@ public interface IItem{
     boolean equals(Object o);
     Item clone();
 
-    void attack(IStats stats);
-    void selfie(IStats stats);
-
-    boolean addStack();
-    boolean removeStack();
+    boolean accept(IItemVisitor visitor);
 }

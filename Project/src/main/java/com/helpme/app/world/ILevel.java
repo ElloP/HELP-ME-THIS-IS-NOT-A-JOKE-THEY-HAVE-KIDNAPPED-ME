@@ -10,4 +10,5 @@ public interface ILevel {
     boolean isEdgeBlocked(IMonster monster, Vector2f position, Vector2f direction);
     boolean isTileOccupied(Vector2f position);
     boolean isTileValid(Vector2f position);
+    IMonster getMonster(Vector2f position);
 }

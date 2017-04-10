@@ -1,6 +1,7 @@
 package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
+import com.helpme.app.item.IKey;
 import com.helpme.app.item.Item;
 
 /**
@@ -8,9 +9,12 @@ import com.helpme.app.item.Item;
  */
 public interface IInventory {
     boolean hasItem(Item item);
+    IItem getItem(Item item);
+    IItem getItem(int index);
     IItem getActiveItem();
-    void addItem(IItem item);
-    void removeItem(IItem item);
+    boolean addItem(IItem item);
+    boolean removeItem(IItem item);
+    void addKey(IKey key);
     void changeActiveItem(int itemIndex);
     int itemLimit();
 }

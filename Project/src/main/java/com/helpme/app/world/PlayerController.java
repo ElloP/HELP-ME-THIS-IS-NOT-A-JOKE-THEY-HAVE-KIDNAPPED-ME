@@ -69,4 +69,14 @@ public class PlayerController implements IController{
         if (!level.isTileValid(position)) return;
         player.setPosition(position);
     }
+
+    public void usePlayerAttack(){
+        IMonster target = level.getMonster(player.targetTile());
+        if(target == null) return;
+        player.attack(target);
+    }
+
+    public void usePlayerSelfie(){
+        player.selfie();
+    }
 }
