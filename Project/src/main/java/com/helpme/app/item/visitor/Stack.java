@@ -1,6 +1,5 @@
 package com.helpme.app.item.visitor;
 
-import com.helpme.app.character.IInventory;
 import com.helpme.app.item.Consumable;
 import com.helpme.app.item.Item;
 import com.helpme.app.item.Key;
@@ -8,10 +7,16 @@ import com.helpme.app.item.Key;
 /**
  * Created by kopa on 2017-04-10.
  */
-public class Increment implements IItemVisitor {
+public class Stack implements IItemVisitor {
+    private final int amount;
+
+    public Stack(int amount){
+        this.amount = amount;
+    }
+
     @Override
     public boolean visit(Consumable consumable) {
-        consumable.addStack();
+        consumable.addStack(amount);
         return true;
     }
 

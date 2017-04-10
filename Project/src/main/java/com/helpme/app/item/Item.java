@@ -35,6 +35,9 @@ public class Item implements IItem {
 
     @Override
     public boolean equals(Object o) {
+        if(o == null) {
+            return false;
+        }
         return name == ((Item) o).name;
     }
 

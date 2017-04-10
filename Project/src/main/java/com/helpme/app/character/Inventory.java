@@ -1,7 +1,7 @@
 package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
-import com.helpme.app.item.visitor.Increment;
+import com.helpme.app.item.visitor.Stack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,12 @@ public class Inventory implements IInventory {
 
     @Override
     public IItem getItem(int index) {
-        return null;
+        try {
+            return items[index];
+        } catch (NullPointerException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
@@ -72,10 +77,15 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public boolean addStack(IItem item) {
+    public void setItems(IItem[] items) {
+        this.items = items;
+    }
+
+    @Override
+    public boolean addStack(IItem item, int amount) {
         for (IItem stack : items) {
             if (item.equals(stack)) {
-                stack.accept(new Increment());
+                stack.accept(new Stack(amount));
                 return true;
             }
         }

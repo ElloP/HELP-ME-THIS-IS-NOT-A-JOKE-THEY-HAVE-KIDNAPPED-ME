@@ -24,21 +24,32 @@ public class AppTest {
 
     @Before
     public void setUp() {
-        List<Tuple2<Vector2f, List<IItem>>> tiles = new ArrayList<>();
+        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();
 
         IItem mockWeapon = new Item("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
         IItem mockPotion = new Consumable("Healing Potion", 1, IEffectFactory.heal(9), IEffectFactory.heal(9));
         IItem defaultMockWeapon = new Item("Fists", IEffectFactory.damage(2), IEffectFactory.damage(1));
+        IItem mockPickupWeapon = new Item("Sword", IEffectFactory.damage(40), IEffectFactory.damage(10));
+        IItem excessiveItem = new Item("Box", stats -> {
+        }, stats -> {
+        });
+        IItem stackingConsumables = new Consumable("Paper", 2, stats -> {
+        }, stats -> {
+        });
 
+        IItem mockKey = new Key("Red Key");
+        IItem mockPickupKey = new Key("Blue Key");
 
-        IInventory inventory = new Inventory(new IItem[]{mockWeapon, mockPotion}, defaultMockWeapon, new ArrayList<>());
+        IInventory inventory = new Inventory(new IItem[]{mockWeapon, mockPotion, null, null}, defaultMockWeapon, new IItem[]{mockKey});
 
         IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up, 100);
-        IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down,100);
+        IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 100);
+        IMonster enemy1 = new Monster(null, new Vector2f(9, 0), Vector2f.down, 100);
 
-        inventory.addKey(IKeyFactory.redKey());
+        monsters.add(enemy0);
+        monsters.add(enemy1);
 
         tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
         tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
@@ -61,21 +72,32 @@ public class AppTest {
         tiles.add(new Tuple2<>(new Vector2f(9, 2), null));
         tiles.add(new Tuple2<>(new Vector2f(10, 2), null));
 
+        tiles.add(new Tuple2<>(new Vector2f(6, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(7, 0), new IItem[]{mockPickupKey, mockPickupWeapon}));
+        tiles.add(new Tuple2<>(new Vector2f(8, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(1, 5), new IItem[]{excessiveItem.clone(), excessiveItem.clone(), excessiveItem.clone()}));
+        tiles.add(new Tuple2<>(new Vector2f(2, 5), new IItem[]{stackingConsumables.clone(), stackingConsumables.clone(), stackingConsumables.clone()}));
+
         doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
         doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, IKeyFactory.redKey())));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, mockKey)));
+
+        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, mockPickupKey)));
 
         /**
-         *         []
+         *    [x][x]      [ ]
          *
-         *   [][][]
-         *   [][][]  [|[]/]|][]
-         *   [][][]
-         * [][][]
+         *    [ ][ ][ ]
+         *    [ ][e][ ]      [ |[ ]/ ]| ][ ]
+         *    [ ][ ][ ]
+         * [ ][ ][ ]         [ ][x]| ][e]
          */
 
 
-        monsters.add(enemy);
         ILevel level = new Level(tiles, doors, monsters, player, Vector2f.zero);
         testPlayerController = new PlayerController(player, level);
         testLevel = level;
@@ -182,45 +204,45 @@ public class AppTest {
     }
 
     @Test
-    public void testAttackEnemyWithInventoryItem(){
-        Vector2f tileStart = new Vector2f(2,1);
+    public void testAttackEnemyWithInventoryItem() {
+        Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.changePlayerActiveItem(0);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.usePlayerAttack();
-        assert(testLevel.getMonster(new Vector2f(2,2)).getHitpoints().y == 90);
+        assert (testLevel.getMonster(new Vector2f(2, 2)).getHitpoints().y == 90);
     }
 
 
     @Test
-    public void testAttackEnemyWithDefaultItem(){
-        Vector2f tileStart = new Vector2f(2,1);
+    public void testAttackEnemyWithDefaultItem() {
+        Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.changePlayerActiveItem(-1);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.usePlayerAttack();
-        assert(testLevel.getMonster(new Vector2f(2,2)).getHitpoints().y == 98);
+        assert (testLevel.getMonster(new Vector2f(2, 2)).getHitpoints().y == 98);
     }
 
     @Test
-    public void testSelfieWithDefaultItem(){
-        Vector2f tileStart = new Vector2f(2,1);
+    public void testSelfieWithDefaultItem() {
+        Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.changePlayerActiveItem(-1);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.usePlayerSelfie();
-        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 99);
+        assert (testPlayerController.getPlayer().getHitpoints().y == 99);
     }
 
     @Test
-    public void testSelfieWithInventoryItem(){
-        Vector2f tileStart = new Vector2f(2,1);
+    public void testSelfieWithInventoryItem() {
+        Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.changePlayerActiveItem(0);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.usePlayerSelfie();
-        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 95);
+        assert (testPlayerController.getPlayer().getHitpoints().y == 95);
     }
 
     @Test
-    public void testHealWithInventoryConsumable(){
-        Vector2f tileStart = new Vector2f(2,1);
+    public void testHealWithInventoryConsumable() {
+        Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.changePlayerActiveItem(0);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.usePlayerSelfie();
@@ -228,7 +250,42 @@ public class AppTest {
         testPlayerController.changePlayerActiveItem(1);
         testPlayerController.usePlayerSelfie();
         testPlayerController.usePlayerSelfie();
-        System.out.println(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y);
-        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 99);
+        assert (testPlayerController.getPlayer().getHitpoints().y == 99);
+    }
+
+    @Test
+    public void testPickupItems() {
+        Vector2f tileStart = new Vector2f(6, 0);
+        Vector2f tileTo = new Vector2f(8, 0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.rotatePlayerRight();
+        testPlayerController.movePlayerForward();
+        testPlayerController.usePlayerPickup();
+        testPlayerController.movePlayerForward();
+        testPlayerController.movePlayerForward();
+        testPlayerController.changePlayerActiveItem(2);
+        testPlayerController.usePlayerAttack();
+        assert (testLevel.getMonster(new Vector2f(9, 0)).getHitpoints().y == 60
+                && testPlayerController.getPlayer().getPosition().equals(tileTo));
+    }
+
+    @Test
+    public void testExcessivePickup() {
+        Vector2f tileStart = new Vector2f(1, 5);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.setPlayerItems(new IItem[]{null});
+        testPlayerController.usePlayerPickup();
+        assert (testLevel.popTileItems(tileStart).size() == 2
+                && testPlayerController.getPlayer().getInventory().getItem(0) != null);
+    }
+
+    @Test
+    public void testStackablePickup() {
+        Vector2f tileStart = new Vector2f(2, 5);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.setPlayerItems(new IItem[]{null});
+        testPlayerController.usePlayerPickup();
+        assert (testLevel.popTileItems(tileStart).size() == 0
+                && ((Consumable)testPlayerController.getPlayer().getInventory().getItem(0)).getStacks() == 6);
     }
 }
