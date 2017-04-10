@@ -1,21 +1,25 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class PlayerController implements IController{
+public class PlayerController implements IController {
     private IMonster player;
     private ILevel level;
 
-    public PlayerController(IMonster player, ILevel level){
+    public PlayerController(IMonster player, ILevel level) {
         this.player = player;
         this.level = level;
     }
 
-    public void update(){
+    public void update() {
 
     }
 
@@ -70,17 +74,37 @@ public class PlayerController implements IController{
         player.setPosition(position);
     }
 
-    public void usePlayerAttack(){
+    public void usePlayerAttack() {
         IMonster target = level.getMonster(player.targetTile());
-        if(target == null) return;
+        if (target == null) return;
         player.attack(target);
     }
 
-    public void usePlayerSelfie(){
+    public void usePlayerPickup() {
+        Vector2f position = player.getPosition();
+        List<IItem> items = level.popTileItems(position);
+
+        if (items == null) {
+            return;
+        }
+
+        for (IItem item : items) {
+            if(item == null) {
+                continue;
+            }
+
+            if (!player.pickupItem(item)) {
+                level.addTileItem(position, item);
+            }
+        }
+
+    }
+
+    public void usePlayerSelfie() {
         player.selfie();
     }
 
-    public void changePlayerActiveItem(int index){
+    public void changePlayerActiveItem(int index) {
         player.changeActiveItem(index);
     }
 }

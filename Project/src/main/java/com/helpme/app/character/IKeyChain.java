@@ -1,10 +1,9 @@
 package com.helpme.app.character;
-
-import com.helpme.app.item.IKey;
+import com.helpme.app.item.IItem;
 
 /**
  * Created by Jacob on 2017-04-10.
  */
 public interface IKeyChain {
-    boolean hasKey(IKey key);
+    boolean hasKey(IItem key);
 }

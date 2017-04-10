@@ -1,7 +1,6 @@
 package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
-import com.helpme.app.item.IKey;
 import com.helpme.app.utils.interfaces.ICloneable;
 
 /**
@@ -14,7 +13,7 @@ public interface IInventory extends IKeyChain, ICloneable<IInventory> {
     boolean addItem(IItem item);
     boolean removeItem(IItem item);
     boolean addStack(IItem item);
-    void addKey(IKey key);
+    void addKey(IItem key);
     void changeActiveItem(int itemIndex);
     int itemLimit();
 }

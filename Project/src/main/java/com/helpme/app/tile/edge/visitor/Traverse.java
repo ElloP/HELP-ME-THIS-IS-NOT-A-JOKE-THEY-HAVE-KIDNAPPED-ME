@@ -1,13 +1,9 @@
 package com.helpme.app.tile.edge.visitor;
 
-import com.helpme.app.character.IInventory;
 import com.helpme.app.character.IKeyChain;
-import com.helpme.app.item.IKey;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
-
-import java.util.List;
 
 /**
  * Created by Jacob on 2017-04-08.

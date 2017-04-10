@@ -20,8 +20,11 @@ public interface IMonster extends IStats{
     void selfie();
     Vector2f targetTile();
     boolean traverse(IEdge edge);
+    boolean pickupItem(IItem item);
     Vector2f getPosition();
     Vector2f getDirection();
     Vector2f getHitpoints();
+    IInventory getInventory();
     Monster clone();
+
 }

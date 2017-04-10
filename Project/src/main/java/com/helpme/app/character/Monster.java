@@ -2,6 +2,7 @@ package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.visitor.Attack;
+import com.helpme.app.item.visitor.Pickup;
 import com.helpme.app.item.visitor.Selfie;
 import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.tile.edge.visitor.Traverse;
@@ -109,6 +110,11 @@ public class Monster implements IMonster {
     }
 
     @Override
+    public boolean pickupItem(IItem item) {
+        return item.accept(new Pickup(this.inventory));
+    }
+
+    @Override
     public Monster clone() {
         return new Monster(inventory.clone(), position.clone(), direction.clone(), getHitpoints());
     }
@@ -116,6 +122,11 @@ public class Monster implements IMonster {
     @Override
     public Vector2f getHitpoints(){
         return hitpoints.clone();
+    }
+
+    @Override
+    public IInventory getInventory() {
+        return inventory.clone();
     }
 
     @Override

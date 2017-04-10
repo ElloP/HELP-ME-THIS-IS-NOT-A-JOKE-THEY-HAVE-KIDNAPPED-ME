@@ -5,7 +5,10 @@ import com.helpme.app.item.Item;
 import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by Jacob on 2017-03-30.
@@ -18,6 +21,7 @@ public class Tile implements ITile {
         this.items = items;
     }
 
+    @Override
     public IEdge getEdge(Vector2f direction) {
         try {
             return edges[Vector2fToIndex(direction)];
@@ -28,6 +32,7 @@ public class Tile implements ITile {
     }
 
 
+    @Override
     public void setEdge(IEdge edge, Vector2f direction) {
         try {
             edges[Vector2fToIndex(direction)] = edge;
@@ -35,6 +40,24 @@ public class Tile implements ITile {
             System.out.println(e);
         }
     }
+
+    @Override
+    public List<IItem> popItems() {
+        List<IItem> removed = items;
+        items = new ArrayList<>();
+        return removed;
+    }
+
+    @Override
+    public void addItem(IItem item){
+        this.items.add(item);
+    }
+
+    @Override
+    public void addItems(IItem[] items){
+        this.items.addAll(Arrays.asList(items));
+    }
+
 
     private int Vector2fToIndex(Vector2f vec0) {
         if (vec0.equals(Vector2f.up)) {
