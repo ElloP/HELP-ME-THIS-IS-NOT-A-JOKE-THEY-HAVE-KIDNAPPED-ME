@@ -16,8 +16,14 @@ public class Key extends Item implements IKey {
         return visitor.visit(this);
     }
 
+
     @Override
-    public IKey clone() {
+    public String toString(){
+        return "Key: " + name;
+    }
+
+    @Override
+    public IKey copy() {
         return new Key(name);
     }
 }

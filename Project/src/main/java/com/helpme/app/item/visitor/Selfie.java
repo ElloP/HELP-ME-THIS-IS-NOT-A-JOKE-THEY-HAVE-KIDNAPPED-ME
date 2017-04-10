@@ -20,19 +20,24 @@ public class Selfie implements IItemVisitor {
     public boolean visit(Consumable consumable) {
         if(consumable.isEmpty()) return false;
         consumable.removeStack();
-        visit(consumable);
+        apply(consumable);
         return true;
     }
 
     @Override
     public boolean visit(Item item) {
-        IEffect effect = item.getSelfieEffect();
-        effect.apply(self);
+        apply(item);
         return true;
     }
 
     @Override
     public boolean visit(Key key) {
         return false;
+    }
+
+    public boolean apply(Item item){
+        IEffect effect = item.getSelfieEffect();
+        effect.apply(self);
+        return true;
     }
 }

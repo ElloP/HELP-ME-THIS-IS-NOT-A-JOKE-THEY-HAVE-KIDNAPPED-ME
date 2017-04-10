@@ -22,5 +22,6 @@ public interface IMonster extends IStats{
     boolean traverse(IEdge edge);
     Vector2f getPosition();
     Vector2f getDirection();
+    Vector2f getHitpoints();
     Monster clone();
 }

@@ -39,7 +39,7 @@ public class Item implements IItem {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public IItem clone(){
         return new Item(name, attackEffect, selfieEffect);
     }
 

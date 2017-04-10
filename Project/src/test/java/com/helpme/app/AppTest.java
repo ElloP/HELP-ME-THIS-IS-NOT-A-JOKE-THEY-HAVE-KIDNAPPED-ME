@@ -5,11 +5,11 @@ import com.helpme.app.character.IMonster;
 import com.helpme.app.character.Inventory;
 import com.helpme.app.character.Monster;
 import com.helpme.app.item.*;
+import com.helpme.app.item.effect.IEffectFactory;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.Vector4f;
 import com.helpme.app.world.ILevel;
 import com.helpme.app.world.Level;
 import com.helpme.app.world.PlayerController;
@@ -20,6 +20,7 @@ import java.util.*;
 
 public class AppTest {
     public PlayerController testPlayerController;
+    public ILevel testLevel;
 
     @Before
     public void setUp() {
@@ -27,10 +28,15 @@ public class AppTest {
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();
 
-        IInventory inventory = new Inventory(new IItem[]{IItemFactory.club()}, IItemFactory.fists(), new ArrayList<>());
+        IItem mockWeapon = new Item("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
+        IItem mockPotion = new Consumable("Healing Potion", 1, IEffectFactory.heal(9), IEffectFactory.heal(9));
+        IItem defaultMockWeapon = new Item("Fists", IEffectFactory.damage(2), IEffectFactory.damage(1));
 
-        IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up);
-        IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
+
+        IInventory inventory = new Inventory(new IItem[]{mockWeapon, mockPotion}, defaultMockWeapon, new ArrayList<>());
+
+        IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up, 100);
+        IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down,100);
 
         inventory.addKey(IKeyFactory.redKey());
 
@@ -72,6 +78,7 @@ public class AppTest {
         monsters.add(enemy);
         ILevel level = new Level(tiles, doors, monsters, player, Vector2f.zero);
         testPlayerController = new PlayerController(player, level);
+        testLevel = level;
     }
 
     @Test
@@ -172,5 +179,56 @@ public class AppTest {
         testPlayerController.movePlayerForward();
         testPlayerController.movePlayerForward();
         assert (testPlayerController.getPlayer().getPosition().equals(tileTo));
+    }
+
+    @Test
+    public void testAttackEnemyWithInventoryItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerAttack();
+        assert(testLevel.getMonster(new Vector2f(2,2)).getHitpoints().y == 90);
+    }
+
+
+    @Test
+    public void testAttackEnemyWithDefaultItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(-1);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerAttack();
+        assert(testLevel.getMonster(new Vector2f(2,2)).getHitpoints().y == 98);
+    }
+
+    @Test
+    public void testSelfieWithDefaultItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(-1);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerSelfie();
+        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 99);
+    }
+
+    @Test
+    public void testSelfieWithInventoryItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerSelfie();
+        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 95);
+    }
+
+    @Test
+    public void testHealWithInventoryConsumable(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerSelfie();
+        testPlayerController.usePlayerSelfie();
+        testPlayerController.changePlayerActiveItem(1);
+        testPlayerController.usePlayerSelfie();
+        testPlayerController.usePlayerSelfie();
+        System.out.println(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y);
+        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 99);
     }
 }

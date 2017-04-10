@@ -4,6 +4,7 @@ import com.helpme.app.item.IItem;
 import com.helpme.app.item.IKey;
 import com.helpme.app.item.visitor.Increment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +74,7 @@ public class Inventory implements IInventory {
     @Override
     public boolean addStack(IItem item) {
         for (IItem stack : items) {
-            if(item.equals(stack)) {
+            if (item.equals(stack)) {
                 stack.accept(new Increment());
                 return true;
             }
@@ -82,11 +83,9 @@ public class Inventory implements IInventory {
     }
 
 
-
     @Override
     public void changeActiveItem(int itemIndex) {
-        if (itemIndex < 0 || itemIndex >= itemLimit()) return;
-        activeItemIndex = itemIndex;
+        activeItemIndex = itemIndex == -1 ? -1 : Math.floorMod(itemIndex, items.length);
     }
 
     @Override
@@ -97,5 +96,26 @@ public class Inventory implements IInventory {
     @Override
     public boolean hasKey(IKey key) {
         return keychain.contains(key);
+    }
+
+    @Override
+    public IInventory clone() {
+        return new Inventory(cloneItems(), defaultItem.clone(), cloneKeychain());
+    }
+
+    private IItem[] cloneItems() {
+        IItem[] cloneItems = new IItem[items.length];
+        for (int i = 0; i < items.length; i++) {
+            cloneItems[i] = items[i].clone();
+        }
+        return cloneItems;
+    }
+
+    private List<IKey> cloneKeychain() {
+        List<IKey> cloneKeychain = new ArrayList<>();
+        for (IKey key : keychain) {
+            cloneKeychain.add(key.copy());
+        }
+        return cloneKeychain;
     }
 }

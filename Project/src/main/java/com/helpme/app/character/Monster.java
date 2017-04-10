@@ -5,33 +5,41 @@ import com.helpme.app.item.visitor.Attack;
 import com.helpme.app.item.visitor.Selfie;
 import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.tile.edge.visitor.Traverse;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Monster implements IMonster{
+public class Monster implements IMonster {
     private IInventory inventory;
     private Vector2f position;
     private Vector2f direction;
+    private Vector2f hitpoints; // NOTE (Jacob): (maxHitpoints, currentHitpoints)
 
     private boolean dead;
-    private float hitpoints;
 
-    public Monster(IInventory inventory, Vector2f position, Vector2f direction) {
+
+
+    public Monster(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
+        this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
+    }
+
+    public Monster(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
         this.inventory = inventory;
         this.position = position;
         this.direction = direction;
+        this.hitpoints = hitpoints;
     }
 
     @Override
-    public void attack(IStats target){
+    public void attack(IStats target) {
         IItem activeItem = inventory.getActiveItem();
         activeItem.accept(new Attack(target));
     }
 
     @Override
-    public void selfie(){
+    public void selfie() {
         IItem activeItem = inventory.getActiveItem();
         activeItem.accept(new Selfie(this));
     }
@@ -96,25 +104,32 @@ public class Monster implements IMonster{
     }
 
     @Override
-    public boolean traverse(IEdge edge){
+    public boolean traverse(IEdge edge) {
         return edge.accept(new Traverse(this.inventory));
     }
 
     @Override
     public Monster clone() {
-        return new Monster(inventory, position, direction);
+        return new Monster(inventory.clone(), position.clone(), direction.clone(), getHitpoints());
+    }
+
+    @Override
+    public Vector2f getHitpoints(){
+        return hitpoints.clone();
     }
 
     @Override
     public void damage(float amount) {
-        hitpoints -= amount <= 0 ? 0 : amount;
-        if(hitpoints <= 0) {
+        amount = Math.abs(amount);
+        hitpoints.y -= amount;
+        if (hitpoints.y <= 0) {
             dead = true;
         }
     }
 
     @Override
     public void heal(float amount) {
-        hitpoints += amount <= 0 ? 0 : amount;
+        amount = Math.abs(amount);
+        hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
     }
 }

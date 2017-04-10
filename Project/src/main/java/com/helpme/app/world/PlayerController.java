@@ -79,4 +79,8 @@ public class PlayerController implements IController{
     public void usePlayerSelfie(){
         player.selfie();
     }
+
+    public void changePlayerActiveItem(int index){
+        player.changeActiveItem(index);
+    }
 }

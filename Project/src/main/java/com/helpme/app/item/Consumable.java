@@ -33,6 +33,11 @@ public class Consumable extends Item {
     }
 
     @Override
+    public String toString(){
+        return "Consumable: " + name;
+    }
+
+    @Override
     public boolean accept(IItemVisitor visitor) {
         return visitor.visit(this);
     }

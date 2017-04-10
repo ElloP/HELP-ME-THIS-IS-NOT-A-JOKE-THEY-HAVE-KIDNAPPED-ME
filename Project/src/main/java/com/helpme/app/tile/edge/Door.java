@@ -25,7 +25,7 @@ public class Door implements IEdge {
     }
 
     public IKey getKey() {
-        return key.clone();
+        return key.copy();
     }
 
     public void unlock() {
