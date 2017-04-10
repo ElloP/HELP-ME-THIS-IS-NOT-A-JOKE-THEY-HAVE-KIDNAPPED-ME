@@ -8,7 +8,7 @@ import com.helpme.app.item.Key;
 /**
  * Created by kopa on 2017-04-10.
  */
-public class AddStack implements IItemVisitor {
+public class Increment implements IItemVisitor {
     @Override
     public boolean visit(Consumable consumable) {
         consumable.addStack();

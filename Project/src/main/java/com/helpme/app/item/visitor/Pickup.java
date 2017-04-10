@@ -20,8 +20,7 @@ public class Pickup implements IItemVisitor {
     @Override
     public boolean visit(Consumable consumable) {
         if(inventory.hasItem(consumable)){
-            IItem inventoryItem = inventory.getItem(consumable);
-            return inventoryItem.accept(new AddStack());
+            inventory.addStack(consumable);
         }
         return false;
     }

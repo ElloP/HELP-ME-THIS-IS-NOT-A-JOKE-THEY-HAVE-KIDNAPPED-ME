@@ -2,7 +2,7 @@ package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.IKey;
-import com.helpme.app.item.Item;
+import com.helpme.app.item.visitor.Increment;
 
 import java.util.List;
 
@@ -22,21 +22,11 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public boolean hasItem(Item item) {
+    public boolean hasItem(IItem item) {
         for (IItem monsterItem : items) {
             if (item.equals(monsterItem)) return true;
         }
         return false;
-    }
-
-    @Override
-    public IItem getItem(Item item) {
-        for (IItem inventoryItem : items) {
-            if(item.equals(inventoryItem)) {
-                return inventoryItem;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -79,6 +69,19 @@ public class Inventory implements IInventory {
         }
         return false;
     }
+
+    @Override
+    public boolean addStack(IItem item) {
+        for (IItem stack : items) {
+            if(item.equals(stack)) {
+                stack.accept(new Increment());
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     @Override
     public void changeActiveItem(int itemIndex) {
