@@ -4,7 +4,7 @@ import com.helpme.app.character.IMonster;
 import com.helpme.app.utils.Vector2f;
 
 /**
- * Created by kopa on 2017-04-08.
+ * Created by Jacob on 2017-04-08.
  */
 public class PlayerController implements IController{
     private IMonster player;
@@ -68,5 +68,19 @@ public class PlayerController implements IController{
     public void setPlayerPosition(Vector2f position) {
         if (!level.isTileValid(position)) return;
         player.setPosition(position);
+    }
+
+    public void usePlayerAttack(){
+        IMonster target = level.getMonster(player.targetTile());
+        if(target == null) return;
+        player.attack(target);
+    }
+
+    public void usePlayerSelfie(){
+        player.selfie();
+    }
+
+    public void changePlayerActiveItem(int index){
+        player.changeActiveItem(index);
     }
 }

@@ -1,11 +1,14 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.item.IItem;
 import com.helpme.app.tile.ITile;
+import com.helpme.app.tile.ITileFactory;
 import com.helpme.app.tile.Tile;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
@@ -21,7 +24,7 @@ public class Level implements ILevel{
     private Map<Vector2f, ITile> tiles;
     private List<IMonster> monsters;
 
-    public Level(List<Vector2f> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
+    public Level(List<Tuple2<Vector2f, List<IItem>>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
         this.monsters = monsters;
         this.player = player.clone();
@@ -30,15 +33,17 @@ public class Level implements ILevel{
         generateLevel(tiles, doors);
     }
 
-    private void generateLevel(List<Vector2f> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
+    private void generateLevel(List<Tuple2<Vector2f, List<IItem>>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
         generateTiles(tiles);
         generateEdges();
         generateDoors(doors);
     }
 
-    private void generateTiles(List<Vector2f> tiles) {
-        for(Vector2f position : tiles){
-            this.tiles.put(position, Tile.empty());
+    private void generateTiles(List<Tuple2<Vector2f, List<IItem>>> tiles) {
+        for(Tuple2<Vector2f, List<IItem>> tuple : tiles){
+            Vector2f position = tuple.a;
+            List<IItem> items = tuple.b;
+            this.tiles.put(position, ITileFactory.tile(items));
         }
     }
 
@@ -83,10 +88,18 @@ public class Level implements ILevel{
         return false;
     }
 
+    @Override
     public boolean isTileValid(Vector2f position){
         return tiles.get(position) != null;
     }
 
+    @Override
+    public IMonster getMonster(Vector2f position) {
+        for (IMonster monster : monsters) {
+            if (monster.getPosition().equals(position)) return monster;
+        }
+        return null;
+    }
 
 
 }

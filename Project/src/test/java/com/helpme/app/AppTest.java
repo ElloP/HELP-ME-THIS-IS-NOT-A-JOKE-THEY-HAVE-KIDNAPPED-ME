@@ -1,12 +1,15 @@
 package com.helpme.app;
 
+import com.helpme.app.character.IInventory;
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.Inventory;
 import com.helpme.app.character.Monster;
-import com.helpme.app.item.Item;
+import com.helpme.app.item.*;
+import com.helpme.app.item.effect.IEffectFactory;
 import com.helpme.app.tile.edge.Door;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.Vector4f;
 import com.helpme.app.world.ILevel;
 import com.helpme.app.world.Level;
 import com.helpme.app.world.PlayerController;
@@ -17,39 +20,50 @@ import java.util.*;
 
 public class AppTest {
     public PlayerController testPlayerController;
+    public ILevel testLevel;
 
     @Before
     public void setUp() {
-        List<Vector2f> tiles = new ArrayList<>();
+        List<Tuple2<Vector2f, List<IItem>>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();
-        IMonster player = new Monster(new Item[]{new Item("key")}, Vector2f.zero, Vector2f.up);
-        IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down);
 
-        tiles.add(new Vector2f(0, 0));
-        tiles.add(new Vector2f(1, 0));
-        tiles.add(new Vector2f(2, 0));
-        tiles.add(new Vector2f(1, 1));
-        tiles.add(new Vector2f(2, 1));
-        tiles.add(new Vector2f(3, 1));
-        tiles.add(new Vector2f(1, 2));
-        tiles.add(new Vector2f(2, 2));
-        tiles.add(new Vector2f(3, 2));
-        tiles.add(new Vector2f(1, 2));
-        tiles.add(new Vector2f(2, 3));
-        tiles.add(new Vector2f(3, 3));
+        IItem mockWeapon = new Item("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
+        IItem mockPotion = new Consumable("Healing Potion", 1, IEffectFactory.heal(9), IEffectFactory.heal(9));
+        IItem defaultMockWeapon = new Item("Fists", IEffectFactory.damage(2), IEffectFactory.damage(1));
 
-        tiles.add(new Vector2f(5, 5));
 
-        tiles.add(new Vector2f(6, 2));
-        tiles.add(new Vector2f(7, 2));
-        tiles.add(new Vector2f(8, 2));
-        tiles.add(new Vector2f(9, 2));
-        tiles.add(new Vector2f(10, 2));
+        IInventory inventory = new Inventory(new IItem[]{mockWeapon, mockPotion}, defaultMockWeapon, new ArrayList<>());
 
-        doors.add(new Tuple3<>(new Vector2f(6,2), Vector2f.right, new Door(true, null)));
-        doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.left, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8,2), Vector2f.right, new Door(true, new Item("key"))));
+        IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up, 100);
+        IMonster enemy = new Monster(null, new Vector2f(2, 2), Vector2f.down,100);
+
+        inventory.addKey(IKeyFactory.redKey());
+
+        tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 1), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 1), null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 1), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 3), null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 3), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(5, 5), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(6, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(7, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(8, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(9, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(10, 2), null));
+
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, IKeyFactory.redKey())));
 
         /**
          *         []
@@ -64,6 +78,7 @@ public class AppTest {
         monsters.add(enemy);
         ILevel level = new Level(tiles, doors, monsters, player, Vector2f.zero);
         testPlayerController = new PlayerController(player, level);
+        testLevel = level;
     }
 
     @Test
@@ -117,17 +132,17 @@ public class AppTest {
     }
 
     @Test
-    public void testBlockedByMonster(){
-        Vector2f tileStart = new Vector2f(2,1);
+    public void testBlockedByMonster() {
+        Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.movePlayerForward();
         assert (testPlayerController.getPlayer().getPosition().equals(tileStart));
     }
 
     @Test
-    public void testWalkAroundMonster(){
-        Vector2f tileStart = new Vector2f(2,1);
-        Vector2f tileTo = new Vector2f(2,3);
+    public void testWalkAroundMonster() {
+        Vector2f tileStart = new Vector2f(2, 1);
+        Vector2f tileTo = new Vector2f(2, 3);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.movePlayerRight();
         testPlayerController.movePlayerForward();
@@ -137,9 +152,9 @@ public class AppTest {
     }
 
     @Test
-    public void testWalkThroughUnlockedDoor(){
-        Vector2f tileStart = new Vector2f(7,2);
-        Vector2f tileTo = new Vector2f(8,2);
+    public void testWalkThroughUnlockedDoor() {
+        Vector2f tileStart = new Vector2f(7, 2);
+        Vector2f tileTo = new Vector2f(8, 2);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.rotatePlayerRight();
         testPlayerController.movePlayerForward();
@@ -147,8 +162,8 @@ public class AppTest {
     }
 
     @Test
-    public void testBlockedByLockedDoor(){
-        Vector2f tileStart = new Vector2f(7,2);
+    public void testBlockedByLockedDoor() {
+        Vector2f tileStart = new Vector2f(7, 2);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.rotatePlayerLeft();
         testPlayerController.movePlayerForward();
@@ -156,13 +171,64 @@ public class AppTest {
     }
 
     @Test
-    public void testUnlockDoorAndWalkThrough(){
-        Vector2f tileStart = new Vector2f(8,2);
-        Vector2f tileTo = new Vector2f(9,2);
+    public void testUnlockDoorAndWalkThrough() {
+        Vector2f tileStart = new Vector2f(8, 2);
+        Vector2f tileTo = new Vector2f(9, 2);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.rotatePlayerRight();
         testPlayerController.movePlayerForward();
         testPlayerController.movePlayerForward();
         assert (testPlayerController.getPlayer().getPosition().equals(tileTo));
+    }
+
+    @Test
+    public void testAttackEnemyWithInventoryItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerAttack();
+        assert(testLevel.getMonster(new Vector2f(2,2)).getHitpoints().y == 90);
+    }
+
+
+    @Test
+    public void testAttackEnemyWithDefaultItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(-1);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerAttack();
+        assert(testLevel.getMonster(new Vector2f(2,2)).getHitpoints().y == 98);
+    }
+
+    @Test
+    public void testSelfieWithDefaultItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(-1);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerSelfie();
+        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 99);
+    }
+
+    @Test
+    public void testSelfieWithInventoryItem(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerSelfie();
+        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 95);
+    }
+
+    @Test
+    public void testHealWithInventoryConsumable(){
+        Vector2f tileStart = new Vector2f(2,1);
+        testPlayerController.changePlayerActiveItem(0);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.usePlayerSelfie();
+        testPlayerController.usePlayerSelfie();
+        testPlayerController.changePlayerActiveItem(1);
+        testPlayerController.usePlayerSelfie();
+        testPlayerController.usePlayerSelfie();
+        System.out.println(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y);
+        assert(testLevel.getMonster(new Vector2f(2,1)).getHitpoints().y == 99);
     }
 }

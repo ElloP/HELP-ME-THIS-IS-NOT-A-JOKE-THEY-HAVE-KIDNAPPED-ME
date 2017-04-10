@@ -1,19 +1,18 @@
 package com.helpme.app.tile.edge;
 
-import com.helpme.app.character.Monster;
-import com.helpme.app.item.IItem;
-import com.helpme.app.item.Item;
+import com.helpme.app.item.*;
+import com.helpme.app.tile.edge.visitor.IEdgeVisitor;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
 public class Door implements IEdge {
     private boolean locked;
-    private IItem key;
+    private IKey key;
 
-    public Door(boolean locked, IItem key) {
+    public Door(boolean locked, IKey key) {
         this.locked = locked;
-        this.key = key == null ? new Item("Skeleton Key") : key;
+        this.key = key == null ? IKeyFactory.skeletonKey() : key;
     }
 
     @Override
@@ -25,8 +24,8 @@ public class Door implements IEdge {
         return locked;
     }
 
-    public Item getKey() {
-        return key.clone();
+    public IKey getKey() {
+        return key.copy();
     }
 
     public void unlock() {
