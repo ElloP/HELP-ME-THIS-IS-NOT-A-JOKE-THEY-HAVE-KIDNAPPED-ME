@@ -124,6 +124,10 @@ public class Vector3f {
         this.vector.lerp(other.vector, t);
     }
 
+    public void logVector() {
+        System.out.println(vector);
+    }
+
     public void multiply(float scalar) {
         this.vector.mul(scalar);
     }
