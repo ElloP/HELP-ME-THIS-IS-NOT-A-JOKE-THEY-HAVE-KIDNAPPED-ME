@@ -120,6 +120,11 @@ public class Monster implements IMonster {
     }
 
     @Override
+    public String response() {
+        return "Hello!"; //TODO (klas) Temporary
+    }
+
+    @Override
     public Vector2f getHitpoints(){
         return hitpoints.clone();
     }
