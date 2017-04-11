@@ -45,8 +45,9 @@ public class Matrix4f {
 
     // ----------- Operations/functions -----------
 
-    public void add(Matrix4f other) {
+    public Matrix4f add(Matrix4f other) {
         this.matrix.add(other.matrix);
+        return this;
     }
 
     public float determinant() {
@@ -61,40 +62,47 @@ public class Matrix4f {
         return this.matrix.equals(other.matrix);
     }
 
-    public void get(FloatBuffer fb) {
+    public Matrix4f get(FloatBuffer fb) {
         this.matrix.get(fb);
+        return this;
     }
 
-    public void identity() {
+    public Matrix4f identity() {
         this.matrix.identity();
+        return this;
     }
 
-    public void invert() {
+    public Matrix4f invert() {
         if(this.matrix.isAffine()) {
             this.matrix.invertAffine();
         } else {
             this.invert();
         }
+        return this;
     }
 
-    public void lerp(Matrix4f other, float t) {
+    public Matrix4f lerp(Matrix4f other, float t) {
         this.matrix.lerp(other.matrix, t);
+        return this;
     }
 
-    public void multiply(Matrix4f other) {
+    public Matrix4f multiply(Matrix4f other) {
         if(this.matrix.isAffine()) {
             this.matrix.mulAffine(other.matrix);
         } else {
             this.matrix.mul(other.matrix);
         }
+        return this;
     }
 
-    public void multiply(Vector3f v) {
+    public Matrix4f multiply(Vector3f v) {
         this.matrix.transformPosition(v.vector);
+        return this;
     }
 
-    public void perspective(float fovy, float aspect, float zNear, float zFar) {
+    public Matrix4f perspective(float fovy, float aspect, float zNear, float zFar) {
         this.matrix.perspective(fovy, aspect, zNear, zFar);
+        return this;
     }
 
     public float perspectiveFar() {
@@ -105,39 +113,47 @@ public class Matrix4f {
         return this.matrix.perspectiveFov();
     }
 
-    public void rotate(float angle, float x, float y, float z) {
+    public Matrix4f rotate(float angle, float x, float y, float z) {
         if(this.matrix.isAffine()) {
             this.matrix.rotateAffine(angle, x, y, z);
         } else {
             this.matrix.rotate(angle, x, y, z);
         }
+        return this;
     }
 
-    public void rotate(float angle, Vector3f v) {
+    public Matrix4f rotate(float angle, Vector3f v) {
         this.matrix.rotate(angle,v.vector);
+        return this;
     }
 
-    public void scale(float xyz) {
+    public Matrix4f scale(float xyz) {
         this.matrix.scale(xyz);
+        return this;
     }
 
-    public void scale(float x, float y, float z) {
+    public Matrix4f scale(float x, float y, float z) {
         this.matrix.scale(x, y, z);
+        return this;
     }
 
-    public void scale(Vector3f v) {
+    public Matrix4f scale(Vector3f v) {
         this.matrix.scale(v.vector);
+        return this;
     }
 
-    public void translate(float x, float y, float z) {
+    public Matrix4f translate(float x, float y, float z) {
         this.matrix.translate(x, y , z);
+        return this;
     }
 
-    public void translate (Vector3f v) {
+    public Matrix4f translate (Vector3f v) {
         this.matrix.translate(v.vector);
+        return this;
     }
 
-    public void logMatrix() {
+    public Matrix4f logMatrix() {
         System.out.println(this.matrix);
+        return this;
     }
 }

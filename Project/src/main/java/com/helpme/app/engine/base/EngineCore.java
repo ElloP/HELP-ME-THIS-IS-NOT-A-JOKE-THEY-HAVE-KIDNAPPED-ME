@@ -92,19 +92,11 @@ public class EngineCore {
     }
 
     public static void main(String args[]) {
-        /*Window.initWindow(800,600, "Hello World!");
+        Window.initWindow(800,600, "Hello World!");
         Window.disableVSync();
 
         EngineCore ec = new EngineCore();
-        ec.start();*/
-
-        Matrix4f mat = new Matrix4f();
-        Matrix4f mat2 = new Matrix4f();
-
-        mat.add(mat2);
-        mat.identity();
-
-        mat.logMatrix();
+        ec.start();
 
     }
 }

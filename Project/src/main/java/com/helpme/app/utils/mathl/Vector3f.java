@@ -1,5 +1,7 @@
 package com.helpme.app.utils.mathl;
 
+import com.helpme.app.utils.Vector2f;
+
 import java.nio.FloatBuffer;
 
 /**
@@ -60,28 +62,33 @@ public class Vector3f {
 
     // ----------- Operations/functions -----------
 
-    public void add(float x, float y, float z) {
+    public Vector3f add(float x, float y, float z) {
         this.vector.add(x, y, z);
+        return this;
     }
 
-    public void add(Vector3f vec) {
+    public Vector3f add(Vector3f vec) {
         this.vector.add(vec.vector);
+        return this;
     }
 
     public float angle(Vector3f vec) {
         return this.vector.angle(vec.vector);
     }
 
-    public void cross(float x, float y, float z) {
+    public Vector3f cross(float x, float y, float z) {
         this.vector.cross(x, y, z);
+        return this;
     }
 
-    public void cross(Vector3f vec) {
+    public Vector3f cross(Vector3f vec) {
         this.vector.cross(vec.vector);
+        return this;
     }
 
-    public void cross(Vector3f vec, Vector3f dest) { //sets dest to the cross product of this and vec
+    public Vector3f cross(Vector3f vec, Vector3f dest) { //sets dest to the cross product of this and vec
         this.vector.cross(vec.vector, dest.vector);
+        return this;
     }
 
     public float distance(float x, float y, float z) {
@@ -92,12 +99,14 @@ public class Vector3f {
         return this.vector.distance(vec.vector);
     }
 
-    public void divide(float scalar) {
+    public Vector3f divide(float scalar) {
         this.vector.div(scalar);
+        return this;
     }
 
-    public void divide(Vector3f vec) {
+    public Vector3f divide(Vector3f vec) {
         this.vector.div(vec.vector);
+        return this;
     }
 
     public float dot(float x, float y, float z) {
@@ -112,55 +121,66 @@ public class Vector3f {
         return this.vector.equals(vec.vector);
     }
 
-    public void get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
+    public Vector3f get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
         this.vector.get(fb);
+        return this;
     }
 
     public float length() {
         return this.vector.length();
     }
 
-    public void lerp(Vector3f other, float t) {
+    public Vector3f lerp(Vector3f other, float t) {
         this.vector.lerp(other.vector, t);
+        return this;
     }
 
-    public void logVector() {
+    public Vector3f logVector() {
         System.out.println(vector);
+        return this;
     }
 
-    public void multiply(float scalar) {
+    public Vector3f multiply(float scalar) {
         this.vector.mul(scalar);
+        return this;
     }
 
-    public void multiply(float x, float y, float z) {
+    public Vector3f multiply(float x, float y, float z) {
         this.vector.mul(x, y, z);
+        return this;
     }
 
-    public void multiply(Vector3f vec) {
+    public Vector3f multiply(Vector3f vec) {
         this.vector.mul(vec.vector); //component wise multiplication (hadamard product)
+        return this;
     }
 
-    public void negate() {
+    public Vector3f negate() {
         this.vector.negate();
+        return this;
     }
 
-    public void normalize() {
+    public Vector3f normalize() {
         this.vector.normalize();
+        return this;
     }
 
     public String toString() {
         return this.vector.toString();
     }
 
-    public void subtract(float x, float y, float z) {
+    public Vector3f subtract(float x, float y, float z) {
         this.vector.sub(x, y, z);
+        return this;
     }
 
-    public void subtract(Vector3f vec) {
+    public Vector3f subtract(Vector3f vec) {
         this.vector.sub(vec.vector);
+        return this;
     }
 
-    public void zero() {
+    public Vector3f zero() {
         this.vector.zero();
+        return this;
     }
 }
