@@ -1,5 +1,6 @@
 package com.helpme.app.engine.base;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 import org.lwjgl.opengl.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -40,7 +41,7 @@ public class Window {
             throw new RuntimeException("GLFW failed to create window");
         }
 
-        exitWithESC();
+        InputHandler.init(window);
 
         glfwMakeContextCurrent(window);
 

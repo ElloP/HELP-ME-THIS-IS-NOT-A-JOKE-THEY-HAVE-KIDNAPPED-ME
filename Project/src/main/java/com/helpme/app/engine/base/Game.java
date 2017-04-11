@@ -3,6 +3,8 @@ package com.helpme.app.engine.base;
 import com.helpme.app.engine.renderer.base.Mesh;
 import com.helpme.app.engine.renderer.base.Shader;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
+
 /**
  * Created by Olle on 2017-04-05.
  */
@@ -30,7 +32,10 @@ public class Game {
     }
 
     public void input() {
-        //TODO(Olle): Handle input
+        if(InputHandler.isKeyboardKeyPress(GLFW_KEY_A))
+            System.out.println("A PRESSED!");
+        if(InputHandler.isKeyboardKeyRelease(GLFW_KEY_A))
+            System.out.println("A Release!");
     }
 
     float test = 0.0f;

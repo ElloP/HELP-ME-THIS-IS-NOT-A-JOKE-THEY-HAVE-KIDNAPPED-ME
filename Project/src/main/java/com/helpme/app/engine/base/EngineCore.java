@@ -56,8 +56,10 @@ public class EngineCore {
 
                 Time.deltaTime = Time.deltaTime / Time.SECOND; //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
 
-                //TODO(Olle): Update inputhandler
                 game.input();
+
+                InputHandler.update();
+
                 game.update();
 
                 if (frameCounter >= Time.SECOND) {
