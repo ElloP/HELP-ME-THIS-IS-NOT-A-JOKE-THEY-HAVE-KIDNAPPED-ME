@@ -121,9 +121,9 @@ public class Vector3f {
         return this.vector.equals(vec.vector);
     }
 
-    public Vector3f get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
+    public FloatBuffer get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
         this.vector.get(fb);
-        return this;
+        return fb;
     }
 
     public float length() {
