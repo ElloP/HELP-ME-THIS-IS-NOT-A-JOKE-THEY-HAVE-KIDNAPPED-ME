@@ -40,22 +40,30 @@ public class PlayerController implements IController {
     }
 
     public void movePlayerForward() {
-        if (!isMovementAllowed(player, player.getDirection())) return;
+        if (!isMovementAllowed(player, player.getDirection())) {
+            return;
+        }
         player.moveForward();
     }
 
     public void movePlayerRight() {
-        if (!isMovementAllowed(player, player.getDirection().right())) return;
+        if (!isMovementAllowed(player, player.getDirection().right())) {
+            return;
+        }
         player.moveRight();
     }
 
     public void movePlayerBackward() {
-        if (!isMovementAllowed(player, player.getDirection().backward())) return;
+        if (!isMovementAllowed(player, player.getDirection().backward())) {
+            return;
+        }
         player.moveBackward();
     }
 
     public void movePlayerLeft() {
-        if (!isMovementAllowed(player, player.getDirection().left())) return;
+        if (!isMovementAllowed(player, player.getDirection().left())) {
+            return;
+        }
         player.moveLeft();
     }
 
@@ -68,19 +76,23 @@ public class PlayerController implements IController {
     }
 
     public void setPlayerPosition(Vector2f position) {
-        if (!level.isTileValid(position)) return;
+        if (!level.isTileValid(position)) {
+            return;
+        }
         player.setPosition(position);
     }
 
     public void usePlayerAttack() {
-        Vector2f position  = player.getPosition();
+        Vector2f position = player.getPosition();
         Vector2f direction = player.getDirection();
-        if(level.isEdgeBlocked(player,position,direction)){
-            player.attack(level.getTarget(position,direction));
+        if (level.isEdgeBlocked(player, position, direction)) {
+            player.attack(level.getTarget(position, direction));
             return;
         }
         ITarget target = level.getMonster(player.targetTile());
-        if (target == null) return; // Attack opening instead?
+        if (target == null) {
+            return; // Attack opening instead?
+        }
         player.attack(target);
     }
 
@@ -103,7 +115,7 @@ public class PlayerController implements IController {
         }
     }
 
-    public void usePlayerPickupSingle(int index){
+    public void usePlayerPickupSingle(int index) {
         Vector2f position = player.getPosition();
         IItem item = level.removeTileItem(position, index);
         if (item == null) {
@@ -143,6 +155,7 @@ public class PlayerController implements IController {
         if (level.isEdgeBlocked(player, position, direction)) {
             return null;
         }
+
         IMonster monster = level.getMonster(destination);
         if (monster != null) {
             //TODO (klas) output
