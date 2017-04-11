@@ -90,14 +90,6 @@ public class Level implements ILevel{
         return false;
     }
 
-    public IMonster getTileOccupant(Vector2f position){
-        for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) {
-                return monster;
-            }
-        }
-        return null;
-    }
 
     @Override
     public boolean isTileValid(Vector2f position){

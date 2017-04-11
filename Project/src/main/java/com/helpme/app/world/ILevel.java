@@ -13,7 +13,6 @@ import java.util.Stack;
 public interface ILevel {
     boolean isEdgeBlocked(IMonster monster, Vector2f position, Vector2f direction);
     boolean isTileOccupied(Vector2f position);
-    public IMonster getTileOccupant(Vector2f position);
     boolean isTileValid(Vector2f position);
     List<IItem> popTileItems(Vector2f position);
     void addTileItem(Vector2f position, IItem item);

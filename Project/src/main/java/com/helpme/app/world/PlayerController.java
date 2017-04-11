@@ -120,7 +120,7 @@ public class PlayerController implements IController {
         if (level.isEdgeBlocked(player, position, direction)) {
             return null;
         }
-        IMonster npc = level.getTileOccupant(destination);
+        IMonster npc = level.getMonster(destination);
         if (npc != null) {
             //TODO (klas) output
             return npc.getResponse();
