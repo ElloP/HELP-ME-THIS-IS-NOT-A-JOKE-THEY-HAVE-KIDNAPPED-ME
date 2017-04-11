@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by kopa on 2017-04-11.
+ * Created by Jacob on 2017-04-11.
  */
 public class ItemTest {
     private MockWorld mockWorld;

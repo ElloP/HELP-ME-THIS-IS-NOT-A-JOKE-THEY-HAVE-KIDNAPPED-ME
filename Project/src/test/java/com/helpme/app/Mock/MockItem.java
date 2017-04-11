@@ -7,7 +7,7 @@ import com.helpme.app.item.Key;
 import com.helpme.app.item.effect.IEffectFactory;
 
 /**
- * Created by kopa on 2017-04-11.
+ * Created by Jacob on 2017-04-11.
  */
 public interface MockItem {
     IItem weapon = new Item("Club", target -> target.damage(10), target -> target.damage(5));
