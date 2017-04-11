@@ -47,7 +47,7 @@ public class Vector2f {
     public Vector2f sub(Vector2f vec){
         return new Vector2f(this.x - vec.x, this.y - vec.y);
     }
-    
+
     public boolean equals(Vector2f vec){
         return this.x == vec.x && this.y == vec.y;
     }
