@@ -11,4 +11,14 @@ public class Wall implements IEdge {
     public boolean accept(IEdgeVisitor visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    public void damage(float amount) {
+        return; //TODO (klas)
+    }
+
+    @Override
+    public void heal(float amount) {
+        return; //TODO (klas)
+    }
 }

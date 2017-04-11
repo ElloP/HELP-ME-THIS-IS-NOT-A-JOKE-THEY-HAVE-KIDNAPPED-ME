@@ -31,4 +31,15 @@ public class Door implements IEdge {
     public void unlock() {
         locked = false;
     }
+
+    @Override
+    public void damage(float amount) {
+        return; //TODO (klas)
+    }
+
+    @Override
+    public void heal(float amount) {
+        return; //TODO (klas)
+    }
 }
+
