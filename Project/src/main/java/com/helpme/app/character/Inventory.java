@@ -3,6 +3,7 @@ package com.helpme.app.character;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.IItemFactory;
 import com.helpme.app.item.visitor.Stack;
+import com.helpme.app.utils.Utilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,9 +19,9 @@ public class Inventory implements IInventory {
     private int activeItemIndex = -1;
 
     public Inventory(IItem[] items, IItem defaultItem, IItem[] keychain) {
-        this.defaultItem = defaultItem == null ? IItemFactory.nothing() : defaultItem;
-        this.items = items;
-        this.keychain = keychain == null ? new ArrayList<>() : new ArrayList<>(Arrays.asList(keychain));
+        this.defaultItem = defaultItem == null ? IItemFactory.nothing() : defaultItem.clone();
+        this.items = Utilities.cloneArray(items);
+        this.keychain = keychain == null ? new ArrayList<>() : Utilities.toList(keychain);
     }
 
     @Override

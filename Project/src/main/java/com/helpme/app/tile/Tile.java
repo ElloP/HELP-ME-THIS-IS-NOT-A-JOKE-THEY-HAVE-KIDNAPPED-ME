@@ -3,7 +3,9 @@ package com.helpme.app.tile;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.Item;
 import com.helpme.app.tile.edge.IEdge;
+import com.helpme.app.utils.Utilities;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.interfaces.ICloneable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +19,10 @@ public class Tile implements ITile {
     private IEdge[] edges = new IEdge[4];
     private List<IItem> items;
 
-    public Tile(List<IItem> items){
-
-        this.items = items == null ? new ArrayList<>() : items;
+    public Tile(IItem[] items){
+        this.items = items == null ? new ArrayList<>() : Utilities.toList(items);
     }
+
 
     @Override
     public IEdge getEdge(Vector2f direction) {
