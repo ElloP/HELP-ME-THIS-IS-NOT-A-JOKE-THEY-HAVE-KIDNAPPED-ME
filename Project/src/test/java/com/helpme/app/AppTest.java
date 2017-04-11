@@ -303,4 +303,17 @@ public class AppTest {
         String result = testPlayerController.talk();
         assert (result == null);
     }
+    @Test
+    public void testAttackWall(){
+        testPlayerController.setPlayerPosition(new Vector2f(0,0));
+        testPlayerController.usePlayerAttack(); //Wall hit
+        testPlayerController.rotatePlayerLeft();
+        testPlayerController.usePlayerAttack(); //Wall hit
+        testPlayerController.rotatePlayerLeft();
+        testPlayerController.usePlayerAttack(); //Wall hit
+        testPlayerController.rotatePlayerLeft();
+        testPlayerController.usePlayerAttack(); //Hit nothing
+
+    }
+
 }

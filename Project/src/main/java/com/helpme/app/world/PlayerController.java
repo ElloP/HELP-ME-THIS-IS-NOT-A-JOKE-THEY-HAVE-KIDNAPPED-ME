@@ -79,7 +79,7 @@ public class PlayerController implements IController {
         Vector2f position  = player.getPosition();
         Vector2f direction = player.getDirection();
         if(level.isEdgeBlocked(player,position,direction)){
-            player.attack(level.getTarget(position,direction));
+            player.attack(level.getTarget(position,direction)); //Gives ArrayIndexOutOfBounds
             return;
         }
         ITarget target = level.getMonster(player.targetTile());

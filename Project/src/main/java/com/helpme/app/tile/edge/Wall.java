@@ -14,6 +14,7 @@ public class Wall implements IEdge {
 
     @Override
     public void damage(float amount) {
+        System.out.println("Hit wall");
         return; //TODO (klas)
     }
 
