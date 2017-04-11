@@ -62,9 +62,9 @@ public class Matrix4f {
         return this.matrix.equals(other.matrix);
     }
 
-    public Matrix4f get(FloatBuffer fb) {
+    public FloatBuffer get(FloatBuffer fb) {
         this.matrix.get(fb);
-        return this;
+        return fb;
     }
 
     public Matrix4f identity() {
