@@ -1,6 +1,7 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
@@ -75,7 +76,7 @@ public class PlayerController implements IController {
     }
 
     public void usePlayerAttack() {
-        IMonster target = level.getMonster(player.targetTile());
+        ITarget target = level.getMonster(player.targetTile());
         if (target == null) return;
         player.attack(target);
     }

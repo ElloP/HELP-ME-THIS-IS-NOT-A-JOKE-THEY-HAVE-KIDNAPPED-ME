@@ -1,6 +1,6 @@
 package com.helpme.app.item;
 
-import com.helpme.app.character.IStats;
+import com.helpme.app.character.ITarget;
 import com.helpme.app.item.effect.IEffect;
 import com.helpme.app.item.visitor.IItemVisitor;
 
