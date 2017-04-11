@@ -11,6 +11,10 @@ public interface IItemFactory {
         return new Item("Fists", IEffectFactory.damage(1), IEffectFactory.damage(1));
     }
 
+    static IItem nothing(){
+        return new Item("Nothing", stats -> {}, stats -> {});
+    }
+
     static IItem club() {
         return new Item("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
     }

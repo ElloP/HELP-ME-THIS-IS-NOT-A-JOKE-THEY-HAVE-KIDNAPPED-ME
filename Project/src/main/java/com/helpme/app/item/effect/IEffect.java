@@ -7,5 +7,5 @@ import com.helpme.app.character.ITarget;
  * Created by Jacob on 2017-04-09.
  */
 public interface IEffect {
-    void apply(ITarget stats);
+    void apply(ITarget target);
 }
