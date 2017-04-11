@@ -2,11 +2,13 @@ package com.helpme.app.engine.base;
 
 import com.helpme.app.engine.renderer.base.Mesh;
 import com.helpme.app.engine.renderer.base.Shader;
+import com.helpme.app.utils.mathl.Matrix4f;
+import com.helpme.app.utils.mathl.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
 
 /**
- * Created by Olle on 2017-04-05.
+ * Authored by Olle on 2017-04-05.
  */
 public class Game {
     private Mesh mesh;
@@ -29,6 +31,7 @@ public class Game {
         mesh = new Mesh(vertices, indices);
         shader = new Shader("vertexShader.vs", "fragmentShader.fs");
         shader.addUniform("test");
+        shader.addUniform("transform");
     }
 
     public void input() {
@@ -39,11 +42,17 @@ public class Game {
     }
 
     float test = 0.0f;
+    Transform t = new Transform();
 
     public void update() {
         //TODO(Olle): update game
         test += Time.deltaTime;
+        t.rotate(0,0, 90*test);
+        t.scale(0.5f);
+        t.getTransformMatrix().logMatrix();
         shader.setUniform("test", (float) Math.abs(Math.sin(test)));
+        shader.setUniform("transform", t.getTransformMatrix());
+
     }
 
     public void draw() {

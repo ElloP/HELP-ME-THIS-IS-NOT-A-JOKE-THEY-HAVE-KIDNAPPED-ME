@@ -122,6 +122,16 @@ public class Matrix4f {
         return this;
     }
 
+    public Matrix4f rotateXYZ(Vector3f angles) {
+        this.matrix.rotateXYZ(angles.vector);
+        return this;
+    }
+
+    public Matrix4f rotateXYZ(float x, float y, float z) {
+        this.matrix.rotateXYZ(x, y, z);
+        return this;
+    }
+
     public Matrix4f rotate(float angle, Vector3f v) {
         this.matrix.rotate(angle,v.vector);
         return this;
