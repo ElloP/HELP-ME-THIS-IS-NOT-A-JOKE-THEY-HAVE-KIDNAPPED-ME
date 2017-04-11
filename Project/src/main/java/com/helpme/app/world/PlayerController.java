@@ -5,9 +5,6 @@ import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Jacob on 2017-04-08.
  */
@@ -87,16 +84,16 @@ public class PlayerController implements IController {
         player.attack(target);
     }
 
-    public void usePlayerPickup() {
+    public void usePlayerPickupAll() {
         Vector2f position = player.getPosition();
-        List<IItem> items = level.popTileItems(position);
+        IItem[] items = level.removeTileItems(position);
 
         if (items == null) {
             return;
         }
 
         for (IItem item : items) {
-            if(item == null) {
+            if (item == null) {
                 continue;
             }
 
@@ -106,8 +103,28 @@ public class PlayerController implements IController {
         }
     }
 
-    public void setPlayerItems(IItem[] items){
+    public void usePlayerPickupSingle(int index){
+        Vector2f position = player.getPosition();
+        IItem item = level.removeTileItem(position, index);
+        if (item == null) {
+            return;
+        }
+        player.pickupItem(item);
+    }
+
+    public void setPlayerItems(IItem[] items) {
         player.setItems(items);
+    }
+
+    public void dropPlayerItem(int index) {
+        if (level.isTileValid(player.getPosition())) {
+            IItem item = player.dropItem(index);
+            if (item == null) {
+                return;
+            }
+            level.addTileItem(player.getPosition(), item);
+        }
+
     }
 
     public void usePlayerSelfie() {
@@ -118,7 +135,7 @@ public class PlayerController implements IController {
         player.changeActiveItem(index);
     }
 
-    public String talk(){
+    public String usePlayerTalk() { //TODO (jacob) change name to something better
         Vector2f position = player.getPosition();
         Vector2f direction = player.getDirection();
         Vector2f destination = Vector2f.add(position, direction);

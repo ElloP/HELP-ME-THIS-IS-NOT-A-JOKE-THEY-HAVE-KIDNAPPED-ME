@@ -21,6 +21,7 @@ public interface IMonster extends ITarget{
     Vector2f targetTile();
     boolean traverse(IEdge edge);
     boolean pickupItem(IItem item);
+    IItem dropItem(int index);
     Vector2f getPosition();
     Vector2f getDirection();
     Vector2f getHitpoints();

@@ -20,8 +20,6 @@ public class Monster implements IMonster {
 
     private boolean dead;
 
-
-
     public Monster(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
         this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
     }
@@ -112,6 +110,11 @@ public class Monster implements IMonster {
     @Override
     public boolean pickupItem(IItem item) {
         return item.accept(new Pickup(this.inventory));
+    }
+
+    @Override
+    public IItem dropItem(int index) {
+        return inventory.dropItem(index);
     }
 
     @Override

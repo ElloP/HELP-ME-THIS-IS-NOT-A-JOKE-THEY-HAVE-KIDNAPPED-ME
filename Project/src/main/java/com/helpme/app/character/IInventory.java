@@ -12,7 +12,8 @@ public interface IInventory extends IKeyChain, ICloneable<IInventory> {
     IItem getActiveItem();
     void setItems(IItem[] items);
     boolean addItem(IItem item);
-    boolean removeItem(IItem item);
+    boolean deleteItem(IItem item);
+    IItem dropItem(int index);
     boolean addStack(IItem item, int amount);
     void addKey(IItem key);
     void changeActiveItem(int itemIndex);

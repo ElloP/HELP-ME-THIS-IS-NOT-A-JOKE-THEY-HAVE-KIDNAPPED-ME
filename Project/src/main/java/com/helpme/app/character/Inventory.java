@@ -62,8 +62,20 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public boolean removeItem(IItem item) {
+    public boolean deleteItem(IItem item) {
         return setItem(item, null);
+    }
+
+    @Override
+    public IItem dropItem(int index) {
+        try {
+            IItem item = items[index];
+            items[index] = null;
+            return item;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     private boolean setItem(IItem from, IItem to) {

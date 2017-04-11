@@ -81,6 +81,7 @@ public class AppTest {
 
         tiles.add(new Tuple2<>(new Vector2f(1, 5), new IItem[]{excessiveItem.clone(), excessiveItem.clone(), excessiveItem.clone()}));
         tiles.add(new Tuple2<>(new Vector2f(2, 5), new IItem[]{stackingConsumables.clone(), stackingConsumables.clone(), stackingConsumables.clone()}));
+        tiles.add(new Tuple2<>(new Vector2f(3, 5), new IItem[]{stackingConsumables.clone(), excessiveItem.clone(), mockPickupWeapon}));
 
         doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
         doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
@@ -89,7 +90,7 @@ public class AppTest {
         doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, mockPickupKey)));
 
         /**
-         *    [x][x]      [ ]
+         *    [x][x][x]   [ ]
          *
          *    [ ][ ][ ]
          *    [ ][e][ ]      [ |[ ]/ ]| ][ ]
@@ -260,7 +261,7 @@ public class AppTest {
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.rotatePlayerRight();
         testPlayerController.movePlayerForward();
-        testPlayerController.usePlayerPickup();
+        testPlayerController.usePlayerPickupAll();
         testPlayerController.movePlayerForward();
         testPlayerController.movePlayerForward();
         testPlayerController.changePlayerActiveItem(2);
@@ -274,8 +275,8 @@ public class AppTest {
         Vector2f tileStart = new Vector2f(1, 5);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.setPlayerItems(new IItem[]{null});
-        testPlayerController.usePlayerPickup();
-        assert (testLevel.popTileItems(tileStart).size() == 2
+        testPlayerController.usePlayerPickupAll();
+        assert (testLevel.removeTileItems(tileStart).length == 2
                 && testPlayerController.getPlayer().getInventory().getItem(0) != null);
     }
 
@@ -284,23 +285,45 @@ public class AppTest {
         Vector2f tileStart = new Vector2f(2, 5);
         testPlayerController.setPlayerPosition(tileStart);
         testPlayerController.setPlayerItems(new IItem[]{null});
-        testPlayerController.usePlayerPickup();
-        assert (testLevel.popTileItems(tileStart).size() == 0
-                && ((Consumable)testPlayerController.getPlayer().getInventory().getItem(0)).getStacks() == 6);
+        testPlayerController.usePlayerPickupAll();
+        assert (testLevel.removeTileItems(tileStart).length == 0
+                && ((Consumable) testPlayerController.getPlayer().getInventory().getItem(0)).getStacks() == 6);
+    }
+
+    @Test
+    public void testSinglePickup() {
+        Vector2f tileStart = new Vector2f(3, 5);
+        testPlayerController.setPlayerPosition(tileStart);
+        testPlayerController.setPlayerItems(new IItem[]{null, null, null});
+        testPlayerController.usePlayerPickupSingle(0);
+        testPlayerController.usePlayerPickupSingle(2);
+        IItem[] items = testLevel.removeTileItems(tileStart);
+        assert (items[0] == null && items[2] == null && items[1].toString().equals("Item: Box")
+                && testPlayerController.getPlayer().getInventory().getItem(0).toString().equals("Consumable: Paper")
+                && testPlayerController.getPlayer().getInventory().getItem(1).toString().equals("Item: Sword"));
+    }
+
+    @Test
+    public void testSingleDrop() {
+        Vector2f tileStart = new Vector2f(0, 0);
+        testPlayerController.dropPlayerItem(0);
+        IItem[] items = testLevel.removeTileItems(tileStart);
+        assert(items[0].toString().equals("Item: Club") && items.length == 1);
     }
 
     @Test
     public void testTalkToMonster() {
         Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.setPlayerPosition(tileStart);
-        String result = testPlayerController.talk();
-        assert (result.equals(testLevel.getMonster(new Vector2f(2,2)).getResponse()));
+        String result = testPlayerController.usePlayerTalk();
+        assert (result.equals(testLevel.getMonster(new Vector2f(2, 2)).getResponse()));
     }
+
     @Test
     public void testTalkToNothing() {
         Vector2f tileStart = new Vector2f(0, 0);
         testPlayerController.setPlayerPosition(tileStart);
-        String result = testPlayerController.talk();
+        String result = testPlayerController.usePlayerTalk();
         assert (result == null);
     }
 }
