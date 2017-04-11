@@ -1,6 +1,4 @@
-package com.helpme.app.utils;
-
-import org.joml.*;
+package com.helpme.app.utils.mathl;
 
 import java.nio.FloatBuffer;
 
@@ -10,8 +8,8 @@ import java.nio.FloatBuffer;
 
 // ----------- Wrapper for matrix4f -----------
 public class Matrix4f {
-    //
-    public org.joml.Matrix4f matrix; //TODO(Olle): set this to private
+    // ----------- Variables -----------
+    protected org.joml.Matrix4f matrix;
 
     // ----------- Constructors -----------
     public Matrix4f() {
@@ -38,11 +36,11 @@ public class Matrix4f {
     }
 
     private Matrix4f(org.joml.Matrix4f mat) { //private constructor for copying (and setting) matrices
-        this.matrix = mat;
+        this.matrix = new org.joml.Matrix4f(mat);
     }
 
-    public Matrix4f(Vector4f col0, Vector4f col1, Vector4f col2, Vector4f col3) {
-        //TODO(Olle): finish this constructor
+    public Matrix4f(com.helpme.app.utils.Vector4f col0, com.helpme.app.utils.Vector4f col1, com.helpme.app.utils.Vector4f col2, com.helpme.app.utils.Vector4f col3) {
+        //TODO(Olle): finish this constructor (if needed)
     }
 
     // ----------- Operations/functions -----------
@@ -61,6 +59,10 @@ public class Matrix4f {
 
     public boolean equals(Matrix4f other) {
         return this.matrix.equals(other.matrix);
+    }
+
+    public void get(FloatBuffer fb) {
+        this.matrix.get(fb);
     }
 
     public void identity() {
@@ -88,7 +90,7 @@ public class Matrix4f {
     }
 
     public void multiply(Vector3f v) {
-        //TODO(Olle): add matrix-vector multiplication
+        this.matrix.transformPosition(v.vector);
     }
 
     public void perspective(float fovy, float aspect, float zNear, float zFar) {
@@ -112,7 +114,7 @@ public class Matrix4f {
     }
 
     public void rotate(float angle, Vector3f v) {
-        //TODO(Olle): add rotation by vector
+        this.matrix.rotate(angle,v.vector);
     }
 
     public void scale(float xyz) {
@@ -124,7 +126,7 @@ public class Matrix4f {
     }
 
     public void scale(Vector3f v) {
-        //TODO(Olle): add scaling by vector
+        this.matrix.scale(v.vector);
     }
 
     public void translate(float x, float y, float z) {
@@ -132,8 +134,10 @@ public class Matrix4f {
     }
 
     public void translate (Vector3f v) {
-        //TODO(Olle): add translation by vector
+        this.matrix.translate(v.vector);
     }
 
-
+    public void logMatrix() {
+        System.out.println(this.matrix);
+    }
 }

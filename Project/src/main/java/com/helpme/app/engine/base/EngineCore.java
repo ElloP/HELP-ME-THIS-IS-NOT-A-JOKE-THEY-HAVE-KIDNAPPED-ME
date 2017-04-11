@@ -1,6 +1,7 @@
 package com.helpme.app.engine.base;
 
 import com.helpme.app.engine.renderer.base.RenderCore;
+import com.helpme.app.utils.mathl.Matrix4f;
 
 /**
  * Authored by Olle on 2017-04-02.
@@ -91,11 +92,19 @@ public class EngineCore {
     }
 
     public static void main(String args[]) {
-        Window.initWindow(800,600, "Hello World!");
+        /*Window.initWindow(800,600, "Hello World!");
         Window.disableVSync();
 
         EngineCore ec = new EngineCore();
-        ec.start();
+        ec.start();*/
+
+        Matrix4f mat = new Matrix4f();
+        Matrix4f mat2 = new Matrix4f();
+
+        mat.add(mat2);
+        mat.identity();
+
+        mat.logMatrix();
 
     }
 }
