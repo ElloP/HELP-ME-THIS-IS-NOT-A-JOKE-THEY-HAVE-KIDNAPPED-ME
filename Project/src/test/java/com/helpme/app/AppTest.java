@@ -294,6 +294,13 @@ public class AppTest {
         Vector2f tileStart = new Vector2f(2, 1);
         testPlayerController.setPlayerPosition(tileStart);
         String result = testPlayerController.talk();
-        assert (result.equals(testLevel.getMonster(new Vector2f(2,2)).response()));
+        assert (result.equals(testLevel.getMonster(new Vector2f(2,2)).getResponse()));
+    }
+    @Test
+    public void testTalkToNothing() {
+        Vector2f tileStart = new Vector2f(0, 0);
+        testPlayerController.setPlayerPosition(tileStart);
+        String result = testPlayerController.talk();
+        assert (result == null);
     }
 }

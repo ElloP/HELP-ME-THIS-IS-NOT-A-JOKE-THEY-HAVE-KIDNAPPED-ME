@@ -27,6 +27,6 @@ public interface IMonster extends IStats{
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
-    String response();
+    String getResponse();
 
 }

@@ -120,7 +120,7 @@ public class Monster implements IMonster {
     }
 
     @Override
-    public String response() {
+    public String getResponse() {
         return "Hello!"; //TODO (klas) Temporary
     }
 

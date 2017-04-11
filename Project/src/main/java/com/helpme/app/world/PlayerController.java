@@ -122,7 +122,7 @@ public class PlayerController implements IController {
         IMonster npc = level.getTileOccupant(destination);
         if (npc != null) {
             //TODO (klas) output
-            return npc.response();
+            return npc.getResponse();
         }
         return null;
     }
