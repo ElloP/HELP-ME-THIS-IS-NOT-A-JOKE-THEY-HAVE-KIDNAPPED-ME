@@ -288,4 +288,12 @@ public class AppTest {
         assert (testLevel.popTileItems(tileStart).size() == 0
                 && ((Consumable)testPlayerController.getPlayer().getInventory().getItem(0)).getStacks() == 6);
     }
+
+    @Test
+    public void testTalkToMonster() {
+        Vector2f tileStart = new Vector2f(2, 1);
+        testPlayerController.setPlayerPosition(tileStart);
+        String result = testPlayerController.talk();
+        assert (result.equals(testLevel.getMonster(new Vector2f(2,2)).response()));
+    }
 }

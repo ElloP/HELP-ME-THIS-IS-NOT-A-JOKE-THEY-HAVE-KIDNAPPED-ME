@@ -111,19 +111,19 @@ public class PlayerController implements IController {
         player.changeActiveItem(index);
     }
 
-    public void talk(){
+    public String talk(){
         Vector2f position = player.getPosition();
         Vector2f direction = player.getDirection();
         Vector2f destination = Vector2f.add(position, direction);
 
         if (level.isEdgeBlocked(player, position, direction)) {
-            return;
+            return null;
         }
         IMonster npc = level.getTileOccupant(destination);
         if (npc != null) {
             //TODO (klas) output
-            System.out.println(npc.response());
+            return npc.response();
         }
-
+        return null;
     }
 }
