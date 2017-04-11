@@ -2,6 +2,7 @@ package com.helpme.app.tile;
 
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.IEdge;
+import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.ICloneable;
 
@@ -17,7 +18,7 @@ public class Tile implements ITile {
     private List<IItem> items;
 
     public Tile(IItem[] items){
-        this.items = items == null ? new ArrayList<>() : ICloneable.cloneToList(items);
+        this.items = items == null ? new ArrayList<>() : Clone.toList(items);
     }
 
 

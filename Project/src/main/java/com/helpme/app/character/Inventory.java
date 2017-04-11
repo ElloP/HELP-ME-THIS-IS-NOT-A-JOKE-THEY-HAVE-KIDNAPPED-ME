@@ -3,6 +3,7 @@ package com.helpme.app.character;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.IItemFactory;
 import com.helpme.app.item.visitor.Stack;
+import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.interfaces.ICloneable;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class Inventory implements IInventory {
 
     public Inventory(IItem[] items, IItem defaultItem, IItem[] keychain) {
         this.defaultItem = defaultItem == null ? IItemFactory.nothing() : defaultItem.clone();
-        this.items = ICloneable.cloneArray(items);
-        this.keychain = keychain == null ? new ArrayList<>() : ICloneable.cloneToList(keychain);
+        this.items = Clone.array(items);
+        this.keychain = keychain == null ? new ArrayList<>() : Clone.toList(keychain);
     }
 
     @Override
