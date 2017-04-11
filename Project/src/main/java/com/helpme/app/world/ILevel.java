@@ -1,6 +1,7 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
@@ -18,4 +19,5 @@ public interface ILevel {
     void addTileItem(Vector2f position, IItem item);
     void addTileItems(Vector2f position, IItem[] items);
     IMonster getMonster(Vector2f position);
+    ITarget getTarget(Vector2f position, Vector2f direction);
 }

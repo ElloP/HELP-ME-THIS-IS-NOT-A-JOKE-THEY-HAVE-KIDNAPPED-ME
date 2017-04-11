@@ -1,6 +1,7 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.ITile;
 import com.helpme.app.tile.ITileFactory;
@@ -89,7 +90,9 @@ public class Level implements ILevel{
         }
         return false;
     }
-
+    public ITarget getTarget(Vector2f position, Vector2f direction){
+        return tiles.get(position).getEdge(direction);
+    }
 
     @Override
     public boolean isTileValid(Vector2f position){
