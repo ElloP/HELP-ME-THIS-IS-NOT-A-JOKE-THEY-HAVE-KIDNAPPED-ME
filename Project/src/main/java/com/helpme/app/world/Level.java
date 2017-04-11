@@ -4,7 +4,6 @@ import com.helpme.app.character.IMonster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.ITile;
 import com.helpme.app.tile.ITileFactory;
-import com.helpme.app.tile.Tile;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
@@ -105,12 +104,15 @@ public class Level implements ILevel{
     }
 
     @Override
-    public List<IItem> popTileItems(Vector2f position) {
+    public IItem[] removeTileItems(Vector2f position) {
         ITile tile = tiles.get(position);
-        if(tile == null) {
-            return null;
-        }
-        return tile.popItems();
+        return tile == null ? null : tile.removeItems();
+    }
+
+    @Override
+    public IItem removeTileItem(Vector2f position, int index) {
+        ITile tile = tiles.get(position);
+        return tile == null ? null : tile.removeItem(index);
     }
 
     @Override
@@ -134,7 +136,9 @@ public class Level implements ILevel{
     @Override
     public IMonster getMonster(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) return monster;
+            if (monster.getPosition().equals(position)) {
+                return monster;
+            }
         }
         return null;
     }

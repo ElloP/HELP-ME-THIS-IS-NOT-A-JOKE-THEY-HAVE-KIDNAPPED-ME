@@ -15,7 +15,8 @@ public interface ILevel {
     boolean isTileOccupied(Vector2f position);
     public IMonster getTileOccupant(Vector2f position);
     boolean isTileValid(Vector2f position);
-    List<IItem> popTileItems(Vector2f position);
+    IItem[] removeTileItems(Vector2f position);
+    IItem removeTileItem(Vector2f position, int index);
     void addTileItem(Vector2f position, IItem item);
     void addTileItems(Vector2f position, IItem[] items);
     IMonster getMonster(Vector2f position);

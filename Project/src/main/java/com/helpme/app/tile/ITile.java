@@ -12,7 +12,8 @@ import java.util.List;
 public interface ITile {
     IEdge getEdge(Vector2f direction);
     void setEdge(IEdge edge, Vector2f direction);
-    List<IItem> popItems();
+    IItem[] removeItems();
+    IItem removeItem(int index);
     void addItem(IItem item);
     void addItems(IItem[] item);
 }

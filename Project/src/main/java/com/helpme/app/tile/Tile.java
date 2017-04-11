@@ -18,7 +18,8 @@ public class Tile implements ITile {
     private List<IItem> items;
 
     public Tile(List<IItem> items){
-        this.items = items;
+
+        this.items = items == null ? new ArrayList<>() : items;
     }
 
     @Override
@@ -42,9 +43,16 @@ public class Tile implements ITile {
     }
 
     @Override
-    public List<IItem> popItems() {
-        List<IItem> removed = items;
-        items = new ArrayList<>();
+    public IItem[] removeItems() {
+        IItem[] removed = items.toArray(new IItem[items.size()]);
+        items.clear();
+        return removed;
+    }
+
+    @Override
+    public IItem removeItem(int index) {
+        IItem removed = items.get(index);
+        items.set(index, null);
         return removed;
     }
 
