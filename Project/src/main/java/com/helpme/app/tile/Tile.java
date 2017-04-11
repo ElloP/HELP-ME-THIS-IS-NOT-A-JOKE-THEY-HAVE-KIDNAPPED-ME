@@ -1,41 +1,71 @@
 package com.helpme.app.tile;
 
+import com.helpme.app.item.IItem;
 import com.helpme.app.item.Item;
-import com.helpme.app.tile.edge.Edge;
+import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Tile {
-    Edge[] edges = new Edge[4];
+public class Tile implements ITile {
+    private IEdge[] edges = new IEdge[4];
+    private List<IItem> items;
 
-    public boolean tryExit(Vector2f direction) {
+    public Tile(List<IItem> items){
+
+        this.items = items == null ? new ArrayList<>() : items;
+    }
+
+    @Override
+    public IEdge getEdge(Vector2f direction) {
         try {
-            return edges[Vector2fToIndex(direction)].traverse();
+            return edges[Vector2fToIndex(direction)];
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e);
-            return false;
+            return null;
         }
     }
 
-    public boolean tryUnlock(Vector2f direction, Item[] potentialKeys) {
-        try {
-            return edges[Vector2fToIndex(direction)].unlock(potentialKeys);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e);
-            return false;
-        }
-    }
 
-
-    public void setEdge(Edge edge, Vector2f direction) {
+    @Override
+    public void setEdge(IEdge edge, Vector2f direction) {
         try {
             edges[Vector2fToIndex(direction)] = edge;
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e);
         }
     }
+
+    @Override
+    public IItem[] removeItems() {
+        IItem[] removed = items.toArray(new IItem[items.size()]);
+        items.clear();
+        return removed;
+    }
+
+    @Override
+    public IItem removeItem(int index) {
+        IItem removed = items.get(index);
+        items.set(index, null);
+        return removed;
+    }
+
+    @Override
+    public void addItem(IItem item){
+        this.items.add(item);
+    }
+
+    @Override
+    public void addItems(IItem[] items){
+        this.items.addAll(Arrays.asList(items));
+    }
+
 
     private int Vector2fToIndex(Vector2f vec0) {
         if (vec0.equals(Vector2f.up)) {
@@ -52,9 +82,5 @@ public class Tile {
         }
 
         return -1;
-    }
-
-    public static Tile empty() {
-        return new Tile();
     }
 }

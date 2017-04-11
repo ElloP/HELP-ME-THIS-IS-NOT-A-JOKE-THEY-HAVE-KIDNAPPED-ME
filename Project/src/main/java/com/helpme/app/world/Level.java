@@ -1,27 +1,28 @@
 package com.helpme.app.world;
 
-import com.helpme.app.character.Monster;
-import com.helpme.app.item.Item;
-import com.helpme.app.tile.Tile;
+import com.helpme.app.character.IMonster;
+import com.helpme.app.character.ITarget;
+import com.helpme.app.item.IItem;
+import com.helpme.app.tile.ITile;
+import com.helpme.app.tile.ITileFactory;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;
+import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.Vector4f;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Level {
-    Monster player;
-    Map<Vector2f, Tile> tiles;
-    List<Monster> monsters;
+public class Level implements ILevel{
+    private IMonster player;
+    private Map<Vector2f, ITile> tiles;
+    private List<IMonster> monsters;
 
-    public Level(List<Vector2f> tiles, Map<Vector4f, Door> doors, List<Monster> monsters, Monster player, Vector2f startingPosition) {
+    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
         this.monsters = monsters;
         this.player = player.clone();
@@ -30,29 +31,33 @@ public class Level {
         generateLevel(tiles, doors);
     }
 
-    private void generateLevel(List<Vector2f> tiles, Map<Vector4f, Door> doors) {
+    private void generateLevel(List<Tuple2<Vector2f,IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
         generateTiles(tiles);
         generateEdges();
         generateDoors(doors);
     }
 
-    private void generateTiles(List<Vector2f> tiles) {
-        for(Vector2f position : tiles){
-            this.tiles.put(position, Tile.empty());
+    private void generateTiles(List<Tuple2<Vector2f, IItem[]>> tiles) {
+        for(Tuple2<Vector2f, IItem[]> tuple : tiles){
+            Vector2f position = tuple.a;
+            List<IItem> items = tuple.b == null ? null : new ArrayList<>(Arrays.asList(tuple.b));
+            this.tiles.put(position, ITileFactory.tile(items));
         }
     }
 
-    private void generateDoors(Map<Vector4f, Door> doors) {
-        for (Vector4f edge : doors.keySet()) {
-            Vector2f defaultPosition = new Vector2f(edge.x, edge.y);
-            Vector2f defaultDirection = new Vector2f(edge.z, edge.w);
-            Vector2f oppositeDirection = new Vector2f(edge.z, edge.w).rotateRightAngle(2);
+    private void generateDoors(List<Tuple3<Vector2f, Vector2f, Door>> doors) {
+        for (Tuple3<Vector2f, Vector2f, Door> tuple : doors) {
+            Vector2f defaultPosition = tuple.a;
+            Vector2f defaultDirection = tuple.b;
+            Vector2f oppositeDirection = defaultDirection.rotateRightAngle(2);
             Vector2f oppositePosition = Vector2f.add(defaultPosition, defaultDirection);
-            Tile defaultTile = tiles.get(defaultPosition);
-            Tile oppositeTile = tiles.get(oppositePosition);
-            Door door = doors.get(edge);
+            ITile defaultTile = tiles.get(defaultPosition);
+            ITile oppositeTile = tiles.get(oppositePosition);
+            Door door = tuple.c;
 
-            if (oppositeTile == null || defaultTile == null || door == null) continue;
+            if (oppositeTile == null || defaultTile == null || door == null) {
+                continue;
+            }
 
             defaultTile.setEdge(door, defaultDirection);
             oppositeTile.setEdge(door, oppositeDirection);
@@ -61,7 +66,7 @@ public class Level {
 
     private void generateEdges() {
         for (Vector2f position : tiles.keySet()) {
-            Tile tile = tiles.get(position);
+            ITile tile = tiles.get(position);
             tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.up)) == null ? new Wall() : new Opening(), Vector2f.up);
             tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.right)) == null ? new Wall() : new Opening(), Vector2f.right);
             tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.down)) == null ? new Wall() : new Opening(), Vector2f.down);
@@ -69,72 +74,69 @@ public class Level {
         }
     }
 
-    public Monster getPlayer() {
-        return player.clone();
+
+
+    public boolean isEdgeBlocked(IMonster monster, Vector2f position, Vector2f direction) {
+        ITile tile = tiles.get(position);
+        return !monster.traverse(tile.getEdge(direction));
     }
 
-    private boolean isMovementAllowed(Monster monster, Vector2f direction) {
-        Vector2f position = monster.getPosition();
-        Vector2f destination = Vector2f.add(position, direction);
-        Item[] potentialKeys = monster.getInventory();
-        Tile tile = tiles.get(position);
-
-        if (!isExitOpen(tile, direction)) {
-            tryUnlockExit(tile, direction, potentialKeys);
-            return false;
+    public boolean isTileOccupied(Vector2f position) {
+        for (IMonster monster : monsters) {
+            if (monster.getPosition().equals(position)) {
+                return true;
+            }
         }
-        if (!isVacant(destination)) {
-            return false;
+        return false;
+    }
+    public ITarget getTarget(Vector2f position, Vector2f direction){
+        return tiles.get(position).getEdge(direction);
+    }
+
+    @Override
+    public boolean isTileValid(Vector2f position){
+        return tiles.get(position) != null;
+    }
+
+    @Override
+    public IItem[] removeTileItems(Vector2f position) {
+        ITile tile = tiles.get(position);
+        return tile == null ? null : tile.removeItems();
+    }
+
+    @Override
+    public IItem removeTileItem(Vector2f position, int index) {
+        ITile tile = tiles.get(position);
+        return tile == null ? null : tile.removeItem(index);
+    }
+
+    @Override
+    public void addTileItem(Vector2f position, IItem item){
+        ITile tile = tiles.get(position);
+        if(tile == null || item == null) {
+            return;
         }
-        return true;
+        tile.addItem(item);
     }
 
-    private boolean tryUnlockExit(Tile tile, Vector2f direction, Item[] potentialKeys){
-        return tile.tryUnlock(direction, potentialKeys);
-    }
-
-    private boolean isExitOpen(Tile tile, Vector2f direction) {
-        return tile.tryExit(direction);
-    }
-
-    private boolean isVacant(Vector2f position) {
-        for (Monster monster : monsters) {
-            if (monster.getPosition().equals(position)) return false;
+    @Override
+    public void addTileItems(Vector2f position, IItem[] items){
+        ITile tile = tiles.get(position);
+        if(tile == null || items == null) {
+            return;
         }
-        return true;
+        tile.addItems(items);
     }
 
-    public void movePlayerForward() {
-        if (!isMovementAllowed(player, player.getDirection())) return;
-        player.moveForward();
+    @Override
+    public IMonster getMonster(Vector2f position) {
+        for (IMonster monster : monsters) {
+            if (monster.getPosition().equals(position)) {
+                return monster;
+            }
+        }
+        return null;
     }
 
-    public void movePlayerRight() {
-        if (!isMovementAllowed(player, player.getDirection().right())) return;
-        player.moveRight();
-    }
-
-    public void movePlayerBackward() {
-        if (!isMovementAllowed(player, player.getDirection().backward())) return;
-        player.moveBackward();
-    }
-
-    public void movePlayerLeft() {
-        if (!isMovementAllowed(player, player.getDirection().left())) return;
-        player.moveLeft();
-    }
-
-    public void rotatePlayerRight() {
-        player.rotateRight();
-    }
-
-    public void rotatePlayerLeft() {
-        player.rotateLeft();
-    }
-
-    public void teleportPlayer(Vector2f position) {
-        if (tiles.get(position) == null) return;
-        player.setPosition(position);
-    }
 
 }
