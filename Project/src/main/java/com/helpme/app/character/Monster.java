@@ -34,7 +34,7 @@ public class Monster implements IMonster {
     }
 
     @Override
-    public void attack(IStats target) {
+    public void attack(ITarget target) {
         IItem activeItem = inventory.getActiveItem();
         activeItem.accept(new Attack(target));
     }
