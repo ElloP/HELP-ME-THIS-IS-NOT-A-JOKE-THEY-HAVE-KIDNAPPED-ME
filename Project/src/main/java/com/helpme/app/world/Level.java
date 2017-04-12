@@ -39,9 +39,8 @@ public class Level implements ILevel{
 
     private void generateTiles(List<Tuple2<Vector2f, IItem[]>> tiles) {
         for(Tuple2<Vector2f, IItem[]> tuple : tiles){
-            Vector2f position = tuple.a;
-            List<IItem> items = tuple.b == null ? null : new ArrayList<>(Arrays.asList(tuple.b));
-            this.tiles.put(position, ITileFactory.tile(items));
+            Vector2f position = tuple.a;;
+            this.tiles.put(position, ITileFactory.tile(tuple.b));
         }
     }
 

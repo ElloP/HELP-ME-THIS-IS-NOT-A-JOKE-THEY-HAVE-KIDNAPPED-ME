@@ -1,5 +1,8 @@
 package com.helpme.app.item.effect;
 
+import com.helpme.app.character.ITarget;
+import com.helpme.app.utils.functions.Action;
+
 /**
  * Created by Jacob on 2017-04-10.
  */
