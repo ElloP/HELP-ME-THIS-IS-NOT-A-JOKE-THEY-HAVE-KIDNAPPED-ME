@@ -4,6 +4,8 @@ package com.helpme.app.engine.input;
  * Created by Jacob on 2017-04-02.
  */
 
+import com.helpme.app.utils.functions.Function;
+
 import java.util.Map;
 
 public class InputHandler {
@@ -25,9 +27,9 @@ public class InputHandler {
         return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyDown(keycode) && !KeyState.isKeyboardKeyPress(keycode));
     }
 
-    private static boolean checkKeyState(InputKey inputKey, IKeyCheck failTest){
+    private static boolean checkKeyState(InputKey inputKey, Function<Integer, Boolean> failTest){
         for(int keycode : keyDictionary.get(inputKey)){
-            if(failTest.check(keycode)){
+            if(failTest.apply(keycode)){
                 return false;
             }
         }

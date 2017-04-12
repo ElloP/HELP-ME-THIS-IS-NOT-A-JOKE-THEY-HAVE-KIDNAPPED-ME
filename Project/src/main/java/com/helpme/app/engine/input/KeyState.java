@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 /**
- * Created by kopa on 2017-04-12.
+ * Created by Jacob on 2017-04-12.
  */
 public class KeyState {
     private static boolean entered = true;
