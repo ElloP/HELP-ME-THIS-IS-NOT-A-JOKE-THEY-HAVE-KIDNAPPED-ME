@@ -11,9 +11,7 @@ public class Transform {
     // ----------- Transform variables -----------
 
     private Vector3f position;
-
     private Vector3f rotation;
-
     private Vector3f scale;
 
     // ----------- Transform constructor -----------
@@ -48,6 +46,12 @@ public class Transform {
 
         return transformMatrix;
     }
+
+    public static Matrix4f getPerspectiveMatrix(float fov, float width, float height, float zNear, float zFar) {
+        return new Matrix4f().perspective(fov, width/height, zNear, zFar);
+    }
+
+    //TODO(Olle): if needed add function for orthogonal projection matrix (probably not needed though)
 
     public void setPosition(Vector3f xyz) {
         position = new Vector3f(xyz);

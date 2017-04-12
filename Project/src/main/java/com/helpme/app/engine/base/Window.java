@@ -17,6 +17,9 @@ public class Window {
 
     private static long window;
 
+    public static int width;
+    public static int height;
+
     public long getWindow() { return window; }
 
     public static boolean shouldClose() {
@@ -29,6 +32,9 @@ public class Window {
         if(!glfwInit()) {
             throw new IllegalStateException("GLFW failed to initialize!");
         }
+
+        Window.width = width;
+        Window.height = height;
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //NOTE(Olle): sets opengl version
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
