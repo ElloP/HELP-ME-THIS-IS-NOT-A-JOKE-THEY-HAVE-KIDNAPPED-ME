@@ -127,6 +127,23 @@ public class Monster implements IMonster {
         return "Hello!"; //TODO (klas) Temporary
     }
 
+    //TODO (Jesper): I know this is shitty
+    @Override
+    public Vector2f[] getPossibleMoves() {
+        Monster monsterUp = this.clone();
+        Monster monsterDown = this.clone();
+        Monster monsterLeft = this.clone();
+        Monster monsterRight = this.clone();
+
+        monsterUp.moveForward();
+        monsterDown.moveBackward();
+        monsterLeft.moveLeft();
+        monsterRight.moveRight();
+        Vector2f[] vector2fs = {monsterUp.getPosition(), monsterRight.getPosition(),
+                                monsterDown.getPosition(), monsterLeft.getPosition()};
+        return vector2fs;
+    }
+
     @Override
     public Vector2f getHitpoints(){
         return hitpoints.clone();

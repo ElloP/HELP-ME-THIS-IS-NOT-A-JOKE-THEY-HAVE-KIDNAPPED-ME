@@ -12,9 +12,25 @@ public class MonsterController implements IController {
     IMonster monster;
     IMonster player;
     ILevel level;
+    private boolean attackmode;
 
     @Override
     public void update() {
+        doThings();
+    }
+
+    private void doThings(){
+        attackmode = false;
+        checkPlayerPosition();
+        if (attackmode)
+            monster.attack(player);
+    }
+    private void checkPlayerPosition(){
+        Vector2f[] vector2fs = player.getPossibleMoves();
+        for (int i = 0; i < 3 ; i++){
+            if (vector2fs[i].equals(monster))
+                attackmode = true;
+        }
 
     }
 
