@@ -47,8 +47,9 @@ public class Game {
     public void update() {
         //TODO(Olle): update game
         test += Time.deltaTime;
-        t.rotate(0,0, 90*test);
-        t.scale(0.5f);
+        t.rotate(0,0, 90*(float) Math.cos(test));
+        t.setPosition((float) Math.sin(test), 0.0f, 0.0f);
+        t.scale((float) Math.sin(test));
         t.getTransformMatrix().logMatrix();
         shader.setUniform("test", (float) Math.abs(Math.sin(test)));
         shader.setUniform("transform", t.getTransformMatrix());
