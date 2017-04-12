@@ -100,8 +100,8 @@ public class Matrix4f {
         return this;
     }
 
-    public Matrix4f perspective(float fovy, float aspect, float zNear, float zFar) {
-        this.matrix.perspective(fovy, aspect, zNear, zFar);
+    public Matrix4f perspective(float fov, float aspect, float zNear, float zFar) {
+        this.matrix.perspective(fov, aspect, zNear, zFar);
         return this;
     }
 
@@ -119,6 +119,16 @@ public class Matrix4f {
         } else {
             this.matrix.rotate(angle, x, y, z);
         }
+        return this;
+    }
+
+    public Matrix4f rotateXYZ(Vector3f angles) {
+        this.matrix.rotateXYZ(angles.vector);
+        return this;
+    }
+
+    public Matrix4f rotateXYZ(float x, float y, float z) {
+        this.matrix.rotateXYZ(x, y, z);
         return this;
     }
 

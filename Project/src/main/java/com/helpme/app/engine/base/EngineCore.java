@@ -2,6 +2,7 @@ package com.helpme.app.engine.base;
 
 import com.helpme.app.engine.renderer.base.RenderCore;
 import com.helpme.app.utils.mathl.Matrix4f;
+import com.helpme.app.utils.mathl.Vector3f;
 
 /**
  * Authored by Olle on 2017-04-02.
@@ -57,8 +58,10 @@ public class EngineCore {
 
                 Time.deltaTime = Time.deltaTime / Time.SECOND; //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
 
-                //TODO(Olle): Update inputhandler
                 game.input();
+
+                InputHandler.update();
+
                 game.update();
 
                 if (frameCounter >= Time.SECOND) {

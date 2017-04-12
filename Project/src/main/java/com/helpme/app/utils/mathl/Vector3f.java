@@ -12,6 +12,15 @@ public class Vector3f {
     // ----------- Variables -----------
     protected org.joml.Vector3f vector;
 
+    // ----------- Standard vectors -----------
+
+    public static final Vector3f UP = new Vector3f(0.0f, 1.0f, 0.0f);
+    public static final Vector3f DOWN = new Vector3f(0.0f, -1.0f, 0.0f);
+    public static final Vector3f LEFT = new Vector3f(-1.0f, 0.0f, 0.0f);
+    public static final Vector3f RIGHT = new Vector3f(1.0f, 0.0f, 0.0f);
+    public static final Vector3f FORWARD = new Vector3f(0.0f, 0.0f, -1.0f); // z is negative due to the right handed coordinate system of OpenGL
+    public static final Vector3f BACK = new Vector3f(0.0f, 0.0f, 1.0f);
+
     // ----------- Constructors -----------
 
     public Vector3f() {
@@ -39,6 +48,13 @@ public class Vector3f {
     }
 
     // ----------- Getters/Setters -----------
+
+    public Vector3f toRadians() {
+        return new Vector3f((float) Math.toRadians(x()),
+                            (float) Math.toRadians(y()),
+                            (float) Math.toRadians(z())
+        );
+    }
 
     public float x() {
         return this.vector.x();
