@@ -2,6 +2,7 @@ package com.helpme.app.character;
 
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.IEdge;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 /**
@@ -28,6 +29,7 @@ public interface IMonster extends ITarget{
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
-    String getResponse();
+    Tuple2<String,String[]> getResponse(int i);
+    Tuple2<String,String[]> initiateDialogue();
 
 }

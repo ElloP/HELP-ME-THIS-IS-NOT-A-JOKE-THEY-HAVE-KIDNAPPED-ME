@@ -1,6 +1,7 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,15 +21,15 @@ public class DialogueTest {
     public void testTalkToMonster() {
         Vector2f tileStart = new Vector2f(2, 1);
         mockWorld.playerController.setPlayerPosition(tileStart);
-        String result =  mockWorld.playerController.usePlayerTalk();
-        assert (result.equals(mockWorld.level.getMonster(new Vector2f(2, 2)).getResponse()));
+        Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk();
+        assert (result.equals(mockWorld.level.getMonster(new Vector2f(2, 2)).initiateDialogue()));
     }
 
     @Test
     public void testTalkToNothing() {
         Vector2f tileStart = new Vector2f(0, 0);
         mockWorld.playerController.setPlayerPosition(tileStart);
-        String result =  mockWorld.playerController.usePlayerTalk();
+        Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk();
         assert (result == null);
     }
 }
