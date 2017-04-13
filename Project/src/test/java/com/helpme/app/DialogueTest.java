@@ -14,15 +14,30 @@ public class DialogueTest {
 
     @Before
     public void setUp() {
+
         mockWorld = new MockWorld();
+
     }
 
     @Test
     public void testTalkToMonster() {
-        Vector2f tileStart = new Vector2f(2, 1);
+        Vector2f tileStart = new Vector2f(8, 5);
         mockWorld.playerController.setPlayerPosition(tileStart);
+        mockWorld.playerController.rotatePlayerLeft();
         Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk();
-        assert (result.equals(mockWorld.level.getMonster(new Vector2f(2, 2)).initiateDialogue()));
+        Tuple2<String,String[]> monsterRespons = mockWorld.level.getMonster(new Vector2f(7, 5)).initiateDialogue();
+        assert (result.a.equals(monsterRespons.a));
+        for(int i = 0; i < result.b.length; i++){
+            //System.out.println(result.b[i]);
+            assert (result.b[i].equals(monsterRespons.b[i]));
+        }
+//        System.out.println("- " + result.b[1].substring(3));
+//        result = mockWorld.playerController.usePlayerTalk(1);
+//        System.out.println("- " + result.a);
+//        System.out.println("- " + result.b[4].substring(3));
+//        result = mockWorld.playerController.usePlayerTalk(4);
+//        System.out.println("- " + result.a);
+
     }
 
     @Test

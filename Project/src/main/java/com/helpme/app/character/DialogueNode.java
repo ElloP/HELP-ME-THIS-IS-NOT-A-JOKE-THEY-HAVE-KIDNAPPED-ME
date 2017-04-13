@@ -11,6 +11,7 @@ public class DialogueNode implements IDialogueNode {
 
     public DialogueNode(String response, Tuple2<String,String>[] nodes){
         this.response = response;
+        if(nodes == null) return;
         dialogueAlternatives = new Tuple2[nodes.length];
         for(int i = 0; i < dialogueAlternatives.length; i++){
             dialogueAlternatives[i] = new Tuple2<>(nodes[i].a,new DialogueNode(nodes[i].b,null));
@@ -32,6 +33,7 @@ public class DialogueNode implements IDialogueNode {
     }
 
     public String[] getAlternatives(){
+        if(dialogueAlternatives == null) return null;
         String[] result = new String[dialogueAlternatives.length];
         for(int i = 0; i < dialogueAlternatives.length; i++){
             result[i] = i + ". " + dialogueAlternatives[i].a;

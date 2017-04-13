@@ -31,8 +31,15 @@ public class Dialogue implements IDialogue{
             resetDialogue();
             return new Tuple2<>(continueFrase,current.getAlternatives());
         }
+        String[] alternatives = current.getAlternatives();
+        String response = current.getResponse();
+        if(alternatives == null){
+            resetDialogue();
+            response += "\n" + continueFrase;
+            alternatives = current.getAlternatives();
 
-        return new Tuple2<>(current.getResponse(),current.getAlternatives());
+        }
+        return new Tuple2<>(response,alternatives);
     }
 
     @Override

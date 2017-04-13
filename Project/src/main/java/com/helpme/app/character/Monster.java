@@ -22,6 +22,14 @@ public class Monster implements IMonster {
 
     private IDialogue dialogue;
 
+    //Right now just for testing
+    public Monster(Vector2f position, Vector2f direction, IDialogue dialogue){
+        this.dialogue = dialogue;
+        this.position = position;
+        this.direction = direction;
+
+    }
+
     public Monster(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
         this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
     }
