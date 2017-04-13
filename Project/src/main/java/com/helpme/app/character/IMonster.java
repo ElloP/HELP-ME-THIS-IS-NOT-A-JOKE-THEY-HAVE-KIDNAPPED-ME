@@ -29,7 +29,9 @@ public interface IMonster extends ITarget{
     void setItems(IItem[] items);
     Monster clone();
     String getResponse();
-    //TODO (Jesper):Improve this
-    Vector2f[] getPossibleMoves();
+    Vector2f cloneForward();
+    Vector2f cloneRight();
+    Vector2f cloneLeft();
+    Vector2f cloneBackward();
 
 }

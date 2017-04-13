@@ -12,7 +12,7 @@ public class MonsterController implements IController {
     IMonster monster;
     IMonster player;
     ILevel level;
-    private boolean attackmode;
+    private boolean attackMode;
 
     @Override
     public void update() {
@@ -20,17 +20,17 @@ public class MonsterController implements IController {
     }
 
     private void doThings(){
-        attackmode = false;
-        checkPlayerPosition();
-        if (attackmode)
+        attackMode = false;
+        decideToAttack();
+        if (attackMode)
             monster.attack(player);
     }
-    private void checkPlayerPosition(){
-        Vector2f[] vector2fs = player.getPossibleMoves();
-        for (int i = 0; i < 3 ; i++){
-            if (vector2fs[i].equals(monster))
-                attackmode = true;
-        }
+    private void decideToAttack(){
+        if (Vector2f.equals(player.cloneForward(), monster.getPosition()) ||
+                Vector2f.equals(player.cloneRight(), monster.getPosition()) ||
+                Vector2f.equals(player.cloneBackward(), monster.getPosition()) ||
+                Vector2f.equals(player.cloneLeft(), monster.getPosition()))
+            attackMode = true;
 
     }
 
