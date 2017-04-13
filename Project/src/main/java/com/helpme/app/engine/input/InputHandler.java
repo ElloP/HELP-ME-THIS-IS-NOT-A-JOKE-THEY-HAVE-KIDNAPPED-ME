@@ -6,7 +6,10 @@ package com.helpme.app.engine.input;
 
 import com.helpme.app.utils.functions.Function;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class InputHandler {
 
@@ -15,8 +18,12 @@ public class InputHandler {
 
     private static Map<InputKey, Integer[]> keyDictionary;
 
-    public static void Initialize(Map<InputKey, Integer[]> keys){
+    public static void initialize(Map<InputKey, Integer[]> keys) {
         keyDictionary = keys;
+    }
+
+    public static void setKey(InputKey input, Integer[] keycodes) {
+        keyDictionary.put(input, keycodes);
     }
 
     public static boolean isKeyboardKeyUp(InputKey inputKey) {
@@ -27,9 +34,9 @@ public class InputHandler {
         return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyDown(keycode) && !KeyState.isKeyboardKeyPress(keycode));
     }
 
-    private static boolean checkKeyState(InputKey inputKey, Function<Integer, Boolean> failTest){
-        for(int keycode : keyDictionary.get(inputKey)){
-            if(failTest.apply(keycode)){
+    private static boolean checkKeyState(InputKey inputKey, Function<Integer, Boolean> failTest) {
+        for (int keycode : keyDictionary.get(inputKey)) {
+            if (failTest.apply(keycode)) {
                 return false;
             }
         }
@@ -58,5 +65,20 @@ public class InputHandler {
 
     public static boolean isMouseButtonRelease(int mousecode) {
         return KeyState.isMouseButtonRelease(mousecode);
+    }
+
+    public static Map<InputKey, Integer[]> getDefaultKeys() {
+        Map<InputKey, Integer[]> defaultKeys = new HashMap<>();
+        defaultKeys.put(InputKey.MoveForward, new Integer[]{GLFW_KEY_W});
+        defaultKeys.put(InputKey.MoveBackward, new Integer[]{GLFW_KEY_W});
+        defaultKeys.put(InputKey.MoveLeft, new Integer[]{GLFW_KEY_W});
+        defaultKeys.put(InputKey.MoveRight, new Integer[]{GLFW_KEY_W});
+        defaultKeys.put(InputKey.RotateLeft, new Integer[]{GLFW_KEY_Q});
+        defaultKeys.put(InputKey.RotateRight, new Integer[]{GLFW_KEY_E});
+        defaultKeys.put(InputKey.Attack, new Integer[]{GLFW_KEY_LEFT_ALT});
+        defaultKeys.put(InputKey.Selfie, new Integer[]{GLFW_KEY_LEFT_CONTROL});
+        defaultKeys.put(InputKey.Talk, new Integer[]{GLFW_KEY_LEFT_SHIFT});
+
+        return defaultKeys;
     }
 }

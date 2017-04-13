@@ -4,7 +4,7 @@ import com.helpme.app.utils.Vector2f;
 
 import java.util.Arrays;
 
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Created by Jacob on 2017-04-12.
@@ -20,20 +20,25 @@ public class KeyState {
     private static InputState[] mouseButtons = new InputState[8];
     private static Vector2f mousePosition = new Vector2f(0, 0);
 
-    static void Init() {
+    public static void initialize(long window) {
         Arrays.fill(keyboardKeys, InputState.UP);
         Arrays.fill(mouseButtons, InputState.UP);
+
+        glfwSetKeyCallback(window, (w, k, s, a, m) -> setKeyboardKey(w, k, s, a, m));
+        glfwSetMouseButtonCallback(window, (w, b, a, m) -> setMouseButton(w, b, a, m));
+        glfwSetCursorPosCallback(window, (w, x, y) -> setCursorPosition(w, x, y));
+        glfwSetCursorEnterCallback(window, (w, e) -> setCursorEntered(w, e));
     }
 
-    static void setKeyboardKey(long window, int key, int scancode, int action, int mods) {
+    public static void setKeyboardKey(long window, int key, int scancode, int action, int mods) {
         setState(keyboardKeys, key, action);
     }
 
-    static void setMouseButton(long window, int button, int action, int mods) {
+    public static void setMouseButton(long window, int button, int action, int mods) {
         setState(mouseButtons, button, action);
     }
 
-    static void updateAllStates() {
+    public static void updateStates() {
         updateState(mouseButtons);
         updateState(keyboardKeys);
     }
@@ -66,11 +71,11 @@ public class KeyState {
         }
     }
 
-    static void setCursorEntered(long window, boolean enteredState) {
+    public static void setCursorEntered(long window, boolean enteredState) {
         entered = enteredState;
     }
 
-    static void setCursorPosition(long window, double xPos, double yPos) {
+    public static void setCursorPosition(long window, double xPos, double yPos) {
         mousePosition.x = (int) Math.round(xPos);
         mousePosition.y = (int) Math.round(yPos);
     }
