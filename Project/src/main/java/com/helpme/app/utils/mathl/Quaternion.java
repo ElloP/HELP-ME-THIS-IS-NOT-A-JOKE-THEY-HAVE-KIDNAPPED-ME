@@ -38,4 +38,33 @@ public class Quaternion {
     }
 
     //REST
+
+    public float length() {
+        return (float) Math.sqrt(quaternion.lengthSquared());
+    }
+
+    public Quaternion normalize() {
+        this.quaternion.normalize();
+        return this;
+    }
+
+    public Quaternion conjugate() {
+        this.quaternion.conjugate();
+        return this;
+    }
+
+    public Quaternion multiply(Quaternion q) {
+        this.quaternion.mul(q.quaternion);
+        return this;
+    }
+
+    public Quaternion multiply(Quaternion q, Quaternion dest) {
+        this.quaternion.mul(q.quaternion, dest.quaternion);
+        return dest;
+    }
+
+    public Vector3f transform(Vector3f v) {
+        this.quaternion.transform(v.vector);
+        return v;
+    }
 }
