@@ -12,7 +12,8 @@ import com.helpme.app.utils.Tuple.Tuple2;
 public class MockDialogue {
 
     private IDialogueNode[] mockDialogue;
-    public IDialogue dialogue;
+    public IDialogue dialogue0;
+    public IDialogue dialogue1;
 
     public MockDialogue(){
         mockDialogue = new IDialogueNode[5];
@@ -21,6 +22,7 @@ public class MockDialogue {
         mockDialogue[2] = new DialogueNode("What can you tell me about this place?", "Nothing", null);
         mockDialogue[3] = new DialogueNode("What is 5 times 5", "at least 10", null);
         mockDialogue[4] = new DialogueNode("Who is Olle?", "A jolly good fellow", null);
-        dialogue = new Dialogue("Hello!",mockDialogue);
+        dialogue0 = new Dialogue("Hello!",mockDialogue.clone());
+
     }
 }

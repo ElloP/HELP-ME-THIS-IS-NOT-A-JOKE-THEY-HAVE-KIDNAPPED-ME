@@ -32,7 +32,7 @@ public class MockWorld {
         IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up, 100);
         IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 100);
         IMonster enemy1 = new Monster(null, new Vector2f(9, 0), Vector2f.down, 100);
-        IMonster enemy2 = new Monster(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue);
+        IMonster enemy2 = new Monster(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
 
         monsters.add(enemy0);
         monsters.add(enemy1);
