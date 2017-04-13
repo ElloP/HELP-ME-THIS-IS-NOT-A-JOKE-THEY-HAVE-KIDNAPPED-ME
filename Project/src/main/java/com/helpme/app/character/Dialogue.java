@@ -2,6 +2,9 @@ package com.helpme.app.character;
 
 import com.helpme.app.utils.Tuple.Tuple2;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Created by Klas on 2017-04-12.
  */
@@ -10,10 +13,10 @@ public class Dialogue implements IDialogue{
     private final String continueFrase;
     private IDialogueNode current;
 
-    public Dialogue(String greeting, Tuple2<String,String>[] nodes) {
-        this.greeting = new DialogueNode(greeting,nodes);
-        this.current = this.greeting;
+    public Dialogue(String greeting, IDialogueNode[] nodes) {
         this.continueFrase = "Anything else?";
+        this.greeting = new DialogueNode(continueFrase,greeting,nodes);
+        this.current = this.greeting;
     }
 
     @Override

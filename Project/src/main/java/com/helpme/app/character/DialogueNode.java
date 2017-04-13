@@ -6,22 +6,33 @@ import com.helpme.app.utils.Tuple.Tuple2;
  * Created by Klas on 2017-04-12.
  */
 public class DialogueNode implements IDialogueNode {
-    private String response;
-    private Tuple2<String,IDialogueNode>[] dialogueAlternatives;
+    private Tuple2<String,String> dialogue;
+    private IDialogueNode[] dialogueAlternatives;
 
-    public DialogueNode(String response, Tuple2<String,String>[] nodes){
-        this.response = response;
+    public DialogueNode(String initialFrase, String response, IDialogueNode[] nodes){
+        this.dialogue = new Tuple2<>(initialFrase,response);
         if(nodes == null) return;
-        dialogueAlternatives = new Tuple2[nodes.length];
-        for(int i = 0; i < dialogueAlternatives.length; i++){
-            dialogueAlternatives[i] = new Tuple2<>(nodes[i].a,new DialogueNode(nodes[i].b,null));
-        }
+        dialogueAlternatives = new DialogueNode[nodes.length];
+        this.dialogueAlternatives = nodes;
 
     }
     @Override
     public int getLength(){
         return dialogueAlternatives.length;
     }
+
+    @Override
+    public String getInitialFrase() {
+        if(dialogue == null) return null;
+        return dialogue.a;
+    }
+
+    @Override
+    public String getResponse() {
+        if(dialogue == null) return null;
+        return dialogue.b;
+    }
+
     @Override
     public IDialogueNode chooseDialogueOption(int nr) {
         if(nr >= dialogueAlternatives.length){
@@ -32,21 +43,18 @@ public class DialogueNode implements IDialogueNode {
             System.out.println("Negative integer in DialogueNode.chooseDialogOption()");
             return null;
         }
-        return dialogueAlternatives[nr].b;
+        return dialogueAlternatives[nr];
     }
 
     public String[] getAlternatives(){
         if(dialogueAlternatives == null) return null;
         String[] result = new String[dialogueAlternatives.length];
         for(int i = 0; i < dialogueAlternatives.length; i++){
-            result[i] = i + ". " + dialogueAlternatives[i].a;
+            result[i] = i + ". " + dialogueAlternatives[i].getInitialFrase();
         }
         return result;
     }
 
-    @Override
-    public String getResponse() {
-        return response;
-    }
+
 
 }

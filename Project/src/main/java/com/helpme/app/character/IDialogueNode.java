@@ -10,4 +10,5 @@ public interface IDialogueNode {
     String[] getAlternatives();
     String getResponse();
     int getLength();
+    String getInitialFrase();
 }
