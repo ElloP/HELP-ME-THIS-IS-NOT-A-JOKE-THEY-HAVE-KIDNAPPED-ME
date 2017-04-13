@@ -1,6 +1,7 @@
 package com.helpme.app.engine.base;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input;
+import com.helpme.app.engine.input.InputHandler;
+import com.helpme.app.engine.input.KeyState;
 import org.lwjgl.opengl.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -47,7 +48,8 @@ public class Window {
             throw new RuntimeException("GLFW failed to create window");
         }
 
-        InputHandler.init(window);
+        KeyState.initialize(window);
+        InputHandler.initialize(InputHandler.getDefaultKeys());
 
         glfwMakeContextCurrent(window);
 

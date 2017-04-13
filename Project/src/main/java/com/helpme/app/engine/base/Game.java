@@ -1,12 +1,12 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.input.InputHandler;
+import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.engine.renderer.base.Cube;
 import com.helpme.app.engine.renderer.base.Mesh;
 import com.helpme.app.engine.renderer.base.Shader;
 import com.helpme.app.utils.mathl.Matrix4f;
-import com.helpme.app.utils.mathl.Vector3f;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
 
 /**
  * Authored by Olle on 2017-04-05.
@@ -25,10 +25,11 @@ public class Game {
     }
 
     public void input() {
-        if(InputHandler.isKeyboardKeyPress(GLFW_KEY_A))
-            System.out.println("A PRESSED!");
-        if(InputHandler.isKeyboardKeyRelease(GLFW_KEY_A))
-            System.out.println("A Release!");
+
+        if(InputHandler.isKeyboardKeyPress(InputKey.MoveForward))
+            System.out.println("MOVEFORWARD PRESSED!");
+        if(InputHandler.isKeyboardKeyRelease(InputKey.MoveForward))
+            System.out.println("MOVEFORWARD Release!");
     }
 
     float test = 0.0f;

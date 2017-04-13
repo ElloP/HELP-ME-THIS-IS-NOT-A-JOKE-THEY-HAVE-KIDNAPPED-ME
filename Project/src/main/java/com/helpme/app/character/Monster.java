@@ -128,6 +128,35 @@ public class Monster implements IMonster {
     }
 
     @Override
+    public Vector2f cloneForward() {
+        Monster monster = this.clone();
+        monster.moveForward();
+        return monster.getPosition();
+    }
+
+    @Override
+    public Vector2f cloneRight() {
+        Monster monster = this.clone();
+        monster.moveRight();
+        return monster.getPosition();
+    }
+
+    @Override
+    public Vector2f cloneLeft() {
+        Monster monster = this.clone();
+        monster.moveLeft();
+        return monster.getPosition();
+    }
+
+    @Override
+    public Vector2f cloneBackward() {
+        Monster monster = this.clone();
+        monster.moveBackward();
+        return monster.getPosition();
+    }
+
+
+    @Override
     public Vector2f getHitpoints(){
         return hitpoints.clone();
     }
