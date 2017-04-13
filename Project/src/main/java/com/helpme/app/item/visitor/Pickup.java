@@ -1,6 +1,6 @@
 package com.helpme.app.item.visitor;
 
-import com.helpme.app.character.IInventory;
+import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.item.Consumable;
 import com.helpme.app.item.Item;
 import com.helpme.app.item.Key;

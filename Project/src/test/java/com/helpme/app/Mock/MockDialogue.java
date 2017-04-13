@@ -1,10 +1,9 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.character.Dialogue;
-import com.helpme.app.character.DialogueNode;
-import com.helpme.app.character.IDialogue;
-import com.helpme.app.character.IDialogueNode;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.character.dialogue.Dialogue;
+import com.helpme.app.character.dialogue.DialogueNode;
+import com.helpme.app.character.dialogue.IDialogue;
+import com.helpme.app.character.dialogue.IDialogueNode;
 
 /**
  * Created by Klas on 2017-04-13.

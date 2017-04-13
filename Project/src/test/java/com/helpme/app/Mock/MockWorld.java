@@ -1,6 +1,8 @@
 package com.helpme.app.Mock;
 
 import com.helpme.app.character.*;
+import com.helpme.app.character.inventory.IInventory;
+import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;

@@ -1,10 +1,9 @@
-package com.helpme.app.character;
+package com.helpme.app.character.inventory;
 
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.IItemFactory;
 import com.helpme.app.item.visitor.Stack;
 import com.helpme.app.utils.Clone;
-import com.helpme.app.utils.interfaces.ICloneable;
 
 import java.util.ArrayList;
 import java.util.List;

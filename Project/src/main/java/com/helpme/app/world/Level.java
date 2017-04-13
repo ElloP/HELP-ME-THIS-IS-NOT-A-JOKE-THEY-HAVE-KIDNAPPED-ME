@@ -137,5 +137,10 @@ public class Level implements ILevel{
         return null;
     }
 
+    @Override
+    public IMonster getPlayer() {
+        return null;
+    }
+
 
 }

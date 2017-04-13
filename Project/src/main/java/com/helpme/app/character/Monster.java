@@ -1,5 +1,7 @@
 package com.helpme.app.character;
 
+import com.helpme.app.character.dialogue.IDialogue;
+import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.visitor.Attack;
 import com.helpme.app.item.visitor.Pickup;

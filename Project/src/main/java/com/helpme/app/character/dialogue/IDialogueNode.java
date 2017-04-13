@@ -1,6 +1,4 @@
-package com.helpme.app.character;
-
-import com.helpme.app.utils.Tuple.Tuple2;
+package com.helpme.app.character.dialogue;
 
 /**
  * Created by Klas on 2017-04-12.

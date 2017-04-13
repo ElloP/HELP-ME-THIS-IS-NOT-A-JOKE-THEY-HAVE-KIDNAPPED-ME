@@ -1,4 +1,4 @@
-package com.helpme.app.character;
+package com.helpme.app.character.dialogue;
 
 import com.helpme.app.utils.Tuple.Tuple2;
 

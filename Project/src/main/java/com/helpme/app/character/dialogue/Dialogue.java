@@ -1,9 +1,6 @@
-package com.helpme.app.character;
+package com.helpme.app.character.dialogue;
 
 import com.helpme.app.utils.Tuple.Tuple2;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Klas on 2017-04-12.

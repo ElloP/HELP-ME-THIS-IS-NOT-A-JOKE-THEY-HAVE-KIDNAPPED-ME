@@ -1,4 +1,4 @@
-package com.helpme.app.character;
+package com.helpme.app.character.inventory;
 
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.interfaces.ICloneable;

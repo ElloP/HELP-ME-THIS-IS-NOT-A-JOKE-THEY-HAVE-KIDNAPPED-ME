@@ -20,5 +20,6 @@ public interface ILevel {
     void addTileItem(Vector2f position, IItem item);
     void addTileItems(Vector2f position, IItem[] items);
     IMonster getMonster(Vector2f position);
+    IMonster getPlayer();
     ITarget getTarget(Vector2f position, Vector2f direction);
 }
