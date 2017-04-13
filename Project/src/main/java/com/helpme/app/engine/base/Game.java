@@ -6,6 +6,7 @@ import com.helpme.app.engine.renderer.base.Cube;
 import com.helpme.app.engine.renderer.base.Mesh;
 import com.helpme.app.engine.renderer.base.Shader;
 import com.helpme.app.utils.mathl.Matrix4f;
+import com.helpme.app.utils.mathl.Quaternion;
 import com.helpme.app.utils.mathl.Vector3f;
 
 /**
@@ -38,13 +39,17 @@ public class Game {
     float test = 0.0f;
     Transform t = new Transform();
     Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
-    int i = 0;
     Camera c = new Camera();
+    Quaternion q;
+
 
     public void update() {
         //TODO(Olle): update game
         test += Time.deltaTime;
-        t.rotate(0,test * 50, test * 50);
+
+        q = new Quaternion(1.0f,0.0f ,0.0f , (float) Math.cos(test * 3)).multiply(new Quaternion(0.0f,1.0f ,0.0f , (float) Math.cos(test * 3))).normalize();
+
+        t.rotate(q);
         t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
         //t.scale((float) Math.sin(test));
         //t.getTransformMatrix().logMatrix();

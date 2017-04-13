@@ -6,7 +6,7 @@ import org.joml.Quaternionf;
  * Authored by Olle on 2017-04-13.
  */
 public class Quaternion {
-    private Quaternionf quaternion;
+    protected Quaternionf quaternion;
 
     public Quaternion() {
         quaternion = new Quaternionf();
@@ -39,17 +39,27 @@ public class Quaternion {
 
     //REST
 
+    public Quaternion conjugate() {
+        this.quaternion.conjugate();
+        return this;
+    }
+
+    public Vector3f toEulerAngles(Vector3f dest) {
+        this.quaternion.getEulerAnglesXYZ(dest.vector);
+        return dest.toDegrees();
+    }
+
     public float length() {
         return (float) Math.sqrt(quaternion.lengthSquared());
     }
 
-    public Quaternion normalize() {
-        this.quaternion.normalize();
+    public Quaternion logQuaternion() {
+        System.out.println(quaternion);
         return this;
     }
 
-    public Quaternion conjugate() {
-        this.quaternion.conjugate();
+    public Quaternion normalize() {
+        this.quaternion.normalize();
         return this;
     }
 
@@ -63,8 +73,13 @@ public class Quaternion {
         return dest;
     }
 
-    public Vector3f transform(Vector3f v) {
-        this.quaternion.transform(v.vector);
-        return v;
+    public Quaternion rotate(Vector3f eulerAngles) {
+        this.quaternion.rotationZYX(eulerAngles.z(), eulerAngles.y(), eulerAngles.x());
+        return this;
+    }
+
+    public Quaternion rotate(float x, float y, float z) {
+        this.quaternion.rotationZYX(z, y, x);
+        return this;
     }
 }

@@ -56,6 +56,13 @@ public class Vector3f {
         );
     }
 
+    public Vector3f toDegrees() {
+        return new Vector3f((float) Math.toDegrees(x()),
+                            (float) Math.toDegrees(y()),
+                            (float) Math.toDegrees(z())
+        );
+    }
+
     public float x() {
         return this.vector.x();
     }
@@ -190,6 +197,17 @@ public class Vector3f {
 
     public Vector3f normalize() {
         this.vector.normalize();
+        return this;
+    }
+
+    public Quaternion toQuaternion() {
+        Quaternion q = new Quaternion();
+        q.quaternion.rotationZYX(z(), y(), x());
+        return q;
+    }
+
+    public Vector3f rotate(Quaternion rotation) {
+        this.vector.rotate(rotation.quaternion);
         return this;
     }
 

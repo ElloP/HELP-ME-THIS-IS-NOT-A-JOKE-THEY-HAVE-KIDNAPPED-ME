@@ -106,7 +106,7 @@ public class Matrix4f {
     }
 
     public Matrix4f perspective(float fov, float aspect, float zNear, float zFar) {
-        this.matrix.perspective(fov, aspect, zNear, zFar);
+        this.matrix.setPerspective(fov, aspect, zNear, zFar);
         return this;
     }
 
@@ -123,6 +123,15 @@ public class Matrix4f {
             this.matrix.rotateAffine(angle, x, y, z);
         } else {
             this.matrix.rotate(angle, x, y, z);
+        }
+        return this;
+    }
+
+    public Matrix4f rotate(Quaternion q) {
+        if(this.matrix.isAffine()) {
+            this.matrix.rotateAffine(q.quaternion);
+        } else {
+            this.matrix.rotate(q.quaternion);
         }
         return this;
     }
