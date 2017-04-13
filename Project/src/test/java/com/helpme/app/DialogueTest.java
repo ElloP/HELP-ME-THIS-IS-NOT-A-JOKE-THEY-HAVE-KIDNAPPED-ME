@@ -25,11 +25,11 @@ public class DialogueTest {
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.rotatePlayerLeft();
         Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk();
-        Tuple2<String,String[]> monsterRespons = mockWorld.level.getMonster(new Vector2f(7, 5)).initiateDialogue();
-        assert (result.a.equals(monsterRespons.a));
+        Tuple2<String,String[]> monsterResponse = mockWorld.level.getMonster(new Vector2f(7, 5)).initiateDialogue();
+        assert (result.a.equals(monsterResponse.a));
         for(int i = 0; i < result.b.length; i++){
             //System.out.println(result.b[i]);
-            assert (result.b[i].equals(monsterRespons.b[i]));
+            assert (result.b[i].equals(monsterResponse.b[i]));
         }
 
         //Go through all responses
