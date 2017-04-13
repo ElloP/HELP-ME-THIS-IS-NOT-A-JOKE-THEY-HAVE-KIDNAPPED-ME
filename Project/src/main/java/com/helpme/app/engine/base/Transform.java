@@ -10,7 +10,7 @@ import com.helpme.app.utils.mathl.Vector3f;
 public class Transform {
     // ----------- Transform variables -----------
 
-    private Vector3f position;
+    public Vector3f position;
     private Vector3f rotation;
     private Vector3f scale;
 

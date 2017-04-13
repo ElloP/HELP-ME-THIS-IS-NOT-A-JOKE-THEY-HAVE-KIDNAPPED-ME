@@ -185,14 +185,24 @@ public class Vector3f {
         return this.vector.toString();
     }
 
+    public Vector3f subtract(Vector3f vec) {
+        this.vector.sub(vec.vector);
+        return this;
+    }
+
     public Vector3f subtract(float x, float y, float z) {
         this.vector.sub(x, y, z);
         return this;
     }
 
-    public Vector3f subtract(Vector3f vec) {
-        this.vector.sub(vec.vector);
-        return this;
+    public Vector3f subtract(Vector3f v, Vector3f dest) {
+        this.vector.sub(v.vector, dest.vector);
+        return dest;
+    }
+
+    public Vector3f subtract(float x, float y, float z, Vector3f dest) {
+        this.vector.sub(x, y, z, dest.vector);
+        return dest;
     }
 
     public Vector3f zero() {
