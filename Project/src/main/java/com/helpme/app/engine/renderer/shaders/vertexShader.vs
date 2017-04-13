@@ -4,6 +4,7 @@ layout (location = 0) in vec3 position;
 
 uniform mat4 transform;
 uniform mat4 projection;
+//uniform mat4 view;
 uniform float test;
 
 out vec4 myColor;

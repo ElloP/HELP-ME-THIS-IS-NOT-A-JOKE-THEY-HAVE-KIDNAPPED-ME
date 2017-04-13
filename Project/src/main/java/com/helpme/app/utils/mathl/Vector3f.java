@@ -68,12 +68,14 @@ public class Vector3f {
         return this.vector.z();
     }
 
-    public void set(float x) {
+    public Vector3f set(float x) {
         this.vector.set(x);
+        return this;
     }
 
-    public void set(float x, float y, float z) {
+    public Vector3f set(float x, float y, float z) {
         this.vector.set(x, y, z);
+        return this;
     }
 
     // ----------- Operations/functions -----------
@@ -85,6 +87,11 @@ public class Vector3f {
 
     public Vector3f add(Vector3f vec) {
         this.vector.add(vec.vector);
+        return this;
+    }
+
+    public Vector3f add(Vector3f vec, Vector3f dest) {
+        this.vector.add(vec.vector, dest.vector);
         return this;
     }
 
@@ -159,6 +166,11 @@ public class Vector3f {
     public Vector3f multiply(float scalar) {
         this.vector.mul(scalar);
         return this;
+    }
+
+    public Vector3f multiply(float scalar, Vector3f dest) {
+        this.vector.mul(scalar, dest.vector);
+        return dest;
     }
 
     public Vector3f multiply(float x, float y, float z) {

@@ -10,11 +10,11 @@ import com.helpme.app.utils.mathl.Vector3f;
 public class Transform {
     // ----------- Transform variables -----------
 
-    public Vector3f position;
+    private Vector3f position;
     private Vector3f rotation;
     private Vector3f scale;
 
-    // ----------- Transform constructor -----------
+    // ----------- Transform constructors -----------
 
     public Transform() {
         position = new Vector3f();
@@ -22,7 +22,25 @@ public class Transform {
         scale = new Vector3f(1,1,1);
     }
 
+    public Transform(Vector3f position, Vector3f rotation, Vector3f scale) {
+        this.position = new Vector3f(position);
+        this.rotation = new Vector3f(rotation);
+        this.scale = new Vector3f(scale);
+    }
+
+    public Transform(Vector3f position, Vector3f rotation) {
+        this.position = new Vector3f(position);
+        this.rotation = new Vector3f(rotation);
+        this.scale = new Vector3f(1,1,1);
+    }
+
     // ----------- Transform getters -----------
+
+    public Vector3f getPosition() { return position; }
+
+    public Vector3f getRotation() {
+        return new Vector3f(rotation);
+    }
 
     public float getEulerAnglesX() {
         return rotation.x();

@@ -39,18 +39,18 @@ public class Game {
     Transform t = new Transform();
     Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
     int i = 0;
+    Camera c = new Camera();
 
     public void update() {
         //TODO(Olle): update game
-        /*test += Time.deltaTime;
+        test += Time.deltaTime;
         t.rotate(0,test * 50, test * 50);
-        t.setPosition(t.position.x(), t.position.y(), -5.0f);
+        t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
         //t.scale((float) Math.sin(test));
         //t.getTransformMatrix().logMatrix();
         shader.setUniform("test", test);
         shader.setUniform("projection", perspective);
-        shader.setUniform("transform", t.getTransformMatrix());*/
-
+        shader.setUniform("transform", t.getTransformMatrix());
     }
 
     public void draw() {

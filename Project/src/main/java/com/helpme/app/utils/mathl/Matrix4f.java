@@ -86,6 +86,11 @@ public class Matrix4f {
         return this;
     }
 
+    public Matrix4f lookAt(Vector3f position, Vector3f target, Vector3f up) {
+        this.matrix.setLookAt(position.vector, target.vector, up.vector);
+        return this;
+    }
+
     public Matrix4f multiply(Matrix4f other) {
         if(this.matrix.isAffine()) {
             this.matrix.mulAffine(other.matrix);
