@@ -23,8 +23,10 @@ public class Dialogue implements IDialogue{
     }
 
     @Override
-    public Tuple2<String, String[]> chooseDialogue(int i) {
+    public Tuple2<String, String[]> chooseDialogue(int i) throws IllegalArgumentException {
         if(i == -1) return null;
+        if(i < -1) throw new IllegalArgumentException("Index smaller than -1");
+        if(i >= current.getLength()) throw new IllegalArgumentException("Index larger than length");
         current = current.chooseDialogueOption(i);
 
         if(current.getResponse() == null) {

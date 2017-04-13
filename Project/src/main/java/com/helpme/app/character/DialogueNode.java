@@ -18,7 +18,10 @@ public class DialogueNode implements IDialogueNode {
         }
 
     }
-
+    @Override
+    public int getLength(){
+        return dialogueAlternatives.length;
+    }
     @Override
     public IDialogueNode chooseDialogueOption(int nr) {
         if(nr >= dialogueAlternatives.length){

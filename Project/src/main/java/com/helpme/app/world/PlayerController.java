@@ -155,18 +155,20 @@ public class PlayerController implements IController {
 
         Tuple2<String,String[]> response = monster.initiateDialogue();
 
-        if(response == null) System.out.println("response == null in usePlayerTalk(i)");
+        //if(response == null) System.out.println("response == null in usePlayerTalk(i)");
 
         return response;
     }
-    public Tuple2<String,String[]> usePlayerTalk(int dialogueSelect){
+    public Tuple2<String,String[]> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException{
         IMonster monster = getFacingNPC();
 
         if(monster == null) return null;
 
-        Tuple2<String,String[]> response = monster.getResponse(dialogueSelect);
+        Tuple2<String,String[]> response = null;
 
-        if(response == null) System.out.println("response == null in usePlayerTalk(int)");
+
+        response = monster.getResponse(dialogueSelect);
+
 
         return response;
     }

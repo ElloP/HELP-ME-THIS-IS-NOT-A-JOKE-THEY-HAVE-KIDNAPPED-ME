@@ -31,13 +31,41 @@ public class DialogueTest {
             //System.out.println(result.b[i]);
             assert (result.b[i].equals(monsterRespons.b[i]));
         }
-//        System.out.println("- " + result.b[1].substring(3));
-//        result = mockWorld.playerController.usePlayerTalk(1);
-//        System.out.println("- " + result.a);
-//        System.out.println("- " + result.b[4].substring(3));
-//        result = mockWorld.playerController.usePlayerTalk(4);
-//        System.out.println("- " + result.a);
 
+        //Go through all responses
+        for (int i = result.b.length-1; i >= -1; i--){
+            if(i == -1) break;
+            System.out.println(result.b[i]);
+            result = mockWorld.playerController.usePlayerTalk(i);
+            if(result == null) break;
+            System.out.println(result.a);
+            for (String str : result.b) {
+                System.out.println("- " + str);
+            }
+        }
+    }
+
+    @Test
+    public void badArgumentInTalk(){
+        Vector2f tileStart = new Vector2f(8, 5);
+        mockWorld.playerController.setPlayerPosition(tileStart);
+        mockWorld.playerController.rotatePlayerLeft();
+        try {
+            Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk(5);
+        } catch (IllegalArgumentException e){
+            assert(e.toString().equals("java.lang.IllegalArgumentException: Index larger than length"));
+        }
+    }
+    @Test
+    public void badArgumentInTalk2(){
+        Vector2f tileStart = new Vector2f(8, 5);
+        mockWorld.playerController.setPlayerPosition(tileStart);
+        mockWorld.playerController.rotatePlayerLeft();
+        try {
+            Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk(-2);
+        } catch (IllegalArgumentException e){
+            assert(e.toString().equals("java.lang.IllegalArgumentException: Index smaller than -1"));
+        }
     }
 
     @Test

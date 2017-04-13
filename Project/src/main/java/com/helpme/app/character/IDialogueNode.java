@@ -9,4 +9,5 @@ public interface IDialogueNode {
     IDialogueNode chooseDialogueOption(int nr);
     String[] getAlternatives();
     String getResponse();
+    int getLength();
 }
