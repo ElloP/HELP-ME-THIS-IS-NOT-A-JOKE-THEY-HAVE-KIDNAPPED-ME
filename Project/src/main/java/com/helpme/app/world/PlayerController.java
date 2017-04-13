@@ -3,6 +3,7 @@ package com.helpme.app.world;
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 /**
@@ -147,7 +148,31 @@ public class PlayerController implements IController {
         player.changeActiveItem(index);
     }
 
-    public String usePlayerTalk() { //TODO (jacob) change name to something better
+    public Tuple2<String,String[]> usePlayerTalk() { //TODO (jacob) change name to something better
+        IMonster monster = getFacingNPC();
+
+        if(monster == null) return null;
+
+        Tuple2<String,String[]> response = monster.initiateDialogue();
+
+        //if(response == null) System.out.println("response == null in usePlayerTalk(i)");
+
+        return response;
+    }
+    public Tuple2<String,String[]> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException{
+        IMonster monster = getFacingNPC();
+
+        if(monster == null) return null;
+
+        Tuple2<String,String[]> response = null;
+
+
+        response = monster.getResponse(dialogueSelect);
+
+
+        return response;
+    }
+    private IMonster getFacingNPC(){
         Vector2f position = player.getPosition();
         Vector2f direction = player.getDirection();
         Vector2f destination = Vector2f.add(position, direction);
@@ -156,11 +181,6 @@ public class PlayerController implements IController {
             return null;
         }
 
-        IMonster monster = level.getMonster(destination);
-        if (monster != null) {
-            //TODO (klas) output
-            return monster.getResponse();
-        }
-        return null;
+        return level.getMonster(destination);
     }
 }

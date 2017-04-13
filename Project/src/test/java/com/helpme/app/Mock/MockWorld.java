@@ -1,9 +1,6 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.character.IInventory;
-import com.helpme.app.character.IMonster;
-import com.helpme.app.character.Inventory;
-import com.helpme.app.character.Monster;
+import com.helpme.app.character.*;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
@@ -30,12 +27,16 @@ public class MockWorld {
 
         IInventory inventory = new Inventory(new IItem[]{MockItem.weapon, MockItem.potion, null, null}, MockItem.defaultWeapon, new IItem[]{MockItem.key});
 
+        MockDialogue dialogue = new MockDialogue();
+
         IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up, 100);
         IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 100);
         IMonster enemy1 = new Monster(null, new Vector2f(9, 0), Vector2f.down, 100);
+        IMonster enemy2 = new Monster(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
 
         monsters.add(enemy0);
         monsters.add(enemy1);
+        monsters.add(enemy2);
 
         tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
         tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
@@ -65,6 +66,10 @@ public class MockWorld {
 
         tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
 
+
+        tiles.add(new Tuple2<>(new Vector2f(7,5),null));
+        tiles.add(new Tuple2<>(new Vector2f(8,5),null));
+
         tiles.add(new Tuple2<>(new Vector2f(1, 5), new IItem[]{MockItem.excessiveItem, MockItem.excessiveItem, MockItem.excessiveItem}));
         tiles.add(new Tuple2<>(new Vector2f(2, 5), new IItem[]{MockItem.stackingConsumables, MockItem.stackingConsumables, MockItem.stackingConsumables}));
         tiles.add(new Tuple2<>(new Vector2f(3, 5), new IItem[]{MockItem.stackingConsumables, MockItem.excessiveItem, MockItem.pickupWeapon}));
@@ -76,7 +81,7 @@ public class MockWorld {
         doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, MockItem.pickupKey)));
 
         /**
-         *    [x][x][x]   [ ]
+         *    [x][x][x]   [ ]   [e][ ]
          *
          *    [ ][ ][ ]
          *    [ ][e][ ]      [ |[ ]/ ]| ][ ]

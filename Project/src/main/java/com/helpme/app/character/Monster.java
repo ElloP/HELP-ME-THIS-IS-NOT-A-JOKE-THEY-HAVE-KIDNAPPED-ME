@@ -20,6 +20,16 @@ public class Monster implements IMonster {
 
     private boolean dead;
 
+    private IDialogue dialogue;
+
+    //Right now just for testing
+    public Monster(Vector2f position, Vector2f direction, IDialogue dialogue){
+        this.dialogue = dialogue;
+        this.position = position;
+        this.direction = direction;
+
+    }
+
     public Monster(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
         this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
     }
@@ -123,8 +133,12 @@ public class Monster implements IMonster {
     }
 
     @Override
-    public String getResponse() {
-        return "Hello!"; //TODO (klas) Temporary
+    public Tuple2<String,String[]> initiateDialogue() {
+        return dialogue.initiateDialogue();
+    }
+    @Override
+    public Tuple2<String,String[]> getResponse(int i){
+        return dialogue.chooseDialogue(i);
     }
 
     @Override
