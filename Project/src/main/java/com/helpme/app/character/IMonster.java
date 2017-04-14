@@ -30,10 +30,6 @@ public interface IMonster extends ITarget{
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
-    Vector2f cloneForward();
-    Vector2f cloneRight();
-    Vector2f cloneLeft();
-    Vector2f cloneBackward();
     Tuple2<String,String[]> getResponse(int i);
     Tuple2<String,String[]> initiateDialogue();
 

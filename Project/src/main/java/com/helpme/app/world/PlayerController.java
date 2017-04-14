@@ -2,20 +2,20 @@ package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;
+import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
+import com.sun.istack.internal.NotNull;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class PlayerController implements IController {
-    private IMonster player;
-    private ILevel level;
+public class PlayerController extends MonsterController {
 
     public PlayerController(IMonster player, ILevel level) {
-        this.player = player;
-        this.level = level;
+        super(player, level);
+        level.setPlayer(player);
     }
 
     public void update() {
@@ -23,133 +23,68 @@ public class PlayerController implements IController {
     }
 
     public IMonster getPlayer() {
-        return player.clone();
-    }
-
-    private boolean isMovementAllowed(IMonster monster, Vector2f direction) {
-        Vector2f position = monster.getPosition();
-        Vector2f destination = Vector2f.add(position, direction);
-
-        if (level.isEdgeBlocked(monster, position, direction)) {
-            return false;
-        }
-        if (level.isTileOccupied(destination)) {
-            return false;
-        }
-
-        return true;
+        return super.getMonster();
     }
 
     public void movePlayerForward() {
-        if (!isMovementAllowed(player, player.getDirection())) {
-            return;
-        }
-        player.moveForward();
+        moveMonsterForward();
     }
 
     public void movePlayerRight() {
-        if (!isMovementAllowed(player, player.getDirection().right())) {
-            return;
-        }
-        player.moveRight();
+        moveMonsterRight();
     }
 
     public void movePlayerBackward() {
-        if (!isMovementAllowed(player, player.getDirection().backward())) {
-            return;
-        }
-        player.moveBackward();
+        moveMonsterBackward();
     }
 
     public void movePlayerLeft() {
-        if (!isMovementAllowed(player, player.getDirection().left())) {
-            return;
-        }
-        player.moveLeft();
+        moveMonsterLeft();
     }
 
     public void rotatePlayerRight() {
-        player.rotateRight();
+        rotateMonsterRight();
     }
 
     public void rotatePlayerLeft() {
-        player.rotateLeft();
+        rotateMonsterLeft();
     }
 
     public void setPlayerPosition(Vector2f position) {
-        if (!level.isTileValid(position)) {
-            return;
-        }
-        player.setPosition(position);
+        setMonsterPosition(position);
     }
 
     public void usePlayerAttack() {
-        Vector2f position = player.getPosition();
-        Vector2f direction = player.getDirection();
-        if (level.isEdgeBlocked(player, position, direction)) {
-            player.attack(level.getTarget(position, direction));
-            return;
-        }
-        ITarget target = level.getMonster(player.targetTile());
-        if (target == null) {
-            return; // Attack opening instead?
-        }
-        player.attack(target);
+        useMonsterAttack();
     }
 
     public void usePlayerPickupAll() {
-        Vector2f position = player.getPosition();
-        IItem[] items = level.removeTileItems(position);
-
-        if (items == null) {
-            return;
-        }
-
-        for (IItem item : items) {
-            if (item == null) {
-                continue;
-            }
-
-            if (!player.pickupItem(item)) {
-                level.addTileItem(position, item);
-            }
-        }
+        useMonsterrPickupAll();
     }
 
     public void usePlayerPickupSingle(int index) {
-        Vector2f position = player.getPosition();
-        IItem item = level.removeTileItem(position, index);
-        if (item == null) {
-            return;
-        }
-        player.pickupItem(item);
+        useMonsterPickupSingle(index);
     }
 
     public void setPlayerItems(IItem[] items) {
-        player.setItems(items);
+        setMonsterItems(items);
     }
 
     public void dropPlayerItem(int index) {
-        if (level.isTileValid(player.getPosition())) {
-            IItem item = player.dropItem(index);
-            if (item == null) {
-                return;
-            }
-            level.addTileItem(player.getPosition(), item);
-        }
-
+        dropMonsterItem(index);
     }
 
     public void usePlayerSelfie() {
-        player.selfie();
+        useMonsterSelfie();
     }
 
     public void changePlayerActiveItem(int index) {
-        player.changeActiveItem(index);
+        changeMonsterActiveItem(index);
     }
 
     public Tuple2<String,String[]> usePlayerTalk() { //TODO (jacob) change name to something better
-        IMonster monster = getFacingNPC();
+
+        IMonster monster = getFacingMonster();
 
         if(monster == null) return null;
 
@@ -160,27 +95,13 @@ public class PlayerController implements IController {
         return response;
     }
     public Tuple2<String,String[]> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException{
-        IMonster monster = getFacingNPC();
+        IMonster monster = getFacingMonster();
 
         if(monster == null) return null;
 
-        Tuple2<String,String[]> response = null;
-
-
-        response = monster.getResponse(dialogueSelect);
-
+        Tuple2<String,String[]> response = monster.getResponse(dialogueSelect);
 
         return response;
     }
-    private IMonster getFacingNPC(){
-        Vector2f position = player.getPosition();
-        Vector2f direction = player.getDirection();
-        Vector2f destination = Vector2f.add(position, direction);
 
-        if (level.isEdgeBlocked(player, position, direction)) {
-            return null;
-        }
-
-        return level.getMonster(destination);
-    }
 }
