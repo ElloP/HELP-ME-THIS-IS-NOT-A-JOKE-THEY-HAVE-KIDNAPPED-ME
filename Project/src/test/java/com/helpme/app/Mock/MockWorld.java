@@ -10,6 +10,7 @@ import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.ILevel;
 import com.helpme.app.world.Level;
+import com.helpme.app.world.MonsterController;
 import com.helpme.app.world.PlayerController;
 
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ import java.util.List;
 public class MockWorld {
     public ILevel level;
     public PlayerController playerController;
+    public PlayerController concretePlayerController;
+    public MonsterController monster0Controller;
+    public MonsterController monster1Controller;
+    public MonsterController monster2Controller;
+
 
     public MockWorld(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -35,6 +41,9 @@ public class MockWorld {
         IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 100);
         IMonster enemy1 = new Monster(null, new Vector2f(9, 0), Vector2f.down, 100);
         IMonster enemy2 = new Monster(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
+        Monster concretePlayer = new Monster(inventory, new Vector2f(1,2), Vector2f.up, 100);
+        Monster concreteMonster0 = new Monster(inventory, new Vector2f(2,2), Vector2f.down, 100);
+        Monster concreteMonster1= new Monster(inventory, new Vector2f(9,0), Vector2f.down, 100);
 
         monsters.add(enemy0);
         monsters.add(enemy1);
@@ -94,6 +103,11 @@ public class MockWorld {
 
         ILevel level = new Level(tiles, doors, monsters, player, Vector2f.zero);
         playerController = new PlayerController(player, level);
+        concretePlayerController = new PlayerController(concretePlayer, level);
+
+        monster0Controller = new MonsterController(concretePlayer, concreteMonster0, level);
+        monster1Controller = new MonsterController(concretePlayer, concreteMonster1, level);
+        //monster2Controller = new MonsterController(concretePlayer, enemy2Copy, level);
         this.level = level;
     }
 }

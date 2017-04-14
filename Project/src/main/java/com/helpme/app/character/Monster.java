@@ -1,5 +1,7 @@
 package com.helpme.app.character;
 
+import com.helpme.app.character.dialogue.IDialogue;
+import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.visitor.Attack;
 import com.helpme.app.item.visitor.Pickup;
@@ -111,8 +113,6 @@ public class Monster extends Observable implements IMonster {
     @Override
     public void setPosition(Vector2f position) {
         this.position = position.toInt();
-        setChanged();
-        notifyObservers();
     }
 
     @Override
@@ -210,8 +210,6 @@ public class Monster extends Observable implements IMonster {
         if (hitpoints.y <= 0) {
             dead = true;
         }
-        setChanged();
-        notifyObservers();
     }
 
     @Override
@@ -226,14 +224,19 @@ public class Monster extends Observable implements IMonster {
         if (Vector2f.equals(startPosition, to))
             longestDistance--;
         ArrayList<Vector2f> positions = new ArrayList<>();
+        ArrayList<Vector2f> notAdded = new ArrayList<>();
+        notAdded.add(this.position);
         for (int i = 1; i <= longestDistance; i++) {
             ArrayList<Vector2f> temp = new ArrayList<>();
-            for (Vector2f pos : positions) {
+            for (Vector2f pos : notAdded) {
                 for (Vector2f neighbour : Vector2f.getNeighbors(pos))
                     temp.add(neighbour);
+                positions.add(pos);
             }
-            positions.addAll(temp);
+            notAdded.removeAll(notAdded);
+            notAdded.addAll(temp);
         }
+        positions.addAll(notAdded);
         return positions.contains(to);
     }
 

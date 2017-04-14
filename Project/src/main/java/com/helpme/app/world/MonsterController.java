@@ -16,11 +16,11 @@ public class MonsterController implements IController, Observer {
     Monster monster;
     Monster player;
     ILevel level;
-    int howFar = 5;
+    int howFar = 2;
 
     @Override
     public void update() {
-
+        doThings();
     }
 
     private void doThings(){
@@ -29,7 +29,7 @@ public class MonsterController implements IController, Observer {
         else if (monster.inVicinity(monster.getStartPosition(),howFar)){
             //TODO (Jesper): where to go
             if (decideToFollow()){
-                return;
+                monster.moveForward();
             }
         }
         //TODO (Jesper): how to get back
@@ -135,7 +135,11 @@ public class MonsterController implements IController, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o.equals(player)){
-            doThings();
+            update();
         }
+    }
+
+    public Monster getPlayer(){
+        return player;
     }
 }

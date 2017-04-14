@@ -18,7 +18,7 @@ public class SoundController implements IController, Observer {
     public SoundController(Monster player, ISoundVisitor permanentVisitor){
         this.player = player;
         this.permanentVisitor = permanentVisitor;
-        player.addObserver(this);
+        //player.addObserver(this);
     }
 
     @Override
