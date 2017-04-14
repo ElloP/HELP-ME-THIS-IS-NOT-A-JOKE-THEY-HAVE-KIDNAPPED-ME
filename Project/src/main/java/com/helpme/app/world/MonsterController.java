@@ -119,15 +119,7 @@ public abstract class MonsterController implements IController, Observer {
 
     public void useMonsterAttack() {
         Vector2f direction = monster.getDirection();
-
-        if (level.isMonsterBlockedByEdge(monster, direction)) {
-            monster.attack(level.getTarget(monster, direction));
-            return;
-        }
-        ITarget target = level.getMonster(monster.targetTile());
-        if (target == null) {
-            return; // Attack opening instead?
-        }
+        ITarget target = level.getTarget(monster, direction);
         monster.attack(target);
     }
 
