@@ -115,4 +115,9 @@ public class Vector2f {
                 (float) Math.sin(radians), (float) Math.cos(radians));
         return Vector2f.multiply(rotationMatrix, vec0).toInt();
     }
+
+    public static Vector2f[] getNeighbors(Vector2f vec0){
+        Vector2f[] vectors = {add(vec0,up), add(vec0, right), add(vec0, down), add(vec0,left)};
+        return vectors;
+    }
 }

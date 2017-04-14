@@ -2,45 +2,60 @@ package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;
+import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-04-12.
  */
-public class MonsterController implements IController {
-    IMonster monster;
-    IMonster player;
+public class MonsterController implements IController, Observer {
+    Monster monster;
+    Monster player;
     ILevel level;
-    private boolean attackMode;
+    int howFar = 5;
 
     @Override
     public void update() {
-        doThings();
+
     }
 
     private void doThings(){
-        attackMode = false;
-        decideToAttack();
-        if (attackMode)
+        if (decideToAttack())
             monster.attack(player);
+        else if (monster.inVicinity(monster.getStartPosition(),howFar)){
+            //TODO (Jesper): where to go
+            if (decideToFollow()){
+                return;
+            }
+        }
+        //TODO (Jesper): how to get back
+        else{
+
+        }
+
     }
-    private void decideToAttack(){
-        if (Vector2f.equals(player.cloneForward(), monster.getPosition()) ||
+    private boolean decideToAttack(){
+        return Vector2f.equals(player.cloneForward(), monster.getPosition()) ||
                 Vector2f.equals(player.cloneRight(), monster.getPosition()) ||
                 Vector2f.equals(player.cloneBackward(), monster.getPosition()) ||
-                Vector2f.equals(player.cloneLeft(), monster.getPosition()))
-            attackMode = true;
-
+                Vector2f.equals(player.cloneLeft(), monster.getPosition());
+    }
+    private boolean decideToFollow(){
+        return monster.inVicinity(player.getPosition(), howFar);
     }
 
-    public MonsterController(IMonster player, IMonster monster, ILevel level){
+    public MonsterController(Monster player, Monster monster, ILevel level){
         this.player = player;
         this.monster = monster;
         this.level = level;
+        player.addObserver(this);
     }
 
-    public IMonster getMonster(){
+    public Monster getMonster(){
         return monster.clone();
     }
 
@@ -115,5 +130,12 @@ public class MonsterController implements IController {
 
     public void changeMonsterActiveItem(int index) {
         monster.changeActiveItem(index);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o.equals(player)){
+            doThings();
+        }
     }
 }
