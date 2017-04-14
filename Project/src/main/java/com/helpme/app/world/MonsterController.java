@@ -12,47 +12,19 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-04-12.
  */
-public class MonsterController implements IController, Observer {
-    Monster monster;
-    Monster player;
-    ILevel level;
-    int howFar = 2;
+
+public abstract class MonsterController implements IController, Observer {
+    protected IMonster monster;
+    protected ILevel level;
+
 
     @Override
-    public void update() {
-        doThings();
-    }
+    public abstract void update();
 
-    private void doThings(){
-        if (decideToAttack())
-            monster.attack(player);
-        else if (monster.inVicinity(monster.getStartPosition(),howFar)){
-            //TODO (Jesper): where to go
-            if (decideToFollow()){
-                monster.moveForward();
-            }
-        }
-        //TODO (Jesper): how to get back
-        else{
-
-        }
-
-    }
-    private boolean decideToAttack(){
-        return Vector2f.equals(player.cloneForward(), monster.getPosition()) ||
-                Vector2f.equals(player.cloneRight(), monster.getPosition()) ||
-                Vector2f.equals(player.cloneBackward(), monster.getPosition()) ||
-                Vector2f.equals(player.cloneLeft(), monster.getPosition());
-    }
-    private boolean decideToFollow(){
-        return monster.inVicinity(player.getPosition(), howFar);
-    }
-
-    public MonsterController(Monster player, Monster monster, ILevel level){
-        this.player = player;
-        this.monster = monster;
+    public MonsterController(IMonster monster, ILevel level){
+        this.monster = monster.clone();
         this.level = level;
-        player.addObserver(this);
+        level.addMonster(this.monster);
     }
 
     public Monster getMonster(){
@@ -77,7 +49,7 @@ public class MonsterController implements IController, Observer {
         Vector2f position = monster.getPosition();
         Vector2f destination = Vector2f.add(position, direction);
 
-        if (level.isEdgeBlocked(monster, position, direction)) {
+        if (level.isMonsterBlockedByEdge(monster, direction)) {
             return false;
         }
         if (level.isTileOccupied(destination)) {
@@ -91,14 +63,14 @@ public class MonsterController implements IController, Observer {
         if (!isMovementAllowed(monster, monster.getDirection().backward())) {
             return;
         }
-        player.moveBackward();
+        monster.moveBackward();
     }
 
     public void moveMonsterLeft() {
         if (!isMovementAllowed(monster, monster.getDirection().left())) {
             return;
         }
-        player.moveLeft();
+        monster.moveLeft();
     }
 
     public void rotateMonsterRight() {
@@ -132,14 +104,71 @@ public class MonsterController implements IController, Observer {
         monster.changeActiveItem(index);
     }
 
-    @Override
     public void update(Observable o, Object arg) {
-        if (o.equals(player)){
+        if (o.equals(level.getPlayer())){
             update();
         }
     }
 
-    public Monster getPlayer(){
-        return player;
+    public void setMonsterPosition(Vector2f position) {
+        if (!level.isTileValid(position)) {
+            return;
+        }
+        monster.setPosition(position);
+    }
+
+    public void useMonsterAttack() {
+        Vector2f position = monster.getPosition();
+        Vector2f direction = monster.getDirection();
+
+        if (level.isMonsterBlockedByEdge(monster, direction)) {
+            monster.attack(level.getTarget(position, direction));
+            return;
+        }
+        ITarget target = level.getMonster(monster.targetTile());
+        if (target == null) {
+            return; // Attack opening instead?
+        }
+        monster.attack(target);
+    }
+
+    public void useMonsterPickupAll() {
+        Vector2f position = monster.getPosition();
+        IItem[] items = level.removeTileItems(position);
+
+        if (items == null) {
+            return;
+        }
+
+        for (IItem item : items) {
+            if (item == null) {
+                continue;
+            }
+
+            if (!monster.pickupItem(item)) {
+                level.addTileItem(position, item);
+            }
+        }
+    }
+
+    public void useMonsterPickupSingle(int index) {
+        Vector2f position = monster.getPosition();
+        IItem item = level.removeTileItem(position, index);
+        if (item == null) {
+            return;
+        }
+        monster.pickupItem(item);
+    }
+
+    protected IMonster getFacingMonster(){
+        Vector2f position = monster.getPosition();
+        Vector2f direction = monster.getDirection();
+        Vector2f destination = Vector2f.add(position, direction);
+
+        if (level.isMonsterBlockedByEdge(monster, direction)) {
+            return null;
+        }
+
+        return level.getMonster(destination);
     }
 }

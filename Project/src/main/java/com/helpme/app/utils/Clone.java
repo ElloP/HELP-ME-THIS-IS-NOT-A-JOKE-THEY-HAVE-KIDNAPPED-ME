@@ -8,9 +8,13 @@ import java.util.List;
 /**
  * Created by kopa on 2017-04-11.
  */
-public interface Clone {
+public abstract class Clone {
 
-    static <T extends ICloneable<T>> List<T> toList(T[] array) {
+    private Clone(){
+
+    }
+
+    public static <T extends ICloneable<T>> List<T> toList(T[] array) {
         if (array == null) {
             return null;
         }
@@ -24,7 +28,7 @@ public interface Clone {
         return list;
     }
 
-    static <T extends ICloneable<T>> T[] array(T[] array) {
+    public static <T extends ICloneable<T>> T[] array(T[] array) {
         if (array == null) {
             return null;
         }

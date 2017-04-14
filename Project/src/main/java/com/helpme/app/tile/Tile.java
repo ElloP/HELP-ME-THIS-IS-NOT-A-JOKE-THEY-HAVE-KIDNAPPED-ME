@@ -4,7 +4,6 @@ import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.interfaces.ICloneable;
 
 import java.util.ArrayList;
 import java.util.Arrays;

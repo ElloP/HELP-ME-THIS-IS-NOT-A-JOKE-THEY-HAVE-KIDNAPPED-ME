@@ -4,7 +4,7 @@ package com.helpme.app.engine.input;
  * Created by Jacob on 2017-04-02.
  */
 
-import com.helpme.app.utils.functions.Function;
+import com.helpme.app.utils.functions.IFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class InputHandler {
         return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyDown(keycode) && !KeyState.isKeyboardKeyPress(keycode));
     }
 
-    private static boolean checkKeyState(InputKey inputKey, Function<Integer, Boolean> failTest) {
+    private static boolean checkKeyState(InputKey inputKey, IFunction<Integer, Boolean> failTest) {
         for (int keycode : keyDictionary.get(inputKey)) {
             if (failTest.apply(keycode)) {
                 return false;

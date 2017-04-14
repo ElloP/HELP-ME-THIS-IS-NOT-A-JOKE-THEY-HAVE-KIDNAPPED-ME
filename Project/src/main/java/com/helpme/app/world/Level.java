@@ -75,8 +75,8 @@ public class Level implements ILevel{
 
 
 
-    public boolean isEdgeBlocked(IMonster monster, Vector2f position, Vector2f direction) {
-        ITile tile = tiles.get(position);
+    public boolean isMonsterBlockedByEdge(IMonster monster, Vector2f direction) {
+        ITile tile = tiles.get(monster.getPosition());
         return !monster.traverse(tile.getEdge(direction));
     }
 
@@ -110,6 +110,12 @@ public class Level implements ILevel{
     }
 
     @Override
+    public void addMonster(IMonster monster) {
+        if(monster == null || monsters.contains(monster)) return;
+        monsters.add(monster);
+    }
+
+    @Override
     public void addTileItem(Vector2f position, IItem item){
         ITile tile = tiles.get(position);
         if(tile == null || item == null) {
@@ -128,6 +134,11 @@ public class Level implements ILevel{
     }
 
     @Override
+    public void setPlayer(IMonster player) {
+        this.player = player;
+    }
+
+    @Override
     public IMonster getMonster(Vector2f position) {
         for (IMonster monster : monsters) {
             if (monster.getPosition().equals(position)) {
@@ -139,8 +150,7 @@ public class Level implements ILevel{
 
     @Override
     public IMonster getPlayer() {
-        return null;
+        return player;
     }
-
 
 }

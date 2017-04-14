@@ -1,6 +1,7 @@
 package com.helpme.app.Mock;
 
 import com.helpme.app.character.*;
+import com.helpme.app.character.behaviour.AttackEveryoneClose;
 import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
@@ -8,10 +9,7 @@ import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.ILevel;
-import com.helpme.app.world.Level;
-import com.helpme.app.world.MonsterController;
-import com.helpme.app.world.PlayerController;
+import com.helpme.app.world.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,8 +103,8 @@ public class MockWorld {
         playerController = new PlayerController(player, level);
         concretePlayerController = new PlayerController(concretePlayer, level);
 
-        monster0Controller = new MonsterController(concretePlayer, concreteMonster0, level);
-        monster1Controller = new MonsterController(concretePlayer, concreteMonster1, level);
+        monster0Controller = new EnemyController(concreteMonster0, level, new AttackEveryoneClose(2));
+        monster1Controller = new EnemyController(concreteMonster1, level, new AttackEveryoneClose(2));
         //monster2Controller = new MonsterController(concretePlayer, enemy2Copy, level);
         this.level = level;
     }
