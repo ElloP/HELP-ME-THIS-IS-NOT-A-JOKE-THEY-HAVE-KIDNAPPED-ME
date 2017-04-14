@@ -19,7 +19,7 @@ public class Inventory implements IInventory {
 
     public Inventory(IItem[] items, IItem defaultItem, IItem[] keychain) {
         this.defaultItem = defaultItem == null ? IItemFactory.nothing() : defaultItem.clone();
-        this.items = Clone.array(items);
+        this.items = items == null ? new IItem[0] : Clone.array(items);
         this.keychain = keychain == null ? new ArrayList<>() : Clone.toList(keychain);
     }
 

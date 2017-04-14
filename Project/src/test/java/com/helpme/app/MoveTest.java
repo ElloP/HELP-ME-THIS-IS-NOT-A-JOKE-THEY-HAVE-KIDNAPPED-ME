@@ -1,6 +1,6 @@
 package com.helpme.app;
 
-import com.helpme.app.Mock.MockWorld;
+import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.utils.Vector2f;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,11 +9,11 @@ import org.junit.Test;
  * Created by Jacob on 2017-04-11.
  */
 public class MoveTest {
-    private MockWorld mockWorld;
+    private MockWorld0 mockWorld;
 
     @Before
     public void setUp() {
-        mockWorld = new MockWorld();
+        mockWorld = new MockWorld0();
     }
 
     @Test

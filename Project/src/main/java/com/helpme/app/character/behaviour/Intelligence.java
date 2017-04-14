@@ -13,9 +13,11 @@ public abstract class Intelligence implements IBehaviour{
 
     }
 
-    public static boolean isNextTo(IMonster monster, ILevel level){
+    public static boolean isMonsterNextTo(IMonster monster, IMonster potentialNeighbour, ILevel level){
         for(IMonster neighbour : getMonsterNeighbours(monster, level)){
-            if(monster.equals(neighbour)) return true;
+            if(potentialNeighbour.equals(neighbour)) {
+                return true;
+            }
         }
         return false;
     }

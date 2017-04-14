@@ -9,7 +9,7 @@ import com.helpme.app.utils.Vector2f;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IMonster extends ITarget{
+public interface IMonster extends ITarget, IReadMonster {
     void rotateRight();
     void rotateLeft();
     void moveForward();
@@ -24,13 +24,9 @@ public interface IMonster extends ITarget{
     boolean traverse(IEdge edge);
     boolean pickupItem(IItem item);
     IItem dropItem(int index);
-    Vector2f getPosition();
-    Vector2f getDirection();
-    Vector2f getHitpoints();
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
-    Tuple2<String,String[]> getResponse(int i);
     Tuple2<String,String[]> initiateDialogue();
 
 }

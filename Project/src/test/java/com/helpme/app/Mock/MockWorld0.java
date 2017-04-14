@@ -17,16 +17,11 @@ import java.util.List;
 /**
  * Created by Jacob on 2017-04-11.
  */
-public class MockWorld {
+public class MockWorld0 {
     public ILevel level;
     public PlayerController playerController;
-    public PlayerController concretePlayerController;
-    public MonsterController monster0Controller;
-    public MonsterController monster1Controller;
-    public MonsterController monster2Controller;
 
-
-    public MockWorld(){
+    public MockWorld0(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();
@@ -39,9 +34,6 @@ public class MockWorld {
         IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 100);
         IMonster enemy1 = new Monster(null, new Vector2f(9, 0), Vector2f.down, 100);
         IMonster enemy2 = new Monster(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
-        Monster concretePlayer = new Monster(inventory, new Vector2f(1,2), Vector2f.up, 100);
-        Monster concreteMonster0 = new Monster(inventory, new Vector2f(2,2), Vector2f.down, 100);
-        Monster concreteMonster1= new Monster(inventory, new Vector2f(9,0), Vector2f.down, 100);
 
         monsters.add(enemy0);
         monsters.add(enemy1);
@@ -95,17 +87,12 @@ public class MockWorld {
          *    [ ][ ][ ]
          *    [ ][e][ ]      [ |[ ]/ ]| ][ ]
          *    [ ][ ][ ]
-         * [ ][ ][ ]         [ ][x]| ][e]
+         * [p][ ][ ]         [ ][x]| ][e]
          */
 
 
-        ILevel level = new Level(tiles, doors, monsters, player, Vector2f.zero);
+        ILevel level = new Level(tiles, doors, monsters, Vector2f.zero);
         playerController = new PlayerController(player, level);
-        concretePlayerController = new PlayerController(concretePlayer, level);
-
-        monster0Controller = new EnemyController(concreteMonster0, level, new AttackEveryoneClose(2));
-        monster1Controller = new EnemyController(concreteMonster1, level, new AttackEveryoneClose(2));
-        //monster2Controller = new MonsterController(concretePlayer, enemy2Copy, level);
         this.level = level;
     }
 }

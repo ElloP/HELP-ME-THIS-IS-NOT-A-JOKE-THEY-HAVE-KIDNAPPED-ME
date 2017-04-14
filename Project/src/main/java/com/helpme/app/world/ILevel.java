@@ -1,12 +1,10 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.IReadMonster;
 import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
-
-import java.util.List;
-import java.util.Stack;
 
 /**
  * Created by Jacob on 2017-04-08.
@@ -23,5 +21,6 @@ public interface ILevel {
     void setPlayer(IMonster player);
     IMonster getMonster(Vector2f position);
     IMonster getPlayer();
+    boolean isDistanceFrom(IMonster monster, Vector2f destination, int longestDistance);
     ITarget getTarget(Vector2f position, Vector2f direction);
 }

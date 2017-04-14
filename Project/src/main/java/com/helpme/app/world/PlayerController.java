@@ -1,12 +1,9 @@
 package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
-import com.helpme.app.character.ITarget;
-import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
-import com.sun.istack.internal.NotNull;
 
 /**
  * Created by Jacob on 2017-04-08.
@@ -15,7 +12,7 @@ public class PlayerController extends MonsterController {
 
     public PlayerController(IMonster player, ILevel level) {
         super(player, level);
-        level.setPlayer(player);
+        level.setPlayer(monster);
     }
 
     public void update() {
@@ -59,7 +56,7 @@ public class PlayerController extends MonsterController {
     }
 
     public void usePlayerPickupAll() {
-        useMonsterrPickupAll();
+        useMonsterPickupAll();
     }
 
     public void usePlayerPickupSingle(int index) {

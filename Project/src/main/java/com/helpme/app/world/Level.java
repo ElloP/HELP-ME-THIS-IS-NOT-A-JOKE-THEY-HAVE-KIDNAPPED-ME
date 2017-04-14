@@ -17,34 +17,42 @@ import java.util.*;
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Level implements ILevel{
+public class Level implements ILevel {
     private IMonster player;
     private Map<Vector2f, ITile> tiles;
     private List<IMonster> monsters;
+    private Vector2f startingPosition;
 
-    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, IMonster player, Vector2f startingPosition) {
+    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
-        this.monsters = monsters;
-        this.player = player.clone();
-        this.player.setPosition(startingPosition);
-        monsters.add(player);
+        this.monsters = monsters == null ? new ArrayList<>() : monsters;
+        this.startingPosition = startingPosition;
         generateLevel(tiles, doors);
     }
 
-    private void generateLevel(List<Tuple2<Vector2f,IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
+    private void generateLevel(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
         generateTiles(tiles);
         generateEdges();
         generateDoors(doors);
     }
 
     private void generateTiles(List<Tuple2<Vector2f, IItem[]>> tiles) {
-        for(Tuple2<Vector2f, IItem[]> tuple : tiles){
-            Vector2f position = tuple.a;;
+        if (tiles == null) {
+            return;
+        }
+
+        for (Tuple2<Vector2f, IItem[]> tuple : tiles) {
+            Vector2f position = tuple.a;
+            ;
             this.tiles.put(position, ITileFactory.tile(tuple.b));
         }
     }
 
     private void generateDoors(List<Tuple3<Vector2f, Vector2f, Door>> doors) {
+        if (doors == null) {
+            return;
+        }
+
         for (Tuple3<Vector2f, Vector2f, Door> tuple : doors) {
             Vector2f defaultPosition = tuple.a;
             Vector2f defaultDirection = tuple.b;
@@ -74,7 +82,6 @@ public class Level implements ILevel{
     }
 
 
-
     public boolean isMonsterBlockedByEdge(IMonster monster, Vector2f direction) {
         ITile tile = tiles.get(monster.getPosition());
         return !monster.traverse(tile.getEdge(direction));
@@ -88,12 +95,13 @@ public class Level implements ILevel{
         }
         return false;
     }
-    public ITarget getTarget(Vector2f position, Vector2f direction){
+
+    public ITarget getTarget(Vector2f position, Vector2f direction) {
         return tiles.get(position).getEdge(direction);
     }
 
     @Override
-    public boolean isTileValid(Vector2f position){
+    public boolean isTileValid(Vector2f position) {
         return tiles.get(position) != null;
     }
 
@@ -111,23 +119,23 @@ public class Level implements ILevel{
 
     @Override
     public void addMonster(IMonster monster) {
-        if(monster == null || monsters.contains(monster)) return;
+        if (monster == null || monsters.contains(monster)) return;
         monsters.add(monster);
     }
 
     @Override
-    public void addTileItem(Vector2f position, IItem item){
+    public void addTileItem(Vector2f position, IItem item) {
         ITile tile = tiles.get(position);
-        if(tile == null || item == null) {
+        if (tile == null || item == null) {
             return;
         }
         tile.addItem(item);
     }
 
     @Override
-    public void addTileItems(Vector2f position, IItem[] items){
+    public void addTileItems(Vector2f position, IItem[] items) {
         ITile tile = tiles.get(position);
-        if(tile == null || items == null) {
+        if (tile == null || items == null) {
             return;
         }
         tile.addItems(items);
@@ -136,6 +144,7 @@ public class Level implements ILevel{
     @Override
     public void setPlayer(IMonster player) {
         this.player = player;
+        player.setPosition(startingPosition);
     }
 
     @Override
@@ -151,6 +160,26 @@ public class Level implements ILevel{
     @Override
     public IMonster getPlayer() {
         return player;
+    }
+
+
+    @Override
+    public boolean isDistanceFrom(IMonster monster, Vector2f destination, int longestDistance) {
+        ArrayList<Vector2f> positions = new ArrayList<>();
+        ArrayList<Vector2f> notAdded = new ArrayList<>();
+        notAdded.add(monster.getPosition());
+        for (int i = 1; i <= longestDistance; i++) {
+            ArrayList<Vector2f> temp = new ArrayList<>();
+            for (Vector2f pos : notAdded) {
+                for (Vector2f neighbour : Vector2f.getNeighbors(pos))
+                    temp.add(neighbour);
+                positions.add(pos);
+            }
+            notAdded.removeAll(notAdded);
+            notAdded.addAll(temp);
+        }
+        positions.addAll(notAdded);
+        return positions.contains(destination);
     }
 
 }
