@@ -3,6 +3,7 @@ package com.helpme.app.character.behaviour;
 import com.helpme.app.character.IMonster;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.ILevel;
+import com.helpme.app.world.IReadLevel;
 
 /**
  * Created by kopa on 2017-04-14.
@@ -15,13 +16,13 @@ public class AttackEveryoneClose implements IBehaviour{
     }
 
     @Override
-    public void update(IMonster monster, ILevel level) {
+    public void update(IMonster monster, IReadLevel level) {
         updateBehaviour(monster, level);
     }
 
-    private void updateBehaviour(IMonster monster, ILevel level){
+    private void updateBehaviour(IMonster monster, IReadLevel level){
         if (decideToAttack(monster, level))
-            monster.attack(level.getPlayer());
+            monster.attack(level.getTarget(monster, monster.getDirection()));
         else if (level.isDistanceFrom(monster, monster.getStartingPosition(), followingDistance)){
             //TODO (Jesper): where to go
             if (decideToFollow(monster, level)){
@@ -34,7 +35,7 @@ public class AttackEveryoneClose implements IBehaviour{
         }
     }
 
-    private boolean decideToFollow(IMonster monster, ILevel level){
+    private boolean decideToFollow(IMonster monster, IReadLevel level){
         Vector2f destination = level.getPlayer().getPosition();
         int longestDistance = followingDistance;
         if (Vector2f.equals(monster.getStartingPosition(), destination))
@@ -42,7 +43,7 @@ public class AttackEveryoneClose implements IBehaviour{
         return level.isDistanceFrom(monster, level.getPlayer().getPosition(), longestDistance);
     }
 
-    private boolean decideToAttack(IMonster monster, ILevel level){
+    private boolean decideToAttack(IMonster monster, IReadLevel level){
         return (Intelligence.isMonsterNextTo(monster, level.getPlayer(), level));
     }
 }

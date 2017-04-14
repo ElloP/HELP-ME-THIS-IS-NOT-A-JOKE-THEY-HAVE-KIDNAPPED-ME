@@ -2,6 +2,7 @@ package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;
+import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.ITile;
 import com.helpme.app.tile.ITileFactory;
@@ -96,8 +97,15 @@ public class Level implements ILevel {
         return false;
     }
 
-    public ITarget getTarget(Vector2f position, Vector2f direction) {
-        return tiles.get(position).getEdge(direction);
+    public ITarget getTarget(IMonster monster, Vector2f direction) {
+        Vector2f position = monster.getPosition();
+        Vector2f destination = Vector2f.add(monster.getPosition(), direction);
+
+        if(isMonsterBlockedByEdge(monster, direction)){
+            return tiles.get(position).getEdge(direction);
+        }
+
+        return getMonster(destination);
     }
 
     @Override
