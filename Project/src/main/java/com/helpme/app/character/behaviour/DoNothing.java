@@ -1,8 +1,7 @@
 package com.helpme.app.character.behaviour;
 
 import com.helpme.app.character.IMonster;
-import com.helpme.app.world.ILevel;
-import com.helpme.app.world.IReadLevel;
+import com.helpme.app.world.level.IReadLevel;
 
 /**
  * Created by kopa on 2017-04-14.

@@ -1,19 +1,17 @@
-package com.helpme.app.world;
+package com.helpme.app.world.controller;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;
 import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
-
-import java.util.Observable;
-import java.util.Observer;
+import com.helpme.app.world.level.ILevel;
 
 /**
  * Created by Jesper on 2017-04-12.
  */
 
-public abstract class MonsterController implements IController {
+public abstract class MonsterHandler implements IHandler {
     protected IMonster monster;
     protected ILevel level;
 
@@ -21,7 +19,7 @@ public abstract class MonsterController implements IController {
     @Override
     public abstract void update();
 
-    public MonsterController(IMonster monster, ILevel level){
+    public MonsterHandler(IMonster monster, ILevel level){
         this.monster = monster.clone();
         this.level = level;
         level.addMonster(this.monster);

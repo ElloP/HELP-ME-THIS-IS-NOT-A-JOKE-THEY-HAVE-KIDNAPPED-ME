@@ -1,18 +1,18 @@
-package com.helpme.app.world;
+package com.helpme.app.world.controller;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.behaviour.DoNothing;
 import com.helpme.app.character.behaviour.IBehaviour;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.world.level.ILevel;
 
 /**
  * Created by Jesper on 2017-04-12.
  */
-public class EnemyController extends MonsterController {
+public class EnemyHandler extends MonsterHandler {
     private IBehaviour behaviour;
 
 
-    public EnemyController(IMonster monster, ILevel level, IBehaviour behaviour){
+    public EnemyHandler(IMonster monster, ILevel level, IBehaviour behaviour){
         super(monster, level);
         this.behaviour = behaviour == null ? new DoNothing() : behaviour;
     }
@@ -22,7 +22,7 @@ public class EnemyController extends MonsterController {
         behaviour.update(monster, level);
     }
 
-    public EnemyController(IMonster monster, ILevel level){
+    public EnemyHandler(IMonster monster, ILevel level){
         super(monster, level);
     }
 

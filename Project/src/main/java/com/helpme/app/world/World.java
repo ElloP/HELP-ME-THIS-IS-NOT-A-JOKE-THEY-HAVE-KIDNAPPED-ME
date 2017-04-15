@@ -1,14 +1,17 @@
 package com.helpme.app.world;
 
+import com.helpme.app.world.controller.IHandler;
+import com.helpme.app.world.level.ILevel;
+
 /**
  * Created by Jacob on 2017-03-30.
  */
 public class World {
     ILevel[] levels;
-    IController playerController;
+    IHandler playerController;
     int currentLevelIndex;
 
-    public World(ILevel[] levels, IController playerController){
+    public World(ILevel[] levels, IHandler playerController){
         this.levels = levels;
     }
 

@@ -11,9 +11,9 @@ import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class InputHandler {
+public final class Input {
 
-    private InputHandler() {
+    private Input() {
     }
 
     private static Map<InputKey, Integer[]> keyDictionary;

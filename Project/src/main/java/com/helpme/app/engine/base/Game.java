@@ -1,6 +1,6 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.input.InputHandler;
+import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.engine.renderer.base.Cube;
 import com.helpme.app.engine.renderer.base.Mesh;
@@ -26,9 +26,9 @@ public class Game {
 
     public void input() {
 
-        if(InputHandler.isKeyboardKeyPress(InputKey.MoveForward))
+        if(Input.isKeyboardKeyPress(InputKey.MoveForward))
             System.out.println("MOVEFORWARD PRESSED!");
-        if(InputHandler.isKeyboardKeyRelease(InputKey.MoveForward))
+        if(Input.isKeyboardKeyRelease(InputKey.MoveForward))
             System.out.println("MOVEFORWARD Release!");
     }
 

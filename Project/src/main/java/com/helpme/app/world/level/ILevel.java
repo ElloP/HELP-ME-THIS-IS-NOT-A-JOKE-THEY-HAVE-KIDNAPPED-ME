@@ -1,8 +1,6 @@
-package com.helpme.app.world;
+package com.helpme.app.world.level;
 
 import com.helpme.app.character.IMonster;
-import com.helpme.app.character.IReadMonster;
-import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
 

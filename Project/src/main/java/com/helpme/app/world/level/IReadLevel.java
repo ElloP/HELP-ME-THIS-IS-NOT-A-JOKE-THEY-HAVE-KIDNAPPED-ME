@@ -1,4 +1,4 @@
-package com.helpme.app.world;
+package com.helpme.app.world.level;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;

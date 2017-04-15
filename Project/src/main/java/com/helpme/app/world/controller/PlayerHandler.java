@@ -1,16 +1,17 @@
-package com.helpme.app.world;
+package com.helpme.app.world.controller;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.world.level.ILevel;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class PlayerController extends MonsterController {
+public class PlayerHandler extends MonsterHandler {
 
-    public PlayerController(IMonster player, ILevel level) {
+    public PlayerHandler(IMonster player, ILevel level) {
         super(player, level);
         level.setPlayer(monster);
     }

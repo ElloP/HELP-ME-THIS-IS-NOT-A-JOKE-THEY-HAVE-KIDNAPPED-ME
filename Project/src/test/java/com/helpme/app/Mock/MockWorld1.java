@@ -7,7 +7,11 @@ import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.*;
+import com.helpme.app.world.controller.EnemyHandler;
+import com.helpme.app.world.controller.MonsterHandler;
+import com.helpme.app.world.controller.PlayerHandler;
+import com.helpme.app.world.level.ILevel;
+import com.helpme.app.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +21,9 @@ import java.util.List;
  */
 public class MockWorld1 {
     public ILevel level;
-    public PlayerController playerController;
-    public MonsterController enemyController0;
-    public MonsterController enemyController1;
+    public PlayerHandler playerController;
+    public MonsterHandler enemyController0;
+    public MonsterHandler enemyController1;
 
     public MockWorld1() {
         IMonster player = new Monster(null, Vector2f.zero, Vector2f.up, 100);
@@ -35,10 +39,10 @@ public class MockWorld1 {
          * [p][e][ ][ ]
          */
 
-        playerController = new PlayerController(player, level);
+        playerController = new PlayerHandler(player, level);
 
-        enemyController0 = new EnemyController(enemy0, level, new AttackEveryoneClose(2));
-        enemyController1 = new EnemyController(enemy1, level, new AttackEveryoneClose(2));
+        enemyController0 = new EnemyHandler(enemy0, level, new AttackEveryoneClose(2));
+        enemyController1 = new EnemyHandler(enemy1, level, new AttackEveryoneClose(2));
 
         this.level = level;
     }

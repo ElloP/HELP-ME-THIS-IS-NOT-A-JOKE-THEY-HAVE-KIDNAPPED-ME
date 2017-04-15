@@ -2,7 +2,7 @@ package com.helpme.app.sounds;
 
 import com.helpme.app.character.Monster;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.IController;
+import com.helpme.app.world.controller.IHandler;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -10,12 +10,12 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-04-14.
  */
-public class SoundController implements IController, Observer {
+public class SoundHandler implements IHandler, Observer {
     private Monster player;
     private ISoundVisitor permanentVisitor;
     private WalkingSound walkingSound = new WalkingSound("", "");
 
-    public SoundController(Monster player, ISoundVisitor permanentVisitor){
+    public SoundHandler(Monster player, ISoundVisitor permanentVisitor){
         this.player = player;
         this.permanentVisitor = permanentVisitor;
         //player.addObserver(this);
