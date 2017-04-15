@@ -8,7 +8,7 @@ import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.controller.PlayerHandler;
+import com.helpme.app.world.handler.PlayerHandler;
 import com.helpme.app.world.level.ILevel;
 import com.helpme.app.world.level.Level;
 

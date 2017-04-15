@@ -2,7 +2,7 @@ package com.helpme.app.sounds;
 
 import com.helpme.app.character.Monster;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.controller.IHandler;
+import com.helpme.app.world.handler.IHandler;
 
 import java.util.Observable;
 import java.util.Observer;

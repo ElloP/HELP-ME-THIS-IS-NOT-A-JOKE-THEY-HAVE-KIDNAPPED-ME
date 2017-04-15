@@ -1,6 +1,6 @@
 package com.helpme.app.world;
 
-import com.helpme.app.world.controller.IHandler;
+import com.helpme.app.world.handler.IHandler;
 import com.helpme.app.world.level.ILevel;
 
 /**

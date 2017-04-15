@@ -1,4 +1,4 @@
-package com.helpme.app.world.controller;
+package com.helpme.app.world.handler;
 
 /**
  * Created by Jacob on 2017-04-08.

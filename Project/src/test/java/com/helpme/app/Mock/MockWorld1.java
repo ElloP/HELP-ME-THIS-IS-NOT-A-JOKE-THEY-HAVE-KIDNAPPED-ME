@@ -7,9 +7,9 @@ import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.controller.EnemyHandler;
-import com.helpme.app.world.controller.MonsterHandler;
-import com.helpme.app.world.controller.PlayerHandler;
+import com.helpme.app.world.handler.EnemyHandler;
+import com.helpme.app.world.handler.MonsterHandler;
+import com.helpme.app.world.handler.PlayerHandler;
 import com.helpme.app.world.level.ILevel;
 import com.helpme.app.world.level.Level;
 

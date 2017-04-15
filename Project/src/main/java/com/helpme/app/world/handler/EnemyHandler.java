@@ -1,4 +1,4 @@
-package com.helpme.app.world.controller;
+package com.helpme.app.world.handler;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.behaviour.DoNothing;
