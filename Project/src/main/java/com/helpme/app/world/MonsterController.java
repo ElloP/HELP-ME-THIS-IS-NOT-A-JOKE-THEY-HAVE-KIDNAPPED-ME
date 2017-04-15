@@ -13,7 +13,7 @@ import java.util.Observer;
  * Created by Jesper on 2017-04-12.
  */
 
-public abstract class MonsterController implements IController, Observer {
+public abstract class MonsterController implements IController {
     protected IMonster monster;
     protected ILevel level;
 
@@ -104,11 +104,6 @@ public abstract class MonsterController implements IController, Observer {
         monster.changeActiveItem(index);
     }
 
-    public void update(Observable o, Object arg) {
-        if (o.equals(level.getPlayer())){
-            update();
-        }
-    }
 
     public void setMonsterPosition(Vector2f position) {
         if (!level.isTileValid(position)) {
