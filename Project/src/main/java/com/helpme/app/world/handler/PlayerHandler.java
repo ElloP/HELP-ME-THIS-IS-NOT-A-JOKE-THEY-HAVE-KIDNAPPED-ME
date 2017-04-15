@@ -9,7 +9,7 @@ import com.helpme.app.world.level.ILevel;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class PlayerHandler extends MonsterHandler {
+public class PlayerHandler extends MonsterHandler implements IPlayerHandler{
 
     public PlayerHandler(IMonster player, ILevel level) {
         super(player, level);
