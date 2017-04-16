@@ -1,6 +1,7 @@
 package com.helpme.app.world.handler;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.IReadMonster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
@@ -82,7 +83,7 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler{
 
     public Tuple2<String,String[]> usePlayerTalk() { //TODO (jacob) change name to something better
 
-        IMonster monster = getFacingMonster();
+        IReadMonster monster = getFacingMonster();
 
         if(monster == null) return null;
 
@@ -93,7 +94,7 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler{
         return response;
     }
     public Tuple2<String,String[]> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException{
-        IMonster monster = getFacingMonster();
+        IReadMonster monster = getFacingMonster();
 
         if(monster == null) return null;
 

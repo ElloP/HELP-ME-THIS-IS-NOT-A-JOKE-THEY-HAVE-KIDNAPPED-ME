@@ -21,12 +21,9 @@ public interface IMonster extends ITarget, IReadMonster {
     void attack(ITarget target);
     void selfie();
     Vector2f targetTile();
-    boolean traverse(IEdge edge);
     boolean pickupItem(IItem item);
     IItem dropItem(int index);
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
-    Tuple2<String,String[]> initiateDialogue();
-
 }

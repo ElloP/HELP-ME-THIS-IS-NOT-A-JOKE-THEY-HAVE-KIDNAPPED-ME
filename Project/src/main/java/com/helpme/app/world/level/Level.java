@@ -1,6 +1,7 @@
 package com.helpme.app.world.level;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.IReadMonster;
 import com.helpme.app.character.ITarget;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.ITile;
@@ -82,9 +83,9 @@ public class Level implements ILevel {
     }
 
 
-    public boolean isMonsterBlockedByEdge(IMonster monster, Vector2f direction) {
+    public boolean isMonsterBlockedByEdge(IReadMonster monster, Vector2f direction) {
         ITile tile = tiles.get(monster.getPosition());
-        return !monster.traverse(tile.getEdge(direction));
+        return !monster.isTraversable(tile.getEdge(direction));
     }
 
     public boolean isTileOccupied(Vector2f position) {
@@ -104,7 +105,7 @@ public class Level implements ILevel {
             return tiles.get(position).getEdge(direction);
         }
 
-        return getMonster(destination);
+        return accessMonster(destination);
     }
 
     @Override
@@ -155,7 +156,11 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IMonster getMonster(Vector2f position) {
+    public IReadMonster getMonster(Vector2f position) {
+        return accessMonster(position);
+    }
+
+    private IMonster accessMonster(Vector2f position){
         for (IMonster monster : monsters) {
             if (monster.getPosition().equals(position)) {
                 return monster;
@@ -165,13 +170,13 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IMonster getPlayer() {
+    public IReadMonster getPlayer() {
         return player;
     }
 
 
     @Override
-    public boolean isDistanceFrom(IMonster monster, Vector2f destination, int longestDistance) {
+    public boolean isDistanceFrom(IReadMonster monster, Vector2f destination, int longestDistance) {
         ArrayList<Vector2f> positions = new ArrayList<>();
         ArrayList<Vector2f> notAdded = new ArrayList<>();
         notAdded.add(monster.getPosition());

@@ -1,11 +1,13 @@
 package com.helpme.app.world.handler;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.IReadMonster;
 import com.helpme.app.character.ITarget;
 import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
+import com.helpme.app.world.level.IReadLevel;
 
 /**
  * Created by Jesper on 2017-04-12.
@@ -144,7 +146,7 @@ public abstract class MonsterHandler implements IHandler {
         monster.pickupItem(item);
     }
 
-    protected IMonster getFacingMonster(){
+    protected IReadMonster getFacingMonster(){
         Vector2f position = monster.getPosition();
         Vector2f direction = monster.getDirection();
         Vector2f destination = Vector2f.add(position, direction);

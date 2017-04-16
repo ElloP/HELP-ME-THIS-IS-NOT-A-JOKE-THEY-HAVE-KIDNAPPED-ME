@@ -1,5 +1,6 @@
 package com.helpme.app.character;
 
+import com.helpme.app.tile.edge.IEdge;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
@@ -12,4 +13,6 @@ public interface IReadMonster {
     Vector2f getHitpoints();
     Vector2f getStartingPosition();
     Tuple2<String,String[]> getResponse(int i);
+    boolean isTraversable(IEdge edge);
+    Tuple2<String,String[]> initiateDialogue();
 }

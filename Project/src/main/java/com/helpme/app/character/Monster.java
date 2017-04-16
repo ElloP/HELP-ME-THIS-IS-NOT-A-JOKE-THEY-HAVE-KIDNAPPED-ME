@@ -123,7 +123,7 @@ public class Monster extends Observable implements IMonster {
     }
 
     @Override
-    public boolean traverse(IEdge edge) {
+    public boolean isTraversable(IEdge edge) {
         return edge.accept(new Traverse(this.inventory));
     }
 

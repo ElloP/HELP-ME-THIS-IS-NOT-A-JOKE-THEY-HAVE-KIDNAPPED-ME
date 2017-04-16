@@ -8,7 +8,7 @@ import com.helpme.app.world.level.ILevel;
  */
 public class World {
     ILevel[] levels;
-    IHandler playerController;
+    IHandler playerHandler;
     int currentLevelIndex;
 
     public World(ILevel[] levels, IHandler playerController){
@@ -16,6 +16,6 @@ public class World {
     }
 
     public void update(){
-        playerController.update();
+        playerHandler.update();
     }
 }
