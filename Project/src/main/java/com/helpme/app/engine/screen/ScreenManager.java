@@ -11,7 +11,6 @@ import java.util.Observer;
 
 
 public class ScreenManager extends Screen implements IScreenManager {
-    private IScreen[] screens;
     private boolean quit;
 
     public ScreenManager(IScreen[] screens) {
