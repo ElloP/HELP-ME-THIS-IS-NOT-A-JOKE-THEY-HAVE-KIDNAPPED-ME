@@ -59,7 +59,7 @@ public class Mesh {
         MemoryUtil.memFree(indexBuffer);
     }
 
-    public void draw() { //TODO(Olle): find a better place to draw mesh
+    public void draw() {
         glBindVertexArray(vao);
 
         glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);

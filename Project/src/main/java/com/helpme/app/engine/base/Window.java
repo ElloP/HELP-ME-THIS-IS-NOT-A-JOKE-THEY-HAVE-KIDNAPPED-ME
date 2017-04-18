@@ -21,7 +21,7 @@ public class Window {
     public static int width;
     public static int height;
 
-    public long getWindow() { return window; }
+    public static long getWindow() { return window; }
 
     public static boolean shouldClose() {
         return glfwWindowShouldClose(window);

@@ -1,4 +1,6 @@
-package com.helpme.app.utils;
+package com.helpme.app.engine.utils;
+
+import com.helpme.app.engine.renderer.base.Texture;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -25,7 +25,7 @@ public class Vector3f {
 
     public Vector3f() {
         this.vector = new org.joml.Vector3f();
-    } //Note(Olle): all zeroes
+    } //Note(Olle):d all zeroes
 
     public Vector3f(float x) {
         this.vector = new org.joml.Vector3f(x);
@@ -99,7 +99,7 @@ public class Vector3f {
 
     public Vector3f add(Vector3f vec, Vector3f dest) {
         this.vector.add(vec.vector, dest.vector);
-        return this;
+        return dest;
     }
 
     public float angle(Vector3f vec) {
@@ -118,7 +118,7 @@ public class Vector3f {
 
     public Vector3f cross(Vector3f vec, Vector3f dest) { //sets dest to the cross product of this and vec
         this.vector.cross(vec.vector, dest.vector);
-        return this;
+        return dest;
     }
 
     public float distance(float x, float y, float z) {

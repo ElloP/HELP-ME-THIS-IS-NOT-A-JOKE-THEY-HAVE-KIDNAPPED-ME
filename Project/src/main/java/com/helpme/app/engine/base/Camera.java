@@ -11,6 +11,8 @@ import com.helpme.app.utils.mathl.Vector3f;
 
 public class Camera {
     // ----------- Variables -----------
+
+    //TODO(Olle): Add some sort of parent child structure with transforms
     private Vector3f position;
     private Vector3f up;
     private Vector3f forward;
@@ -80,7 +82,10 @@ public class Camera {
 
     // ----------- Operations -----------
     public Matrix4f getViewMatrix() {
-        return new Matrix4f().lookAt(position, forward, up);
+        Vector3f target = new Vector3f();
+        //Note(Olle): look at the point that is one forward vector infront of the camera position
+        position.add(forward, target);
+        return new Matrix4f().lookAt(position, target, up);
     }
 
    public void rotate(Quaternion q) {
@@ -91,7 +96,6 @@ public class Camera {
         normalizeVectors();
    }
 
-   //TODO(Olle): rotation is buggy
    public void rotate(Vector3f xyz) {
         Quaternion q = new Quaternion().rotate(xyz);
         rotate(q);
@@ -103,20 +107,20 @@ public class Camera {
     }
 
     public void move(Vector3f dir, float amt) {
-        Vector3f movementVector = new Vector3f(1.0f).multiply(dir).multiply(amt);
-        position.add(movementVector);
+        Vector3f deltaPos = new Vector3f().add(dir.multiply(amt));
+        position.add(deltaPos);
     }
 
     public void moveRight(float amt) {
-        move(right, amt);
-    }
+        move(getRight(), amt);
+    } //Note(Olle): use the getters for immutabilitya
 
     public void moveLeft(float amt) {
         move(getLeft(), amt);
     }
 
     public void moveForward(float amt) {
-        move(forward, amt);
+        move(getForward(), amt);
     }
 
     public void moveBackward(float amt) {
@@ -124,7 +128,7 @@ public class Camera {
     }
 
     public void moveUp(float amt) {
-        move(up, amt);
+        move(getUp(), amt);
     }
 
     public void moveDown(float amt) {
@@ -142,7 +146,7 @@ public class Camera {
         if(right == null) {
             right = new Vector3f(); //Note(Olle): prevents null pointer errors
         }
-        up.cross(forward, right);
+        forward.cross(up, right);
     }
 
 }

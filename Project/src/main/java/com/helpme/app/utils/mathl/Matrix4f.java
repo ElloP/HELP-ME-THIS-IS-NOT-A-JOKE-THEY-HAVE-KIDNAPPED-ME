@@ -87,7 +87,7 @@ public class Matrix4f {
     }
 
     public Matrix4f lookAt(Vector3f position, Vector3f target, Vector3f up) {
-        this.matrix.setLookAt(position.vector, target.vector, up.vector);
+        this.matrix.lookAt(position.vector, target.vector, up.vector);
         return this;
     }
 
@@ -173,6 +173,11 @@ public class Matrix4f {
 
     public Matrix4f translate (Vector3f v) {
         this.matrix.translate(v.vector);
+        return this;
+    }
+
+    public Matrix4f transpose() {
+        this.matrix.transpose();
         return this;
     }
 

@@ -11,6 +11,7 @@ import com.helpme.app.utils.mathl.Vector3f;
 public class Transform {
     // ----------- Transform variables -----------
 
+    //TODO(Olle): Add some sort of parent child structure with transforms
     private Vector3f position;
     private Vector3f scale;
     private Quaternion rotation;
