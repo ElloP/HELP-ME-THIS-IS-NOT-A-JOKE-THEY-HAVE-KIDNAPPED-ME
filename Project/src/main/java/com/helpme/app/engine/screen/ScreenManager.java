@@ -1,5 +1,7 @@
 package com.helpme.app.engine.screen;
 
+import com.helpme.app.utils.Tuple.Tuple2;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,7 +17,8 @@ public class ScreenManager implements Observer {
 
     public ScreenManager(IScreen[] screens, int currentScreenIndex) {
         this.screens = screens;
-        changeScreen(currentScreenIndex);
+        this.currentScreenIndex = currentScreenIndex;
+        screens[this.currentScreenIndex].addObserver(this);
     }
 
     public boolean isQuit() {
@@ -31,31 +34,32 @@ public class ScreenManager implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        try {
-            ScreenType type = (ScreenType) arg;
-            switch (type) {
-                case MAIMMENU:
-                    changeScreen(0);
-                    break;
-                case GAME:
-                    changeScreen(1);
-                    break;
-                case QUIT:
-                    quit = true;
-                    break;
-            }
+        if(arg == null){
+            setQuit(true);
+            return;
         }
-        catch (ClassCastException e){
+
+        try {
+            String name = (String) arg;
+            changeScreen(name);
+        } catch (ClassCastException e) {
             System.out.println(e);
         }
     }
 
-    private void changeScreen(int next) {
-        int nextScreen = Math.floorMod(next, screens.length);
-        screens[currentScreenIndex].deleteObserver(this);
-        screens[nextScreen].addObserver(this);
-        currentScreenIndex = nextScreen;
+    private void setQuit(boolean value){
+        quit = value;
     }
 
+    private void changeScreen(String name) {
+        for(int i = 0; i < screens.length; i++){
+            if(screens[i].getName() == name){
+                screens[currentScreenIndex].deleteObserver(this);
+                screens[i].addObserver(this);
+                currentScreenIndex = i;
+                return;
+            }
+        }
+    }
 
 }
