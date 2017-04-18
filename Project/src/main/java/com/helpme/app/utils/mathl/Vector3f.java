@@ -25,7 +25,7 @@ public class Vector3f {
 
     public Vector3f() {
         this.vector = new org.joml.Vector3f();
-    }
+    } //Note(Olle): all zeroes
 
     public Vector3f(float x) {
         this.vector = new org.joml.Vector3f(x);
@@ -193,6 +193,11 @@ public class Vector3f {
     public Vector3f negate() {
         this.vector.negate();
         return this;
+    }
+
+    public Vector3f negate(Vector3f dest) {
+        this.vector.negate(dest.vector);
+        return dest;
     }
 
     public Vector3f normalize() {

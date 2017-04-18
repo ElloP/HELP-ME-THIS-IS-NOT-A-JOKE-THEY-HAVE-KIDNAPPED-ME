@@ -11,13 +11,14 @@ import com.helpme.app.utils.mathl.Vector3f;
 public class Transform {
     // ----------- Transform variables -----------
 
-    public Vector3f position;
+    private Vector3f position;
     private Vector3f scale;
-    public Quaternion rotation;
+    private Quaternion rotation;
 
 
     // ----------- Transform constructors -----------
 
+    //TODO(Olle): rotate transforms and cameras in the same way (maybe put a transform in the camera)
     public Transform() {
         position = new Vector3f();
         rotation = new Quaternion();
@@ -71,7 +72,7 @@ public class Transform {
         return new Matrix4f().perspective(fov, width/height, zNear, zFar);
     }
 
-    //TODO(Olle): if needed add function for orthogonal projection matrix (probably not needed though)
+    //TODO(Olle): if needed add function for orthogonal projection matrix
 
     public void setPosition(Vector3f xyz) {
         position = new Vector3f(xyz);

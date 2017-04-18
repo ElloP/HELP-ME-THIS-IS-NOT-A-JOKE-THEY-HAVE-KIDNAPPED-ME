@@ -23,17 +23,25 @@ public class Game {
         shader.addUniform("test");
         shader.addUniform("transform");
         shader.addUniform("projection");
+        shader.addUniform("view");
     }
 
     public void input() {
+        float movAmt = (float) (10 * Time.deltaTime);
+        float rotAmt = (float) (10 * Time.deltaTime);
+
         if(InputHandler.isKeyboardKeyDown(InputKey.MoveForward))
-            t.translate(0f, 3.0f * (float) Time.deltaTime, 0.0f);
+            c.moveForward(movAmt);
         if(InputHandler.isKeyboardKeyDown(InputKey.MoveLeft))
-            t.translate(-3.0f * (float) Time.deltaTime, 0.0f, 0.0f);
+            c.moveLeft(movAmt);
         if(InputHandler.isKeyboardKeyDown(InputKey.MoveRight))
-            t.translate(3.0f * (float) Time.deltaTime, 0.0f, 0.0f);
+            c.moveRight(movAmt);
         if(InputHandler.isKeyboardKeyDown(InputKey.MoveBackward))
-            t.translate(0f, -3.0f * (float) Time.deltaTime, 0.0f);
+            c.moveBackward(movAmt);
+        /*if(InputHandler.isKeyboardKeyDown(InputKey.RotateLeft))
+            c.rotate(0.0f, -rotAmt, 0.0f);
+        if(InputHandler.isKeyboardKeyDown(InputKey.RotateRight))
+            c.rotate(0.0f, rotAmt, 0.0f);*/
     }
 
     float test = 0.0f;
@@ -41,21 +49,26 @@ public class Game {
     Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
     Camera c = new Camera();
     Quaternion q;
-
+    Vector3f v = new Vector3f();
 
     public void update() {
         //TODO(Olle): update game
         test += Time.deltaTime;
 
-        q = new Quaternion(1.0f,0.0f ,0.0f , (float) Math.cos(test * 3)).multiply(new Quaternion(0.0f,1.0f ,0.0f , (float) Math.cos(test * 3))).normalize();
+        Vector3f v = new Vector3f((float) Math.sin(Time.getTimeInSeconds()), 0.0f, 0.0f);
+
+        q = new Quaternion().rotate(test, 0.0f, 0.0f);
+        c.rotate(new Quaternion().rotate((float)Time.deltaTime, 0.0f, 0.0f));
 
         t.rotate(q);
         t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
-        //t.scale((float) Math.sin(test));
+        t.scale(2.0f);
         //t.getTransformMatrix().logMatrix();
         shader.setUniform("test", test);
         shader.setUniform("projection", perspective);
         shader.setUniform("transform", t.getTransformMatrix());
+        shader.setUniform("view", c.getViewMatrix());
+
     }
 
     public void draw() {

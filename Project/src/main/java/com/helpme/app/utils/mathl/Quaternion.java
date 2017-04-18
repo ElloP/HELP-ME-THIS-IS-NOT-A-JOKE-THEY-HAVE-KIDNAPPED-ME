@@ -8,6 +8,8 @@ import org.joml.Quaternionf;
 public class Quaternion {
     protected Quaternionf quaternion;
 
+    // ----------- Constructors -----------
+
     public Quaternion() {
         quaternion = new Quaternionf();
     }
@@ -20,7 +22,8 @@ public class Quaternion {
         quaternion = new Quaternionf(x, y, z, w);
     }
 
-    // GETTERS
+    // ----------- Getters -----------
+
     public float x() {
         return quaternion.x();
     }
@@ -37,7 +40,7 @@ public class Quaternion {
         return quaternion.x();
     }
 
-    //REST
+    // ----------- Operations/functions -----------
 
     public Quaternion conjugate() {
         this.quaternion.conjugate();
