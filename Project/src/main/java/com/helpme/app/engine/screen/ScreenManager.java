@@ -10,23 +10,21 @@ import java.util.Observer;
  */
 
 
-public class ScreenManager implements Observer {
+public class ScreenManager extends Screen implements IScreenManager {
     private IScreen[] screens;
-    private int currentScreenIndex;
     private boolean quit;
 
-    public ScreenManager(IScreen[] screens, int currentScreenIndex) {
-        this.screens = screens;
-        this.currentScreenIndex = currentScreenIndex;
-        screens[this.currentScreenIndex].addObserver(this);
+    public ScreenManager(IScreen[] screens) {
+        super(ScreenManager.class.getName(), screens);
     }
 
     public boolean isQuit() {
         return quit;
     }
 
+    @Override
     public void update() {
-        IScreen screen = screens[currentScreenIndex];
+        IScreen screen = getCurrentScreen();
         screen.input();
         screen.update();
         screen.render();
@@ -38,10 +36,9 @@ public class ScreenManager implements Observer {
             setQuit(true);
             return;
         }
-
         try {
             String name = (String) arg;
-            changeScreen(name);
+            tryChangeScreen(name);
         } catch (ClassCastException e) {
             System.out.println(e);
         }
@@ -49,17 +46,6 @@ public class ScreenManager implements Observer {
 
     private void setQuit(boolean value){
         quit = value;
-    }
-
-    private void changeScreen(String name) {
-        for(int i = 0; i < screens.length; i++){
-            if(screens[i].getName() == name){
-                screens[currentScreenIndex].deleteObserver(this);
-                screens[i].addObserver(this);
-                currentScreenIndex = i;
-                return;
-            }
-        }
     }
 
 }

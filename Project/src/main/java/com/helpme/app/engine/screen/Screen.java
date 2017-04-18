@@ -87,11 +87,6 @@ public class Screen extends Observable implements IScreen, Observer {
     }
 
     @Override
-    public void setEnabled(boolean value) {
-        enabled = value;
-    }
-
-    @Override
     public void update(Observable o, Object arg) {
         if (arg == null) {
             notifyQuit();
@@ -108,7 +103,16 @@ public class Screen extends Observable implements IScreen, Observer {
         }
     }
 
-    private boolean tryChangeScreen(String name) {
+    @Override
+    public void setEnabled(boolean value) {
+        enabled = value;
+    }
+
+    protected IScreen getCurrentScreen(){
+        return screens[activeScreenIndex];
+    }
+
+    protected boolean tryChangeScreen(String name) {
         for (int i = screens.length; i >= 0; i--) {
             if (screens[i].getName() == name) {
                 screens[i].setEnabled(true);
