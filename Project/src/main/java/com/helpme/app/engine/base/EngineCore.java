@@ -94,7 +94,7 @@ public class EngineCore {
     }
 
     public static void main(String args[]) {
-        Window.initWindow(800,600, "Hello World!");
+        Window.initWindow(800,600, "Hello WorldScreen!");
         Window.disableVSync();
 
         EngineCore ec = new EngineCore();

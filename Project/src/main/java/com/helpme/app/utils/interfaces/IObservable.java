@@ -1,4 +1,4 @@
-package com.helpme.app.character;
+package com.helpme.app.utils.interfaces;
 
 import java.util.Observer;
 
@@ -7,4 +7,5 @@ import java.util.Observer;
  */
 public interface IObservable {
     void addObserver(Observer o);
+    void deleteObserver(Observer o);
 }
