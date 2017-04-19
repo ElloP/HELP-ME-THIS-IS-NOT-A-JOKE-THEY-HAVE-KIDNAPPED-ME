@@ -4,7 +4,11 @@ import com.helpme.app.engine.renderer.base.Texture;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryUtil;
 import sun.nio.ch.IOUtil;
+import sun.security.provider.SHA;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,13 +28,15 @@ import static org.lwjgl.stb.STBImage.*;
  * Authored by Olle on 2017-04-19.
  */
 public class TextureLoader {
-    private static final String SHADERPATH = new File("").getAbsolutePath() + "/src/main/java/com/helpme/app/engine/renderer/textures/";
+    private static final String TEXTUREPATH = new File("").getAbsolutePath() + "/src/main/java/com/helpme/app/engine/renderer/textures/";
 
+
+    //TODO(Olle): load images without borrowing external functions
     public static Texture loadTexture(String fileName) {
         Texture texture = new Texture();
         try {
 
-            ByteBuffer imageBuffer = ioResourceToByteBuffer(SHADERPATH + fileName, 8 * 1024);
+            ByteBuffer imageBuffer = ioResourceToByteBuffer(TEXTUREPATH + fileName, 8 * 1024);
             IntBuffer widthBuffer = MemoryUtil.memAllocInt(1);
             IntBuffer heightBuffer = MemoryUtil.memAllocInt(1);
             IntBuffer compBuffer = MemoryUtil.memAllocInt(1);
