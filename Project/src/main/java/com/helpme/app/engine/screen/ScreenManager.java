@@ -10,29 +10,30 @@ import java.util.Observer;
  */
 
 
-public class ScreenManager extends Screen implements IScreenManager {
-    private boolean quit;
-
+public class ScreenManager extends Screen {
     public ScreenManager(IScreen[] screens) {
         super(ScreenManager.class.getName(), screens);
     }
 
-    public boolean isQuit() {
-        return quit;
+    @Override
+    public void update() {
+        getCurrentScreen().update();
     }
 
     @Override
-    public void update() {
-        IScreen screen = getCurrentScreen();
-        screen.input();
-        screen.update();
-        screen.render();
+    public void input(){
+        getCurrentScreen().input();
+    }
+
+    @Override
+    public void render(){
+        getCurrentScreen().render();
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if(arg == null){
-            setQuit(true);
+            setEnabled(false);
             return;
         }
         try {
@@ -42,9 +43,4 @@ public class ScreenManager extends Screen implements IScreenManager {
             System.out.println(e);
         }
     }
-
-    private void setQuit(boolean value){
-        quit = value;
-    }
-
 }
