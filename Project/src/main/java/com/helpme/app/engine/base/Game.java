@@ -8,7 +8,6 @@ import com.helpme.app.engine.utils.TextureLoader;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Quaternion;
-import com.helpme.app.utils.mathl.Vector3f;
 
 /**
  * Authored by Olle on 2017-04-05.
