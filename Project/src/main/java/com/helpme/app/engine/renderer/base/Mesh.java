@@ -24,21 +24,26 @@ public class Mesh {
     }
 
     public Mesh(Vertex[] vertices, int[] indices) {
-        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertices.length);
-        IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
+        vao = glGenVertexArrays();
+        vbo = glGenBuffers();
+        ebo = glGenBuffers();
 
+        addVertices(vertices, indices);
+    }
+
+    public void addVertices(Vertex[] vertices, int[] indices) {
         final int FLOATSIZE = 4; //in bytes
-
         vertexCount = indices.length;
+
+        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertexCount * Vertex.VERTEXSIZE);
+        IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
 
         for(Vertex v : vertices) {
             v.get(vertexBuffer);
         }
-        indexBuffer.put(indices).flip();
 
-        vao = glGenVertexArrays();
-        vbo = glGenBuffers();
-        ebo = glGenBuffers();
+        vertexBuffer.flip();
+        indexBuffer.put(indices).flip();
 
         glBindVertexArray(vao);
 

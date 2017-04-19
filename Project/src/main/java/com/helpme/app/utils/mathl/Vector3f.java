@@ -150,7 +150,9 @@ public class Vector3f {
     }
 
     public FloatBuffer get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
-        this.vector.get(fb);
+        fb.put(this.vector.x);
+        fb.put(this.vector.y);
+        fb.put(this.vector.z);
         return fb;
     }
 

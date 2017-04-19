@@ -3,7 +3,7 @@ package com.helpme.app.utils;
 import java.nio.FloatBuffer;
 
 /**
- * Created by Olle on 2017-03-30.
+ * Authored by Olle on 2017-03-30.
  */
 public class Vector2f {
     private final float RIGHT_ANGLE = (float) Math.PI / 2;

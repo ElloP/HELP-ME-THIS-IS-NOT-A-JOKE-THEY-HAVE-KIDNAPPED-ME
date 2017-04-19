@@ -3,9 +3,8 @@ package com.helpme.app.engine.base;
 import com.helpme.app.engine.input.InputHandler;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.engine.input.KeyState;
-import com.helpme.app.engine.renderer.base.Cube;
-import com.helpme.app.engine.renderer.base.Mesh;
-import com.helpme.app.engine.renderer.base.Shader;
+import com.helpme.app.engine.renderer.base.*;
+import com.helpme.app.engine.utils.TextureLoader;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Quaternion;
@@ -22,7 +21,6 @@ public class Game {
     public Game() {
         mesh = new Cube();
         shader = new Shader("vertexShader.vs", "fragmentShader.fs");
-        shader.addUniform("test");
         shader.addUniform("model");
         shader.addUniform("projection");
         shader.addUniform("view");
@@ -37,21 +35,16 @@ public class Game {
     Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
     Camera c = new Camera();
     Quaternion q;
-    Vector3f v = new Vector3f();
+    Texture texture = TextureLoader.loadTexture("default.png");
 
     public void update() {
         //TODO(Olle): update game
         test += Time.deltaTime;
 
-        Vector3f v = new Vector3f((float) Math.sin(Time.getTimeInSeconds()), 0.0f, 0.0f);
-
         q = new Quaternion().rotate(test,test,0);
 
         t.rotate(q);
         t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
-        //t.scale(2.0f);
-        //t.getTransformMatrix().logMatrix();
-        shader.setUniform("test", test);
         shader.setUniform("projection", perspective);
         shader.setUniform("model", t.getTransformMatrix());
         shader.setUniform("view", c.getViewMatrix());
@@ -59,6 +52,7 @@ public class Game {
 
     public void draw() {
         shader.useProgram();
+        texture.bind();
         mesh.draw();
     }
 

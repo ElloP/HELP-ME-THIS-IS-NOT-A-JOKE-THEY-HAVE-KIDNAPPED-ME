@@ -6,10 +6,9 @@ import com.helpme.app.utils.mathl.Vector3f;
 import java.nio.FloatBuffer;
 
 /**
- * Created by Olle on 2017-04-19.
+ * Authored by Olle on 2017-04-19.
  */
 public class Vertex {
-    //TODO(Olle): Convert every place you use float[] to render to vertex
     public final static int VERTEXSIZE = 5; //NOTE(Olle): Number of floats in a vertex
 
     public Vector3f position; //Note(Olle): Vertex position in 3d space
@@ -18,6 +17,11 @@ public class Vertex {
     public Vertex(Vector3f position, Vector2f texCoords) {
         this.position = position;
         this.texCoords = texCoords;
+    }
+
+    public Vertex(float x, float y, float z, float s, float t) { //Note(Olle): s = x and t = y in texture space
+        this.position = new Vector3f(x, y, z);
+        this.texCoords = new Vector2f(s, t);
     }
 
     public FloatBuffer get(FloatBuffer fb) {
