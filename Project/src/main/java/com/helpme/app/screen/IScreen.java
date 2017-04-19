@@ -1,4 +1,4 @@
-package com.helpme.app.engine.screen;
+package com.helpme.app.screen;
 
 import com.helpme.app.utils.interfaces.IObservable;
 

@@ -1,9 +1,6 @@
-package com.helpme.app.engine.screen;
-
-import com.helpme.app.utils.Tuple.Tuple2;
+package com.helpme.app.screen;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by kopa on 2017-04-17.

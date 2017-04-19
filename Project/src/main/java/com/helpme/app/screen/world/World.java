@@ -1,11 +1,10 @@
-package com.helpme.app.engine.screen.world;
+package com.helpme.app.screen.world;
 
-import com.helpme.app.engine.screen.IScreen;
-import com.helpme.app.engine.screen.Screen;
+import com.helpme.app.screen.IScreen;
+import com.helpme.app.screen.Screen;
 import com.helpme.app.world.handler.IHandler;
 import com.helpme.app.world.handler.IPlayerHandler;
 import com.helpme.app.world.level.ILevel;
-import org.lwjgl.system.CallbackI;
 
 /**
  * Created by Jacob on 2017-03-30.

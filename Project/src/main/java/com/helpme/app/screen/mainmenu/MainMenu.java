@@ -1,7 +1,7 @@
-package com.helpme.app.engine.screen.mainmenu;
+package com.helpme.app.screen.mainmenu;
 
-import com.helpme.app.engine.screen.Screen;
-import com.helpme.app.engine.screen.world.World;
+import com.helpme.app.screen.Screen;
+import com.helpme.app.screen.world.World;
 
 /**
  * Created by kopa on 2017-04-17.

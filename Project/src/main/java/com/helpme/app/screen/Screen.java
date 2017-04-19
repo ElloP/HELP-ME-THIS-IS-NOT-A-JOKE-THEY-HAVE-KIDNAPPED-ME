@@ -1,7 +1,4 @@
-package com.helpme.app.engine.screen;
-
-import com.helpme.app.utils.Tuple.Tuple2;
-import javafx.beans.InvalidationListener;
+package com.helpme.app.screen;
 
 import java.util.Observable;
 import java.util.Observer;
