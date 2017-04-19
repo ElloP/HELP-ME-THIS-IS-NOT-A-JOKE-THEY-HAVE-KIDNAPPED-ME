@@ -70,9 +70,9 @@ public final class Input {
     public static Map<InputKey, Integer[]> getDefaultKeys() {
         Map<InputKey, Integer[]> defaultKeys = new HashMap<>();
         defaultKeys.put(InputKey.MoveForward, new Integer[]{GLFW_KEY_W});
-        defaultKeys.put(InputKey.MoveBackward, new Integer[]{GLFW_KEY_W});
-        defaultKeys.put(InputKey.MoveLeft, new Integer[]{GLFW_KEY_W});
-        defaultKeys.put(InputKey.MoveRight, new Integer[]{GLFW_KEY_W});
+        defaultKeys.put(InputKey.MoveBackward, new Integer[]{GLFW_KEY_S});
+        defaultKeys.put(InputKey.MoveLeft, new Integer[]{GLFW_KEY_A});
+        defaultKeys.put(InputKey.MoveRight, new Integer[]{GLFW_KEY_D});
         defaultKeys.put(InputKey.RotateLeft, new Integer[]{GLFW_KEY_Q});
         defaultKeys.put(InputKey.RotateRight, new Integer[]{GLFW_KEY_E});
         defaultKeys.put(InputKey.Attack, new Integer[]{GLFW_KEY_LEFT_ALT});
