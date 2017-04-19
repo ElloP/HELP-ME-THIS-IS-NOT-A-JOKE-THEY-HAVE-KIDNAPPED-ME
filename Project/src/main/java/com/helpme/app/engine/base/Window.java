@@ -1,5 +1,7 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.input.Input;
+import com.helpme.app.engine.input.KeyState;
 import org.lwjgl.opengl.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -16,6 +18,9 @@ public class Window {
 
     private static long window;
 
+    public static int width;
+    public static int height;
+
     public long getWindow() { return window; }
 
     public static boolean shouldClose() {
@@ -29,6 +34,9 @@ public class Window {
             throw new IllegalStateException("GLFW failed to initialize!");
         }
 
+        Window.width = width;
+        Window.height = height;
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //NOTE(Olle): sets opengl version
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //NOTE(Olle): forward compatibility needed on certain versions of OS X
@@ -40,7 +48,8 @@ public class Window {
             throw new RuntimeException("GLFW failed to create window");
         }
 
-        exitWithESC();
+        KeyState.initialize(window);
+        Input.initialize(Input.getDefaultKeys());
 
         glfwMakeContextCurrent(window);
 

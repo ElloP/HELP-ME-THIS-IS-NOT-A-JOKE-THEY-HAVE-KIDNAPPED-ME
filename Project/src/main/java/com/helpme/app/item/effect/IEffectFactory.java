@@ -5,10 +5,10 @@ package com.helpme.app.item.effect;
  */
 public interface IEffectFactory {
     static IEffect damage(float amount){
-        return stats -> stats.damage(amount);
+        return target -> target.damage(amount);
     }
 
     static IEffect heal(float amount){
-        return stats -> stats.heal(amount);
+        return target -> target.heal(amount);
     }
 }

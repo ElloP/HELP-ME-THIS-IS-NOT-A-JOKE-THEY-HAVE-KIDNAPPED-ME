@@ -1,14 +1,13 @@
 package com.helpme.app.tile;
 
 import com.helpme.app.item.IItem;
-import com.helpme.app.item.Item;
 import com.helpme.app.tile.edge.IEdge;
+import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Created by Jacob on 2017-03-30.
@@ -17,9 +16,10 @@ public class Tile implements ITile {
     private IEdge[] edges = new IEdge[4];
     private List<IItem> items;
 
-    public Tile(List<IItem> items){
-        this.items = items;
+    public Tile(IItem[] items){
+        this.items = items == null ? new ArrayList<>() : Clone.toList(items);
     }
+
 
     @Override
     public IEdge getEdge(Vector2f direction) {
@@ -42,9 +42,16 @@ public class Tile implements ITile {
     }
 
     @Override
-    public List<IItem> popItems() {
-        List<IItem> removed = items;
-        items = new ArrayList<>();
+    public IItem[] removeItems() {
+        IItem[] removed = items.toArray(new IItem[items.size()]);
+        items.clear();
+        return removed;
+    }
+
+    @Override
+    public IItem removeItem(int index) {
+        IItem removed = items.get(index);
+        items.set(index, null);
         return removed;
     }
 

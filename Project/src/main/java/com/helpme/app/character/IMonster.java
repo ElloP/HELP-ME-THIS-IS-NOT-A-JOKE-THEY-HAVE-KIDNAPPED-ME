@@ -1,13 +1,15 @@
 package com.helpme.app.character;
 
+import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.tile.edge.IEdge;
+import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IMonster extends ITarget{
+public interface IMonster extends ITarget, IReadMonster {
     void rotateRight();
     void rotateLeft();
     void moveForward();
@@ -19,14 +21,9 @@ public interface IMonster extends ITarget{
     void attack(ITarget target);
     void selfie();
     Vector2f targetTile();
-    boolean traverse(IEdge edge);
     boolean pickupItem(IItem item);
-    Vector2f getPosition();
-    Vector2f getDirection();
-    Vector2f getHitpoints();
+    IItem dropItem(int index);
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
-    String getResponse();
-
 }

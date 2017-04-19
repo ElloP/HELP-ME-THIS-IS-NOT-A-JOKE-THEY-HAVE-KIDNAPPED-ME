@@ -1,5 +1,8 @@
 package com.helpme.app.character;
 
+import com.helpme.app.character.dialogue.IDialogue;
+import com.helpme.app.character.inventory.IInventory;
+import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.item.visitor.Attack;
 import com.helpme.app.item.visitor.Pickup;
@@ -9,28 +12,41 @@ import com.helpme.app.tile.edge.visitor.Traverse;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
+import java.util.Observable;
+
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Monster implements IMonster {
+public class Monster extends Observable implements IMonster {
     private IInventory inventory;
+    private final Vector2f startingPosition;
     private Vector2f position;
     private Vector2f direction;
     private Vector2f hitpoints; // NOTE (Jacob): (maxHitpoints, currentHitpoints)
 
     private boolean dead;
 
+    private IDialogue dialogue;
 
+    //Right now just for testing
+    public Monster(Vector2f position, Vector2f direction, IDialogue dialogue){
+        this.dialogue = dialogue;
+        this.position = position;
+        this.direction = direction;
+        this.startingPosition = position;
+
+    }
 
     public Monster(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
         this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
     }
 
     public Monster(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
-        this.inventory = inventory;
-        this.position = position;
-        this.direction = direction;
-        this.hitpoints = hitpoints;
+        this.inventory = inventory == null ? new Inventory(null,null,null) : inventory;
+        this.position = position == null ? Vector2f.zero : position;
+        this.direction = direction == null ? Vector2f.up : direction;
+        this.hitpoints = hitpoints == null ? Vector2f.zero : hitpoints;
+        this.startingPosition = position;
     }
 
     @Override
@@ -62,6 +78,8 @@ public class Monster implements IMonster {
 
     private void move(Vector2f direction) {
         position = Vector2f.add(position, direction);
+        setChanged();
+        notifyObservers(position);
     }
 
     @Override
@@ -105,7 +123,7 @@ public class Monster implements IMonster {
     }
 
     @Override
-    public boolean traverse(IEdge edge) {
+    public boolean isTraversable(IEdge edge) {
         return edge.accept(new Traverse(this.inventory));
     }
 
@@ -115,13 +133,22 @@ public class Monster implements IMonster {
     }
 
     @Override
+    public IItem dropItem(int index) {
+        return inventory.dropItem(index);
+    }
+
+    @Override
     public Monster clone() {
         return new Monster(inventory.clone(), position.clone(), direction.clone(), getHitpoints());
     }
 
     @Override
-    public String getResponse() {
-        return "Hello!"; //TODO (klas) Temporary
+    public Tuple2<String,String[]> initiateDialogue() {
+        return dialogue.initiateDialogue();
+    }
+    @Override
+    public Tuple2<String,String[]> getResponse(int i){
+        return dialogue.chooseDialogue(i);
     }
 
     @Override
@@ -152,5 +179,11 @@ public class Monster implements IMonster {
     public void heal(float amount) {
         amount = Math.abs(amount);
         hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
+        setChanged();
+        notifyObservers();
+    }
+
+    public Vector2f getStartingPosition(){
+        return startingPosition;
     }
 }

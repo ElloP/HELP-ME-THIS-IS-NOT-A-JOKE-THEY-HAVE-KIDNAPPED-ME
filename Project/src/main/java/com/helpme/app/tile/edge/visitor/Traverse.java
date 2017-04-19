@@ -1,6 +1,6 @@
 package com.helpme.app.tile.edge.visitor;
 
-import com.helpme.app.character.IKeyChain;
+import com.helpme.app.character.inventory.IKeyChain;
 import com.helpme.app.tile.edge.Door;
 import com.helpme.app.tile.edge.Opening;
 import com.helpme.app.tile.edge.Wall;

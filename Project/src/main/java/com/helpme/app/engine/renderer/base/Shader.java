@@ -1,8 +1,12 @@
 package com.helpme.app.engine.renderer.base;
 
 import com.helpme.app.utils.ResourceLoader;
+import com.helpme.app.utils.mathl.Matrix4f;
+import com.helpme.app.utils.mathl.Vector3f;
+import org.lwjgl.system.MemoryUtil;
 
 import java.io.File;
+import java.nio.FloatBuffer;
 import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL20.*;
@@ -104,12 +108,23 @@ public class Shader {
     }
 
     //TODO(Olle): Add more possible uniform datatypes
-    //NOTE(Olle): (for later) you have to use floatbuffers (dont forget to flip it) to send matrices to shaders in Java
     public void setUniform(String uniformName, int value) {
         glUniform1i(uniforms.get(uniformName), value);
     }
 
     public void setUniform(String uniformName, float value) {
         glUniform1f(uniforms.get(uniformName), value);
+    }
+
+    public void setUniform(String uniformName, Matrix4f value) {
+        FloatBuffer fb = MemoryUtil.memAllocFloat(16);
+        value.get(fb);
+        glUniformMatrix4fv(uniforms.get(uniformName), false, fb);
+    }
+
+    public void setUniform(String uniformName, Vector3f value) {
+        FloatBuffer fb = MemoryUtil.memAllocFloat(3);
+        value.get(fb);
+        glUniform3fv(uniforms.get(uniformName), fb);
     }
 }
