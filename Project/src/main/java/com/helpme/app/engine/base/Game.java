@@ -45,7 +45,7 @@ public class Game {
 
         Vector3f v = new Vector3f((float) Math.sin(Time.getTimeInSeconds()), 0.0f, 0.0f);
 
-        q = new Quaternion().rotate(test, 0.0f, 0.0f);
+        q = new Quaternion().rotate(test,test,0);
 
         t.rotate(q);
         t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);

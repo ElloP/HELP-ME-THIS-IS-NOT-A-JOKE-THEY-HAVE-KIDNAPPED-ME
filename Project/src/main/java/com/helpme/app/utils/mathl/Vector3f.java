@@ -1,7 +1,5 @@
 package com.helpme.app.utils.mathl;
 
-import com.helpme.app.utils.Vector2f;
-
 import java.nio.FloatBuffer;
 
 /**

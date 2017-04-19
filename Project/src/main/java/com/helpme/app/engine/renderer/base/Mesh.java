@@ -23,16 +23,17 @@ public class Mesh {
         return vertexCount;
     }
 
-    public Mesh(float[] vertices, int[] indices) {
+    public Mesh(Vertex[] vertices, int[] indices) {
         FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertices.length);
         IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
 
         final int FLOATSIZE = 4; //in bytes
-        final int VERTEXSIZE = 3; //number of float in one vertex
 
         vertexCount = indices.length;
 
-        vertexBuffer.put(vertices).flip();
+        for(Vertex v : vertices) {
+            v.get(vertexBuffer);
+        }
         indexBuffer.put(indices).flip();
 
         vao = glGenVertexArrays();
@@ -47,8 +48,11 @@ public class Mesh {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, VERTEXSIZE * FLOATSIZE, 0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.VERTEXSIZE * FLOATSIZE, 0);
         glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex.VERTEXSIZE * FLOATSIZE, 3 * FLOATSIZE);
+        glEnableVertexAttribArray(1);
 
         glBindVertexArray(0);
 
