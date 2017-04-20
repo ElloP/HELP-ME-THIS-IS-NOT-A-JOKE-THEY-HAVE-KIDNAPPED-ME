@@ -62,7 +62,10 @@ public class Tile implements ITile {
 
     @Override
     public void addItems(IItem[] items){
-        this.items.addAll(Arrays.asList(items));
+        for(IItem item : items){
+            if(item == null) continue;
+            addItem(item);
+        }
     }
 
 
