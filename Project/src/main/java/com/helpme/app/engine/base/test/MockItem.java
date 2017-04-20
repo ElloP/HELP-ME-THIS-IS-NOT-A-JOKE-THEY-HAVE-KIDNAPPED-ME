@@ -1,9 +1,9 @@
 package com.helpme.app.engine.base.test;
 
-import com.helpme.app.item.Consumable;
-import com.helpme.app.item.IItem;
-import com.helpme.app.item.Item;
-import com.helpme.app.item.Key;
+import com.helpme.app.world.item.Consumable;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.item.Item;
+import com.helpme.app.world.item.Key;
 
 /**
  * Created by og on 2017-04-20.

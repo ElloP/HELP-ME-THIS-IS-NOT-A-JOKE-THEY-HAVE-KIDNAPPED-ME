@@ -1,12 +1,12 @@
 package com.helpme.app.engine.base.test;
 
-import com.helpme.app.character.IMonster;
-import com.helpme.app.character.Monster;
-import com.helpme.app.character.behaviour.AttackEveryoneClose;
-import com.helpme.app.character.inventory.IInventory;
-import com.helpme.app.character.inventory.Inventory;
-import com.helpme.app.item.IItem;
-import com.helpme.app.tile.edge.Door;
+import com.helpme.app.world.character.IMonster;
+import com.helpme.app.world.character.Monster;
+import com.helpme.app.world.character.behaviour.AttackEveryoneClose;
+import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;

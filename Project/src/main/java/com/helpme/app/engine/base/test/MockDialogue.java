@@ -1,9 +1,9 @@
 package com.helpme.app.engine.base.test;
 
-import com.helpme.app.character.dialogue.Dialogue;
-import com.helpme.app.character.dialogue.DialogueNode;
-import com.helpme.app.character.dialogue.IDialogue;
-import com.helpme.app.character.dialogue.IDialogueNode;
+import com.helpme.app.world.character.dialogue.Dialogue;
+import com.helpme.app.world.character.dialogue.DialogueNode;
+import com.helpme.app.world.character.dialogue.IDialogue;
+import com.helpme.app.world.character.dialogue.IDialogueNode;
 
 /**
  * Created by og on 2017-04-20.

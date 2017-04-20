@@ -139,6 +139,11 @@ public class Monster extends Observable implements IMonster {
     }
 
     @Override
+    public boolean isDead() {
+        return dead;
+    }
+
+    @Override
     public Tuple2<String,String[]> initiateDialogue() {
         return dialogue.initiateDialogue();
     }

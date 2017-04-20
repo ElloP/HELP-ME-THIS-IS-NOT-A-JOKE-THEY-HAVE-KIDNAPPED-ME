@@ -90,7 +90,7 @@ public class Level implements ILevel {
 
     public boolean isTileOccupied(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) {
+            if (monster.getPosition().equals(position) && !monster.isDead()) {
                 return true;
             }
         }
