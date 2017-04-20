@@ -1,7 +1,7 @@
 package com.helpme.app;
 
 import com.google.inject.AbstractModule;
-import com.helpme.app.item.*;
+import com.helpme.app.world.item.*;
 
 //import com.google.inject.AbstractModule;
 

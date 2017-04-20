@@ -1,10 +1,9 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.item.Consumable;
-import com.helpme.app.item.IItem;
-import com.helpme.app.item.Item;
-import com.helpme.app.item.Key;
-import com.helpme.app.item.effect.IEffectFactory;
+import com.helpme.app.world.item.Consumable;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.item.Item;
+import com.helpme.app.world.item.Key;
 
 /**
  * Created by Jacob on 2017-04-11.

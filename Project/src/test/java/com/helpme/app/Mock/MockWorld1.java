@@ -1,10 +1,10 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.character.IMonster;
-import com.helpme.app.character.Monster;
-import com.helpme.app.character.behaviour.AttackEveryoneClose;
-import com.helpme.app.character.inventory.Inventory;
-import com.helpme.app.item.IItem;
+import com.helpme.app.world.character.IMonster;
+import com.helpme.app.world.character.Monster;
+import com.helpme.app.world.character.behaviour.AttackEveryoneClose;
+import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.handler.EnemyHandler;

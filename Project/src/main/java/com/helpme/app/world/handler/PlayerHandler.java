@@ -1,8 +1,8 @@
 package com.helpme.app.world.handler;
 
-import com.helpme.app.character.IMonster;
-import com.helpme.app.character.IReadMonster;
-import com.helpme.app.item.IItem;
+import com.helpme.app.world.character.IMonster;
+import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;

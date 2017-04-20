@@ -1,10 +1,10 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.character.*;
-import com.helpme.app.character.inventory.IInventory;
-import com.helpme.app.character.inventory.Inventory;
-import com.helpme.app.item.IItem;
-import com.helpme.app.tile.edge.Door;
+import com.helpme.app.world.character.*;
+import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
