@@ -170,6 +170,7 @@ public class Monster extends Observable implements IMonster {
             setDead();
         }
     }
+    @Override
     public void dropAllItems(){
         for(int i = 0; i < inventory.itemLimit(); i++){
             IItem item = inventory.getItem(i);
@@ -185,6 +186,7 @@ public class Monster extends Observable implements IMonster {
         setChanged();
         notifyObservers();
     }
+    @Override
     public boolean isDead(){
         return dead;
     }
