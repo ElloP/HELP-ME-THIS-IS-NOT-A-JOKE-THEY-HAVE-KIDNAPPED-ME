@@ -111,5 +111,13 @@ public final class KeyState {
     static boolean isMouseButtonRelease(int mousecode) {
         return mouseButtons[mousecode] == InputState.RELEASE;
     }
+
+    static boolean isMouseEntered(){
+        return entered;
+    }
+
+    static Vector2f getMousePosition(){
+        return mousePosition.clone();
+    }
 }
 

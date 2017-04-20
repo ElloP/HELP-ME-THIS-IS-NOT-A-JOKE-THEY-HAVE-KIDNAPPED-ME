@@ -81,7 +81,7 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler{
         changeMonsterActiveItem(index);
     }
 
-    public Tuple2<String,String[]> usePlayerTalk() { //TODO (jacob) change name to something better
+    public Tuple2<String,String[]> usePlayerTalk() {
 
         IReadMonster monster = getFacingMonster();
 

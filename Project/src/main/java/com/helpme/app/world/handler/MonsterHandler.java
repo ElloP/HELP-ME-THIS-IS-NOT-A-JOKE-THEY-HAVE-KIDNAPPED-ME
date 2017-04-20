@@ -17,7 +17,6 @@ public abstract class MonsterHandler implements IHandler {
     protected IMonster monster;
     protected ILevel level;
 
-
     @Override
     public abstract void update();
 

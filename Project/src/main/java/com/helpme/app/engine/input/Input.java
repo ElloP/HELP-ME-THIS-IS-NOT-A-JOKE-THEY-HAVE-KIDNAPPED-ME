@@ -4,6 +4,7 @@ package com.helpme.app.engine.input;
  * Created by Jacob on 2017-04-02.
  */
 
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.functions.IFunction;
 
 import java.util.HashMap;
@@ -65,6 +66,14 @@ public final class Input {
 
     public static boolean isMouseButtonRelease(int mousecode) {
         return KeyState.isMouseButtonRelease(mousecode);
+    }
+
+    public static boolean isMouseEntered() {
+        return KeyState.isMouseEntered();
+    }
+
+    public static Vector2f getMousePosition() {
+        return KeyState.getMousePosition();
     }
 
     public static Map<InputKey, Integer[]> getDefaultKeys() {
