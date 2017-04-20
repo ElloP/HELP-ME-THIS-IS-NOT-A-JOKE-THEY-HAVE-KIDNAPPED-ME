@@ -194,4 +194,14 @@ public class Level implements ILevel {
         return positions.contains(destination);
     }
 
+    @Override
+    public void updateDeadMonster(Vector2f position){
+        for(IMonster m : monsters){
+            if(m.getPosition().equals(position)){
+                tiles.get(position).addItems(m.getInventory().getItems());
+                m.dropAllItems();
+                return;
+            }
+        }
+    }
 }

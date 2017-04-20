@@ -117,6 +117,11 @@ public class Inventory implements IInventory {
     }
 
     @Override
+    public IItem[] getItems() {
+        return cloneItems();
+    }
+
+    @Override
     public boolean hasKey(IItem key) {
         return keychain.contains(key);
     }

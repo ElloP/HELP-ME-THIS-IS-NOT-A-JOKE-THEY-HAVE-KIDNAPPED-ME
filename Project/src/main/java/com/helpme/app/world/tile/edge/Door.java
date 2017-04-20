@@ -15,6 +15,8 @@ public class Door implements IEdge {
         this.key = key == null ? IKeyFactory.skeletonKey() : key;
     }
 
+    public boolean isDead(){ return false; }
+
     @Override
     public boolean accept(IEdgeVisitor visitor) {
         return visitor.visit(this);

@@ -114,6 +114,9 @@ public abstract class MonsterHandler implements IHandler {
         Vector2f direction = monster.getDirection();
         ITarget target = level.getTarget(monster, direction);
         monster.attack(target);
+        if(target.isDead()){
+            level.updateDeadMonster(Vector2f.add(monster.getPosition(),monster.getDirection()));
+        }
     }
 
     public void useMonsterPickupAll() {

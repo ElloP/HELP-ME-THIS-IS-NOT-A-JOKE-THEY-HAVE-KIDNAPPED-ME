@@ -167,16 +167,31 @@ public class Monster extends Observable implements IMonster {
         amount = Math.abs(amount);
         hitpoints.y -= amount;
         if (hitpoints.y <= 0) {
-            dead = true;
+            setDead();
         }
     }
-
+    public void dropAllItems(){
+        for(int i = 0; i < inventory.itemLimit(); i++){
+            IItem item = inventory.getItem(i);
+            if(item != null){
+                dropItem(i);
+            }
+        }
+    }
     @Override
     public void heal(float amount) {
         amount = Math.abs(amount);
         hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
         setChanged();
         notifyObservers();
+    }
+    public boolean isDead(){
+        return dead;
+    }
+
+    @Override
+    public void setDead(){
+        dead = true;
     }
 
     public Vector2f getStartingPosition(){
