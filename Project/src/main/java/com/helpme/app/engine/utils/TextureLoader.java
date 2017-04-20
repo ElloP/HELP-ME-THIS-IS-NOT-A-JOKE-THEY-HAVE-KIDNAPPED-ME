@@ -1,29 +1,13 @@
 package com.helpme.app.engine.utils;
 
 import com.helpme.app.engine.renderer.base.Texture;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryUtil;
-import sun.nio.ch.IOUtil;
-import sun.security.provider.SHA;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.lwjgl.BufferUtils.createByteBuffer;
-import static org.lwjgl.stb.STBImage.*;
-
 /**
  * Authored by Olle on 2017-04-19.
  */
