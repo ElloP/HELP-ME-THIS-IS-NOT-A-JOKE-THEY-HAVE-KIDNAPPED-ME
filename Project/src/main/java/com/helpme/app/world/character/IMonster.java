@@ -18,7 +18,6 @@ public interface IMonster extends ITarget, IReadMonster {
     void changeActiveItem(int itemIndex);
     void attack(ITarget target);
     void selfie();
-    Vector2f targetTile();
     boolean pickupItem(IItem item);
     IItem dropItem(int index);
     IInventory getInventory();

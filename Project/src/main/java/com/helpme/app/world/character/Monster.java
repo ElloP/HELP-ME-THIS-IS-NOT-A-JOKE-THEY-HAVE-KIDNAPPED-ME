@@ -62,11 +62,6 @@ public class Monster extends Observable implements IMonster {
     }
 
     @Override
-    public Vector2f targetTile() {
-        return Vector2f.add(position, direction);
-    }
-
-    @Override
     public void rotateRight() {
         direction = direction.rotateRightAngle(1);
     }
