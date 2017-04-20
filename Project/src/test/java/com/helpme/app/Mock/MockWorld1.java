@@ -2,7 +2,7 @@ package com.helpme.app.Mock;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.Monster;
-import com.helpme.app.character.behaviour.AttackEveryoneClose;
+import com.helpme.app.character.behaviour.FollowAndAttack;
 import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
@@ -37,8 +37,8 @@ public class MockWorld1 {
 
         playerController = new PlayerController(player, level);
 
-        enemyController0 = new EnemyController(enemy0, level, new AttackEveryoneClose(2));
-        enemyController1 = new EnemyController(enemy1, level, new AttackEveryoneClose(2));
+        enemyController0 = new EnemyController(enemy0, level, new FollowAndAttack(2));
+        enemyController1 = new EnemyController(enemy1, level, new FollowAndAttack(2));
 
         this.level = level;
     }

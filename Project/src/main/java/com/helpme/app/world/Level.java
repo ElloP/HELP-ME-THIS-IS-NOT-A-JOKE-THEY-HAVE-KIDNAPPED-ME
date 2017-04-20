@@ -170,6 +170,62 @@ public class Level implements ILevel {
         return player;
     }
 
+    class CameFrom {
+        CameFrom previous;
+        Vector2f position;
+
+        public CameFrom(CameFrom previous, Vector2f position){
+            this.previous = previous;
+            this.position = position;
+        }
+    }
+
+    //TODO (Jesper): Take edges and doors into consideration
+    public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to){
+        Vector2f currentPos;
+        CameFrom current;
+        ArrayList<Vector2f> result = new ArrayList<>();
+        ArrayList<Vector2f> visitedNodes = new ArrayList<>();
+        Stack<CameFrom> frontier = new Stack<>();
+        int cost = 0;
+        frontier.push(new CameFrom(null, from));
+        while (!frontier.isEmpty()){
+            current = frontier.pop();
+            if (current.position.equals(to)){
+                result = recreatePath(current);
+                break;
+            }
+
+            Vector2f[] neighbors = Vector2f.getNeighbors(current.position);
+            for (Vector2f neighbor : neighbors){
+                if (!visitedNodes.contains(neighbor) && isTileValid(neighbor) && (!isTileOccupied(neighbor) || player.getPosition().equals(neighbor)))
+                    frontier.push(new CameFrom(current, neighbor));
+            }
+            visitedNodes.add(current.position);
+        }
+        cost = result.size();
+        Vector2f nextPos;
+        if (cost != 0){
+            nextPos = result.get(1);
+        }
+        else {
+            nextPos = from;
+        }
+        return new Tuple3<>(result, nextPos, cost);
+    }
+
+    private ArrayList<Vector2f> recreatePath(CameFrom current){
+        ArrayList<Vector2f> result = new ArrayList<>();
+        result.add(current.position);
+        while (current.previous != null){
+            current = current.previous;
+            result.add(current.position);
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
+
 
     @Override
     public boolean isDistanceFrom(IMonster monster, Vector2f destination, int longestDistance) {
@@ -179,8 +235,9 @@ public class Level implements ILevel {
         for (int i = 1; i <= longestDistance; i++) {
             ArrayList<Vector2f> temp = new ArrayList<>();
             for (Vector2f pos : notAdded) {
-                for (Vector2f neighbour : Vector2f.getNeighbors(pos))
+                for (Vector2f neighbour : Vector2f.getNeighbors(pos)){
                     temp.add(neighbour);
+                }
                 positions.add(pos);
             }
             notAdded.removeAll(notAdded);

@@ -2,7 +2,6 @@ package com.helpme.app.world;
 
 import com.helpme.app.character.IMonster;
 import com.helpme.app.character.ITarget;
-import com.helpme.app.character.Monster;
 import com.helpme.app.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
@@ -27,7 +26,7 @@ public abstract class MonsterController implements IController, Observer {
         level.addMonster(this.monster);
     }
 
-    public Monster getMonster(){
+    public IMonster getMonster(){
         return monster.clone();
     }
 

@@ -1,7 +1,6 @@
 package com.helpme.app.Mock;
 
 import com.helpme.app.character.*;
-import com.helpme.app.character.behaviour.AttackEveryoneClose;
 import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;

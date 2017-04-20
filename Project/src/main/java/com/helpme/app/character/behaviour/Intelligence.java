@@ -1,6 +1,7 @@
 package com.helpme.app.character.behaviour;
 
 import com.helpme.app.character.IMonster;
+import com.helpme.app.character.IReadMonster;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.ILevel;
 import com.helpme.app.world.IReadLevel;
@@ -50,5 +51,15 @@ public abstract class Intelligence implements IBehaviour{
         Vector2f direction = monster.getDirection().forward();
         Vector2f leftPosition = Vector2f.add(monster.getPosition(), direction.left());
         return level.isMonsterBlockedByEdge(monster, direction) ? null : level.getMonster(leftPosition);
+    }
+
+    public static boolean isMonsterFacing(IReadMonster monster, Vector2f other){
+        return Vector2f.equals(Vector2f.add(monster.getPosition(), monster.getDirection()), other);
+    }
+
+    public static boolean isLeftOf(IReadMonster monster, Vector2f other){
+        Vector2f right = monster.getDirection().right();
+
+        return Vector2f.equals(Vector2f.add(monster.getPosition(), right), other);
     }
 }
