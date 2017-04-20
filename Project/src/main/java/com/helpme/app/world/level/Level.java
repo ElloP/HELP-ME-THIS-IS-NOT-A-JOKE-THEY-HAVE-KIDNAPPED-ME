@@ -198,7 +198,7 @@ public class Level implements ILevel {
     public void updateDeadMonster(Vector2f position){
         for(IMonster m : monsters){
             if(m.getPosition().equals(position)){
-                tiles.get(position).addItems(m.getInventory().getItems());
+                addTileItems(position,m.getInventory().getItems());
                 m.dropAllItems();
                 return;
             }
