@@ -36,7 +36,7 @@ public class MockWorld {
         MockDialogue dialogue = new MockDialogue();
 
         IMonster player = new Monster(inventory, Vector2f.zero, Vector2f.up, 100);
-        IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 100);
+        IMonster enemy0 = new Monster(null, new Vector2f(2, 2), Vector2f.down, 2);
         IMonster enemy1 = new Monster(null, new Vector2f(9, 0), Vector2f.down, 100);
         IMonster enemy2 = new Monster(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
 

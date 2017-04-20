@@ -78,7 +78,7 @@ public class Game {
             mockWorld.playerController.rotatePlayerRight();
         }
         if(Input.isKeyboardKeyPress(InputKey.Attack)){
-            
+            System.out.println("Player attacked");
             mockWorld.playerController.usePlayerAttack();
         }
         if(Input.isKeyboardKeyPress(InputKey.Selfie)){
