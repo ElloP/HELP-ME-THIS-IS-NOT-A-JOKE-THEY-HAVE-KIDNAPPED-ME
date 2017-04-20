@@ -24,4 +24,5 @@ public interface IMonster extends ITarget, IReadMonster {
     void setItems(IItem[] items);
     Monster clone();
     boolean isDead();
+    void dropAllItems();
 }
