@@ -59,4 +59,19 @@ public class MoveTest {
         mockWorld.playerController.movePlayerLeft();
         assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
     }
+
+    @Test
+    public void testWalkOverDeadBodies(){
+        Vector2f tileStart = new Vector2f(2, 1);
+        mockWorld.playerController.setPlayerPosition(tileStart);
+        mockWorld.playerController.movePlayerForward();
+        Vector2f monsterPos = new Vector2f(Vector2f.add(tileStart,mockWorld.playerController.getPlayer().getDirection()));
+        //assert (monsterPos.equals(new Vector2f(2,2)));
+        while(!mockWorld.level.getMonster(monsterPos).isDead()){
+            mockWorld.playerController.usePlayerAttack();
+        }
+        mockWorld.playerController.movePlayerForward();
+        assert (mockWorld.playerController.getPlayer().getPosition().equals(monsterPos));
+
+    }
 }

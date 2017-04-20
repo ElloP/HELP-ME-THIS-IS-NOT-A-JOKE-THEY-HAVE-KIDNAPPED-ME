@@ -1,7 +1,9 @@
 package com.helpme.app.utils;
 
+import java.nio.FloatBuffer;
+
 /**
- * Created by Olle on 2017-03-30.
+ * Authored by Olle on 2017-03-30.
  */
 public class Vector2f {
     private final float RIGHT_ANGLE = (float) Math.PI / 2;
@@ -22,6 +24,12 @@ public class Vector2f {
         x = (int)x;
         y = (int)y;
         return this;
+    }
+
+    public FloatBuffer get(FloatBuffer fb) {
+        fb.put(this.x);
+        fb.put(this.y);
+        return fb;
     }
 
     public Vector2f forward(){

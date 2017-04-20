@@ -9,7 +9,7 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * Created by Jacob on 2017-04-12.
  */
-public class KeyState {
+public final class KeyState {
     private static boolean entered = true;
 
     private KeyState() {
@@ -110,6 +110,14 @@ public class KeyState {
 
     static boolean isMouseButtonRelease(int mousecode) {
         return mouseButtons[mousecode] == InputState.RELEASE;
+    }
+
+    static boolean isMouseEntered(){
+        return entered;
+    }
+
+    static Vector2f getMousePosition(){
+        return mousePosition.clone();
     }
 }
 

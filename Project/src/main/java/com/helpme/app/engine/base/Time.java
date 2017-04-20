@@ -6,7 +6,7 @@ package com.helpme.app.engine.base;
 public class Time {
     public static final long SECOND = 1000000000;
 
-    public static double deltaTime;
+    public static double deltaTime; //deltaTime in seconds
 
     public static long getTime() {
         return System.nanoTime(); //NOTE(Olle): returns time in nanoseconds

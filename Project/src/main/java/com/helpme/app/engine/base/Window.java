@@ -1,6 +1,6 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.input.InputHandler;
+import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.KeyState;
 import org.lwjgl.opengl.*;
 
@@ -21,7 +21,7 @@ public class Window {
     public static int width;
     public static int height;
 
-    public long getWindow() { return window; }
+    public static long getWindow() { return window; }
 
     public static boolean shouldClose() {
         return glfwWindowShouldClose(window);
@@ -49,7 +49,7 @@ public class Window {
         }
 
         KeyState.initialize(window);
-        InputHandler.initialize(InputHandler.getDefaultKeys());
+        Input.initialize(Input.getDefaultKeys());
 
         glfwMakeContextCurrent(window);
 

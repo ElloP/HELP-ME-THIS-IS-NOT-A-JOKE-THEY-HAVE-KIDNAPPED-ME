@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
 /**
- * Created by Olle on 2017-04-04.
+ * Authored by Olle on 2017-04-04.
  */
 public class RenderCore {
 
