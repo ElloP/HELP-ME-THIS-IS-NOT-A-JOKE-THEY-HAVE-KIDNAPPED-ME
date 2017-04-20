@@ -26,7 +26,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(0);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerAttack();
-        assert (((Just<IReadMonster>) mockWorld.level.getMonster(new Vector2f(2, 2))).getValue().getHitpoints().y == 90);
+        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getValue().getHitpoints().y == 90);
     }
 
 
@@ -36,7 +36,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(-1);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerAttack();
-        assert (((Just<IReadMonster>) mockWorld.level.getMonster(new Vector2f(2, 2))).getValue().getHitpoints().y == 98);
+        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getValue().getHitpoints().y == 98);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ItemTest {
         mockWorld.playerController.movePlayerForward();
         mockWorld.playerController.changePlayerActiveItem(2);
         mockWorld.playerController.usePlayerAttack();
-        assert (((Just<IReadMonster>) mockWorld.level.getMonster(new Vector2f(9, 0))).getValue().getHitpoints().y == 60
+        assert (mockWorld.level.getMonster(new Vector2f(9, 0)).getValue().getHitpoints().y == 60
                 &&  mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
     }
 

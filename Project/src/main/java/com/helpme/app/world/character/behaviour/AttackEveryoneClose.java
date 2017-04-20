@@ -26,9 +26,8 @@ public class AttackEveryoneClose implements IBehaviour {
     private void updateBehaviour(IMonster monster, IReadLevel level) {
         if (decideToAttack(monster, level)) {
             Maybe<ITarget> maybeTarget = level.getTarget(monster, monster.getDirection());
-            if (maybeTarget instanceof Just) {
-                ITarget target = ((Just<ITarget>) maybeTarget).getValue();
-                monster.attack(target);
+            if (maybeTarget.isJust()) {
+                monster.attack(maybeTarget.getValue());
             }
 
         } else if (level.isDistanceFrom(monster, monster.getStartingPosition(), followingDistance)) {
@@ -46,8 +45,8 @@ public class AttackEveryoneClose implements IBehaviour {
     private boolean decideToFollow(IMonster monster, IReadLevel level) {
         Maybe<IReadMonster> maybePlayer = level.getPlayer();
 
-        if (maybePlayer instanceof Just) {
-            IReadMonster player = ((Just<IReadMonster>) maybePlayer).getValue();
+        if (maybePlayer.isJust()) {
+            IReadMonster player = maybePlayer.getValue();
             Vector2f destination = player.getPosition();
 
             int longestDistance = followingDistance;
@@ -60,11 +59,6 @@ public class AttackEveryoneClose implements IBehaviour {
 
     private boolean decideToAttack(IMonster monster, IReadLevel level) {
         Maybe<IReadMonster> maybePlayer = level.getPlayer();
-
-        if (maybePlayer instanceof Just) {
-            IReadMonster player = ((Just<IReadMonster>) maybePlayer).getValue();
-            return (Intelligence.isMonsterNextTo(monster, player, level));
-        }
-        return false;
+        return (maybePlayer.check(p -> Intelligence.isMonsterNextTo(monster, p, level)));
     }
 }

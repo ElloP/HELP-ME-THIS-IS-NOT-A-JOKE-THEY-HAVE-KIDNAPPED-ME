@@ -103,11 +103,11 @@ public class Level implements ILevel {
         Vector2f position = monster.getPosition();
         Vector2f destination = Vector2f.add(monster.getPosition(), direction);
 
-        if(isMonsterBlockedByEdge(monster, direction)){
-            return Maybe.create(tiles.get(position).getEdge(direction));
+        if (isMonsterBlockedByEdge(monster, direction)) {
+            return Maybe.wrap(tiles.get(position).getEdge(direction));
         }
 
-        return new Just(accessMonster(destination));
+        return Maybe.wrap(accessMonster(destination));
     }
 
     @Override
@@ -159,10 +159,11 @@ public class Level implements ILevel {
 
     @Override
     public Maybe<IReadMonster> getMonster(Vector2f position) {
-        return new Just(accessMonster(position));
+        return Maybe.wrap(accessMonster(position));
+
     }
 
-    private Maybe<IMonster> accessMonster(Vector2f position){
+    private Maybe<IMonster> accessMonster(Vector2f position) {
         for (IMonster monster : monsters) {
             if (monster.getPosition().equals(position)) {
                 return new Just(monster);

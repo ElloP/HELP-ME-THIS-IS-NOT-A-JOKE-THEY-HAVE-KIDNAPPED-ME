@@ -117,10 +117,7 @@ public abstract class MonsterHandler implements IHandler {
     public void useMonsterAttack() {
         Vector2f direction = monster.getDirection();
         Maybe<ITarget> maybeTarget = level.getTarget(monster, direction);
-        if(maybeTarget instanceof Just){
-            ITarget target = ((Just<ITarget>) maybeTarget).getValue();
-            monster.attack(target);
-        }
+        maybeTarget.run(t -> monster.attack(t));
     }
 
     public void useMonsterPickupAll() {

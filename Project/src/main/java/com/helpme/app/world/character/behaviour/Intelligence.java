@@ -21,11 +21,8 @@ public abstract class Intelligence implements IBehaviour {
 
     public static boolean isMonsterNextTo(IReadMonster monster, IReadMonster potentialNeighbour, IReadLevel level) {
         for (Maybe<IReadMonster> maybeNeighbour : getMonsterNeighbours(monster, level)) {
-            if(maybeNeighbour instanceof Just){
-                IReadMonster neighbour = ((Just<IReadMonster>) maybeNeighbour).getValue();
-                if (potentialNeighbour.equals(neighbour)) {
-                    return true;
-                }
+            if(maybeNeighbour.check(n -> potentialNeighbour.equals(n))){
+                return true;
             }
         }
         return false;
