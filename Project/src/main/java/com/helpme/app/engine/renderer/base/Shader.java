@@ -1,6 +1,6 @@
 package com.helpme.app.engine.renderer.base;
 
-import com.helpme.app.utils.ResourceLoader;
+import com.helpme.app.engine.utils.ResourceLoader;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Vector3f;
 import org.lwjgl.system.MemoryUtil;

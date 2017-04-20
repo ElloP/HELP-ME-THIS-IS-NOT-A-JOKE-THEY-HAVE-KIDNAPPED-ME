@@ -2,11 +2,12 @@ package com.helpme.app.engine.base;
 
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
-import com.helpme.app.engine.renderer.base.Cube;
-import com.helpme.app.engine.renderer.base.Mesh;
-import com.helpme.app.engine.renderer.base.Shader;
+import com.helpme.app.engine.input.KeyState;
+import com.helpme.app.engine.renderer.base.*;
+import com.helpme.app.engine.utils.TextureLoader;
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Matrix4f;
-
+import com.helpme.app.utils.mathl.Quaternion;
 
 /**
  * Authored by Olle on 2017-04-05.
@@ -19,38 +20,56 @@ public class Game {
     public Game() {
         mesh = new Cube();
         shader = new Shader("vertexShader.vs", "fragmentShader.fs");
-        shader.addUniform("test");
-        shader.addUniform("transform");
+        shader.addUniform("model");
         shader.addUniform("projection");
+        shader.addUniform("view");
     }
 
     public void input() {
-
-        if(Input.isKeyboardKeyPress(InputKey.MoveForward))
-            System.out.println("MOVEFORWARD PRESSED!");
-        if(Input.isKeyboardKeyRelease(InputKey.MoveForward))
-            System.out.println("MOVEFORWARD Release!");
+        testingCameraInput();
     }
 
     float test = 0.0f;
     Transform t = new Transform();
     Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
+    Camera c = new Camera();
+    Quaternion q;
+    Texture texture = TextureLoader.loadTexture("default.png");
 
     public void update() {
         //TODO(Olle): update game
         test += Time.deltaTime;
-        t.rotate(0,test * 50, test * 50);
-        t.setPosition((float) Math.sin(test), 0.0f, -5.0f);
-        //t.scale((float) Math.sin(test));
-        t.getTransformMatrix().logMatrix();
-        shader.setUniform("test", test);
-        shader.setUniform("projection", perspective);
-        shader.setUniform("transform", t.getTransformMatrix());
 
+        q = new Quaternion().rotate(test,test,0);
+
+        t.rotate(q);
+        t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
+        shader.setUniform("projection", perspective);
+        shader.setUniform("model", t.getTransformMatrix());
+        shader.setUniform("view", c.getViewMatrix());
     }
 
     public void draw() {
         shader.useProgram();
+        texture.bind();
         mesh.draw();
+    }
+
+    private void testingCameraInput() {
+        float movAmt = (float) (10 * Time.deltaTime);
+        float rotAmt = (float) (10 * Time.deltaTime);
+
+        if(Input.isKeyboardKeyDown(InputKey.MoveForward))
+            c.moveForward(movAmt);
+        if(Input.isKeyboardKeyDown(InputKey.MoveLeft))
+            c.moveLeft(movAmt);
+        if(Input.isKeyboardKeyDown(InputKey.MoveRight))
+            c.moveRight(movAmt);
+        if(Input.isKeyboardKeyDown(InputKey.MoveBackward))
+            c.moveBackward(movAmt);
+        if(Input.isKeyboardKeyDown(InputKey.RotateLeft))
+            c.rotate(0.0f, rotAmt, 0.0f);
+        if(Input.isKeyboardKeyDown(InputKey.RotateRight))
+            c.rotate(0.0f, -rotAmt, 0.0f);
     }
 }

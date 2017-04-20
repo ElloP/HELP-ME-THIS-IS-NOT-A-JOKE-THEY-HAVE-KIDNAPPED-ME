@@ -1,7 +1,5 @@
 package com.helpme.app.utils.mathl;
 
-import com.helpme.app.utils.Vector2f;
-
 import java.nio.FloatBuffer;
 
 /**
@@ -25,7 +23,7 @@ public class Vector3f {
 
     public Vector3f() {
         this.vector = new org.joml.Vector3f();
-    }
+    } //Note(Olle):d all zeroes
 
     public Vector3f(float x) {
         this.vector = new org.joml.Vector3f(x);
@@ -56,6 +54,13 @@ public class Vector3f {
         );
     }
 
+    public Vector3f toDegrees() {
+        return new Vector3f((float) Math.toDegrees(x()),
+                            (float) Math.toDegrees(y()),
+                            (float) Math.toDegrees(z())
+        );
+    }
+
     public float x() {
         return this.vector.x();
     }
@@ -68,12 +73,14 @@ public class Vector3f {
         return this.vector.z();
     }
 
-    public void set(float x) {
+    public Vector3f set(float x) {
         this.vector.set(x);
+        return this;
     }
 
-    public void set(float x, float y, float z) {
+    public Vector3f set(float x, float y, float z) {
         this.vector.set(x, y, z);
+        return this;
     }
 
     // ----------- Operations/functions -----------
@@ -86,6 +93,11 @@ public class Vector3f {
     public Vector3f add(Vector3f vec) {
         this.vector.add(vec.vector);
         return this;
+    }
+
+    public Vector3f add(Vector3f vec, Vector3f dest) {
+        this.vector.add(vec.vector, dest.vector);
+        return dest;
     }
 
     public float angle(Vector3f vec) {
@@ -104,7 +116,7 @@ public class Vector3f {
 
     public Vector3f cross(Vector3f vec, Vector3f dest) { //sets dest to the cross product of this and vec
         this.vector.cross(vec.vector, dest.vector);
-        return this;
+        return dest;
     }
 
     public float distance(float x, float y, float z) {
@@ -138,7 +150,9 @@ public class Vector3f {
     }
 
     public FloatBuffer get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
-        this.vector.get(fb);
+        fb.put(this.vector.x);
+        fb.put(this.vector.y);
+        fb.put(this.vector.z);
         return fb;
     }
 
@@ -161,6 +175,11 @@ public class Vector3f {
         return this;
     }
 
+    public Vector3f multiply(float scalar, Vector3f dest) {
+        this.vector.mul(scalar, dest.vector);
+        return dest;
+    }
+
     public Vector3f multiply(float x, float y, float z) {
         this.vector.mul(x, y, z);
         return this;
@@ -176,8 +195,24 @@ public class Vector3f {
         return this;
     }
 
+    public Vector3f negate(Vector3f dest) {
+        this.vector.negate(dest.vector);
+        return dest;
+    }
+
     public Vector3f normalize() {
         this.vector.normalize();
+        return this;
+    }
+
+    public Quaternion toQuaternion() {
+        Quaternion q = new Quaternion();
+        q.quaternion.rotationZYX(z(), y(), x());
+        return q;
+    }
+
+    public Vector3f rotate(Quaternion rotation) {
+        this.vector.rotate(rotation.quaternion);
         return this;
     }
 
@@ -185,14 +220,24 @@ public class Vector3f {
         return this.vector.toString();
     }
 
+    public Vector3f subtract(Vector3f vec) {
+        this.vector.sub(vec.vector);
+        return this;
+    }
+
     public Vector3f subtract(float x, float y, float z) {
         this.vector.sub(x, y, z);
         return this;
     }
 
-    public Vector3f subtract(Vector3f vec) {
-        this.vector.sub(vec.vector);
-        return this;
+    public Vector3f subtract(Vector3f v, Vector3f dest) {
+        this.vector.sub(v.vector, dest.vector);
+        return dest;
+    }
+
+    public Vector3f subtract(float x, float y, float z, Vector3f dest) {
+        this.vector.sub(x, y, z, dest.vector);
+        return dest;
     }
 
     public Vector3f zero() {

@@ -23,21 +23,27 @@ public class Mesh {
         return vertexCount;
     }
 
-    public Mesh(float[] vertices, int[] indices) {
-        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertices.length);
-        IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
-
-        final int FLOATSIZE = 4; //in bytes
-        final int VERTEXSIZE = 3; //number of float in one vertex
-
-        vertexCount = indices.length;
-
-        vertexBuffer.put(vertices).flip();
-        indexBuffer.put(indices).flip();
-
+    public Mesh(Vertex[] vertices, int[] indices) {
         vao = glGenVertexArrays();
         vbo = glGenBuffers();
         ebo = glGenBuffers();
+
+        addVertices(vertices, indices);
+    }
+
+    public void addVertices(Vertex[] vertices, int[] indices) {
+        final int FLOATSIZE = 4; //in bytes
+        vertexCount = indices.length;
+
+        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertexCount * Vertex.VERTEXSIZE);
+        IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
+
+        for(Vertex v : vertices) {
+            v.get(vertexBuffer);
+        }
+
+        vertexBuffer.flip();
+        indexBuffer.put(indices).flip();
 
         glBindVertexArray(vao);
 
@@ -47,8 +53,11 @@ public class Mesh {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, VERTEXSIZE * FLOATSIZE, 0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.VERTEXSIZE * FLOATSIZE, 0);
         glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex.VERTEXSIZE * FLOATSIZE, 3 * FLOATSIZE);
+        glEnableVertexAttribArray(1);
 
         glBindVertexArray(0);
 
@@ -59,7 +68,7 @@ public class Mesh {
         MemoryUtil.memFree(indexBuffer);
     }
 
-    public void draw() { //TODO(Olle): find a better place to draw mesh
+    public void draw() {
         glBindVertexArray(vao);
 
         glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
