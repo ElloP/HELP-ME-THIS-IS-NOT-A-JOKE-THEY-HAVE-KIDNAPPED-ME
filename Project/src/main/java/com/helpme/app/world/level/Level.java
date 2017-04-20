@@ -1,14 +1,14 @@
 package com.helpme.app.world.level;
 
-import com.helpme.app.character.IMonster;
-import com.helpme.app.character.IReadMonster;
-import com.helpme.app.character.ITarget;
-import com.helpme.app.item.IItem;
-import com.helpme.app.tile.ITile;
-import com.helpme.app.tile.ITileFactory;
-import com.helpme.app.tile.edge.Door;
-import com.helpme.app.tile.edge.Opening;
-import com.helpme.app.tile.edge.Wall;
+import com.helpme.app.world.character.IMonster;
+import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.tile.ITile;
+import com.helpme.app.world.tile.ITileFactory;
+import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.tile.edge.Opening;
+import com.helpme.app.world.tile.edge.Wall;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
