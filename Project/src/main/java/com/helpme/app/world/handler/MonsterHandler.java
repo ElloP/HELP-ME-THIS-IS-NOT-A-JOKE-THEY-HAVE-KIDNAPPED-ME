@@ -1,10 +1,9 @@
 package com.helpme.app.world.handler;
-
-
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.character.ITarget;
-import com.helpme.app.world.character.Monster;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
@@ -51,6 +50,7 @@ public abstract class MonsterHandler implements IHandler {
         if (level.isMonsterBlockedByEdge(monster, direction)) {
             return false;
         }
+
         if (level.isTileOccupied(destination)) {
             return false;
         }
@@ -113,9 +113,9 @@ public abstract class MonsterHandler implements IHandler {
 
     public void useMonsterAttack() {
         Vector2f direction = monster.getDirection();
-        ITarget target = level.getTarget(monster, direction);
-        monster.attack(target);
-        if(target.isDead()){
+        Maybe<ITarget> maybeTarget = level.getTarget(monster, direction);
+        maybeTarget.run(t -> monster.attack(t));
+        if(maybeTarget.check(t -> t.isDead())){
             level.updateDeadMonster(Vector2f.add(monster.getPosition(),monster.getDirection()));
         }
     }
@@ -148,13 +148,13 @@ public abstract class MonsterHandler implements IHandler {
         monster.pickupItem(item);
     }
 
-    protected IReadMonster getFacingMonster(){
+    protected Maybe<IReadMonster> getFacingMonster(){
         Vector2f position = monster.getPosition();
         Vector2f direction = monster.getDirection();
         Vector2f destination = Vector2f.add(position, direction);
 
         if (level.isMonsterBlockedByEdge(monster, direction)) {
-            return null;
+            return new Nothing();
         }
 
         return level.getMonster(destination);

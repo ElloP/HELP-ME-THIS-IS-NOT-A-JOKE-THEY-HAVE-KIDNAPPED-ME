@@ -1,5 +1,7 @@
 package com.helpme.app.world.handler;
 
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.item.IItem;
@@ -10,7 +12,7 @@ import com.helpme.app.world.level.ILevel;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class PlayerHandler extends MonsterHandler implements IPlayerHandler{
+public class PlayerHandler extends MonsterHandler implements IPlayerHandler {
 
     public PlayerHandler(IMonster player, ILevel level) {
         super(player, level);
@@ -81,26 +83,18 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler{
         changeMonsterActiveItem(index);
     }
 
-    public Tuple2<String,String[]> usePlayerTalk() {
+    public Maybe<Tuple2<String, String[]>> usePlayerTalk() {
 
-        IReadMonster monster = getFacingMonster();
+        Maybe<IReadMonster> maybeMonster = getFacingMonster();
 
-        if(monster == null) return null;
-
-        Tuple2<String,String[]> response = monster.initiateDialogue();
-
-        //if(response == null) System.out.println("response == null in usePlayerTalk(i)");
-
-        return response;
+        return maybeMonster.chain(m -> m.initiateDialogue());
     }
-    public Tuple2<String,String[]> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException{
-        IReadMonster monster = getFacingMonster();
 
-        if(monster == null) return null;
+    public Maybe<Tuple2<String, String[]>> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException {
+        Maybe<IReadMonster> maybeMonster = getFacingMonster();
 
-        Tuple2<String,String[]> response = monster.getResponse(dialogueSelect);
+        return maybeMonster.chain(m -> m.getResponse(dialogueSelect));
 
-        return response;
     }
 
 }

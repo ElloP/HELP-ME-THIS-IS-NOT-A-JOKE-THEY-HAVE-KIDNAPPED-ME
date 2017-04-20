@@ -41,7 +41,7 @@ public class MonsterTest {
     @Test
     public void testFollow(){
         assert mockWorld.enemyController1.getMonster().getPosition().equals(new Vector2f(0, 3));
-        assert mockWorld.level.getPlayer().getPosition().equals(new Vector2f(0, 0));
+        assert mockWorld.level.getPlayer().check(p -> p.getPosition().equals(new Vector2f(0, 0)));
         assert mockWorld.enemyController1.getMonster().getDirection().equals(Vector2f.down);
         mockWorld.enemyController1.update();
         assert mockWorld.enemyController1.getMonster().getPosition().equals(new Vector2f(0, 2));

@@ -1,5 +1,8 @@
 package com.helpme.app.world.level;
 
+import com.helpme.app.utils.maybe.Just;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.character.ITarget;
@@ -44,7 +47,6 @@ public class Level implements ILevel {
 
         for (Tuple2<Vector2f, IItem[]> tuple : tiles) {
             Vector2f position = tuple.a;
-            ;
             this.tiles.put(position, ITileFactory.tile(tuple.b));
         }
     }
@@ -97,15 +99,15 @@ public class Level implements ILevel {
         return false;
     }
 
-    public ITarget getTarget(IMonster monster, Vector2f direction) {
+    public Maybe<ITarget> getTarget(IMonster monster, Vector2f direction) {
         Vector2f position = monster.getPosition();
         Vector2f destination = Vector2f.add(monster.getPosition(), direction);
 
-        if(isMonsterBlockedByEdge(monster, direction)){
-            return tiles.get(position).getEdge(direction);
+        if (isMonsterBlockedByEdge(monster, direction)) {
+            return Maybe.wrap(tiles.get(position).getEdge(direction));
         }
 
-        return accessMonster(destination);
+        return Maybe.wrap(accessMonster(destination));
     }
 
     @Override
@@ -156,22 +158,23 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IReadMonster getMonster(Vector2f position) {
-        return accessMonster(position);
+    public Maybe<IReadMonster> getMonster(Vector2f position) {
+        return Maybe.wrap(accessMonster(position));
+
     }
 
-    private IMonster accessMonster(Vector2f position){
+    private Maybe<IMonster> accessMonster(Vector2f position) {
         for (IMonster monster : monsters) {
             if (monster.getPosition().equals(position)) {
-                return monster;
+                return new Just(monster);
             }
         }
-        return null;
+        return new Nothing();
     }
 
     @Override
-    public IReadMonster getPlayer() {
-        return player;
+    public Maybe<IReadMonster> getPlayer() {
+        return new Just(player);
     }
 
     class CameFrom {
