@@ -1,5 +1,8 @@
 package com.helpme.app.world.handler;
 
+import com.helpme.app.utils.maybe.Just;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.character.ITarget;
@@ -50,6 +53,7 @@ public abstract class MonsterHandler implements IHandler {
         if (level.isMonsterBlockedByEdge(monster, direction)) {
             return false;
         }
+
         if (level.isTileOccupied(destination)) {
             return false;
         }
@@ -112,8 +116,11 @@ public abstract class MonsterHandler implements IHandler {
 
     public void useMonsterAttack() {
         Vector2f direction = monster.getDirection();
-        ITarget target = level.getTarget(monster, direction);
-        monster.attack(target);
+        Maybe<ITarget> maybeTarget = level.getTarget(monster, direction);
+        if(maybeTarget instanceof Just){
+            ITarget target = ((Just<ITarget>) maybeTarget).getValue();
+            monster.attack(target);
+        }
     }
 
     public void useMonsterPickupAll() {
@@ -144,13 +151,13 @@ public abstract class MonsterHandler implements IHandler {
         monster.pickupItem(item);
     }
 
-    protected IReadMonster getFacingMonster(){
+    protected Maybe<IReadMonster> getFacingMonster(){
         Vector2f position = monster.getPosition();
         Vector2f direction = monster.getDirection();
         Vector2f destination = Vector2f.add(position, direction);
 
         if (level.isMonsterBlockedByEdge(monster, direction)) {
-            return null;
+            return new Nothing();
         }
 
         return level.getMonster(destination);

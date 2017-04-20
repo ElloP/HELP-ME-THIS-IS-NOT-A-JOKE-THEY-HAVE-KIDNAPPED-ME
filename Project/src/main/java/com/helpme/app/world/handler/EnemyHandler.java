@@ -1,5 +1,6 @@
 package com.helpme.app.world.handler;
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.character.behaviour.DoNothing;
@@ -27,7 +28,7 @@ public class EnemyHandler extends MonsterHandler {
         super(monster, level);
     }
 
-    private IReadMonster getPlayer(){
+    private Maybe<IReadMonster> getPlayer(){
         return level.getPlayer();
     }
 }

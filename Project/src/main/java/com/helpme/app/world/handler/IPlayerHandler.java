@@ -1,5 +1,6 @@
 package com.helpme.app.world.handler;
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
@@ -39,8 +40,8 @@ public interface IPlayerHandler {
 
     void changePlayerActiveItem(int index);
 
-    Tuple2<String, String[]> usePlayerTalk();
+    Maybe<Tuple2<String, String[]>> usePlayerTalk();
 
-    Tuple2<String, String[]> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException;
+    Maybe<Tuple2<String, String[]>> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException;
 
 }
