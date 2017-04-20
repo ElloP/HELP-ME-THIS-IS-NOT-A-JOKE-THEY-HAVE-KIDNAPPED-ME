@@ -1,6 +1,8 @@
-package com.helpme.app.Mock;
+package com.helpme.app.engine.base.test;
 
-import com.helpme.app.character.*;
+import com.helpme.app.character.IMonster;
+import com.helpme.app.character.Monster;
+import com.helpme.app.character.behaviour.AttackEveryoneClose;
 import com.helpme.app.character.inventory.IInventory;
 import com.helpme.app.character.inventory.Inventory;
 import com.helpme.app.item.IItem;
@@ -8,6 +10,8 @@ import com.helpme.app.tile.edge.Door;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.world.handler.EnemyHandler;
+import com.helpme.app.world.handler.MonsterHandler;
 import com.helpme.app.world.handler.PlayerHandler;
 import com.helpme.app.world.level.ILevel;
 import com.helpme.app.world.level.Level;
@@ -16,13 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jacob on 2017-04-11.
+ * Created by og on 2017-04-20.
  */
-public class MockWorld0 {
+public class MockWorld {
     public ILevel level;
     public PlayerHandler playerController;
 
-    public MockWorld0(){
+    public MockWorld(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IMonster> monsters = new ArrayList<>();

@@ -1,60 +1,91 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.base.test.MockWorld;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
-import com.helpme.app.engine.input.KeyState;
-import com.helpme.app.engine.renderer.base.*;
-import com.helpme.app.engine.utils.TextureLoader;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.mathl.Matrix4f;
-import com.helpme.app.utils.mathl.Quaternion;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 
 /**
  * Authored by Olle on 2017-04-05.
  */
 public class Game {
-    private Mesh mesh;
-
-    private Shader shader;
-
+    MockWorld mockWorld;
     public Game() {
-        mesh = new Cube();
-        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
-        shader.addUniform("model");
-        shader.addUniform("projection");
-        shader.addUniform("view");
+        mockWorld = new MockWorld();
     }
 
     public void input() {
-        testingCameraInput();
+        testControlls();
     }
 
-    float test = 0.0f;
-    Transform t = new Transform();
-    Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
-    Camera c = new Camera();
-    Quaternion q;
-    Texture texture = TextureLoader.loadTexture("default.png");
 
     public void update() {
-        //TODO(Olle): update game
-        test += Time.deltaTime;
 
-        q = new Quaternion().rotate(test,test,0);
-
-        t.rotate(q);
-        t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
-        shader.setUniform("projection", perspective);
-        shader.setUniform("model", t.getTransformMatrix());
-        shader.setUniform("view", c.getViewMatrix());
     }
 
     public void draw() {
-        shader.useProgram();
-        texture.bind();
-        mesh.draw();
+
     }
 
+
+    private void testControlls(){
+        if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
+            Vector2f prevPos = mockWorld.playerController.getPlayer().getPosition();
+            mockWorld.playerController.movePlayerForward();
+            Vector2f currPos = mockWorld.playerController.getPlayer().getPosition();
+            if(prevPos.equals(currPos)) {
+                System.out.println("Cannot move forward.");
+            }else {
+                System.out.println("Player moved from " + prevPos.toString() + " to " + currPos.toString());
+            }
+        }
+        if(Input.isKeyboardKeyPress(InputKey.MoveBackward)){
+            Vector2f prevPos = mockWorld.playerController.getPlayer().getPosition();
+            mockWorld.playerController.movePlayerBackward();
+            Vector2f currPos = mockWorld.playerController.getPlayer().getPosition();
+            if(prevPos.equals(currPos)) {
+                System.out.println("Cannot move backward.");
+            }else {
+                System.out.println("Player moved from " + prevPos.toString() + " to " + currPos.toString());
+            }
+        }
+        if(Input.isKeyboardKeyPress(InputKey.MoveRight)){
+            Vector2f prevPos = mockWorld.playerController.getPlayer().getPosition();
+            mockWorld.playerController.movePlayerRight();
+            Vector2f currPos = mockWorld.playerController.getPlayer().getPosition();
+            if(prevPos.equals(currPos)) {
+                System.out.println("Cannot move right.");
+            }else {
+                System.out.println("Player moved from " + prevPos.toString() + " to " + currPos.toString());
+            }
+        }
+        if(Input.isKeyboardKeyPress(InputKey.MoveLeft)){
+            Vector2f prevPos = mockWorld.playerController.getPlayer().getPosition();
+            mockWorld.playerController.movePlayerLeft();
+            Vector2f currPos = mockWorld.playerController.getPlayer().getPosition();
+            if(prevPos.equals(currPos)) {
+                System.out.println("Cannot move left.");
+            }else {
+                System.out.println("Player moved from " + prevPos.toString() + " to " + currPos.toString());
+            }
+        }
+        if(Input.isKeyboardKeyPress(InputKey.RotateLeft)){
+            mockWorld.playerController.rotatePlayerLeft();
+        }
+        if(Input.isKeyboardKeyPress(InputKey.RotateRight)){
+            mockWorld.playerController.rotatePlayerRight();
+        }
+        if(Input.isKeyboardKeyPress(InputKey.Attack)){
+            
+            mockWorld.playerController.usePlayerAttack();
+        }
+        if(Input.isKeyboardKeyPress(InputKey.Selfie)){
+
+        }
+    }
+ /*
     private void testingCameraInput() {
         float movAmt = (float) (10 * Time.deltaTime);
         float rotAmt = (float) (10 * Time.deltaTime);
@@ -72,4 +103,7 @@ public class Game {
         if(Input.isKeyboardKeyDown(InputKey.RotateRight))
             c.rotate(0.0f, -rotAmt, 0.0f);
     }
+    */
+
+
 }
