@@ -30,6 +30,7 @@ public class FollowAndAttack implements IBehaviour{
     }
 
     private Either updateBehaviour(IReadMonster monster, IReadLevel level){
+        System.out.println(followingDistance);
         if (decideToAttack(monster, level)){
             return Action.attackAction(level);
         } else if (level.getShortestPath(monster.getPosition(), monster.getStartingPosition()).c < followingDistance) {

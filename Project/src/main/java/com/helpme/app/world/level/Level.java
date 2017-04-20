@@ -208,8 +208,9 @@ public class Level implements ILevel {
             visitedNodes.add(current.position);
         }
         cost = result.size();
+        cost--;
         Vector2f nextPos;
-        if (cost != 0){
+        if (cost > 0){
             nextPos = result.get(1);
         }
         else {

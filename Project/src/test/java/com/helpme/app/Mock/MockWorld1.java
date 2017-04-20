@@ -4,6 +4,7 @@ package com.helpme.app.Mock;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.Monster;
 import com.helpme.app.world.character.behaviour.FollowAndAttack;
+import com.helpme.app.world.character.behaviour.GoBack;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Tuple.Tuple2;
@@ -25,17 +26,18 @@ public class MockWorld1 {
     public PlayerHandler playerController;
     public MonsterHandler enemyController0;
     public MonsterHandler enemyController1;
-
+    public  MonsterHandler enemyController2;
     public MockWorld1() {
         IMonster player = new Monster(null, Vector2f.zero, Vector2f.up, 100);
         IMonster enemy0 = new Monster(new Inventory(null, MockItem.defaultWeapon, null), new Vector2f(1, 0), Vector2f.left, 100);
         IMonster enemy1 = new Monster(new Inventory(null, MockItem.defaultWeapon, null), new Vector2f(0, 3), Vector2f.down, 100);
+        IMonster enemy2 = new Monster(new Inventory(null, MockItem.defaultWeapon, null), new Vector2f(1, 2), Vector2f.right, 100);
 
         ILevel level = new Level(createEmptyTileSquare(4, 4), null, null, new Vector2f(0, 0));
 
         /**
          * [e][ ][ ][ ]
-         * [ ][ ][ ][ ]
+         * [ ][e][ ][ ]
          * [ ][ ][ ][ ]
          * [p][e][ ][ ]
          */
@@ -44,7 +46,8 @@ public class MockWorld1 {
 
 
         enemyController0 = new EnemyHandler(enemy0, level, new FollowAndAttack(2));
-        enemyController1 = new EnemyHandler(enemy1, level, new FollowAndAttack(2));
+        enemyController1 = new EnemyHandler(enemy1, level, new FollowAndAttack(8));
+        enemyController2 = new EnemyHandler(enemy2, level, new FollowAndAttack(1));
 
 
         this.level = level;
