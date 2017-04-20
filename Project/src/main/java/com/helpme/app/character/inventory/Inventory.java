@@ -47,7 +47,7 @@ public class Inventory implements IInventory {
             IItem item = items[activeItemIndex];
             return item == null ? defaultItem : item;
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e);
+            System.out.println("Using default weapon");
             return defaultItem;
         }
     }
