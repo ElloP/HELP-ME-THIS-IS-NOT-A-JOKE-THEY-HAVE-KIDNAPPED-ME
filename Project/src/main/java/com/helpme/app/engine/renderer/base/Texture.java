@@ -38,18 +38,14 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D,0);
     }
 
-    public void generate(ByteBuffer image, int width, int height, int comp) {
+    public void generate(ByteBuffer image, int width, int height) {
         IntBuffer idBuffer = MemoryUtil.memAllocInt(1);
         idBuffer.put(id).flip();
 
         glGenTextures(idBuffer);
 
         bind();
-            if(comp == 3) { //Note(Olle): comp = nr of channels, if 3 use RGB, else use RGBA
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-            } else {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-            }
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, maxFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
