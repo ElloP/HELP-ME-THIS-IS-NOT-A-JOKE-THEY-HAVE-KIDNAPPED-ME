@@ -51,6 +51,7 @@ public class Monster extends Observable implements IMonster {
 
     @Override
     public void attack(ITarget target) {
+        if(target == null) return;
         IItem activeItem = inventory.getActiveItem();
         activeItem.accept(new Attack(target));
     }
