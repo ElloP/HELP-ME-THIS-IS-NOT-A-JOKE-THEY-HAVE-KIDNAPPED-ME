@@ -15,4 +15,5 @@ public interface IReadMonster {
     Tuple2<String,String[]> getResponse(int i);
     boolean isTraversable(IEdge edge);
     Tuple2<String,String[]> initiateDialogue();
+    boolean isDead();
 }
