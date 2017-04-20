@@ -1,7 +1,7 @@
 package com.helpme.app.world.level;
 
-import com.helpme.app.character.IMonster;
-import com.helpme.app.item.IItem;
+import com.helpme.app.world.character.IMonster;
+import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
 /**

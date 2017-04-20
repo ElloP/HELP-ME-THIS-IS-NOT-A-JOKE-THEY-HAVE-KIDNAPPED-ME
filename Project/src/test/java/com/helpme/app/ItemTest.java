@@ -1,8 +1,8 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld0;
-import com.helpme.app.item.Consumable;
-import com.helpme.app.item.IItem;
+import com.helpme.app.world.item.Consumable;
+import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 import org.junit.Before;
 import org.junit.Test;

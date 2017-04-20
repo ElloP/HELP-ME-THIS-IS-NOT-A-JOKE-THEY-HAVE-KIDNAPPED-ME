@@ -1,9 +1,9 @@
 package com.helpme.app.world.handler;
 
-import com.helpme.app.character.IMonster;
-import com.helpme.app.character.IReadMonster;
-import com.helpme.app.character.behaviour.DoNothing;
-import com.helpme.app.character.behaviour.IBehaviour;
+import com.helpme.app.world.character.IMonster;
+import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.behaviour.DoNothing;
+import com.helpme.app.world.character.behaviour.IBehaviour;
 import com.helpme.app.world.level.ILevel;
 
 /**
