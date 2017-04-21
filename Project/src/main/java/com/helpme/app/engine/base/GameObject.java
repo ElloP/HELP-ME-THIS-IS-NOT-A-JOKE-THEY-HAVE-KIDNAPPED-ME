@@ -15,8 +15,6 @@ public class GameObject {
         children = new ArrayList<GameObject>();
     }
 
-
-
     public GameObject(ArrayList<GameObject> children) {
         for(GameObject child : children) {
             addChild(child);

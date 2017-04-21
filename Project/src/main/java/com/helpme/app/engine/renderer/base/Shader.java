@@ -1,5 +1,8 @@
 package com.helpme.app.engine.renderer.base;
 
+import com.helpme.app.engine.base.Camera;
+import com.helpme.app.engine.base.Transform;
+import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.utils.ResourceLoader;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Vector3f;
@@ -15,7 +18,7 @@ import static org.lwjgl.opengl.GL20.*;
  * Authored by Olle on 2017-04-05.
  */
 
-public class Shader {
+public abstract class Shader {
     // ----------- Shader variables -----------
 
     //TODO(Olle): Find better way of finding the path string
@@ -62,6 +65,8 @@ public class Shader {
         }
     }
 
+    public abstract void updateUniforms(Transform transform, Camera camera);
+
     private String readShader(String fileName) {
         return ResourceLoader.readFile(SHADERPATH + fileName);
     }
@@ -107,7 +112,6 @@ public class Shader {
         uniforms.put(uniform, uniformLocation);
     }
 
-    //TODO(Olle): Add more possible uniform datatypes
     public void setUniform(String uniformName, int value) {
         glUniform1i(uniforms.get(uniformName), value);
     }

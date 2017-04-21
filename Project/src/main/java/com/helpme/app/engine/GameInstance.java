@@ -18,7 +18,7 @@ public class GameInstance extends Game {
 
     public GameInstance() {
         mesh = new Cube();
-        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
+        shader = new DefaultShader();
         shader.addUniform("model");
         shader.addUniform("projection");
         shader.addUniform("view");
@@ -43,12 +43,10 @@ public class GameInstance extends Game {
 
         t.rotate(q);
         t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
-        shader.setUniform("projection", perspective);
-        shader.setUniform("model", t.getTransformMatrix());
-        shader.setUniform("view", c.getViewMatrix());
     }
 
     public void draw() {
+        shader.updateUniforms(t, c);
         shader.useProgram();
         texture.bind();
         mesh.draw();

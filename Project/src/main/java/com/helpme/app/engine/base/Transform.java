@@ -75,7 +75,7 @@ public class Transform {
 
     // ----------- Transform operations (mostly setters) -----------
 
-    public Matrix4f getTransformMatrix() { //combine a matrix for the translation, rotation and scale of a transform
+    public Matrix4f getModelMatrix() { //combine a matrix for the translation, rotation and scale of a transform
         Matrix4f transformMatrix = new Matrix4f()
                 .translate(position)
                 .rotate(rotation)
@@ -84,7 +84,7 @@ public class Transform {
         if(parent != null) {
             //TODO(Olle): test this
             //Note(Olle): parent * child, might have to be reversed
-            parent.getTransformMatrix().multiply(transformMatrix, transformMatrix);
+            parent.getModelMatrix().multiply(transformMatrix, transformMatrix);
         }
 
         return transformMatrix;

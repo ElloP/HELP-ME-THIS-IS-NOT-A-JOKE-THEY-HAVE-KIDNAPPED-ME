@@ -11,7 +11,6 @@ import com.helpme.app.utils.mathl.Vector3f;
 
 public class Camera {
     // ----------- Variables -----------
-
     //TODO(Olle): Add some sort of parent child structure with transforms
     private Vector3f position;
     private Vector3f up;
