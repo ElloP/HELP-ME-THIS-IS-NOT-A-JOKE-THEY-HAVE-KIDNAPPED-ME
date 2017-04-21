@@ -12,64 +12,13 @@ import com.helpme.app.utils.mathl.Quaternion;
 /**
  * Authored by Olle on 2017-04-05.
  */
-public class Game {
-    private Mesh mesh;
+public abstract class Game {
+    //TODO(Olle): set up logic for updating the scene's gameobjects
+    private GameObject Scene; //Note(Olle): Every gameobject in the scene will have this as a root object
 
-    private Shader shader;
+    public void input() {}
 
-    public Game() {
-        mesh = new Cube();
-        shader = new Shader("vertexShader.vs", "fragmentShader.fs");
-        shader.addUniform("model");
-        shader.addUniform("projection");
-        shader.addUniform("view");
-    }
+    public void update() {}
 
-    public void input() {
-        testingCameraInput();
-    }
-
-    float test = 0.0f;
-    Transform t = new Transform();
-    Matrix4f perspective = Transform.getPerspectiveMatrix(70f, Window.width, Window.height, 0.1f, 1000);
-    Camera c = new Camera();
-    Quaternion q;
-    Texture texture = TextureLoader.loadTexture("default.png");
-
-    public void update() {
-        //TODO(Olle): update game
-        test += Time.deltaTime;
-
-        q = new Quaternion().rotate(test,test,0);
-
-        t.rotate(q);
-        t.setPosition(t.getPosition().x(), t.getPosition().y(), -5.0f);
-        shader.setUniform("projection", perspective);
-        shader.setUniform("model", t.getTransformMatrix());
-        shader.setUniform("view", c.getViewMatrix());
-    }
-
-    public void draw() {
-        shader.useProgram();
-        texture.bind();
-        mesh.draw();
-    }
-
-    private void testingCameraInput() {
-        float movAmt = (float) (10 * Time.deltaTime);
-        float rotAmt = (float) (10 * Time.deltaTime);
-
-        if(Input.isKeyboardKeyDown(InputKey.MoveForward))
-            c.moveForward(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveLeft))
-            c.moveLeft(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveRight))
-            c.moveRight(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveBackward))
-            c.moveBackward(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.RotateLeft))
-            c.rotate(0.0f, rotAmt, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.RotateRight))
-            c.rotate(0.0f, -rotAmt, 0.0f);
-    }
+    public void draw() {}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Olle on 2017-04-20.
+ * Authored by Olle on 2017-04-20.
  */
 public class GameObject {
     public Transform transform;
@@ -15,12 +15,16 @@ public class GameObject {
         children = new ArrayList<GameObject>();
     }
 
+
+
     public GameObject(ArrayList<GameObject> children) {
-        this.children = children;
+        for(GameObject child : children) {
+            addChild(child);
+        }
     }
 
     public void addChild(GameObject child) {
         children.add(child);
-        child.transform = this.transform;
+        child.transform.setParent(this.transform);
     }
 }

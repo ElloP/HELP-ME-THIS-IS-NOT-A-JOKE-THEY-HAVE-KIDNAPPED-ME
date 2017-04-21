@@ -10,8 +10,8 @@ import com.helpme.app.utils.mathl.Vector3f;
 
 public class Transform {
     // ----------- Transform variables -----------
+    private Transform parent;
 
-    //TODO(Olle): Add some sort of parent child structure with transforms
     private Vector3f position;
     private Vector3f scale;
     private Quaternion rotation;
@@ -38,7 +38,22 @@ public class Transform {
         this.scale = new Vector3f(1,1,1);
     }
 
-    // ----------- Transform getters -----------
+    // ----------- Transform setters and getters -----------
+    public Transform getParent() {
+        return parent;
+    }
+
+    public void setParent(Transform parent) {
+        this.parent = parent;
+    }
+
+    public void setPosition(Vector3f xyz) {
+        position = new Vector3f(xyz);
+    }
+
+    public void setPosition(float x, float y, float z) {
+        position = new Vector3f(x,y,z);
+    }
 
     public Vector3f getPosition() { return position; }
 
@@ -66,6 +81,12 @@ public class Transform {
                 .rotate(rotation)
                 .scale(scale);
 
+        if(parent != null) {
+            //TODO(Olle): test this
+            //Note(Olle): parent * child, might have to be reversed
+            parent.getTransformMatrix().multiply(transformMatrix, transformMatrix);
+        }
+
         return transformMatrix;
     }
 
@@ -74,14 +95,6 @@ public class Transform {
     }
 
     //TODO(Olle): if needed add function for orthogonal projection matrix
-
-    public void setPosition(Vector3f xyz) {
-        position = new Vector3f(xyz);
-    }
-
-    public void setPosition(float x, float y, float z) {
-        position = new Vector3f(x,y,z);
-    }
 
     public void translate(Vector3f xyz) {
         position.add(xyz);
