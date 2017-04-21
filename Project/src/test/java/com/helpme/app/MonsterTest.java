@@ -1,7 +1,6 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld1;
-import com.helpme.app.utils.Tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.behaviour.FollowAndAttack;
 import com.helpme.app.world.character.behaviour.GoBack;
@@ -22,9 +21,9 @@ public class MonsterTest {
 
     @Test
     public void testAttack(){
-        assert (mockWorld.enemyController0.getMonster().getHitpoints().equals(new Vector2f(100,100)));
+        assert (mockWorld.enemyController0.getMonster().readHitpoints().equals(new Vector2f(100,100)));
         mockWorld.enemyController0.update();
-        assert (mockWorld.playerController.getPlayer().getHitpoints().equals(new Vector2f(100, 98)));
+        assert (mockWorld.playerController.getPlayer().readHitpoints().equals(new Vector2f(100, 98)));
     }
 
     @Test
@@ -40,11 +39,12 @@ public class MonsterTest {
     //The actual followingDistance will be random.
     @Test
     public void testFollow(){
-        assert mockWorld.enemyController1.getMonster().getPosition().equals(new Vector2f(0, 3));
-        assert mockWorld.level.getPlayer().check(p -> p.getPosition().equals(new Vector2f(0, 0)));
-        assert mockWorld.enemyController1.getMonster().getDirection().equals(Vector2f.down);
+        assert mockWorld.enemyController1.getMonster().readPosition().equals(new Vector2f(0, 3));
+        assert mockWorld.level.readPlayer().check(p -> p.readPosition().equals(new Vector2f(0, 0)));
+        assert mockWorld.enemyController1.getMonster().readDirection().equals(Vector2f.down);
         mockWorld.enemyController1.update();
-        assert mockWorld.enemyController1.getMonster().getPosition().equals(new Vector2f(0, 2));
+
+        assert mockWorld.enemyController1.getMonster().readPosition().equals(new Vector2f(0, 2)); // NOTE (Jacob) : Random when it works. Why?
     }
 
 

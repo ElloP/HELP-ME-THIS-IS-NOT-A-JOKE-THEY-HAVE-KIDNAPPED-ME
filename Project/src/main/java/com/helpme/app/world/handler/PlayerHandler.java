@@ -1,7 +1,6 @@
 package com.helpme.app.world.handler;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.item.IItem;
@@ -23,7 +22,7 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler {
 
     }
 
-    public IMonster getPlayer() {
+    public IReadMonster getPlayer() {
         return super.getMonster();
     }
 
@@ -87,7 +86,7 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler {
 
         Maybe<IReadMonster> maybeMonster = getFacingMonster();
 
-        return maybeMonster.chain(m -> m.initiateDialogue());
+        return maybeMonster.chain(m -> m.getDialogue());
     }
 
     public Maybe<Tuple2<String, String[]>> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException {

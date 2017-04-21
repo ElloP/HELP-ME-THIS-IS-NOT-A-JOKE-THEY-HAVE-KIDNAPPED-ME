@@ -34,12 +34,12 @@ public class FollowAndAttack implements IBehaviour{
         System.out.println(followingDistance);
         if (decideToAttack(monster, level)){
             return Action.attackAction(level);
-        } else if (level.getShortestPath(monster.getPosition(), monster.getStartingPosition()).c < followingDistance) {
-            Maybe<IReadMonster> maybePlayer = level.getPlayer();
+        } else if (level.getShortestPath(monster.readPosition(), monster.readStartingPosition()).c < followingDistance) {
+            Maybe<IReadMonster> maybePlayer = level.readPlayer();
             if(maybePlayer.isJust()) {
                 IReadMonster player = maybePlayer.getValue();
-                Vector2f pos = monster.getPosition();
-                Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.getPosition(), player.getPosition());
+                Vector2f pos = monster.readPosition();
+                Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.readPosition(), player.readPosition());
                 int cost = path.c;
                 if (cost > 0 && cost <= followingDistance) {
                     Vector2f nextPos = path.b;
@@ -55,23 +55,23 @@ public class FollowAndAttack implements IBehaviour{
         } else {
             return new Left<IBehaviour, IAction<IMonster>>(new GoBack());
         }
-        return new Left(null);
+        return new Left(this);
     }
 
     private boolean decideToFollow(IMonster monster, IReadLevel level){
-        Maybe<IReadMonster> maybePlayer = level.getPlayer();
+        Maybe<IReadMonster> maybePlayer = level.readPlayer();
         if(maybePlayer.isJust()) {
             IReadMonster player = maybePlayer.getValue();
-            Vector2f destination = player.getPosition();
+            Vector2f destination = player.readPosition();
             int longestDistance = followingDistance;
-            if (Vector2f.equals(monster.getStartingPosition(), destination))
+            if (Vector2f.equals(monster.readStartingPosition(), destination))
                 longestDistance--;
-            return level.isDistanceFrom(monster, player.getPosition(), longestDistance);
+            return level.isDistanceFrom(monster, player.readPosition(), longestDistance);
         }
         return false;
     }
 
     private boolean decideToAttack(IReadMonster monster, IReadLevel level){
-        return level.getPlayer().check(p -> Intelligence.isMonsterFacing(monster, p.getPosition()));
+        return level.readPlayer().check(p -> Intelligence.isMonsterFacing(monster, p.readPosition()));
     }
 }

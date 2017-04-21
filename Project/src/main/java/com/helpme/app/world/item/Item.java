@@ -54,4 +54,9 @@ public class Item implements IItem {
     public boolean accept(IItemVisitor visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    public String readName() {
+        return name;
+    }
 }

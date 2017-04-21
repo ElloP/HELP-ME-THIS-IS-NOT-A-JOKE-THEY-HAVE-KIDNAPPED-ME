@@ -22,7 +22,7 @@ public class GoBack implements IBehaviour {
     }
 
     private Either goBack(IReadMonster monster, IReadLevel level){
-        Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.getPosition(), monster.getStartingPosition());
+        Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.readPosition(), monster.readStartingPosition());
         int cost = path.c;
         if (cost > 0){
             Vector2f nextPos = path.b;

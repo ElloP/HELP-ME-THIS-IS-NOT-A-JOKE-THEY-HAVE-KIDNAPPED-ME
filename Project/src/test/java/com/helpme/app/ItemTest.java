@@ -1,8 +1,6 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld0;
-import com.helpme.app.utils.maybe.Just;
-import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.item.Consumable;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
@@ -26,7 +24,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(0);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerAttack();
-        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getValue().getHitpoints().y == 90);
+        assert (mockWorld.level.readMonster(new Vector2f(2, 2)).getValue().readHitpoints().y == 90);
     }
 
 
@@ -36,7 +34,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(-1);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerAttack();
-        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getValue().getHitpoints().y == 98);
+        assert (mockWorld.level.readMonster(new Vector2f(2, 2)).getValue().readHitpoints().y == 98);
     }
 
     @Test
@@ -45,7 +43,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(-1);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerSelfie();
-        assert ( mockWorld.playerController.getPlayer().getHitpoints().y == 99);
+        assert ( mockWorld.playerController.getPlayer().readHitpoints().y == 99);
     }
 
     @Test
@@ -54,7 +52,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(0);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerSelfie();
-        assert ( mockWorld.playerController.getPlayer().getHitpoints().y == 95);
+        assert ( mockWorld.playerController.getPlayer().readHitpoints().y == 95);
     }
 
     @Test
@@ -67,7 +65,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(1);
         mockWorld.playerController.usePlayerSelfie();
         mockWorld.playerController.usePlayerSelfie();
-        assert ( mockWorld.playerController.getPlayer().getHitpoints().y == 99);
+        assert ( mockWorld.playerController.getPlayer().readHitpoints().y == 99);
     }
 
     @Test
@@ -82,8 +80,8 @@ public class ItemTest {
         mockWorld.playerController.movePlayerForward();
         mockWorld.playerController.changePlayerActiveItem(2);
         mockWorld.playerController.usePlayerAttack();
-        assert (mockWorld.level.getMonster(new Vector2f(9, 0)).getValue().getHitpoints().y == 60
-                &&  mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
+        assert (mockWorld.level.readMonster(new Vector2f(9, 0)).getValue().readHitpoints().y == 60
+                &&  mockWorld.playerController.getPlayer().readPosition().equals(tileTo));
     }
 
     @Test
@@ -93,7 +91,7 @@ public class ItemTest {
         mockWorld.playerController.setPlayerItems(new IItem[]{null});
         mockWorld.playerController.usePlayerPickupAll();
         assert (mockWorld.level.removeTileItems(tileStart).length == 2
-                &&  mockWorld.playerController.getPlayer().getInventory().getItem(0) != null);
+                &&  mockWorld.playerController.getPlayer().readInventory().readItem(0) != null);
     }
 
     @Test
@@ -103,7 +101,7 @@ public class ItemTest {
         mockWorld.playerController.setPlayerItems(new IItem[]{null});
         mockWorld.playerController.usePlayerPickupAll();
         assert (mockWorld.level.removeTileItems(tileStart).length == 0
-                && ((Consumable)  mockWorld.playerController.getPlayer().getInventory().getItem(0)).getStacks() == 6);
+                && mockWorld.playerController.getPlayer().readInventory().readItem(0).check(i -> ((Consumable)i).getStacks() == 6));
     }
 
     @Test
@@ -115,8 +113,8 @@ public class ItemTest {
         mockWorld.playerController.usePlayerPickupSingle(2);
         IItem[] items = mockWorld.level.removeTileItems(tileStart);
         assert (items[0] == null && items[2] == null && items[1].toString().equals("Item: Box")
-                &&  mockWorld.playerController.getPlayer().getInventory().getItem(0).toString().equals("Consumable: Paper")
-                &&  mockWorld.playerController.getPlayer().getInventory().getItem(1).toString().equals("Item: Sword"));
+                &&  mockWorld.playerController.getPlayer().readInventory().readItem(0).check(i -> i.toString().equals("Consumable: Paper"))
+                &&  mockWorld.playerController.getPlayer().readInventory().readItem(1).check(i -> i.toString().equals("Item: Sword")));
     }
 
     @Test

@@ -19,25 +19,25 @@ public class MoveTest {
     @Test
     public void testRotateRight() {
         mockWorld.playerController.rotatePlayerRight();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.right));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.right));
          mockWorld.playerController.rotatePlayerRight();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.down));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.down));
          mockWorld.playerController.rotatePlayerRight();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.left));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.left));
          mockWorld.playerController.rotatePlayerRight();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.up));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.up));
     }
 
     @Test
     public void testRotateLeft() {
          mockWorld.playerController.rotatePlayerLeft();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.left));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.left));
          mockWorld.playerController.rotatePlayerLeft();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.down));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.down));
          mockWorld.playerController.rotatePlayerLeft();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.right));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.right));
          mockWorld.playerController.rotatePlayerLeft();
-        assert ( mockWorld.playerController.getPlayer().getDirection().equals(Vector2f.up));
+        assert ( mockWorld.playerController.getPlayer().readDirection().equals(Vector2f.up));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class MoveTest {
         Vector2f tileStart = new Vector2f(2, 1);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.movePlayerForward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileStart));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileStart));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class MoveTest {
         mockWorld.playerController.movePlayerForward();
         mockWorld.playerController.movePlayerForward();
         mockWorld.playerController.movePlayerLeft();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileTo));
     }
 
     @Test
@@ -65,13 +65,13 @@ public class MoveTest {
         Vector2f tileStart = new Vector2f(2, 1);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.movePlayerForward();
-        Vector2f monsterPos = new Vector2f(Vector2f.add(tileStart,mockWorld.playerController.getPlayer().getDirection()));
+        Vector2f monsterPos = new Vector2f(Vector2f.add(tileStart,mockWorld.playerController.getPlayer().readDirection()));
         //assert (monsterPos.equals(new Vector2f(2,2)));
-        while(!mockWorld.level.getMonster(monsterPos).check(m -> m.isDead())){
+        while(!mockWorld.level.readMonster(monsterPos).check(m -> m.isDead())){
             mockWorld.playerController.usePlayerAttack();
         }
         mockWorld.playerController.movePlayerForward();
-        assert (mockWorld.playerController.getPlayer().getPosition().equals(monsterPos));
+        assert (mockWorld.playerController.getPlayer().readPosition().equals(monsterPos));
 
     }
 }

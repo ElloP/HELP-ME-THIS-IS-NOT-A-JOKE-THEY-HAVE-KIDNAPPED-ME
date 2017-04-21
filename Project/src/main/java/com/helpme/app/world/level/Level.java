@@ -86,13 +86,13 @@ public class Level implements ILevel {
 
 
     public boolean isMonsterBlockedByEdge(IReadMonster monster, Vector2f direction) {
-        ITile tile = tiles.get(monster.getPosition());
+        ITile tile = tiles.get(monster.readPosition());
         return !monster.isTraversable(tile.getEdge(direction));
     }
 
     public boolean isTileOccupied(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position) && !monster.isDead()) {
+            if (monster.readPosition().equals(position) && !monster.isDead()) {
                 return true;
             }
         }
@@ -100,8 +100,8 @@ public class Level implements ILevel {
     }
 
     public Maybe<ITarget> getTarget(IMonster monster, Vector2f direction) {
-        Vector2f position = monster.getPosition();
-        Vector2f destination = Vector2f.add(monster.getPosition(), direction);
+        Vector2f position = monster.readPosition();
+        Vector2f destination = Vector2f.add(monster.readPosition(), direction);
 
         if (isMonsterBlockedByEdge(monster, direction)) {
             return Maybe.wrap(tiles.get(position).getEdge(direction));
@@ -158,14 +158,13 @@ public class Level implements ILevel {
     }
 
     @Override
-    public Maybe<IReadMonster> getMonster(Vector2f position) {
+    public Maybe<IReadMonster> readMonster(Vector2f position) {
         return Maybe.wrap(accessMonster(position));
-
     }
 
     private Maybe<IMonster> accessMonster(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) {
+            if (monster.readPosition().equals(position)) {
                 return new Just(monster);
             }
         }
@@ -173,7 +172,7 @@ public class Level implements ILevel {
     }
 
     @Override
-    public Maybe<IReadMonster> getPlayer() {
+    public Maybe<IReadMonster> readPlayer() {
         return new Just(player);
     }
 
@@ -205,7 +204,7 @@ public class Level implements ILevel {
 
             Vector2f[] neighbors = Vector2f.getNeighbors(current.position);
             for (Vector2f neighbor : neighbors){
-                if (!visitedNodes.contains(neighbor) && isTileValid(neighbor) && (!isTileOccupied(neighbor) || player.getPosition().equals(neighbor)))
+                if (!visitedNodes.contains(neighbor) && isTileValid(neighbor) && (!isTileOccupied(neighbor) || player.readPosition().equals(neighbor)))
                     frontier.push(new CameFrom(current, neighbor));
             }
             visitedNodes.add(current.position);
@@ -239,7 +238,7 @@ public class Level implements ILevel {
     public boolean isDistanceFrom(IReadMonster monster, Vector2f destination, int longestDistance) {
         ArrayList<Vector2f> positions = new ArrayList<>();
         ArrayList<Vector2f> notAdded = new ArrayList<>();
-        notAdded.add(monster.getPosition());
+        notAdded.add(monster.readPosition());
         for (int i = 1; i <= longestDistance; i++) {
             ArrayList<Vector2f> temp = new ArrayList<>();
             for (Vector2f pos : notAdded) {
@@ -258,8 +257,8 @@ public class Level implements ILevel {
     @Override
     public void updateDeadMonster(Vector2f position){
         for(IMonster m : monsters){
-            if(m.getPosition().equals(position)){
-                addTileItems(position,m.getInventory().getItems());
+            if(m.readPosition().equals(position)){
+                addTileItems(position,m.getInventory().dropItems());
                 m.dropAllItems();
                 return;
             }

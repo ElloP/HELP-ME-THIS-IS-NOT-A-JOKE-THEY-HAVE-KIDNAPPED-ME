@@ -39,37 +39,37 @@ public abstract class Intelligence implements IBehaviour {
     }
 
     public static Maybe<IReadMonster> getMonsterFrontNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f frontPosition = Vector2f.add(monster.getPosition(), direction);
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.getMonster(frontPosition);
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f frontPosition = Vector2f.add(monster.readPosition(), direction);
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(frontPosition);
 
     }
 
     public static Maybe<IReadMonster> getMonsterRightNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f rightPosition = Vector2f.add(monster.getPosition(), direction.right());
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.getMonster(rightPosition);
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f rightPosition = Vector2f.add(monster.readPosition(), direction.right());
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(rightPosition);
     }
 
     public static Maybe<IReadMonster> getMonsterBackNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f backPosition = Vector2f.add(monster.getPosition(), direction.backward());
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.getMonster(backPosition);
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f backPosition = Vector2f.add(monster.readPosition(), direction.backward());
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(backPosition);
     }
 
     public static Maybe<IReadMonster> getMonsterLeftNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f leftPosition = Vector2f.add(monster.getPosition(), direction.left());
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.getMonster(leftPosition);
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f leftPosition = Vector2f.add(monster.readPosition(), direction.left());
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(leftPosition);
     }
 
     public static boolean isMonsterFacing(IReadMonster monster, Vector2f other){
-        return Vector2f.equals(Vector2f.add(monster.getPosition(), monster.getDirection()), other);
+        return Vector2f.equals(Vector2f.add(monster.readPosition(), monster.readDirection()), other);
     }
 
     public static boolean isLeftOf(IReadMonster monster, Vector2f other){
-        Vector2f right = monster.getDirection().right();
+        Vector2f right = monster.readDirection().right();
 
-        return Vector2f.equals(Vector2f.add(monster.getPosition(), right), other);
+        return Vector2f.equals(Vector2f.add(monster.readPosition(), right), other);
     }
 }

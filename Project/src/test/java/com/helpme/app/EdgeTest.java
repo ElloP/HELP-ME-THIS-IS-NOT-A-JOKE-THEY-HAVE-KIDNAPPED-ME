@@ -23,7 +23,7 @@ public class EdgeTest {
          mockWorld.playerController.setPlayerPosition(tileStart);
          mockWorld.playerController.rotatePlayerRight();
          mockWorld.playerController.movePlayerForward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileTo));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class EdgeTest {
          mockWorld.playerController.setPlayerPosition(tileStart);
          mockWorld.playerController.rotatePlayerLeft();
          mockWorld.playerController.movePlayerForward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileStart));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileStart));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class EdgeTest {
          mockWorld.playerController.rotatePlayerRight();
          mockWorld.playerController.movePlayerForward();
          mockWorld.playerController.movePlayerForward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileTo));
     }
 
     @Test
@@ -51,13 +51,13 @@ public class EdgeTest {
         Vector2f tileSingle = new Vector2f(5, 5);
         mockWorld.playerController.setPlayerPosition(tileSingle);
         mockWorld.playerController.movePlayerForward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileSingle));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileSingle));
         mockWorld.playerController.movePlayerRight();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileSingle));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileSingle));
         mockWorld.playerController.movePlayerBackward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileSingle));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileSingle));
         mockWorld.playerController.movePlayerLeft();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileSingle));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileSingle));
     }
 
     @Test
@@ -69,6 +69,6 @@ public class EdgeTest {
         mockWorld.playerController.movePlayerForward();
         mockWorld.playerController.rotatePlayerLeft();
         mockWorld.playerController.movePlayerForward();
-        assert ( mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
+        assert ( mockWorld.playerController.getPlayer().readPosition().equals(tileTo));
     }
 }

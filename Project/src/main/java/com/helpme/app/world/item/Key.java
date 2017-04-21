@@ -16,7 +16,6 @@ public class Key extends Item implements IItem {
         return visitor.visit(this);
     }
 
-
     @Override
     public String toString(){
         return "Key: " + name;

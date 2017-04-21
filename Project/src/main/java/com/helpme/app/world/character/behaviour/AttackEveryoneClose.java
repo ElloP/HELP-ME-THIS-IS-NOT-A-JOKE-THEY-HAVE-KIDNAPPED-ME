@@ -7,7 +7,6 @@ import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.character.ITarget;
 import com.helpme.app.world.level.IReadLevel;
 
 /**
@@ -28,7 +27,7 @@ public class AttackEveryoneClose implements IBehaviour {
     private Either<IBehaviour, IAction<IMonster>> updateBehaviour(IReadMonster monster, IReadLevel level) {
         if (decideToAttack(monster, level)) {
             return Action.attackAction(level);
-        } else if (level.isDistanceFrom(monster, monster.getStartingPosition(), followingDistance)) {
+        } else if (level.isDistanceFrom(monster, monster.readStartingPosition(), followingDistance)) {
             if (decideToFollow(monster, level)) {
                 return Action.moveForwardAction();
             }
@@ -37,22 +36,22 @@ public class AttackEveryoneClose implements IBehaviour {
     }
 
     private boolean decideToFollow(IReadMonster monster, IReadLevel level) {
-        Maybe<IReadMonster> maybePlayer = level.getPlayer();
+        Maybe<IReadMonster> maybePlayer = level.readPlayer();
 
         if (maybePlayer.isJust()) {
             IReadMonster player = maybePlayer.getValue();
-            Vector2f destination = player.getPosition();
+            Vector2f destination = player.readPosition();
 
             int longestDistance = followingDistance;
-            if (Vector2f.equals(monster.getStartingPosition(), destination))
+            if (Vector2f.equals(monster.readStartingPosition(), destination))
                 longestDistance--;
-            return level.isDistanceFrom(monster, player.getPosition(), longestDistance);
+            return level.isDistanceFrom(monster, player.readPosition(), longestDistance);
         }
         return false;
     }
 
     private boolean decideToAttack(IReadMonster monster, IReadLevel level) {
-        Maybe<IReadMonster> maybePlayer = level.getPlayer();
+        Maybe<IReadMonster> maybePlayer = level.readPlayer();
         return (maybePlayer.check(p -> Intelligence.isMonsterNextTo(monster, p, level)));
     }
 }

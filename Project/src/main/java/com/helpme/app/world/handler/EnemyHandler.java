@@ -38,7 +38,7 @@ public class EnemyHandler extends MonsterHandler {
     }
 
     private Maybe<IReadMonster> getPlayer(){
-        return level.getPlayer();
+        return level.readPlayer();
     }
 
     public IBehaviour getBehaviour(){

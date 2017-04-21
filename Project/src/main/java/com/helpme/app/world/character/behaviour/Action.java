@@ -3,7 +3,6 @@ package com.helpme.app.world.character.behaviour;
 import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.either.Right;
 import com.helpme.app.utils.functions.IAction;
-import com.helpme.app.utils.functions.IFunction;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.level.IReadLevel;
 
@@ -25,7 +24,7 @@ public final class Action {
     }
 
     public static Either attackAction(IReadLevel level){
-        return new Right<IBehaviour, IAction<IMonster>> (m -> level.getPlayer().run(p -> m.attack(p)));
+        return new Right<IBehaviour, IAction<IMonster>> (m -> level.readPlayer().run(p -> m.attack(p)));
     }
 
     public static Either rotateRight(){

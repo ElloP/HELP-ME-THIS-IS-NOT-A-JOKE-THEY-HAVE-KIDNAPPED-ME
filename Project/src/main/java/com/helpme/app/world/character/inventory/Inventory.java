@@ -1,7 +1,10 @@
 package com.helpme.app.world.character.inventory;
 
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IItemFactory;
+import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.item.visitor.Stack;
 import com.helpme.app.utils.Clone;
 
@@ -32,13 +35,8 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public IItem getItem(int index) {
-        try {
-            return items[index];
-        } catch (NullPointerException e) {
-            System.out.println(e);
-            return null;
-        }
+    public Maybe<IItem> getItem(int index) {
+        return Maybe.wrap(index < 0 || index >= items.length ? null : items[index]);
     }
 
     @Override
@@ -68,15 +66,8 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public IItem dropItem(int index) {
-        try {
-            IItem item = items[index];
-            items[index] = null;
-            return item;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e);
-            return null;
-        }
+    public Maybe<IItem> dropItem(int index) {
+        return Maybe.wrap(index < 0 || index >= items.length ? null : items[index]);
     }
 
     private boolean setItem(IItem from, IItem to) {
@@ -90,8 +81,8 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public void setItems(IItem[] items) {
-        this.items = items;
+    public void setItems(Maybe<IItem[]> items) {
+        items.run(is -> this.items = is);
     }
 
     @Override
@@ -112,13 +103,23 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public int itemLimit() {
+    public int getSize() {
         return items.length;
     }
 
     @Override
-    public IItem[] getItems() {
+    public IItem[] dropItems() {
         return cloneItems();
+    }
+
+    @Override
+    public Maybe<IReadItem[]> readItems() {
+        return Maybe.wrap(items);
+    }
+
+    @Override
+    public Maybe<IReadItem> readItem(int index) {
+        return Maybe.wrap(getItem(index));
     }
 
     @Override

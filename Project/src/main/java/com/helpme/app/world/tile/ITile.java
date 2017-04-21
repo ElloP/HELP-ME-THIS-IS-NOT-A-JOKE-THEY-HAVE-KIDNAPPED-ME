@@ -7,7 +7,7 @@ import com.helpme.app.utils.Vector2f;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface ITile {
+public interface ITile extends IReadTile{
     IEdge getEdge(Vector2f direction);
     void setEdge(IEdge edge, Vector2f direction);
     IItem[] removeItems();

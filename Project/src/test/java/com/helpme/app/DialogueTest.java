@@ -3,7 +3,6 @@ package com.helpme.app;
 import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IReadMonster;
 import org.junit.Before;
@@ -27,11 +26,11 @@ public class DialogueTest {
         Vector2f tileStart = new Vector2f(8, 5);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.rotatePlayerLeft();
-        Maybe<IReadMonster> maybeMonster = mockWorld.level.getMonster(new Vector2f(7,5));
+        Maybe<IReadMonster> maybeMonster = mockWorld.level.readMonster(new Vector2f(7,5));
         IReadMonster monster = maybeMonster.getValue();
 
         Tuple2<String,String[]> result = mockWorld.playerController.usePlayerTalk().getValue();
-        Tuple2<String,String[]> monsterResponse = Maybe.wrap(monster.initiateDialogue()).getValue();
+        Tuple2<String,String[]> monsterResponse = Maybe.wrap(monster.getDialogue()).getValue();
 
         assert (result.a.equals(monsterResponse.a));
         for(int i = 0; i < result.b.length; i++){

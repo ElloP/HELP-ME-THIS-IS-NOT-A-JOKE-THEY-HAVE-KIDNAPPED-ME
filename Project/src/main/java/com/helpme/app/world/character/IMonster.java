@@ -1,6 +1,8 @@
 package com.helpme.app.world.character;
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.character.inventory.IReadInventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
@@ -19,7 +21,7 @@ public interface IMonster extends IReadMonster {
     void attack(ITarget target);
     void selfie();
     boolean pickupItem(IItem item);
-    IItem dropItem(int index);
+    Maybe<IItem> dropItem(int index);
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
