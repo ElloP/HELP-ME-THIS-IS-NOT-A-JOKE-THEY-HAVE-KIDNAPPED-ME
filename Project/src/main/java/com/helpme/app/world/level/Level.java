@@ -87,7 +87,7 @@ public class Level implements ILevel {
 
     public boolean isMonsterBlockedByEdge(IReadMonster monster, Vector2f direction) {
         ITile tile = tiles.get(monster.readPosition());
-        return !monster.isTraversable(tile.getEdge(direction));
+        return tile.getEdge(direction).check(e -> !monster.isTraversable(e));
     }
 
     public boolean isTileOccupied(Vector2f position) {

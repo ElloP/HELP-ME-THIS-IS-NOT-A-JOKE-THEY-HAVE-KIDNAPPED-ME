@@ -1,46 +1,38 @@
 package com.helpme.app.world.tile;
 
+import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Jacob on 2017-03-30.
  */
 public class Tile implements ITile {
-    private IEdge[] edges = new IEdge[4];
+    private Map<Vector2f, IEdge> edges;
     private List<IItem> items;
 
     public Tile(IItem[] items){
         this.items = items == null ? new ArrayList<>() : Clone.toList(items);
+        this.edges = new HashMap<>();
     }
 
 
     @Override
-    public IEdge getEdge(Vector2f direction) {
-        try {
-            return edges[Vector2fToIndex(direction)];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e);
-            return null;
-        }
+    public Maybe<IEdge> getEdge(Vector2f direction) {
+        return Maybe.wrap(edges.get(direction));
     }
 
 
     @Override
     public void setEdge(IEdge edge, Vector2f direction) {
-        try {
-            edges[Vector2fToIndex(direction)] = edge;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e);
-        }
+        edges.put(direction, edge);
     }
 
     @Override
@@ -68,24 +60,6 @@ public class Tile implements ITile {
             if(item == null) continue;
             addItem(item);
         }
-    }
-
-
-    private int Vector2fToIndex(Vector2f vec0) {
-        if (vec0.equals(Vector2f.up)) {
-            return 0;
-        }
-        if (vec0.equals(Vector2f.right)) {
-            return 1;
-        }
-        if (vec0.equals(Vector2f.down)) {
-            return 2;
-        }
-        if (vec0.equals(Vector2f.left)) {
-            return 3;
-        }
-
-        return -1;
     }
 
     @Override
