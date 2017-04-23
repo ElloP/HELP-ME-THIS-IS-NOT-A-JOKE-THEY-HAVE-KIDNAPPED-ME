@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class MockWorld0 {
     public ILevel level;
-    public PlayerHandler playerController;
+    public PlayerHandler playerHandler;
 
     public MockWorld0(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -94,7 +94,7 @@ public class MockWorld0 {
 
 
         ILevel level = new Level(tiles, doors, monsters, Vector2f.zero);
-        playerController = new PlayerHandler(player, level);
+        playerHandler = new PlayerHandler(player, level);
         this.level = level;
     }
 }

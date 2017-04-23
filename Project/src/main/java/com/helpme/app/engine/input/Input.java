@@ -28,11 +28,11 @@ public final class Input {
     }
 
     public static boolean isKeyboardKeyUp(InputKey inputKey) {
-        return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyUp(keycode) && !KeyState.isKeyboardKeyRelease(keycode));
+        return checkKeyState(inputKey, keycode -> !InputHandler.isKeyboardKeyUp(keycode) && !InputHandler.isKeyboardKeyRelease(keycode));
     }
 
     public static boolean isKeyboardKeyDown(InputKey inputKey) {
-        return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyDown(keycode) && !KeyState.isKeyboardKeyPress(keycode));
+        return checkKeyState(inputKey, keycode -> !InputHandler.isKeyboardKeyDown(keycode) && !InputHandler.isKeyboardKeyPress(keycode));
     }
 
     private static boolean checkKeyState(InputKey inputKey, IFunction<Integer, Boolean> failTest) {
@@ -45,35 +45,35 @@ public final class Input {
     }
 
     public static boolean isKeyboardKeyPress(InputKey inputKey) {
-        return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyPress(keycode));
+        return checkKeyState(inputKey, keycode -> !InputHandler.isKeyboardKeyPress(keycode));
     }
 
     public static boolean isKeyboardKeyRelease(InputKey inputKey) {
-        return checkKeyState(inputKey, keycode -> !KeyState.isKeyboardKeyRelease(keycode));
+        return checkKeyState(inputKey, keycode -> !InputHandler.isKeyboardKeyRelease(keycode));
     }
 
     public static boolean isMouseButtonUp(int mousecode) {
-        return KeyState.isMouseButtonUp(mousecode) || KeyState.isMouseButtonRelease(mousecode);
+        return InputHandler.isMouseButtonUp(mousecode) || InputHandler.isMouseButtonRelease(mousecode);
     }
 
     public static boolean isMouseButtonDown(int mousecode) {
-        return KeyState.isMouseButtonDown(mousecode) || KeyState.isMouseButtonPress(mousecode);
+        return InputHandler.isMouseButtonDown(mousecode) || InputHandler.isMouseButtonPress(mousecode);
     }
 
     public static boolean isMouseButtonPress(int mousecode) {
-        return KeyState.isMouseButtonPress(mousecode);
+        return InputHandler.isMouseButtonPress(mousecode);
     }
 
     public static boolean isMouseButtonRelease(int mousecode) {
-        return KeyState.isMouseButtonRelease(mousecode);
+        return InputHandler.isMouseButtonRelease(mousecode);
     }
 
     public static boolean isMouseEntered() {
-        return KeyState.isMouseEntered();
+        return InputHandler.isMouseEntered();
     }
 
     public static Vector2f getMousePosition() {
-        return KeyState.getMousePosition();
+        return InputHandler.getMousePosition();
     }
 
     public static Map<InputKey, Integer[]> getDefaultKeys() {

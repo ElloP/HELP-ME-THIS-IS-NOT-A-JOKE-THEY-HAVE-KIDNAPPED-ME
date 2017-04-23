@@ -1,6 +1,6 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.input.KeyState;
+import com.helpme.app.engine.input.InputHandler;
 import com.helpme.app.engine.renderer.base.RenderCore;
 
 /**
@@ -59,7 +59,7 @@ public class EngineCore {
 
                 game.input();
 
-                KeyState.updateStates();
+                InputHandler.updateStates();
 
                 game.update();
 

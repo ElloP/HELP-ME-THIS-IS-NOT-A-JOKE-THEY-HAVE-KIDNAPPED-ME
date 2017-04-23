@@ -1,7 +1,7 @@
 package com.helpme.app.engine.base;
 
 import com.helpme.app.engine.input.Input;
-import com.helpme.app.engine.input.KeyState;
+import com.helpme.app.engine.input.InputHandler;
 import org.lwjgl.opengl.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -48,7 +48,7 @@ public class Window {
             throw new RuntimeException("GLFW failed to create window");
         }
 
-        KeyState.initialize(window);
+        InputHandler.initialize(window);
         Input.initialize(Input.getDefaultKeys());
 
         glfwMakeContextCurrent(window);

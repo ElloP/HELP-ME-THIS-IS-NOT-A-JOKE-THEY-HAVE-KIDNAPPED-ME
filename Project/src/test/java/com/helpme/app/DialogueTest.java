@@ -24,12 +24,12 @@ public class DialogueTest {
     @Test
     public void testTalkToMonster() {
         Vector2f tileStart = new Vector2f(8, 5);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        mockWorld.playerController.rotatePlayerLeft();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        mockWorld.playerHandler.rotatePlayerLeft();
         Maybe<IReadMonster> maybeMonster = mockWorld.level.readMonster(new Vector2f(7,5));
         IReadMonster monster = maybeMonster.getValue();
 
-        Tuple2<String,String[]> result = mockWorld.playerController.usePlayerTalk().getValue();
+        Tuple2<String,String[]> result = mockWorld.playerHandler.usePlayerTalk().getValue();
         Tuple2<String,String[]> monsterResponse = Maybe.wrap(monster.getDialogue()).getValue();
 
         assert (result.a.equals(monsterResponse.a));
@@ -42,7 +42,7 @@ public class DialogueTest {
         for (int i = result.b.length-1; i >= -1; i--){
             if(i == -1) break;
             System.out.println(result.b[i]);
-            Maybe<Tuple2<String,String[]>> maybeResult = mockWorld.playerController.usePlayerTalk(i);
+            Maybe<Tuple2<String,String[]>> maybeResult = mockWorld.playerHandler.usePlayerTalk(i);
             if(maybeResult.isNothing()) break;
             result = maybeResult.getValue();
             System.out.println(result.a);
@@ -59,10 +59,10 @@ public class DialogueTest {
     @Test
     public void badArgumentInTalk(){
         Vector2f tileStart = new Vector2f(8, 5);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        mockWorld.playerController.rotatePlayerLeft();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        mockWorld.playerHandler.rotatePlayerLeft();
         try {
-            Tuple2<String,String[]> result = mockWorld.playerController.usePlayerTalk(5).getValue();
+            Tuple2<String,String[]> result = mockWorld.playerHandler.usePlayerTalk(5).getValue();
         } catch (IllegalArgumentException e){
             assert(e.toString().equals("java.lang.IllegalArgumentException: Index larger than length"));
         }
@@ -70,10 +70,10 @@ public class DialogueTest {
     @Test
     public void badArgumentInTalk2(){
         Vector2f tileStart = new Vector2f(8, 5);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        mockWorld.playerController.rotatePlayerLeft();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        mockWorld.playerHandler.rotatePlayerLeft();
         try {
-            Tuple2<String,String[]> result = mockWorld.playerController.usePlayerTalk(-2).getValue();
+            Tuple2<String,String[]> result = mockWorld.playerHandler.usePlayerTalk(-2).getValue();
         } catch (IllegalArgumentException e){
             assert(e.toString().equals("java.lang.IllegalArgumentException: Index smaller than -1"));
         }
@@ -82,8 +82,8 @@ public class DialogueTest {
     @Test
     public void testTalkToNothing() {
         Vector2f tileStart = new Vector2f(0, 0);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        Maybe<Tuple2<String,String[]>> result = mockWorld.playerController.usePlayerTalk();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        Maybe<Tuple2<String,String[]>> result = mockWorld.playerHandler.usePlayerTalk();
         assert (result.isNothing());
     }
 }
