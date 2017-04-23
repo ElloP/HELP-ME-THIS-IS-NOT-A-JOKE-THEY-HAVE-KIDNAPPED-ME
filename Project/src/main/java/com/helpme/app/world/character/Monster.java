@@ -11,7 +11,7 @@ import com.helpme.app.world.item.visitor.Pickup;
 import com.helpme.app.world.item.visitor.Selfie;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.world.tile.edge.visitor.Traverse;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.Observable;

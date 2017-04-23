@@ -1,7 +1,7 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld0;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IReadMonster;

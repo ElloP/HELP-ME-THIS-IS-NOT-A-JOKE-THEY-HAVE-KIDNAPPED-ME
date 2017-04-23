@@ -1,10 +1,9 @@
 package com.helpme.app.world.handler;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 /**

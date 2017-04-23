@@ -1,7 +1,7 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld1;
-import com.helpme.app.utils.Tuple.Tuple3;
+import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import org.junit.Before;
 import org.junit.Test;

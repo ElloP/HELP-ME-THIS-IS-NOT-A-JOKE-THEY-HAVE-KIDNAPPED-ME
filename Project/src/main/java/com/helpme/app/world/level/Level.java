@@ -12,8 +12,8 @@ import com.helpme.app.world.tile.ITileFactory;
 import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.world.tile.edge.Opening;
 import com.helpme.app.world.tile.edge.Wall;
-import com.helpme.app.utils.Tuple.Tuple2;
-import com.helpme.app.utils.Tuple.Tuple3;
+import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.*;

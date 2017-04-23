@@ -1,6 +1,6 @@
 package com.helpme.app.world.character.behaviour;
 
-import com.helpme.app.utils.Tuple.Tuple3;
+import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.either.Left;

@@ -6,7 +6,7 @@ import com.helpme.app.world.character.Monster;
 import com.helpme.app.world.character.behaviour.FollowAndAttack;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.handler.EnemyHandler;
 import com.helpme.app.world.handler.MonsterHandler;
