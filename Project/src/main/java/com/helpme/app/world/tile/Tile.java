@@ -19,8 +19,12 @@ public class Tile implements ITile {
     private List<IItem> items;
 
     public Tile(IItem[] items){
+        this(items, null);
+    }
+
+    public Tile(IItem[] items, Map<Vector2f, IEdge> edges){
         this.items = items == null ? new ArrayList<>() : Clone.toList(items);
-        this.edges = new HashMap<>();
+        this.edges = edges == null ? new HashMap<>() : edges;
     }
 
 
