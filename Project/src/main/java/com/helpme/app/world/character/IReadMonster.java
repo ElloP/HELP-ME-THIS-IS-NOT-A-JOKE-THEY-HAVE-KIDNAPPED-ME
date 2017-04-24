@@ -4,6 +4,8 @@ import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.utils.Tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
+import java.util.Observable;
+
 /**
  * Created by kopa on 2017-04-14.
  */

@@ -46,7 +46,7 @@ public class MockWorld1 {
 
 
         enemyController0 = new EnemyHandler(enemy0, level, new FollowAndAttack(2));
-        enemyController1 = new EnemyHandler(enemy1, level, new FollowAndAttack(8));
+        enemyController1 = new EnemyHandler(enemy1, level, new FollowAndAttack());
         enemyController2 = new EnemyHandler(enemy2, level, new FollowAndAttack(1));
 
 

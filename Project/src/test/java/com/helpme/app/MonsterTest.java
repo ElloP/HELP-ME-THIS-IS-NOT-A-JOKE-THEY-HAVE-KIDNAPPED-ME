@@ -36,8 +36,6 @@ public class MonsterTest {
         assert ((EnemyHandler) mockWorld.enemyController2).getBehaviour() instanceof GoBack;
     }
 
-    //Note (Jesper): if it fails, try again. The argument to the FollowAndAttack constructor is now just max distance.
-    //The actual followingDistance will be random.
     @Test
     public void testFollow(){
         assert mockWorld.enemyController1.getMonster().getPosition().equals(new Vector2f(0, 3));
@@ -46,6 +44,7 @@ public class MonsterTest {
         mockWorld.enemyController1.update();
         assert mockWorld.enemyController1.getMonster().getPosition().equals(new Vector2f(0, 2));
     }
+
 
 
 
