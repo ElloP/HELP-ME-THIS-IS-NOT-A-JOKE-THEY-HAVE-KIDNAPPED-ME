@@ -37,13 +37,9 @@ public class SaveTest {
     }
     @Test
     public void saveTest() throws JAXBException {
-        items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
-        hitpoints = new Vector2f(100,50);
-        IMonster monster = new Monster(inventory,Vector2f.zero,Vector2f.zero,hitpoints);
+
 
         Marshaller marshaller = this.context.createMarshaller();
-        System.out.println(monster.toString());
         marshaller.marshal(new PlayerWrapper(monster), new File("test.xml"));
     }
 }
