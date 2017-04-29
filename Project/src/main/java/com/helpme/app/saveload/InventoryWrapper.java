@@ -12,6 +12,8 @@ public class InventoryWrapper {
 
     ItemWrapper[] items;
 
+    public InventoryWrapper(){};
+
     public InventoryWrapper(IReadInventory inventory){
         if(inventory == null || inventory.readItems().isNothing()){
             items = new ItemWrapper[]{};
@@ -24,8 +26,24 @@ public class InventoryWrapper {
         }
     }
 
+    public void setItems(ItemWrapper[] items) {
+       // if(items == null) return;
+        this.items = new ItemWrapper[items.length];
+        for(int i = 0; i < items.length; i++){
+            this.items[i] = new ItemWrapper(items[i].getName());
+        }
+    }
+
     @XmlElement(name="item")
     public ItemWrapper[] getItems(){
         return items;
+    }
+    public String toString(){
+        String result = "";
+        System.out.println("here mosdoadoas  length: " + items.length);
+        for(ItemWrapper item : items){
+            if(item != null) result += "\nItem: " + (item.getName());
+        }
+        return result;
     }
 }

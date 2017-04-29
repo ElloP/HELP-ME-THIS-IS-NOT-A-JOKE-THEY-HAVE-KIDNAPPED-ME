@@ -14,6 +14,7 @@ import org.junit.Test;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 /**
@@ -30,16 +31,21 @@ public class SaveTest {
     @Before
     public void init() throws JAXBException {
         this.context = JAXBContext.newInstance(PlayerWrapper.class);
+
+    }
+    @Test
+    public void saveTest() throws JAXBException {
         items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
         inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
         hitpoints = new Vector2f(100,50);
         IMonster monster = new Monster(inventory,Vector2f.zero,Vector2f.zero,hitpoints);
-    }
-    @Test
-    public void saveTest() throws JAXBException {
-
-
+        File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new PlayerWrapper(monster), new File("test.xml"));
+        marshaller.marshal(new PlayerWrapper(monster), file);
+
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        PlayerWrapper pw = (PlayerWrapper) unmarshaller.unmarshal(file);
+
+        System.out.println(pw);
     }
 }

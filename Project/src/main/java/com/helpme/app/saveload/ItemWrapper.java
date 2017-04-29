@@ -11,8 +11,17 @@ public class ItemWrapper {
 
     private String name;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ItemWrapper(){}
+
     public ItemWrapper(IReadItem item){
         name = item == null? "Empty" : item.readName();
+    }
+    public ItemWrapper(String name){
+        this.name = name;
     }
 
     @XmlElement(name="name")
