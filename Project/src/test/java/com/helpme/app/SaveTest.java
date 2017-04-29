@@ -8,7 +8,6 @@ import com.helpme.app.world.character.Monster;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
-import com.sun.xml.internal.ws.util.Pool;
 import org.junit.Before;
 import org.junit.Test;
 
