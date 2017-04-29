@@ -139,6 +139,14 @@ public class Monster extends Observable implements IMonster {
     public Monster clone() {
         return new Monster(inventory.clone(), position.clone(), direction.clone(), readHitpoints());
     }
+    @Override
+    public float readMaxHp(){
+        return hitpoints.x;
+    }
+    @Override
+    public float readCurrentHp(){
+        return hitpoints.y;
+    }
 
     @Override
     public Tuple2<String, String[]> getDialogue() {
