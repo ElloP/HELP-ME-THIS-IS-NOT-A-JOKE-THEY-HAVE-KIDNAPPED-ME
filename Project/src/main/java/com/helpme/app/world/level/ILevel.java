@@ -15,4 +15,5 @@ public interface ILevel extends IReadLevel {
     void addTileItems(Vector2f position, IItem[] items);
     void setPlayer(IMonster player);
     void updateDeadMonster(Vector2f position);
+    String toString();
 }

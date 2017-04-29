@@ -17,10 +17,14 @@ import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.*;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by Jacob on 2017-03-30.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Level implements ILevel {
     private IMonster player;
     private Map<Vector2f, ITile> tiles;
@@ -263,5 +267,15 @@ public class Level implements ILevel {
                 return;
             }
         }
+    }
+
+    public String toString(){
+        String result = "";
+        Iterator it = tiles.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            result.concat("Tile at " + pair.getKey().toString() + "\n");
+        }
+        return result;
     }
 }
