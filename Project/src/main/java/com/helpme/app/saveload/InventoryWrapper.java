@@ -40,7 +40,6 @@ public class InventoryWrapper {
     }
     public String toString(){
         String result = "";
-        System.out.println("here mosdoadoas  length: " + items.length);
         for(ItemWrapper item : items){
             if(item != null) result += "\nItem: " + (item.getName());
         }

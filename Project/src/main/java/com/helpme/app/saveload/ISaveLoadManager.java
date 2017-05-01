@@ -5,4 +5,5 @@ package com.helpme.app.saveload;
  */
 public interface ISaveLoadManager {
     void marshall();
+    void unmarshall();
 }

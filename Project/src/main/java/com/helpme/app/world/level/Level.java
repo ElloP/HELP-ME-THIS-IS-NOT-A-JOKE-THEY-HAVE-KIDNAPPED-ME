@@ -23,8 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by Jacob on 2017-03-30.
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Level implements ILevel {
     private IMonster player;
     private Map<Vector2f, ITile> tiles;
@@ -165,6 +164,7 @@ public class Level implements ILevel {
     public Maybe<IReadMonster> readMonster(Vector2f position) {
         return Maybe.wrap(accessMonster(position));
     }
+
 
     private Maybe<IMonster> accessMonster(Vector2f position) {
         for (IMonster monster : monsters) {

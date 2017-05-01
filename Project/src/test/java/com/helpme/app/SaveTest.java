@@ -1,7 +1,9 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockItem;
+import com.helpme.app.saveload.IPlayerWrapper;
 import com.helpme.app.saveload.PlayerWrapper;
+import com.helpme.app.saveload.SavePlayer;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.Monster;
@@ -38,14 +40,27 @@ public class SaveTest {
         items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
         inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
         hitpoints = new Vector2f(100,50);
-        IMonster monster = new Monster(inventory,Vector2f.zero,Vector2f.zero,hitpoints);
+        IMonster monster = new Monster(inventory,Vector2f.right,Vector2f.left,hitpoints);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
         marshaller.marshal(new PlayerWrapper(monster), file);
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        PlayerWrapper pw = (PlayerWrapper) unmarshaller.unmarshal(file);
+        IPlayerWrapper pw = (IPlayerWrapper) unmarshaller.unmarshal(file);
 
         System.out.println(pw);
+    }
+
+    @Test
+    public void testMarshaller() throws JAXBException {
+        items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
+        inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        hitpoints = new Vector2f(100,50);
+        IMonster monster = new Monster(inventory,Vector2f.right,Vector2f.left,hitpoints);
+        String fileTest = "test.xml";
+        SavePlayer save = new SavePlayer();
+        save.marshall(monster,fileTest);
+
+        System.out.println(save.unmarshall(fileTest).toString());
     }
 }

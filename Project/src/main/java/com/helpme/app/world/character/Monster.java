@@ -143,11 +143,11 @@ public class Monster extends Observable implements IMonster {
     public float readMaxHp(){
         return hitpoints.x;
     }
+
     @Override
-    public float readCurrentHp(){
+    public float readCurrentHp() {
         return hitpoints.y;
     }
-
     @Override
     public Tuple2<String, String[]> getDialogue() {
         return dialogue.initiateDialogue();
