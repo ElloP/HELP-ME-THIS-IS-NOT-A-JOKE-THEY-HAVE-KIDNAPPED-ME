@@ -45,8 +45,4 @@ public class MonsterTest {
         assert mockWorld.enemyHandler1.getMonster().readPosition().equals(new Vector2f(0, 2)); // NOTE (Jacob) : Random when it works. Why?
     }
 
-
-
-
-
 }

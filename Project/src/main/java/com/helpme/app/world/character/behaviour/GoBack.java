@@ -26,13 +26,7 @@ public class GoBack implements IBehaviour {
         int cost = path.c;
         if (cost > 0){
             Vector2f nextPos = path.b;
-            if (Intelligence.isMonsterFacing(monster, nextPos)){
-                return Action.moveForwardAction();
-            } else if (Intelligence.isLeftOf(monster, nextPos)){
-                return Action.rotateRight();
-            } else {
-                return Action.rotateLeft();
-            }
+            return Intelligence.moveOrRotateAction(monster, nextPos);
         }else{
             return new Left<IBehaviour, IAction<IMonster>>(new DoNothing());
         }

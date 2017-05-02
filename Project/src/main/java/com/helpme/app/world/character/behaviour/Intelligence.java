@@ -1,5 +1,6 @@
 package com.helpme.app.world.character.behaviour;
 
+import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IReadMonster;
@@ -71,5 +72,15 @@ public abstract class Intelligence implements IBehaviour {
         Vector2f right = monster.readDirection().right();
 
         return Vector2f.equals(Vector2f.add(monster.readPosition(), right), other);
+    }
+
+    public static Either moveOrRotateAction(IReadMonster monster, Vector2f nextPos) {
+        if (Intelligence.isMonsterFacing(monster, nextPos)){
+            return Action.moveForwardAction();
+        } else if (Intelligence.isLeftOf(monster, nextPos)){
+            return Action.rotateRight();
+        } else {
+            return Action.rotateLeft();
+        }
     }
 }
