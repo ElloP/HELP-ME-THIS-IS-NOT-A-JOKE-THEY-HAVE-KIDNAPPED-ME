@@ -1,7 +1,6 @@
 package com.helpme.app.world.sounds.Source;
 
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.sounds.AbstractMonsterSource;
 
 /**
  * Created by Jesper on 2017-04-24.
