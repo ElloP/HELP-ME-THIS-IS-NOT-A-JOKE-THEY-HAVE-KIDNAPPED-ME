@@ -54,6 +54,8 @@ public class FollowAndAttack implements IBehaviour{
                     } else {
                         return Action.rotateLeft();
                     }
+                } else {
+                    return new Left(new FollowAndAttack(followingDistance));
                 }
             } else {
                 return new Left(new FollowAndAttack(followingDistance));
