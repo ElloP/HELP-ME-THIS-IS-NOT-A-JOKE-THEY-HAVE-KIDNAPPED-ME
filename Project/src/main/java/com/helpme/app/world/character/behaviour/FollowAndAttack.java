@@ -25,6 +25,10 @@ public class FollowAndAttack implements IBehaviour{
         this.followingDistance = random.nextInt(maxDistance);
     }
 
+    public FollowAndAttack(){
+        this.followingDistance = 5;
+    }
+
     @Override
     public Either update(IReadMonster monster, IReadLevel level) {
         return updateBehaviour(monster, level);
@@ -50,12 +54,15 @@ public class FollowAndAttack implements IBehaviour{
                     } else {
                         return Action.rotateLeft();
                     }
+                } else {
+                    return new Left(new FollowAndAttack(followingDistance));
                 }
+            } else {
+                return new Left(new FollowAndAttack(followingDistance));
             }
         } else {
             return new Left<IBehaviour, IAction<IMonster>>(new GoBack());
         }
-        return new Left(this);
     }
 
     private boolean decideToFollow(IMonster monster, IReadLevel level){
