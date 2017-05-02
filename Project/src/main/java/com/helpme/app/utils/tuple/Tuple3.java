@@ -1,4 +1,4 @@
-package com.helpme.app.utils.Tuple;
+package com.helpme.app.utils.tuple;
 
 /**
  * Created by og on 2017-04-06.

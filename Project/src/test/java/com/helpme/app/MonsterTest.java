@@ -2,6 +2,9 @@ package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld1;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.world.character.behaviour.FollowAndAttack;
+import com.helpme.app.world.character.behaviour.GoBack;
+import com.helpme.app.world.handler.EnemyHandler;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,25 +21,33 @@ public class MonsterTest {
 
     @Test
     public void testAttack(){
-        assert (mockWorld.enemyController0.getMonster().getHitpoints().equals(new Vector2f(100,100)));
-        mockWorld.enemyController0.update();
-        assert (mockWorld.playerController.getPlayer().getHitpoints().equals(new Vector2f(100, 98)));
+        assert (mockWorld.enemyHandler0.getMonster().readHitpoints().equals(new Vector2f(100,100)));
+        mockWorld.enemyHandler0.update();
+        assert (mockWorld.playerHandler.getPlayer().readHitpoints().equals(new Vector2f(100, 98)));
     }
 
     @Test
-    public void testNotAttack(){
-        assert (mockWorld.enemyController0.getMonster().getHitpoints().equals(new Vector2f(100,100)));
-        mockWorld.enemyController1.update();
-        assert (mockWorld.enemyController1.getMonster().getHitpoints().equals(new Vector2f(100,100)));
+    public void testChangeBehavior(){
+        assert ((EnemyHandler) mockWorld.enemyHandler2).getBehaviour() instanceof FollowAndAttack;
+        mockWorld.enemyHandler2.moveMonsterForward();
+        mockWorld.enemyHandler2.moveMonsterForward();
+        mockWorld.enemyHandler2.update();
+        assert ((EnemyHandler) mockWorld.enemyHandler2).getBehaviour() instanceof GoBack;
     }
 
+    //Note (Jesper): if it fails, try again. The argument to the FollowAndAttack constructor is now just max distance.
+    //The actual followingDistance will be random.
     @Test
     public void testFollow(){
-        System.out.println(mockWorld.enemyController0.getMonster().getPosition());
-        assert (mockWorld.enemyController0.getMonster().getPosition().equals(new Vector2f(1,0)));
-        mockWorld.playerController.movePlayerForward();
-        mockWorld.enemyController0.update();
-        System.out.println(mockWorld.enemyController0.getMonster().getPosition());
-        assert (mockWorld.enemyController0.getMonster().getPosition().equals(new Vector2f(0,0)));
+        assert mockWorld.enemyHandler1.getMonster().readPosition().equals(new Vector2f(0, 3));
+        assert mockWorld.level.readPlayer().check(p -> p.readPosition().equals(new Vector2f(0, 0)));
+        assert mockWorld.enemyHandler1.getMonster().readDirection().equals(Vector2f.down);
+        mockWorld.enemyHandler1.update();
+
+        assert mockWorld.enemyHandler1.getMonster().readPosition().equals(new Vector2f(0, 2)); // NOTE (Jacob) : Random when it works. Why?
     }
+
+
+
+
 }

@@ -1,11 +1,12 @@
 package com.helpme.app.Mock;
 
+
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.Monster;
-import com.helpme.app.world.character.behaviour.AttackEveryoneClose;
+import com.helpme.app.world.character.behaviour.FollowAndAttack;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.handler.EnemyHandler;
 import com.helpme.app.world.handler.MonsterHandler;
@@ -21,28 +22,32 @@ import java.util.List;
  */
 public class MockWorld1 {
     public ILevel level;
-    public PlayerHandler playerController;
-    public MonsterHandler enemyController0;
-    public MonsterHandler enemyController1;
-
+    public PlayerHandler playerHandler;
+    public MonsterHandler enemyHandler0;
+    public MonsterHandler enemyHandler1;
+    public  MonsterHandler enemyHandler2;
     public MockWorld1() {
         IMonster player = new Monster(null, Vector2f.zero, Vector2f.up, 100);
         IMonster enemy0 = new Monster(new Inventory(null, MockItem.defaultWeapon, null), new Vector2f(1, 0), Vector2f.left, 100);
         IMonster enemy1 = new Monster(new Inventory(null, MockItem.defaultWeapon, null), new Vector2f(0, 3), Vector2f.down, 100);
+        IMonster enemy2 = new Monster(new Inventory(null, MockItem.defaultWeapon, null), new Vector2f(1, 2), Vector2f.right, 100);
 
         ILevel level = new Level(createEmptyTileSquare(4, 4), null, null, new Vector2f(0, 0));
 
         /**
          * [e][ ][ ][ ]
-         * [ ][ ][ ][ ]
+         * [ ][e][ ][ ]
          * [ ][ ][ ][ ]
          * [p][e][ ][ ]
          */
 
-        playerController = new PlayerHandler(player, level);
+        playerHandler = new PlayerHandler(player, level);
 
-        enemyController0 = new EnemyHandler(enemy0, level, new AttackEveryoneClose(2));
-        enemyController1 = new EnemyHandler(enemy1, level, new AttackEveryoneClose(2));
+
+        enemyHandler0 = new EnemyHandler(enemy0, level, new FollowAndAttack(2));
+        enemyHandler1 = new EnemyHandler(enemy1, level, new FollowAndAttack(8));
+        enemyHandler2 = new EnemyHandler(enemy2, level, new FollowAndAttack(1));
+
 
         this.level = level;
     }

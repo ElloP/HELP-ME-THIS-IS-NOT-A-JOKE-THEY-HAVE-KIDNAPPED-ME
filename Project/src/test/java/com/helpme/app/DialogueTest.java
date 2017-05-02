@@ -1,8 +1,10 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld0;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.world.character.IReadMonster;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,10 +24,14 @@ public class DialogueTest {
     @Test
     public void testTalkToMonster() {
         Vector2f tileStart = new Vector2f(8, 5);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        mockWorld.playerController.rotatePlayerLeft();
-        Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk();
-        Tuple2<String,String[]> monsterResponse = mockWorld.level.getMonster(new Vector2f(7, 5)).initiateDialogue();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        mockWorld.playerHandler.rotatePlayerLeft();
+        Maybe<IReadMonster> maybeMonster = mockWorld.level.readMonster(new Vector2f(7,5));
+        IReadMonster monster = maybeMonster.getValue();
+
+        Tuple2<String,String[]> result = mockWorld.playerHandler.usePlayerTalk().getValue();
+        Tuple2<String,String[]> monsterResponse = Maybe.wrap(monster.getDialogue()).getValue();
+
         assert (result.a.equals(monsterResponse.a));
         for(int i = 0; i < result.b.length; i++){
             //System.out.println(result.b[i]);
@@ -36,22 +42,27 @@ public class DialogueTest {
         for (int i = result.b.length-1; i >= -1; i--){
             if(i == -1) break;
             System.out.println(result.b[i]);
-            result = mockWorld.playerController.usePlayerTalk(i);
-            if(result == null) break;
+            Maybe<Tuple2<String,String[]>> maybeResult = mockWorld.playerHandler.usePlayerTalk(i);
+            if(maybeResult.isNothing()) break;
+            result = maybeResult.getValue();
             System.out.println(result.a);
             for (String str : result.b) {
                 System.out.println("- " + str);
             }
+
         }
+
+
+
     }
 
     @Test
     public void badArgumentInTalk(){
         Vector2f tileStart = new Vector2f(8, 5);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        mockWorld.playerController.rotatePlayerLeft();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        mockWorld.playerHandler.rotatePlayerLeft();
         try {
-            Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk(5);
+            Tuple2<String,String[]> result = mockWorld.playerHandler.usePlayerTalk(5).getValue();
         } catch (IllegalArgumentException e){
             assert(e.toString().equals("java.lang.IllegalArgumentException: Index larger than length"));
         }
@@ -59,10 +70,10 @@ public class DialogueTest {
     @Test
     public void badArgumentInTalk2(){
         Vector2f tileStart = new Vector2f(8, 5);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        mockWorld.playerController.rotatePlayerLeft();
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        mockWorld.playerHandler.rotatePlayerLeft();
         try {
-            Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk(-2);
+            Tuple2<String,String[]> result = mockWorld.playerHandler.usePlayerTalk(-2).getValue();
         } catch (IllegalArgumentException e){
             assert(e.toString().equals("java.lang.IllegalArgumentException: Index smaller than -1"));
         }
@@ -71,8 +82,8 @@ public class DialogueTest {
     @Test
     public void testTalkToNothing() {
         Vector2f tileStart = new Vector2f(0, 0);
-        mockWorld.playerController.setPlayerPosition(tileStart);
-        Tuple2<String,String[]> result =  mockWorld.playerController.usePlayerTalk();
-        assert (result == null);
+        mockWorld.playerHandler.setPlayerPosition(tileStart);
+        Maybe<Tuple2<String,String[]>> result = mockWorld.playerHandler.usePlayerTalk();
+        assert (result.isNothing());
     }
 }

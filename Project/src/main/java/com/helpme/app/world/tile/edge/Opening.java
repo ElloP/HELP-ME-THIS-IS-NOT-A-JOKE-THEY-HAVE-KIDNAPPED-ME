@@ -7,6 +7,8 @@ import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
  */
 public class Opening implements IEdge {
 
+    public boolean isDead(){ return false; }
+
     @Override
     public boolean accept(IEdgeVisitor visitor) {
         return visitor.visit(this);

@@ -1,13 +1,15 @@
 package com.helpme.app.world.character;
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.character.inventory.IReadInventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IMonster extends ITarget, IReadMonster {
+public interface IMonster extends IReadMonster {
     void rotateRight();
     void rotateLeft();
     void moveForward();
@@ -19,8 +21,10 @@ public interface IMonster extends ITarget, IReadMonster {
     void attack(ITarget target);
     void selfie();
     boolean pickupItem(IItem item);
-    IItem dropItem(int index);
+    Maybe<IItem> dropItem(int index);
     IInventory getInventory();
     void setItems(IItem[] items);
     Monster clone();
+    void dropAllItems();
+    void setDead();
 }

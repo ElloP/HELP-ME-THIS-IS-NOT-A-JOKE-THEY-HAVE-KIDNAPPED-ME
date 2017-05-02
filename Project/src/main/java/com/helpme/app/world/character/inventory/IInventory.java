@@ -1,21 +1,21 @@
 package com.helpme.app.world.character.inventory;
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.interfaces.ICloneable;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IInventory extends IKeyChain, ICloneable<IInventory> {
-    boolean hasItem(IItem item);
-    IItem getItem(int index);
+public interface IInventory extends IKeyChain, ICloneable<IInventory>, IReadInventory {
+    Maybe<IItem> getItem(int index);
     IItem getActiveItem();
-    void setItems(IItem[] items);
+    void setItems(Maybe<IItem[]> items);
     boolean addItem(IItem item);
     boolean deleteItem(IItem item);
-    IItem dropItem(int index);
+    Maybe<IItem> dropItem(int index);
     boolean addStack(IItem item, int amount);
     void addKey(IItem key);
+    IItem[] dropItems();
     void changeActiveItem(int itemIndex);
-    int itemLimit();
 }

@@ -1,5 +1,8 @@
 package com.helpme.app.world.level;
 
+import com.helpme.app.utils.maybe.Just;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.character.ITarget;
@@ -9,8 +12,8 @@ import com.helpme.app.world.tile.ITileFactory;
 import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.world.tile.edge.Opening;
 import com.helpme.app.world.tile.edge.Wall;
-import com.helpme.app.utils.Tuple.Tuple2;
-import com.helpme.app.utils.Tuple.Tuple3;
+import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.*;
@@ -44,7 +47,6 @@ public class Level implements ILevel {
 
         for (Tuple2<Vector2f, IItem[]> tuple : tiles) {
             Vector2f position = tuple.a;
-            ;
             this.tiles.put(position, ITileFactory.tile(tuple.b));
         }
     }
@@ -84,28 +86,28 @@ public class Level implements ILevel {
 
 
     public boolean isMonsterBlockedByEdge(IReadMonster monster, Vector2f direction) {
-        ITile tile = tiles.get(monster.getPosition());
-        return !monster.isTraversable(tile.getEdge(direction));
+        ITile tile = tiles.get(monster.readPosition());
+        return tile.getEdge(direction).check(e -> !monster.isTraversable(e));
     }
 
     public boolean isTileOccupied(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) {
+            if (monster.readPosition().equals(position) && !monster.isDead()) {
                 return true;
             }
         }
         return false;
     }
 
-    public ITarget getTarget(IMonster monster, Vector2f direction) {
-        Vector2f position = monster.getPosition();
-        Vector2f destination = Vector2f.add(monster.getPosition(), direction);
+    public Maybe<ITarget> getTarget(IMonster monster, Vector2f direction) {
+        Vector2f position = monster.readPosition();
+        Vector2f destination = Vector2f.add(monster.readPosition(), direction);
 
-        if(isMonsterBlockedByEdge(monster, direction)){
-            return tiles.get(position).getEdge(direction);
+        if (isMonsterBlockedByEdge(monster, direction)) {
+            return Maybe.wrap(tiles.get(position).getEdge(direction));
         }
 
-        return accessMonster(destination);
+        return Maybe.wrap(accessMonster(destination));
     }
 
     @Override
@@ -156,35 +158,93 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IReadMonster getMonster(Vector2f position) {
-        return accessMonster(position);
+    public Maybe<IReadMonster> readMonster(Vector2f position) {
+        return Maybe.wrap(accessMonster(position));
     }
 
-    private IMonster accessMonster(Vector2f position){
+    private Maybe<IMonster> accessMonster(Vector2f position) {
         for (IMonster monster : monsters) {
-            if (monster.getPosition().equals(position)) {
-                return monster;
+            if (monster.readPosition().equals(position)) {
+                return new Just(monster);
             }
         }
-        return null;
+        return new Nothing();
     }
 
     @Override
-    public IReadMonster getPlayer() {
-        return player;
+    public Maybe<IReadMonster> readPlayer() {
+        return new Just(player);
     }
+
+    class CameFrom {
+        CameFrom previous;
+        Vector2f position;
+
+        public CameFrom(CameFrom previous, Vector2f position){
+            this.previous = previous;
+            this.position = position;
+        }
+    }
+
+    //TODO (Jesper): Take edges and doors into consideration
+    public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to){
+        Vector2f currentPos;
+        CameFrom current;
+        ArrayList<Vector2f> result = new ArrayList<>();
+        ArrayList<Vector2f> visitedNodes = new ArrayList<>();
+        Stack<CameFrom> frontier = new Stack<>();
+        int cost = 0;
+        frontier.push(new CameFrom(null, from));
+        while (!frontier.isEmpty()){
+            current = frontier.pop();
+            if (current.position.equals(to)){
+                result = recreatePath(current);
+                break;
+            }
+
+            Vector2f[] neighbors = Vector2f.getNeighbors(current.position);
+            for (Vector2f neighbor : neighbors){
+                if (!visitedNodes.contains(neighbor) && isTileValid(neighbor) && (!isTileOccupied(neighbor) || player.readPosition().equals(neighbor)))
+                    frontier.push(new CameFrom(current, neighbor));
+            }
+            visitedNodes.add(current.position);
+        }
+        cost = result.size();
+        cost--;
+        Vector2f nextPos;
+        if (cost > 0){
+            nextPos = result.get(1);
+        }
+        else {
+            nextPos = from;
+        }
+        return new Tuple3<>(result, nextPos, cost);
+    }
+
+    private ArrayList<Vector2f> recreatePath(CameFrom current){
+        ArrayList<Vector2f> result = new ArrayList<>();
+        result.add(current.position);
+        while (current.previous != null){
+            current = current.previous;
+            result.add(current.position);
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
 
 
     @Override
     public boolean isDistanceFrom(IReadMonster monster, Vector2f destination, int longestDistance) {
         ArrayList<Vector2f> positions = new ArrayList<>();
         ArrayList<Vector2f> notAdded = new ArrayList<>();
-        notAdded.add(monster.getPosition());
+        notAdded.add(monster.readPosition());
         for (int i = 1; i <= longestDistance; i++) {
             ArrayList<Vector2f> temp = new ArrayList<>();
             for (Vector2f pos : notAdded) {
-                for (Vector2f neighbour : Vector2f.getNeighbors(pos))
+                for (Vector2f neighbour : Vector2f.getNeighbors(pos)){
                     temp.add(neighbour);
+                }
                 positions.add(pos);
             }
             notAdded.removeAll(notAdded);
@@ -194,4 +254,14 @@ public class Level implements ILevel {
         return positions.contains(destination);
     }
 
+    @Override
+    public void updateDeadMonster(Vector2f position){
+        for(IMonster m : monsters){
+            if(m.readPosition().equals(position)){
+                addTileItems(position,m.getInventory().dropItems());
+                m.dropAllItems();
+                return;
+            }
+        }
+    }
 }

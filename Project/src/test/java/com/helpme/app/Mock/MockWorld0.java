@@ -1,12 +1,13 @@
 package com.helpme.app.Mock;
 
+
 import com.helpme.app.world.character.*;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.Door;
-import com.helpme.app.utils.Tuple.Tuple2;
-import com.helpme.app.utils.Tuple.Tuple3;
+import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.handler.PlayerHandler;
 import com.helpme.app.world.level.ILevel;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class MockWorld0 {
     public ILevel level;
-    public PlayerHandler playerController;
+    public PlayerHandler playerHandler;
 
     public MockWorld0(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -93,7 +94,7 @@ public class MockWorld0 {
 
 
         ILevel level = new Level(tiles, doors, monsters, Vector2f.zero);
-        playerController = new PlayerHandler(player, level);
+        playerHandler = new PlayerHandler(player, level);
         this.level = level;
     }
 }

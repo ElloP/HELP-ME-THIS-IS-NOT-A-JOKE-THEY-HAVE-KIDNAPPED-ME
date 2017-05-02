@@ -1,7 +1,9 @@
 package com.helpme.app.world.character;
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.dialogue.IDialogue;
 import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.character.inventory.IReadInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.visitor.Attack;
@@ -9,7 +11,7 @@ import com.helpme.app.world.item.visitor.Pickup;
 import com.helpme.app.world.item.visitor.Selfie;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.world.tile.edge.visitor.Traverse;
-import com.helpme.app.utils.Tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.Observable;
@@ -29,7 +31,7 @@ public class Monster extends Observable implements IMonster {
     private IDialogue dialogue;
 
     //Right now just for testing
-    public Monster(Vector2f position, Vector2f direction, IDialogue dialogue){
+    public Monster(Vector2f position, Vector2f direction, IDialogue dialogue) {
         this.dialogue = dialogue;
         this.position = position;
         this.direction = direction;
@@ -42,7 +44,7 @@ public class Monster extends Observable implements IMonster {
     }
 
     public Monster(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
-        this.inventory = inventory == null ? new Inventory(null,null,null) : inventory;
+        this.inventory = inventory == null ? new Inventory(null, null, null) : inventory;
         this.position = position == null ? Vector2f.zero : position;
         this.direction = direction == null ? Vector2f.up : direction;
         this.hitpoints = hitpoints == null ? Vector2f.zero : hitpoints;
@@ -51,6 +53,7 @@ public class Monster extends Observable implements IMonster {
 
     @Override
     public void attack(ITarget target) {
+        if (target == null) return;
         IItem activeItem = inventory.getActiveItem();
         activeItem.accept(new Attack(target));
     }
@@ -108,12 +111,12 @@ public class Monster extends Observable implements IMonster {
     }
 
     @Override
-    public Vector2f getPosition() {
+    public Vector2f readPosition() {
         return position.clone();
     }
 
     @Override
-    public Vector2f getDirection() {
+    public Vector2f readDirection() {
         return direction.clone();
     }
 
@@ -128,26 +131,27 @@ public class Monster extends Observable implements IMonster {
     }
 
     @Override
-    public IItem dropItem(int index) {
+    public Maybe<IItem> dropItem(int index) {
         return inventory.dropItem(index);
     }
 
     @Override
     public Monster clone() {
-        return new Monster(inventory.clone(), position.clone(), direction.clone(), getHitpoints());
+        return new Monster(inventory.clone(), position.clone(), direction.clone(), readHitpoints());
     }
 
     @Override
-    public Tuple2<String,String[]> initiateDialogue() {
+    public Tuple2<String, String[]> getDialogue() {
         return dialogue.initiateDialogue();
     }
+
     @Override
-    public Tuple2<String,String[]> getResponse(int i){
+    public Tuple2<String, String[]> getResponse(int i) {
         return dialogue.chooseDialogue(i);
     }
 
     @Override
-    public Vector2f getHitpoints(){
+    public Vector2f readHitpoints() {
         return hitpoints.clone();
     }
 
@@ -158,7 +162,7 @@ public class Monster extends Observable implements IMonster {
 
     @Override
     public void setItems(IItem[] items) {
-        inventory.setItems(items);
+        inventory.setItems(Maybe.wrap(items));
     }
 
     @Override
@@ -166,7 +170,16 @@ public class Monster extends Observable implements IMonster {
         amount = Math.abs(amount);
         hitpoints.y -= amount;
         if (hitpoints.y <= 0) {
-            dead = true;
+            setDead();
+        }
+    }
+
+    @Override
+    public void dropAllItems() {
+        for (int i = 0; i < inventory.getSize(); i++) {
+            if (inventory.getItem(i).isJust()) {
+                dropItem(i);
+            }
         }
     }
 
@@ -178,7 +191,22 @@ public class Monster extends Observable implements IMonster {
         notifyObservers();
     }
 
-    public Vector2f getStartingPosition(){
+    @Override
+    public boolean isDead() {
+        return dead;
+    }
+
+    @Override
+    public IReadInventory readInventory() {
+        return inventory;
+    }
+
+    @Override
+    public void setDead() {
+        dead = true;
+    }
+
+    public Vector2f readStartingPosition() {
         return startingPosition;
     }
 }

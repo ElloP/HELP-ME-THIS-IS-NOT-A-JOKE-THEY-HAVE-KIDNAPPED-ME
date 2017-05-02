@@ -1,53 +1,75 @@
 package com.helpme.app.world.character.behaviour;
 
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.IReadLevel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by kopa on 2017-04-14.
  */
-public abstract class Intelligence implements IBehaviour{
+public abstract class Intelligence implements IBehaviour {
 
-    private Intelligence(){
+    private Intelligence() {
 
     }
 
-    public static boolean isMonsterNextTo(IReadMonster monster, IReadMonster potentialNeighbour, IReadLevel level){
-        for(IReadMonster neighbour : getMonsterNeighbours(monster, level)){
-            if(potentialNeighbour.equals(neighbour)) {
+    public static boolean isMonsterNextTo(IReadMonster monster, IReadMonster potentialNeighbour, IReadLevel level) {
+        for (Maybe<IReadMonster> maybeNeighbour : getMonsterNeighbours(monster, level)) {
+            if(maybeNeighbour.check(n -> potentialNeighbour.equals(n))){
                 return true;
             }
         }
         return false;
     }
 
-    public static IReadMonster[] getMonsterNeighbours(IReadMonster monster, IReadLevel level){
-        return new IReadMonster[]{getMonsterFrontNeighbour(monster, level), getMonsterRightNeighbour(monster, level), getMonsterBackNeighbour(monster, level), getMonsterLeftNeighbour(monster, level)};
+    public static List<Maybe<IReadMonster>> getMonsterNeighbours(IReadMonster monster, IReadLevel level) {
+        return new ArrayList(4) {
+            {
+                add(getMonsterFrontNeighbour(monster, level));
+                add(getMonsterRightNeighbour(monster, level));
+                add(getMonsterBackNeighbour(monster, level));
+                add(getMonsterLeftNeighbour(monster, level));
+            }
+        };
     }
 
-    public static IReadMonster getMonsterFrontNeighbour(IReadMonster monster, IReadLevel level){
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f frontPosition = Vector2f.add(monster.getPosition(), direction);
-        return level.isMonsterBlockedByEdge(monster, direction) ? null : level.getMonster(frontPosition);
+    public static Maybe<IReadMonster> getMonsterFrontNeighbour(IReadMonster monster, IReadLevel level) {
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f frontPosition = Vector2f.add(monster.readPosition(), direction);
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(frontPosition);
 
     }
 
-    public static IReadMonster getMonsterRightNeighbour(IReadMonster monster, IReadLevel level){
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f rightPosition = Vector2f.add(monster.getPosition(), direction.right());
-        return level.isMonsterBlockedByEdge(monster, direction) ? null : level.getMonster(rightPosition);
+    public static Maybe<IReadMonster> getMonsterRightNeighbour(IReadMonster monster, IReadLevel level) {
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f rightPosition = Vector2f.add(monster.readPosition(), direction.right());
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(rightPosition);
     }
 
-    public static IReadMonster getMonsterBackNeighbour(IReadMonster monster, IReadLevel level){
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f backPosition = Vector2f.add(monster.getPosition(), direction.backward());
-        return level.isMonsterBlockedByEdge(monster, direction) ? null : level.getMonster(backPosition);
+    public static Maybe<IReadMonster> getMonsterBackNeighbour(IReadMonster monster, IReadLevel level) {
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f backPosition = Vector2f.add(monster.readPosition(), direction.backward());
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(backPosition);
     }
 
-    public static IReadMonster getMonsterLeftNeighbour(IReadMonster monster, IReadLevel level){
-        Vector2f direction = monster.getDirection().forward();
-        Vector2f leftPosition = Vector2f.add(monster.getPosition(), direction.left());
-        return level.isMonsterBlockedByEdge(monster, direction) ? null : level.getMonster(leftPosition);
+    public static Maybe<IReadMonster> getMonsterLeftNeighbour(IReadMonster monster, IReadLevel level) {
+        Vector2f direction = monster.readDirection().forward();
+        Vector2f leftPosition = Vector2f.add(monster.readPosition(), direction.left());
+        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(leftPosition);
+    }
+
+    public static boolean isMonsterFacing(IReadMonster monster, Vector2f other){
+        return Vector2f.equals(Vector2f.add(monster.readPosition(), monster.readDirection()), other);
+    }
+
+    public static boolean isLeftOf(IReadMonster monster, Vector2f other){
+        Vector2f right = monster.readDirection().right();
+
+        return Vector2f.equals(Vector2f.add(monster.readPosition(), right), other);
     }
 }

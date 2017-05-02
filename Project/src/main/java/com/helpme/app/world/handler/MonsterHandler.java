@@ -1,9 +1,9 @@
 package com.helpme.app.world.handler;
-
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.character.ITarget;
-import com.helpme.app.world.character.Monster;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
@@ -25,31 +25,32 @@ public abstract class MonsterHandler implements IHandler {
         level.addMonster(this.monster);
     }
 
-    public Monster getMonster(){
-        return monster.clone();
+    public IReadMonster getMonster(){
+        return monster;
     }
 
     public void moveMonsterForward() {
-        if (!isMovementAllowed(monster, monster.getDirection())) {
+        if (!isMovementAllowed(monster, monster.readDirection())) {
             return;
         }
         monster.moveForward();
     }
 
     public void moveMonsterRight() {
-        if (!isMovementAllowed(monster, monster.getDirection().right())) {
+        if (!isMovementAllowed(monster, monster.readDirection().right())) {
             return;
         }
         monster.moveRight();
     }
 
     private boolean isMovementAllowed(IMonster monster, Vector2f direction) {
-        Vector2f position = monster.getPosition();
+        Vector2f position = monster.readPosition();
         Vector2f destination = Vector2f.add(position, direction);
 
         if (level.isMonsterBlockedByEdge(monster, direction)) {
             return false;
         }
+
         if (level.isTileOccupied(destination)) {
             return false;
         }
@@ -58,14 +59,14 @@ public abstract class MonsterHandler implements IHandler {
     }
 
     public void moveMonsterBackward() {
-        if (!isMovementAllowed(monster, monster.getDirection().backward())) {
+        if (!isMovementAllowed(monster, monster.readDirection().backward())) {
             return;
         }
         monster.moveBackward();
     }
 
     public void moveMonsterLeft() {
-        if (!isMovementAllowed(monster, monster.getDirection().left())) {
+        if (!isMovementAllowed(monster, monster.readDirection().left())) {
             return;
         }
         monster.moveLeft();
@@ -84,12 +85,9 @@ public abstract class MonsterHandler implements IHandler {
     }
 
     public void dropMonsterItem(int index) {
-        if (level.isTileValid(monster.getPosition())) {
-            IItem item = monster.dropItem(index);
-            if (item == null) {
-                return;
-            }
-            level.addTileItem(monster.getPosition(), item);
+        if (level.isTileValid(monster.readPosition())) {
+            Maybe<IItem> maybeItem = monster.dropItem(index);
+            maybeItem.run(i -> level.addTileItem(monster.readPosition(), i));
         }
 
     }
@@ -111,13 +109,16 @@ public abstract class MonsterHandler implements IHandler {
     }
 
     public void useMonsterAttack() {
-        Vector2f direction = monster.getDirection();
-        ITarget target = level.getTarget(monster, direction);
-        monster.attack(target);
+        Vector2f direction = monster.readDirection();
+        Maybe<ITarget> maybeTarget = level.getTarget(monster, direction);
+        maybeTarget.run(t -> monster.attack(t));
+        if(maybeTarget.check(t -> t.isDead())){
+            level.updateDeadMonster(Vector2f.add(monster.readPosition(),monster.readDirection()));
+        }
     }
 
     public void useMonsterPickupAll() {
-        Vector2f position = monster.getPosition();
+        Vector2f position = monster.readPosition();
         IItem[] items = level.removeTileItems(position);
 
         if (items == null) {
@@ -136,7 +137,7 @@ public abstract class MonsterHandler implements IHandler {
     }
 
     public void useMonsterPickupSingle(int index) {
-        Vector2f position = monster.getPosition();
+        Vector2f position = monster.readPosition();
         IItem item = level.removeTileItem(position, index);
         if (item == null) {
             return;
@@ -144,15 +145,15 @@ public abstract class MonsterHandler implements IHandler {
         monster.pickupItem(item);
     }
 
-    protected IReadMonster getFacingMonster(){
-        Vector2f position = monster.getPosition();
-        Vector2f direction = monster.getDirection();
+    protected Maybe<IReadMonster> getFacingMonster(){
+        Vector2f position = monster.readPosition();
+        Vector2f direction = monster.readDirection();
         Vector2f destination = Vector2f.add(position, direction);
 
         if (level.isMonsterBlockedByEdge(monster, direction)) {
-            return null;
+            return new Nothing();
         }
 
-        return level.getMonster(destination);
+        return level.readMonster(destination);
     }
 }

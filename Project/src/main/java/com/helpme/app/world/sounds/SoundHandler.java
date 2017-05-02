@@ -33,7 +33,7 @@ public class SoundHandler implements IHandler, Observer {
     @Override
     public void update(Observable o, Object arg) {
         Monster temp = (Monster) o;
-        if (!Vector2f.equals(temp.getPosition(), player.getPosition())){
+        if (!Vector2f.equals(temp.readPosition(), player.readPosition())){
             accept(permanentVisitor, walkingSound);
         }
     }

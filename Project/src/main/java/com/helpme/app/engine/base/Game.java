@@ -1,7 +1,5 @@
 package com.helpme.app.engine.base;
 
-import java.util.List;
-
 /**
  * Authored by Olle on 2017-04-05.
  */

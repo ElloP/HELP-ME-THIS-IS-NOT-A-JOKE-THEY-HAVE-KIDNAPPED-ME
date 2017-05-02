@@ -6,4 +6,5 @@ package com.helpme.app.world.character;
 public interface ITarget {
     void damage(float amount);
     void heal(float amount);
+    boolean isDead();
 }
