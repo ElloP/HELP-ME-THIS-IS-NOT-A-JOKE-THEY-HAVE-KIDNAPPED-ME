@@ -19,12 +19,11 @@ import java.util.ArrayList;
 public class TestSound {
     private MockWorld1 mockWorld;
 
-    @Before
-    public void setup(){
+
+    public TestSound(){
         this.mockWorld = new MockWorld1();
     }
 
-    @Test
     public static void main(String[] args) throws Exception {
         TestSound testSound = new TestSound();
         Monster player = (Monster) testSound.mockWorld.playerController.getPlayer();
