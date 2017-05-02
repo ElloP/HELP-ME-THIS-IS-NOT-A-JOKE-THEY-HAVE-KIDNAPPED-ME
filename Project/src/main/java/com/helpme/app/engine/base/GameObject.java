@@ -6,12 +6,13 @@ import java.util.List;
 /**
  * Authored by Olle on 2017-04-20.
  */
-public class GameObject {
+public abstract class GameObject {
     public Transform transform;
 
-    private List<GameObject> children;
+    public List<GameObject> children;
 
     public GameObject() {
+        transform = new Transform();
         children = new ArrayList<GameObject>();
     }
 
@@ -24,5 +25,15 @@ public class GameObject {
     public void addChild(GameObject child) {
         children.add(child);
         child.transform.setParent(this.transform);
+    }
+
+    public abstract void draw(Camera camera);
+
+    public void drawAll(Camera camera) {
+        draw(camera);
+
+        for(GameObject child : children) {
+            child.draw(camera);
+        }
     }
 }

@@ -11,6 +11,9 @@ public class DefaultShader extends Shader {
 
     public DefaultShader() {
         super("vertexShader.vs", "fragmentShader.fs");
+        addUniform("model");
+        addUniform("view");
+        addUniform("projection");
     }
 
     public void updateUniforms(Transform transform, Camera camera)

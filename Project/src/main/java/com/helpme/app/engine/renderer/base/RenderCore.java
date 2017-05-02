@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL30.*;
  */
 public class RenderCore {
 
+
     public static void init() {
         setClearColor();
         enableFaceCulling();

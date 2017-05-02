@@ -1,24 +1,23 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.input.Input;
-import com.helpme.app.engine.input.InputKey;
-import com.helpme.app.engine.input.KeyState;
-import com.helpme.app.engine.renderer.base.*;
-import com.helpme.app.engine.utils.TextureLoader;
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.mathl.Matrix4f;
-import com.helpme.app.utils.mathl.Quaternion;
+import java.util.List;
 
 /**
  * Authored by Olle on 2017-04-05.
  */
 public abstract class Game {
-    //TODO(Olle): set up logic for updating the scene's gameobjects
-    private GameObject Scene; //Note(Olle): Every gameobject in the scene will have this as a root object
+    public Camera activeCamera;
+    public Scene scene; //Note(Olle): Every gameobject in the scene will have this as a root object
 
-    public void input() {}
+    public Game() {
+        scene = new Scene();
+    }
 
-    public void update() {}
+    public abstract void input();
 
-    public void draw() {}
+    public abstract void update();
+
+    public void draw() {
+        scene.draw(activeCamera);
+    }
 }

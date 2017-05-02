@@ -82,7 +82,7 @@ public class Quaternion {
     }
 
     public Quaternion rotate(float x, float y, float z) {
-        this.quaternion.rotationZYX(z, y, x);
+        this.quaternion.rotationZYX((float) Math.toRadians(z), (float) Math.toRadians(y), (float) Math.toRadians(x));
         return this;
     }
 }

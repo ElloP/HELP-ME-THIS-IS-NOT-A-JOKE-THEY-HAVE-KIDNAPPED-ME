@@ -1,6 +1,6 @@
 package com.helpme.app.engine.base;
 
-import com.helpme.app.engine.GameInstance;
+import com.helpme.app.engine.game.GameInstance;
 import com.helpme.app.engine.input.KeyState;
 import com.helpme.app.engine.renderer.base.RenderCore;
 
@@ -96,13 +96,12 @@ public class EngineCore {
     }
 
     public static void main(String args[]) {
-        Window.initWindow(800,600, "Hello WorldScreen!");
+        Window.initWindow(1600,900, "Help me this is not a joke!");
         Window.disableVSync();
 
         Game game = new GameInstance();
 
         EngineCore ec = new EngineCore(game);
         ec.start();
-
     }
 }
