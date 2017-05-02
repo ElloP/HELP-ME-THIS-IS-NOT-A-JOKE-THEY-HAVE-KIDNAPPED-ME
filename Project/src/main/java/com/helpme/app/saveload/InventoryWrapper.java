@@ -27,7 +27,6 @@ public class InventoryWrapper {
     }
 
     public void setItems(ItemWrapper[] items) {
-       // if(items == null) return;
         this.items = new ItemWrapper[items.length];
         for(int i = 0; i < items.length; i++){
             this.items[i] = new ItemWrapper(items[i].getName());

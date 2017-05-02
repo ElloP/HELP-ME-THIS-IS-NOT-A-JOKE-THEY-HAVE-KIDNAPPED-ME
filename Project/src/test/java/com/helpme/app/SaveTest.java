@@ -1,7 +1,6 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockItem;
-import com.helpme.app.saveload.IPlayerWrapper;
 import com.helpme.app.saveload.PlayerWrapper;
 import com.helpme.app.saveload.SavePlayer;
 import com.helpme.app.utils.Vector2f;
@@ -46,7 +45,7 @@ public class SaveTest {
         marshaller.marshal(new PlayerWrapper(monster), file);
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        IPlayerWrapper pw = (IPlayerWrapper) unmarshaller.unmarshal(file);
+        PlayerWrapper pw = (PlayerWrapper) unmarshaller.unmarshal(file);
 
         System.out.println(pw);
     }

@@ -19,5 +19,6 @@ public interface IReadLevel {
     Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to);
     Maybe<IReadMonster> readPlayer();
     Maybe<IReadMonster> readMonster(Vector2f position);
+    Maybe<IReadMonster[]> readMonsters();
     Maybe<ITarget> getTarget(IMonster monster, Vector2f direction);
 }

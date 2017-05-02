@@ -165,6 +165,11 @@ public class Level implements ILevel {
         return Maybe.wrap(accessMonster(position));
     }
 
+    @Override
+    public Maybe<IReadMonster[]> readMonsters() {
+        return new Just(monsters.toArray());
+    }
+
 
     private Maybe<IMonster> accessMonster(Vector2f position) {
         for (IMonster monster : monsters) {
