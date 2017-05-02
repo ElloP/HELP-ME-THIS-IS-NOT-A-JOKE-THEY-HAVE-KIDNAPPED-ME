@@ -1,6 +1,8 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockItem;
+import com.helpme.app.Mock.MockWorld1;
+import com.helpme.app.saveload.LevelWrapper;
 import com.helpme.app.saveload.PlayerWrapper;
 import com.helpme.app.saveload.SavePlayer;
 import com.helpme.app.utils.Vector2f;
@@ -31,8 +33,8 @@ public class SaveTest {
 
     @Before
     public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(PlayerWrapper.class);
-
+        this.context = JAXBContext.newInstance(LevelWrapper.class);
+       // this.context = JAXBContext.newInstance(PlayerWrapper.class);
     }
     @Test
     public void saveTest() throws JAXBException {
@@ -61,5 +63,18 @@ public class SaveTest {
         save.marshall(monster,fileTest);
 
         System.out.println(save.unmarshall(fileTest).toString());
+    }
+
+    @Test
+    public void saveTest2() throws JAXBException {
+        MockWorld1 mock = new MockWorld1();
+        File file = new File("test.xml");
+        Marshaller marshaller = this.context.createMarshaller();
+        marshaller.marshal(new LevelWrapper(mock.level), file);
+
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        LevelWrapper pw = (LevelWrapper) unmarshaller.unmarshal(file);
+
+        System.out.println(pw);
     }
 }

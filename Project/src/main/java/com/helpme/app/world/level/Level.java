@@ -165,10 +165,10 @@ public class Level implements ILevel {
         return Maybe.wrap(accessMonster(position));
     }
 
-    @Override
-    public Maybe<IReadMonster[]> readMonsters() {
-        return new Just(monsters.toArray());
-    }
+  /*  @Override
+    public List<IReadMonster> readMonsters() {
+        return ;
+    }*/
 
 
     private Maybe<IMonster> accessMonster(Vector2f position) {

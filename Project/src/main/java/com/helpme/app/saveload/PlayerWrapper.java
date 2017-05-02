@@ -8,12 +8,11 @@ import com.helpme.app.world.item.IReadItem;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * Created by Klas on 2017-04-29.
  */
-@XmlRootElement(name = "Player")
 public class PlayerWrapper {
     private float maxHitpoints;
     private float currentHitpoints;
