@@ -1,6 +1,8 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld0;
+import com.helpme.app.utils.maybe.Just;
+import com.helpme.app.world.character.IReadMonster;
 import com.helpme.app.world.item.Consumable;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
@@ -24,7 +26,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(0);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerAttack();
-        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getHitpoints().y == 90);
+        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getValue().getHitpoints().y == 90);
     }
 
 
@@ -34,7 +36,7 @@ public class ItemTest {
         mockWorld.playerController.changePlayerActiveItem(-1);
         mockWorld.playerController.setPlayerPosition(tileStart);
         mockWorld.playerController.usePlayerAttack();
-        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getHitpoints().y == 98);
+        assert (mockWorld.level.getMonster(new Vector2f(2, 2)).getValue().getHitpoints().y == 98);
     }
 
     @Test
@@ -80,7 +82,7 @@ public class ItemTest {
         mockWorld.playerController.movePlayerForward();
         mockWorld.playerController.changePlayerActiveItem(2);
         mockWorld.playerController.usePlayerAttack();
-        assert (mockWorld.level.getMonster(new Vector2f(9, 0)).getHitpoints().y == 60
+        assert (mockWorld.level.getMonster(new Vector2f(9, 0)).getValue().getHitpoints().y == 60
                 &&  mockWorld.playerController.getPlayer().getPosition().equals(tileTo));
     }
 

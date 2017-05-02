@@ -25,7 +25,7 @@ public final class Action {
     }
 
     public static Either attackAction(IReadLevel level){
-        return new Right<IBehaviour, IAction<IMonster>> (m -> m.attack(level.getPlayer()));
+        return new Right<IBehaviour, IAction<IMonster>> (m -> level.getPlayer().run(p -> m.attack(p)));
     }
 
     public static Either rotateRight(){

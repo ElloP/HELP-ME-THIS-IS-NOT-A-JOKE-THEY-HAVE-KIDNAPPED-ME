@@ -67,7 +67,7 @@ public class MoveTest {
         mockWorld.playerController.movePlayerForward();
         Vector2f monsterPos = new Vector2f(Vector2f.add(tileStart,mockWorld.playerController.getPlayer().getDirection()));
         //assert (monsterPos.equals(new Vector2f(2,2)));
-        while(!mockWorld.level.getMonster(monsterPos).isDead()){
+        while(!mockWorld.level.getMonster(monsterPos).check(m -> m.isDead())){
             mockWorld.playerController.usePlayerAttack();
         }
         mockWorld.playerController.movePlayerForward();
