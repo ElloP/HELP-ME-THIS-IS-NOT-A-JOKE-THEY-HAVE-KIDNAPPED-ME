@@ -68,13 +68,14 @@ public class SaveTest {
     @Test
     public void saveTest2() throws JAXBException {
         MockWorld1 mock = new MockWorld1();
+        mock.playerHandler.setPlayerPosition(new Vector2f(1,1));
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
         marshaller.marshal(new LevelWrapper(mock.level), file);
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
         LevelWrapper pw = (LevelWrapper) unmarshaller.unmarshal(file);
-
+        assert (pw.getPlayer().getPosition().getX() == mock.playerHandler.getPlayer().readPosition().x);
         System.out.println(pw);
     }
 }

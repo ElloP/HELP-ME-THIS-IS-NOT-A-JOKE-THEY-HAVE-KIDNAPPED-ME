@@ -10,14 +10,14 @@ import javax.xml.bind.annotation.XmlElement;
 public class MonsterWrapper {
     private boolean isDead;
     private String dialogue;
-    PlayerWrapper pw;
+    PlayerWrapper character;
 
     public MonsterWrapper(){}
 
     public MonsterWrapper(IReadMonster monster){
         this.isDead = monster.isDead();
         this.dialogue = "temporary"; //monster.getDialogue().toString(); //TODO (klas)
-        this.pw = new PlayerWrapper(monster);
+        this.character = new PlayerWrapper(monster);
     }
     @XmlElement(name="isDead")
     public boolean getIsDead(){
@@ -33,4 +33,9 @@ public class MonsterWrapper {
         result += "\nDialogue: " + dialogue;
         return result;
     }
+    @XmlElement(name="Character")
+    public PlayerWrapper getCharacter(){
+        return character;
+    }
+
 }

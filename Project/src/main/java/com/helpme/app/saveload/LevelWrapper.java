@@ -14,19 +14,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LevelWrapper {
     private PlayerWrapper player;
     private MonsterWrapper[] monsters;
+    private Vector2Wrapper startingPoint;
 
     public LevelWrapper(){}
 
     public LevelWrapper(IReadLevel level){
         this.player = new PlayerWrapper(level.readPlayer().getValue()); //TODO (klas) maybe check?
-        Maybe<IReadMonster[]> maybeMonsters = level.readMonsters();
-        if(maybeMonsters.isJust()){
-            IReadMonster[] levelMonster = maybeMonsters.getValue();
-            monsters = new MonsterWrapper[levelMonster.length];
-            for(int i = 0; i < levelMonster.length; i++){
-                monsters[i] = new MonsterWrapper(levelMonster[i]);
-            }
+        IReadMonster[] levelMonsters = level.readMonsters();
+        monsters = new MonsterWrapper[levelMonsters.length];
+        for(int i = 0; i < levelMonsters.length; i++){
+            monsters[i] = new MonsterWrapper(levelMonsters[i]);
         }
+        startingPoint = new Vector2Wrapper(level.readStartingPoint());
     }
 
     @XmlElement(name="Player")
@@ -44,6 +43,9 @@ public class LevelWrapper {
     public void setMonsters(MonsterWrapper[] monsters) {
         this.monsters = monsters;
     }
+    @XmlElement(name="StartingPoint")
+    public Vector2Wrapper getStartingPoint(){return startingPoint;}
+    public void setStartingPoint(Vector2Wrapper v){this.startingPoint = v;}
     public String toString(){
         return "hejhå!";
     }

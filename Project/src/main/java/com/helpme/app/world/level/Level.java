@@ -17,9 +17,7 @@ import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created by Jacob on 2017-03-30.
  */
@@ -165,10 +163,19 @@ public class Level implements ILevel {
         return Maybe.wrap(accessMonster(position));
     }
 
-  /*  @Override
-    public List<IReadMonster> readMonsters() {
-        return ;
-    }*/
+    @Override
+    public IReadMonster[] readMonsters() {
+        IReadMonster[] result = new IReadMonster[monsters.size()];
+        for(int i = 0; i < monsters.size(); i++){
+            result[i] = monsters.get(i);
+        }
+        return result;
+    }
+
+    @Override
+    public Vector2f readStartingPoint() {
+        return startingPosition.clone();
+    }
 
 
     private Maybe<IMonster> accessMonster(Vector2f position) {
