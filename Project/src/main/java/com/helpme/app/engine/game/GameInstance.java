@@ -21,7 +21,6 @@ public class GameInstance extends Game {
         activeCamera = playerCamera;
 
         scene.addChild(tile);
-
     }
 
     public void input() {
@@ -35,6 +34,7 @@ public class GameInstance extends Game {
 
         xy += Time.deltaTime;
         t = new Vector3f(0,xy,0);
+        Vector3f te = new Vector3f(0,-xy,0);
         tile.transform.rotate(t);
     }
     private void playerCameraInput() {
