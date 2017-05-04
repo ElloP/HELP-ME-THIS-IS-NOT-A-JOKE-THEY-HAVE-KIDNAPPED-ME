@@ -45,4 +45,13 @@ public class MonsterTest {
         assert mockWorld.enemyHandler1.getMonster().readPosition().equals(new Vector2f(0, 2)); // NOTE (Jacob) : Random when it works. Why?
     }
 
+    @Test
+    public void testGotBack() {
+        assert mockWorld.enemyHandler3.getMonster().readStartingPosition().equals(mockWorld.enemyHandler3.getMonster().readPosition());
+        assert ((EnemyHandler) mockWorld.enemyHandler3).getBehaviour() instanceof GoBack;
+        mockWorld.enemyHandler3.update();
+        assert ((EnemyHandler) mockWorld.enemyHandler3).getBehaviour() instanceof FollowAndAttack;
+
+    }
+
 }
