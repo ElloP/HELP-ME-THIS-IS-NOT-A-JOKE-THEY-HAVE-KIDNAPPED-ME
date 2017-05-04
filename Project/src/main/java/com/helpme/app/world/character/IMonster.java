@@ -3,6 +3,7 @@ package com.helpme.app.world.character;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.IReadInventory;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 

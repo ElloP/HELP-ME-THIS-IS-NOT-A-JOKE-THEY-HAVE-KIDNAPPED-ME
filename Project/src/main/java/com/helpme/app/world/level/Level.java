@@ -5,8 +5,9 @@ import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.tile.IReadTile;
 import com.helpme.app.world.tile.ITile;
 import com.helpme.app.world.tile.ITileFactory;
 import com.helpme.app.world.tile.edge.Door;
@@ -108,6 +109,11 @@ public class Level implements ILevel {
         }
 
         return Maybe.wrap(accessMonster(destination));
+    }
+
+    @Override
+    public Map<Vector2f, ITile> getTiles() {
+        return this.tiles;
     }
 
     @Override

@@ -4,14 +4,15 @@ import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.*;
 import com.helpme.app.engine.utils.TextureLoader;
+import com.helpme.app.world.tile.edge.IEdge;
 
 /**
  * Authored by Olle on 2017-05-02.
  */
 public class Wall extends GameObject {
+    private static Texture texture = TextureLoader.loadTexture("brick.jpg");
     private Mesh mesh;
     private Shader shader;
-    private static Texture texture = TextureLoader.loadTexture("brick.jpg");
 
     private static Vertex[] vertices = new Vertex[] {
             new Vertex(-3.0f, -1.0f,  3.0f, 0.0f, 0.0f),

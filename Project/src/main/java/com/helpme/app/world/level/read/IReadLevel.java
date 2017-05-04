@@ -1,9 +1,9 @@
-package com.helpme.app.world.level;
+package com.helpme.app.world.level.read;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.item.ITarget;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.List;
@@ -20,4 +20,5 @@ public interface IReadLevel {
     Maybe<IReadMonster> readPlayer();
     Maybe<IReadMonster> readMonster(Vector2f position);
     Maybe<ITarget> getTarget(IMonster monster, Vector2f direction);
+
 }

@@ -1,6 +1,6 @@
 package com.helpme.app.world.item.visitor;
 
-import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.Consumable;
 import com.helpme.app.world.item.Item;
 import com.helpme.app.world.item.Key;

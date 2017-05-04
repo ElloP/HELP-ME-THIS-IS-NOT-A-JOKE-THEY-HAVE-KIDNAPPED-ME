@@ -5,6 +5,7 @@ import com.helpme.app.world.character.dialogue.IDialogue;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.IReadInventory;
 import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.visitor.Attack;
 import com.helpme.app.world.item.visitor.Pickup;

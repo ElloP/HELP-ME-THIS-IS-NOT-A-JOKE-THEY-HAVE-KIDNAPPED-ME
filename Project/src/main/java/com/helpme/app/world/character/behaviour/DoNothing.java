@@ -5,7 +5,7 @@ import com.helpme.app.utils.either.Left;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.level.IReadLevel;
+import com.helpme.app.world.level.read.IReadLevel;
 
 /**
  * Created by kopa on 2017-04-14.

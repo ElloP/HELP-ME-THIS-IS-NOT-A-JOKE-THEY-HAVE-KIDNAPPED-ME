@@ -3,7 +3,7 @@ import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;

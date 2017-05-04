@@ -1,6 +1,7 @@
 package com.helpme.app.world.character;
 
 import com.helpme.app.world.character.inventory.IReadInventory;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;

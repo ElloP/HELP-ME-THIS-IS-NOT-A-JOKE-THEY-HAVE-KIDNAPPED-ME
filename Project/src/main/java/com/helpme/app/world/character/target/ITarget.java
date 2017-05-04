@@ -1,4 +1,4 @@
-package com.helpme.app.world.item;
+package com.helpme.app.world.character.target;
 
 /**
  * Created by Jacob on 2017-04-09.

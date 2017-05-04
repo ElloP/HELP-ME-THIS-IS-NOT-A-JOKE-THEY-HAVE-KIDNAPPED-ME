@@ -9,7 +9,7 @@ import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IMonster;
 import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.level.IReadLevel;
+import com.helpme.app.world.level.read.IReadLevel;
 
 import java.util.List;
 import java.util.Random;

@@ -11,7 +11,7 @@ import com.helpme.app.engine.utils.TextureLoader;
 public class Floor extends GameObject {
     private Mesh mesh;
     private Shader shader;
-    private static Texture texture = TextureLoader.loadTexture("default.png");
+    private static Texture texture = TextureLoader.loadTexture("floor.jpg");
 
     private static Vertex[] vertices = new Vertex[] {
             new Vertex(-3.0f, -1.0f,  3.0f, 0.0f, 0.0f),

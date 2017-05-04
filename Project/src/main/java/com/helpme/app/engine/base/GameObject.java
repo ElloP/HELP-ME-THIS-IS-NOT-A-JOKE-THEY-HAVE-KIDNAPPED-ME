@@ -34,6 +34,7 @@ public abstract class GameObject {
 
         for(GameObject child : children) {
             child.draw(camera);
+            child.drawAll(camera);
         }
     }
 }
