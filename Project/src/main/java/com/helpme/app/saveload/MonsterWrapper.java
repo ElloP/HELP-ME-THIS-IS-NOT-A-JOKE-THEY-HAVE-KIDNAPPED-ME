@@ -31,6 +31,7 @@ public class MonsterWrapper {
         String result = "";
         result += "isDead: " + isDead;
         result += "\nDialogue: " + dialogue;
+        result += "\n" + character.toString();
         return result;
     }
     @XmlElement(name="Character")

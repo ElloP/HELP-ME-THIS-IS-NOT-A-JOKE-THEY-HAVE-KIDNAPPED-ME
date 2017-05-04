@@ -47,6 +47,12 @@ public class LevelWrapper {
     public Vector2Wrapper getStartingPoint(){return startingPoint;}
     public void setStartingPoint(Vector2Wrapper v){this.startingPoint = v;}
     public String toString(){
-        return "hejhå!";
+        String result = "";
+        result += "Starting Point: " + startingPoint;
+        result += "\nPlayer: " + player.toString();
+        for(MonsterWrapper m : monsters){
+            result += "\n Monster: "+ m.toString();
+        }
+        return result;
     }
 }
