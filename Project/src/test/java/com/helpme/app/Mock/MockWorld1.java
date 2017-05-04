@@ -44,9 +44,9 @@ public class MockWorld1 {
         playerHandler = new PlayerHandler(player, level);
 
 
-        enemyHandler0 = new EnemyHandler(enemy0, level, new FollowAndAttack(2));
-        enemyHandler1 = new EnemyHandler(enemy1, level, new FollowAndAttack());
-        enemyHandler2 = new EnemyHandler(enemy2, level, new FollowAndAttack(1));
+        enemyHandler0 = new EnemyHandler(enemy0, level, new FollowAndAttack(2), new FollowAndAttack(2));
+        enemyHandler1 = new EnemyHandler(enemy1, level, new FollowAndAttack(), new FollowAndAttack());
+        enemyHandler2 = new EnemyHandler(enemy2, level, new FollowAndAttack(1), new FollowAndAttack(1));
 
 
         this.level = level;

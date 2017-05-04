@@ -15,21 +15,30 @@ import com.helpme.app.world.level.ILevel;
  */
 public class EnemyHandler extends MonsterHandler {
     private IBehaviour behaviour;
+    private IBehaviour defaultBehavior;
 
 
-    public EnemyHandler(IMonster monster, ILevel level, IBehaviour behaviour){
+    public EnemyHandler(IMonster monster, ILevel level, IBehaviour behaviour, IBehaviour defaultBehavior){
         super(monster, level);
         this.behaviour = behaviour == null ? new DoNothing() : behaviour;
+        this.defaultBehavior = defaultBehavior;
     }
 
     @Override
     public void update() {
-        Either<IBehaviour, IAction<IMonster>> actionOrBehavior = behaviour.update(monster, level);
-        if (actionOrBehavior instanceof Left){
-            this.behaviour = (IBehaviour) ((Left) actionOrBehavior).getValue();
-        } else {
-            IAction<IMonster> action = (IAction<IMonster>) ((Right) actionOrBehavior).getValue();
-            action.apply(monster);
+
+        Maybe<Either<IBehaviour, IAction<IMonster>>> nothingOrJust = behaviour.update(monster, level);
+        if (nothingOrJust.isJust()) {
+            Either<IBehaviour, IAction<IMonster>> actionOrBehavior = nothingOrJust.getValue();
+            if (actionOrBehavior instanceof Left){
+                this.behaviour = (IBehaviour) ((Left) actionOrBehavior).getValue();
+            } else {
+                IAction<IMonster> action = (IAction<IMonster>) ((Right) actionOrBehavior).getValue();
+                action.apply(monster);
+            }
+        }
+        else {
+            behaviour = defaultBehavior;
         }
     }
 

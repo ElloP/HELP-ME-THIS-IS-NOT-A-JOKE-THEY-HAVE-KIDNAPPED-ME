@@ -1,6 +1,7 @@
 package com.helpme.app.world.character.behaviour;
 
 
+import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.either.Either;
@@ -30,14 +31,14 @@ public class FollowAndAttack implements IBehaviour{
     }
 
     @Override
-    public Either update(IReadMonster monster, IReadLevel level) {
+    public Maybe update(IReadMonster monster, IReadLevel level) {
         return updateBehaviour(monster, level);
     }
 
-    private Either updateBehaviour(IReadMonster monster, IReadLevel level){
+    private Maybe updateBehaviour(IReadMonster monster, IReadLevel level){
         System.out.println(followingDistance);
         if (decideToAttack(monster, level)){
-            return Action.attackAction(level);
+            return new Just(Action.attackAction(level));
         } else if (level.getShortestPath(monster.readPosition(), monster.readStartingPosition()).c < followingDistance) {
             Maybe<IReadMonster> maybePlayer = level.readPlayer();
             if(maybePlayer.isJust()) {
@@ -47,15 +48,16 @@ public class FollowAndAttack implements IBehaviour{
                 int cost = path.c;
                 if (cost > 0 && cost <= followingDistance) {
                     Vector2f nextPos = path.b;
-                    return Intelligence.moveOrRotateAction(monster, nextPos);
+                    return new Just(Intelligence.moveOrRotateAction(monster, nextPos));
                 } else {
-                    return new Left(new FollowAndAttack(followingDistance));
+                    return new Just(new Left(new FollowAndAttack(followingDistance)));
                 }
             } else {
-                return new Left(new FollowAndAttack(followingDistance));
+                return new Just(new Left(new FollowAndAttack(followingDistance)));
             }
         } else {
-            return new Left<IBehaviour, IAction<IMonster>>(new GoBack());
+            return new Just(new Left<>(new GoBack()));
+            //return new Left<IBehaviour, IAction<IMonster>>(new GoBack());
         }
     }
 
