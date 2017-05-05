@@ -49,7 +49,7 @@ public class MockWorld1 {
 
         enemyConsciousness0 = new Enemy(enemy0, level, new FollowAndAttack(2), new FollowAndAttack(2));
         level.addBody(enemy0);
-        enemyConsciousness1 = new Enemy(enemy1, level, new FollowAndAttack(4), new FollowAndAttack(4));
+        enemyConsciousness1 = new Enemy(enemy1, level, new FollowAndAttack(), new FollowAndAttack());
         level.addBody(enemy1);
         enemyConsciousness2 = new Enemy(enemy2, level, new FollowAndAttack(1), new FollowAndAttack(1));
         level.addBody(enemy2);

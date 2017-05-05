@@ -32,7 +32,6 @@ public class BodyTest {
         mockWorld.enemyConsciousness2.moveForward();
         mockWorld.enemyConsciousness2.moveForward();
         mockWorld.enemyConsciousness2.update();
-        System.out.println(((Enemy)mockWorld.enemyConsciousness2).getBehaviour().getClass().toString());
         assert ((Enemy) mockWorld.enemyConsciousness2).getBehaviour() instanceof GoBack;
     }
 
@@ -42,7 +41,6 @@ public class BodyTest {
         assert mockWorld.level.readPlayer().check(p -> p.readPosition().equals(new Vector2f(0, 0)));
         assert mockWorld.enemyConsciousness1.readBody().readDirection().equals(Vector2f.down);
         mockWorld.enemyConsciousness1.update();
-
         assert mockWorld.enemyConsciousness1.readBody().readPosition().equals(new Vector2f(0, 2)); // NOTE (Jacob) : Random when it works. Why?
     }
 
@@ -52,7 +50,6 @@ public class BodyTest {
         assert ((Enemy) mockWorld.enemyConsciousness3).getBehaviour() instanceof GoBack;
         mockWorld.enemyConsciousness3.update();
         assert ((Enemy) mockWorld.enemyConsciousness3).getBehaviour() instanceof FollowAndAttack;
-
     }
 
 }
