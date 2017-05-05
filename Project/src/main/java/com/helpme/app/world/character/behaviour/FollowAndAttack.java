@@ -7,9 +7,9 @@ import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.either.Left;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IMonster;
-import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.level.read.IReadLevel;
+import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.character.IReadBody;
+import com.helpme.app.world.consciousness.ISurroundings;
 
 import java.util.List;
 import java.util.Random;
@@ -22,47 +22,44 @@ public class FollowAndAttack implements IBehaviour{
 
     public FollowAndAttack(int maxDistance){
         Random random = new Random(System.currentTimeMillis());
-        this.followingDistance = random.nextInt(maxDistance);
-    }
-
-    public FollowAndAttack(){
-        this.followingDistance = 5;
+        this.followingDistance = maxDistance;
     }
 
     @Override
-    public Either update(IReadMonster monster, IReadLevel level) {
+    public Either update(IReadBody monster, ISurroundings level) {
         return updateBehaviour(monster, level);
     }
 
-    private Either updateBehaviour(IReadMonster monster, IReadLevel level){
+    private Either updateBehaviour(IReadBody monster, ISurroundings level){
+
+        //TODO (Jacob) Impossible to read this, man
         System.out.println(followingDistance);
         if (decideToAttack(monster, level)){
             return Action.attackAction(level);
         } else if (level.getShortestPath(monster.readPosition(), monster.readStartingPosition()).c < followingDistance) {
-            Maybe<IReadMonster> maybePlayer = level.readPlayer();
+            Maybe<IReadBody> maybePlayer = level.readPlayer();
             if(maybePlayer.isJust()) {
-                IReadMonster player = maybePlayer.getValue();
-                Vector2f pos = monster.readPosition();
+                IReadBody player = maybePlayer.getValue();
                 Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.readPosition(), player.readPosition());
                 int cost = path.c;
                 if (cost > 0 && cost <= followingDistance) {
                     Vector2f nextPos = path.b;
                     return Intelligence.moveOrRotateAction(monster, nextPos);
                 } else {
-                    return new Left(new FollowAndAttack(followingDistance));
+                    return new Left(this);
                 }
             } else {
-                return new Left(new FollowAndAttack(followingDistance));
+                return new Left(this);
             }
         } else {
-            return new Left<IBehaviour, IAction<IMonster>>(new GoBack());
+            return new Left<IBehaviour, IAction<IBody>>(new GoBack());
         }
     }
 
-    private boolean decideToFollow(IMonster monster, IReadLevel level){
-        Maybe<IReadMonster> maybePlayer = level.readPlayer();
+    private boolean decideToFollow(IReadBody monster, ISurroundings level){
+        Maybe<IReadBody> maybePlayer = level.readPlayer();
         if(maybePlayer.isJust()) {
-            IReadMonster player = maybePlayer.getValue();
+            IReadBody player = maybePlayer.getValue();
             Vector2f destination = player.readPosition();
             int longestDistance = followingDistance;
             if (Vector2f.equals(monster.readStartingPosition(), destination))
@@ -72,7 +69,7 @@ public class FollowAndAttack implements IBehaviour{
         return false;
     }
 
-    private boolean decideToAttack(IReadMonster monster, IReadLevel level){
+    private boolean decideToAttack(IReadBody monster, ISurroundings level){
         return level.readPlayer().check(p -> Intelligence.isMonsterFacing(monster, p.readPosition()));
     }
 }

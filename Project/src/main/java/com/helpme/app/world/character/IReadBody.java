@@ -11,7 +11,7 @@ import java.util.Observable;
 /**
  * Created by kopa on 2017-04-14.
  */
-public interface IReadMonster extends ITarget {
+public interface IReadBody extends ITarget {
     Vector2f readPosition();
     Vector2f readDirection();
     Vector2f readHitpoints();

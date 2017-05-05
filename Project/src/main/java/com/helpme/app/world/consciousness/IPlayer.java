@@ -1,7 +1,7 @@
-package com.helpme.app.world.handler;
+package com.helpme.app.world.consciousness;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
@@ -9,8 +9,8 @@ import com.helpme.app.utils.Vector2f;
 /**
  * Created by kopa on 2017-04-15.
  */
-public interface IPlayerHandler {
-    IReadMonster getPlayer();
+public interface IPlayer {
+    IReadBody getPlayer();
 
     void movePlayerForward();
 

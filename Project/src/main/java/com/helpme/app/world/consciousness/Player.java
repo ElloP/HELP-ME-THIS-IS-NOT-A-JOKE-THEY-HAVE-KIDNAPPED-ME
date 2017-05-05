@@ -1,29 +1,27 @@
-package com.helpme.app.world.handler;
+package com.helpme.app.world.consciousness;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IMonster;
-import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.level.ILevel;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class PlayerHandler extends MonsterHandler implements IPlayerHandler {
+public class Player extends Consciousness implements IPlayer {
 
-    public PlayerHandler(IMonster player, ILevel level) {
-        super(player, level);
-        level.setPlayer(monster);
+    public Player(IBody monster, ISurroundings level) {
+        super(monster, level);
     }
 
     public void update() {
 
     }
 
-    public IReadMonster getPlayer() {
-        return super.getMonster();
+    public IReadBody getPlayer() {
+        return super.readMonster();
     }
 
     public void movePlayerForward() {
@@ -84,13 +82,13 @@ public class PlayerHandler extends MonsterHandler implements IPlayerHandler {
 
     public Maybe<Tuple2<String, String[]>> usePlayerTalk() {
 
-        Maybe<IReadMonster> maybeMonster = getFacingMonster();
+        Maybe<IReadBody> maybeMonster = surroundings.readFacing(monster);
 
         return maybeMonster.chain(m -> m.getDialogue());
     }
 
     public Maybe<Tuple2<String, String[]>> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException {
-        Maybe<IReadMonster> maybeMonster = getFacingMonster();
+        Maybe<IReadBody> maybeMonster = surroundings.readFacing(monster);
 
         return maybeMonster.chain(m -> m.getResponse(dialogueSelect));
 

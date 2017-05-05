@@ -20,7 +20,7 @@ import java.util.Observable;
 /**
  * Created by Jacob on 2017-03-30.
  */
-public class Monster extends Observable implements IMonster {
+public class Body extends Observable implements IBody {
     private IInventory inventory;
     private final Vector2f startingPosition;
     private Vector2f position;
@@ -32,7 +32,7 @@ public class Monster extends Observable implements IMonster {
     private IDialogue dialogue;
 
     //Right now just for testing
-    public Monster(Vector2f position, Vector2f direction, IDialogue dialogue) {
+    public Body(Vector2f position, Vector2f direction, IDialogue dialogue) {
         this.dialogue = dialogue;
         this.position = position;
         this.direction = direction;
@@ -40,11 +40,11 @@ public class Monster extends Observable implements IMonster {
 
     }
 
-    public Monster(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
+    public Body(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
         this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
     }
 
-    public Monster(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
+    public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
         this.inventory = inventory == null ? new Inventory(null, null, null) : inventory;
         this.position = position == null ? Vector2f.zero : position;
         this.direction = direction == null ? Vector2f.up : direction;
@@ -137,8 +137,8 @@ public class Monster extends Observable implements IMonster {
     }
 
     @Override
-    public Monster clone() {
-        return new Monster(inventory.clone(), position.clone(), direction.clone(), readHitpoints());
+    public Body clone() {
+        return new Body(inventory.clone(), position.clone(), direction.clone(), readHitpoints());
     }
 
     @Override

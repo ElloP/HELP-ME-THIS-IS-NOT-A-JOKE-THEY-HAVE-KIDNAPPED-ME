@@ -7,10 +7,7 @@ import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.character.IMonster;
-import com.helpme.app.world.character.Monster;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
 import com.helpme.app.world.level.Level;
@@ -32,7 +29,7 @@ public class GameInstance extends Game {
     private ILevel testLevel(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
-        List<IMonster> monsters = new ArrayList<>();
+        List<IBody> monsters = new ArrayList<>();
 
         tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
         tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
@@ -96,6 +93,7 @@ public class GameInstance extends Game {
 
     Vector3f t = new Vector3f();
     float xy = 0;
+
     public void update() {
         //TODO(Olle): update game
 

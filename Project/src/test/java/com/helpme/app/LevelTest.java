@@ -22,9 +22,9 @@ public class LevelTest {
     @Test
     public void testSearchPath(){
         Vector2f playerPos = new Vector2f(0, 0);
-        Vector2f monsterPos = mockWorld.enemyHandler1.getMonster().readPosition();
+        Vector2f monsterPos = mockWorld.enemyHandler1.readMonster().readPosition();
         assert monsterPos.equals(new Vector2f(0, 3));
-        assert mockWorld.playerHandler.getPlayer().readPosition().equals(playerPos);
+        assert mockWorld.player.getPlayer().readPosition().equals(playerPos);
         Tuple3 path = mockWorld.level.getShortestPath(monsterPos, playerPos);
         assert (int) path.c == 4;
         assert path.b.equals(new Vector2f(0, 2));

@@ -1,7 +1,7 @@
 package com.helpme.app.world.sounds;
 
 import com.helpme.app.world.character.Event;
-import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.sounds.Source.AbstractMonsterSource;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Observer;
  * Created by Jesper on 2017-04-23.
  */
 public class AudioObserver implements Observer {
-    IReadMonster player;
+    IReadBody player;
     ArrayList<AbstractMonsterSource> monsterSources;
 
     public AudioObserver(ArrayList<AbstractMonsterSource> monsterSources) {
@@ -26,21 +26,21 @@ public class AudioObserver implements Observer {
             case Dead:
                 break;
             case Health:
-                healthEvent((IReadMonster) o);
+                healthEvent((IReadBody) o);
                 break;
             case Position:
-                posEvent((IReadMonster) o);
+                posEvent((IReadBody) o);
                 break;
             case Direction:
                 break;
         }
     }
 
-    private boolean isPlayer(IReadMonster monster) {
+    private boolean isPlayer(IReadBody monster) {
         return player.equals(monster);
     }
 
-    private AbstractMonsterSource getSource(IReadMonster monster) {
+    private AbstractMonsterSource getSource(IReadBody monster) {
         for (AbstractMonsterSource monsterSource : monsterSources) {
             if (monsterSource.equals(monster)) {
                 return monsterSource;
@@ -49,11 +49,11 @@ public class AudioObserver implements Observer {
         return null;
     }
 
-    private void posEvent(IReadMonster monster) {
+    private void posEvent(IReadBody monster) {
         getSource(monster).playWalking();
     }
 
-    private void healthEvent(IReadMonster monster) {
+    private void healthEvent(IReadBody monster) {
         getSource(monster).playHurting();
     }
 }
