@@ -12,15 +12,15 @@ import java.util.List;
 /**
  * Created by kopa on 2017-05-04.
  */
-public interface ISenses {
-    boolean isMonsterBlockedByEdge(IReadBody monster, Vector2f direction);
-    boolean isMovementAllowed(IReadBody monster, Vector2f direction);
+public interface IReadSurroundings {
+    boolean isBlockedByEdge(IReadBody body, Vector2f direction);
+    boolean isMovementAllowed(IReadBody body, Vector2f direction);
     boolean isTileOccupied(Vector2f position);
     boolean isTileValid(Vector2f position);
-    boolean isDistanceFrom(IReadBody monster, Vector2f destination, int longestDistance);
+    boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance);
     Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to);
     Maybe<IReadBody> readPlayer();
-    Maybe<IReadBody> readMonster(Vector2f position);
-    Maybe<ITarget> getTarget(IBody monster, Vector2f direction);
-    Maybe<IReadBody> readFacing(IReadBody monster);
+    Maybe<IReadBody> readBody(Vector2f position);
+    Maybe<ITarget> getTarget(IBody body, Vector2f direction);
+    Maybe<IReadBody> readFacing(IReadBody body);
 }

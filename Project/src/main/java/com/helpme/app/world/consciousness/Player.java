@@ -12,8 +12,8 @@ import com.helpme.app.utils.Vector2f;
  */
 public class Player extends Consciousness implements IPlayer {
 
-    public Player(IBody monster, ISurroundings level) {
-        super(monster, level);
+    public Player(IBody body, ISurroundings level) {
+        super(body, level);
     }
 
     public void update() {
@@ -21,76 +21,76 @@ public class Player extends Consciousness implements IPlayer {
     }
 
     public IReadBody getPlayer() {
-        return super.readMonster();
+        return super.readBody();
     }
 
     public void movePlayerForward() {
-        moveMonsterForward();
+        moveForward();
     }
 
     public void movePlayerRight() {
-        moveMonsterRight();
+        moveRight();
     }
 
     public void movePlayerBackward() {
-        moveMonsterBackward();
+        moveBackward();
     }
 
     public void movePlayerLeft() {
-        moveMonsterLeft();
+        moveLeft();
     }
 
     public void rotatePlayerRight() {
-        rotateMonsterRight();
+        rotateRight();
     }
 
     public void rotatePlayerLeft() {
-        rotateMonsterLeft();
+        rotateLeft();
     }
 
     public void setPlayerPosition(Vector2f position) {
-        setMonsterPosition(position);
+        setPosition(position);
     }
 
     public void usePlayerAttack() {
-        useMonsterAttack();
+        useAttack();
     }
 
     public void usePlayerPickupAll() {
-        useMonsterPickupAll();
+        usePickupAll();
     }
 
     public void usePlayerPickupSingle(int index) {
-        useMonsterPickupSingle(index);
+        usePickupSingle(index);
     }
 
     public void setPlayerItems(IItem[] items) {
-        setMonsterItems(items);
+        setItems(items);
     }
 
     public void dropPlayerItem(int index) {
-        dropMonsterItem(index);
+        dropItem(index);
     }
 
     public void usePlayerSelfie() {
-        useMonsterSelfie();
+        useSelfie();
     }
 
     public void changePlayerActiveItem(int index) {
-        changeMonsterActiveItem(index);
+        changeActiveItem(index);
     }
 
     public Maybe<Tuple2<String, String[]>> usePlayerTalk() {
 
-        Maybe<IReadBody> maybeMonster = surroundings.readFacing(monster);
+        Maybe<IReadBody> maybeBody = surroundings.readFacing(body);
 
-        return maybeMonster.chain(m -> m.getDialogue());
+        return maybeBody.chain(m -> m.getDialogue());
     }
 
     public Maybe<Tuple2<String, String[]>> usePlayerTalk(int dialogueSelect) throws IllegalArgumentException {
-        Maybe<IReadBody> maybeMonster = surroundings.readFacing(monster);
+        Maybe<IReadBody> maybeBody = surroundings.readFacing(body);
 
-        return maybeMonster.chain(m -> m.getResponse(dialogueSelect));
+        return maybeBody.chain(m -> m.getResponse(dialogueSelect));
 
     }
 

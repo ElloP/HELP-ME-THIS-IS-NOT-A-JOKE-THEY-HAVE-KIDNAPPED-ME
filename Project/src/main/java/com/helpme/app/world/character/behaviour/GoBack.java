@@ -1,13 +1,12 @@
 package com.helpme.app.world.character.behaviour;
 
+import com.helpme.app.utils.maybe.Just;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.either.Either;
-import com.helpme.app.utils.either.Left;
-import com.helpme.app.utils.functions.IAction;
-import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
-import com.helpme.app.world.consciousness.ISurroundings;
+import com.helpme.app.world.consciousness.IReadSurroundings;
 
 
 import java.util.List;
@@ -16,19 +15,19 @@ import java.util.List;
  * Created by Jesper on 2017-04-20.
  */
 public class GoBack implements IBehaviour {
-    @Override
-    public Either<IBehaviour, IAction<IBody>> update(IReadBody monster, ISurroundings level) {
-        return goBack(monster, level);
+
+    public Maybe update(IReadBody body, IReadSurroundings surroundings) {
+        return goBack(body, surroundings);
     }
 
-    private Either goBack(IReadBody monster, ISurroundings level){
-        Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.readPosition(), monster.readStartingPosition());
+    private Maybe goBack(IReadBody body, IReadSurroundings surroundings){
+        Tuple3<List<Vector2f>, Vector2f, Integer> path = surroundings.getShortestPath(body.readPosition(), body.readStartingPosition());
         int cost = path.c;
         if (cost > 0){
             Vector2f nextPos = path.b;
-            return Intelligence.moveOrRotateAction(monster, nextPos);
+            return new Just(Intelligence.moveOrRotateAction(body, nextPos));
         }else{
-            return new Left<IBehaviour, IAction<IBody>>(new DoNothing());
+            return new Nothing();
         }
     }
 }

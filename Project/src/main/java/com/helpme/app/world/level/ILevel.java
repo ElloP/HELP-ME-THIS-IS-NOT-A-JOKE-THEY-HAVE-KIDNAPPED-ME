@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by Jacob on 2017-04-08.
  */
 public interface ILevel extends ISurroundings {
-    void addMonster(IBody monster);
+    void addBody(IBody body);
     void setPlayer(IBody player);
     Map<Vector2f, ITile> getTiles();
 }

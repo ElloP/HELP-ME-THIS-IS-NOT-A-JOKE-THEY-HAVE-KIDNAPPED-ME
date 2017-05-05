@@ -11,96 +11,96 @@ import com.helpme.app.utils.Vector2f;
  */
 
 public abstract class Consciousness implements IConsciousness {
-    protected IBody monster;
+    protected IBody body;
     protected ISurroundings surroundings;
 
     @Override
     public abstract void update();
 
-    public Consciousness(IBody monster, ISurroundings level){
-        this.monster = monster;
-        this.surroundings = level;
+    public Consciousness(IBody body, ISurroundings surroundings){
+        this.body = body;
+        this.surroundings = surroundings;
     }
 
-    public IReadBody readMonster(){
-        return monster;
+    public IReadBody readBody(){
+        return body;
     }
 
-    public void moveMonsterForward() {
-        if (!surroundings.isMovementAllowed(monster, monster.readDirection())) {
+    public void moveForward() {
+        if (!surroundings.isMovementAllowed(body, body.readDirection())) {
             return;
         }
-        monster.moveForward();
+        body.moveForward();
     }
 
-    public void moveMonsterRight() {
-        if (!surroundings.isMovementAllowed(monster, monster.readDirection().right())) {
+    public void moveRight() {
+        if (!surroundings.isMovementAllowed(body, body.readDirection().right())) {
             return;
         }
-        monster.moveRight();
+        body.moveRight();
     }
 
-    public void moveMonsterBackward() {
-        if (!surroundings.isMovementAllowed(monster, monster.readDirection().backward())) {
+    public void moveBackward() {
+        if (!surroundings.isMovementAllowed(body, body.readDirection().backward())) {
             return;
         }
-        monster.moveBackward();
+        body.moveBackward();
     }
 
-    public void moveMonsterLeft() {
-        if (!surroundings.isMovementAllowed(monster, monster.readDirection().left())) {
+    public void moveLeft() {
+        if (!surroundings.isMovementAllowed(body, body.readDirection().left())) {
             return;
         }
-        monster.moveLeft();
+        body.moveLeft();
     }
 
-    public void rotateMonsterRight() {
-        monster.rotateRight();
+    public void rotateRight() {
+        body.rotateRight();
     }
 
-    public void rotateMonsterLeft() {
-        monster.rotateLeft();
+    public void rotateLeft() {
+        body.rotateLeft();
     }
 
-    public void setMonsterItems(IItem[] items) {
-        monster.setItems(items);
+    public void setItems(IItem[] items) {
+        body.setItems(items);
     }
 
-    public void dropMonsterItem(int index) {
-        if (surroundings.isTileValid(monster.readPosition())) {
-            Maybe<IItem> maybeItem = monster.dropItem(index);
-            maybeItem.run(i -> surroundings.addTileItem(monster.readPosition(), i));
+    public void dropItem(int index) {
+        if (surroundings.isTileValid(body.readPosition())) {
+            Maybe<IItem> maybeItem = body.dropItem(index);
+            maybeItem.run(i -> surroundings.addTileItem(body.readPosition(), i));
         }
 
     }
 
-    public void useMonsterSelfie() {
-        monster.selfie();
+    public void useSelfie() {
+        body.selfie();
     }
 
-    public void changeMonsterActiveItem(int index) {
-        monster.changeActiveItem(index);
+    public void changeActiveItem(int index) {
+        body.changeActiveItem(index);
     }
 
 
-    public void setMonsterPosition(Vector2f position) {
+    public void setPosition(Vector2f position) {
         if (!surroundings.isTileValid(position)) {
             return;
         }
-        monster.setPosition(position);
+        body.setPosition(position);
     }
 
-    public void useMonsterAttack() {
-        Vector2f direction = monster.readDirection();
-        Maybe<ITarget> maybeTarget = surroundings.getTarget(monster, direction);
-        maybeTarget.run(t -> monster.attack(t));
+    public void useAttack() {
+        Vector2f direction = body.readDirection();
+        Maybe<ITarget> maybeTarget = surroundings.getTarget(body, direction);
+        maybeTarget.run(t -> body.attack(t));
         if(maybeTarget.check(t -> t.isDead())){
-            surroundings.updateDeadMonster(Vector2f.add(monster.readPosition(),monster.readDirection()));
+            surroundings.updateDeadBody(Vector2f.add(body.readPosition(), body.readDirection()));
         }
     }
 
-    public void useMonsterPickupAll() {
-        Vector2f position = monster.readPosition();
+    public void usePickupAll() {
+        Vector2f position = body.readPosition();
         IItem[] items = surroundings.removeTileItems(position);
 
         if (items == null) {
@@ -112,19 +112,19 @@ public abstract class Consciousness implements IConsciousness {
                 continue;
             }
 
-            if (!monster.pickupItem(item)) {
+            if (!body.pickupItem(item)) {
                 surroundings.addTileItem(position, item);
             }
         }
     }
 
-    public void useMonsterPickupSingle(int index) {
-        Vector2f position = monster.readPosition();
+    public void usePickupSingle(int index) {
+        Vector2f position = body.readPosition();
         IItem item = surroundings.removeTileItem(position, index);
         if (item == null) {
             return;
         }
-        monster.pickupItem(item);
+        body.pickupItem(item);
     }
 
 }

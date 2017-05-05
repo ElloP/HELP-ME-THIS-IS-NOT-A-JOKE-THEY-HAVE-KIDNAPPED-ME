@@ -22,20 +22,20 @@ public class DialogueTest {
     }
 
     @Test
-    public void testTalkToMonster() {
+    public void testTalkTo() {
         Vector2f tileStart = new Vector2f(8, 5);
         mockWorld.player.setPlayerPosition(tileStart);
         mockWorld.player.rotatePlayerLeft();
-        Maybe<IReadBody> maybeMonster = mockWorld.level.readMonster(new Vector2f(7,5));
-        IReadBody monster = maybeMonster.getValue();
+        Maybe<IReadBody> maybeBody = mockWorld.level.readBody(new Vector2f(7,5));
+        IReadBody body = maybeBody.getValue();
 
         Tuple2<String,String[]> result = mockWorld.player.usePlayerTalk().getValue();
-        Tuple2<String,String[]> monsterResponse = Maybe.wrap(monster.getDialogue()).getValue();
+        Tuple2<String,String[]> response = Maybe.wrap(body.getDialogue()).getValue();
 
-        assert (result.a.equals(monsterResponse.a));
+        assert (result.a.equals(response.a));
         for(int i = 0; i < result.b.length; i++){
             //System.out.println(result.b[i]);
-            assert (result.b[i].equals(monsterResponse.b[i]));
+            assert (result.b[i].equals(response.b[i]));
         }
 
         //Go through all responses

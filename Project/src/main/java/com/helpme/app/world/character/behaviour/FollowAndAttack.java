@@ -1,15 +1,13 @@
 package com.helpme.app.world.character.behaviour;
 
 
+import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.either.Left;
-import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
-import com.helpme.app.world.consciousness.ISurroundings;
+import com.helpme.app.world.consciousness.IReadSurroundings;
 
 import java.util.List;
 import java.util.Random;
@@ -25,51 +23,48 @@ public class FollowAndAttack implements IBehaviour{
         this.followingDistance = maxDistance;
     }
 
-    @Override
-    public Either update(IReadBody monster, ISurroundings level) {
-        return updateBehaviour(monster, level);
+    public Maybe update(IReadBody body, IReadSurroundings surroundings) {
+        return updateBehaviour(body, surroundings);
     }
 
-    private Either updateBehaviour(IReadBody monster, ISurroundings level){
-
-        //TODO (Jacob) Impossible to read this, man
+    private Maybe updateBehaviour(IReadBody body, IReadSurroundings surroundings){
         System.out.println(followingDistance);
-        if (decideToAttack(monster, level)){
-            return Action.attackAction(level);
-        } else if (level.getShortestPath(monster.readPosition(), monster.readStartingPosition()).c < followingDistance) {
-            Maybe<IReadBody> maybePlayer = level.readPlayer();
+        if (decideToAttack(body, surroundings)){
+            return new Just(Action.attackAction(surroundings));
+        } else if (surroundings.getShortestPath(body.readPosition(), body.readStartingPosition()).c < followingDistance) {
+            Maybe<IReadBody> maybePlayer = surroundings.readPlayer();
             if(maybePlayer.isJust()) {
                 IReadBody player = maybePlayer.getValue();
-                Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getShortestPath(monster.readPosition(), player.readPosition());
+                Tuple3<List<Vector2f>, Vector2f, Integer> path = surroundings.getShortestPath(body.readPosition(), player.readPosition());
                 int cost = path.c;
                 if (cost > 0 && cost <= followingDistance) {
                     Vector2f nextPos = path.b;
-                    return Intelligence.moveOrRotateAction(monster, nextPos);
+                    return new Just(Intelligence.moveOrRotateAction(body, nextPos));
                 } else {
-                    return new Left(this);
+                    return new Just(new Left(new FollowAndAttack(followingDistance)));
                 }
             } else {
-                return new Left(this);
+                return new Just(new Left(new FollowAndAttack(followingDistance)));
             }
         } else {
-            return new Left<IBehaviour, IAction<IBody>>(new GoBack());
+            return new Just(new Left<>(new GoBack()));
         }
     }
 
-    private boolean decideToFollow(IReadBody monster, ISurroundings level){
-        Maybe<IReadBody> maybePlayer = level.readPlayer();
+    private boolean decideToFollow(IReadBody body, IReadSurroundings surroundings){
+        Maybe<IReadBody> maybePlayer = surroundings.readPlayer();
         if(maybePlayer.isJust()) {
             IReadBody player = maybePlayer.getValue();
             Vector2f destination = player.readPosition();
             int longestDistance = followingDistance;
-            if (Vector2f.equals(monster.readStartingPosition(), destination))
+            if (Vector2f.equals(body.readStartingPosition(), destination))
                 longestDistance--;
-            return level.isDistanceFrom(monster, player.readPosition(), longestDistance);
+            return surroundings.isDistanceFrom(body, player.readPosition(), longestDistance);
         }
         return false;
     }
 
-    private boolean decideToAttack(IReadBody monster, ISurroundings level){
-        return level.readPlayer().check(p -> Intelligence.isMonsterFacing(monster, p.readPosition()));
+    private boolean decideToAttack(IReadBody body, IReadSurroundings surroundings){
+        return surroundings.readPlayer().check(p -> Intelligence.isMonsterFacing(body, p.readPosition()));
     }
 }

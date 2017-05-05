@@ -24,7 +24,7 @@ public class ItemTest {
         mockWorld.player.changePlayerActiveItem(0);
         mockWorld.player.setPlayerPosition(tileStart);
         mockWorld.player.usePlayerAttack();
-        assert (mockWorld.level.readMonster(new Vector2f(2, 2)).getValue().readHitpoints().y == 90);
+        assert (mockWorld.level.readBody(new Vector2f(2, 2)).getValue().readHitpoints().y == 90);
     }
 
 
@@ -34,7 +34,7 @@ public class ItemTest {
         mockWorld.player.changePlayerActiveItem(-1);
         mockWorld.player.setPlayerPosition(tileStart);
         mockWorld.player.usePlayerAttack();
-        assert (mockWorld.level.readMonster(new Vector2f(2, 2)).getValue().readHitpoints().y == 98);
+        assert (mockWorld.level.readBody(new Vector2f(2, 2)).getValue().readHitpoints().y == 98);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ItemTest {
         mockWorld.player.movePlayerForward();
         mockWorld.player.changePlayerActiveItem(2);
         mockWorld.player.usePlayerAttack();
-        assert (mockWorld.level.readMonster(new Vector2f(9, 0)).getValue().readHitpoints().y == 60
+        assert (mockWorld.level.readBody(new Vector2f(9, 0)).getValue().readHitpoints().y == 60
                 &&  mockWorld.player.getPlayer().readPosition().equals(tileTo));
     }
 

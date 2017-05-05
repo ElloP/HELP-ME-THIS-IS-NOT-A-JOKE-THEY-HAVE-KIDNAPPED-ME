@@ -30,7 +30,7 @@ public class TestSound {
         AudioHandler.setListenerPos(player.readPosition().x, player.readPosition().y, 0);
 
         int buffer = AudioHandler.loadSound("src\\main\\java\\com\\helpme\\app\\world\\sounds\\Cowboy.wav");
-        Body body0 = (Body) testSound.mockWorld.enemyHandler0.readMonster();
+        Body body0 = (Body) testSound.mockWorld.enemyConsciousness0.readBody();
         MonsterSource monsterSource1 = new MonsterSource(body0, new Source(), buffer, -1, -1, body0.readPosition().x, body0.readPosition().y, 0);
         PlayerSource playerSource = new PlayerSource(player, new Source(), buffer, -1, -1, player.readPosition().x, player.readPosition().y, 0);
         ArrayList<AbstractMonsterSource> monsterSources = new ArrayList<>();

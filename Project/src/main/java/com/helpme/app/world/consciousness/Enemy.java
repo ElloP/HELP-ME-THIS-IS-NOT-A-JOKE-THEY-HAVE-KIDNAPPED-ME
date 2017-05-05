@@ -8,33 +8,37 @@ import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.behaviour.DoNothing;
 import com.helpme.app.world.character.behaviour.IBehaviour;
-import com.helpme.app.world.level.ILevel;
 
 /**
  * Created by Jesper on 2017-04-12.
  */
 public class Enemy extends Consciousness {
     private IBehaviour behaviour;
+    private IBehaviour defaultBehavior;
 
-    public Enemy(IBody monster, ILevel level, IBehaviour behaviour){
-        super(monster, level);
+    public Enemy(IBody body, ISurroundings surroundings, IBehaviour behaviour, IBehaviour defaultBehavior){
+        super(body, surroundings);
         this.behaviour = behaviour == null ? new DoNothing() : behaviour;
+        this.defaultBehavior = defaultBehavior;
     }
 
     @Override
     public void update() {
-        Either<IBehaviour, IAction<IBody>> actionOrBehavior = behaviour.update(monster, surroundings);
-        if (actionOrBehavior instanceof Left){
-            this.behaviour = (IBehaviour) ((Left) actionOrBehavior).getValue();
-        } else {
-            IAction<IBody> action = (IAction<IBody>) ((Right) actionOrBehavior).getValue();
-            action.apply(monster);
+        Maybe<Either<IBehaviour, IAction<IBody>>> nothingOrJust = behaviour.update(body, surroundings);
+        if (nothingOrJust.isJust()) {
+            Either<IBehaviour, IAction<IBody>> actionOrBehavior = nothingOrJust.getValue();
+            if (actionOrBehavior instanceof Left){
+                this.behaviour = (IBehaviour) ((Left) actionOrBehavior).getValue();
+            } else {
+                IAction<IBody> action = (IAction<IBody>) ((Right) actionOrBehavior).getValue();
+                action.apply(body);
+            }
+        }
+        else {
+            behaviour = defaultBehavior;
         }
     }
 
-    public Enemy(IBody monster, ILevel level){
-        super(monster, level);
-    }
 
     private Maybe<IReadBody> getPlayer(){
         return surroundings.readPlayer();
