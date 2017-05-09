@@ -6,8 +6,10 @@ import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.target.ITarget;
+import com.helpme.app.world.tile.ITile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kopa on 2017-05-04.
@@ -23,4 +25,7 @@ public interface IReadSurroundings {
     Maybe<IReadBody> readBody(Vector2f position);
     Maybe<ITarget> getTarget(IBody body, Vector2f direction);
     Maybe<IReadBody> readFacing(IReadBody body);
+    IReadBody[] readMonsters();
+    Vector2f readStartingPoint();
+    Map<Vector2f, ITile> getTiles();
 }

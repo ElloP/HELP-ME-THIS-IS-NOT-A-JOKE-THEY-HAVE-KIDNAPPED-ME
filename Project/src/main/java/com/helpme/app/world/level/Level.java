@@ -298,4 +298,19 @@ public class Level implements ILevel {
         return readBody(destination);
 
     }
+
+    @Override
+    public IReadBody[] readMonsters() {
+        IReadBody[] result = new IReadBody[bodies.size()];
+        for(int i = 0; i < bodies.size(); i++){
+            result[i] = bodies.get(i);
+        }
+        return result;
+    }
+
+    @Override
+    public Vector2f readStartingPoint() {
+        return startingPosition;
+    }
+
 }

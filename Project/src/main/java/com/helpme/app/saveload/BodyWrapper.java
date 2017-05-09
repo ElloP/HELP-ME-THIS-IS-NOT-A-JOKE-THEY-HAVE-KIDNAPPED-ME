@@ -1,29 +1,23 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.item.IReadItem;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import com.helpme.app.world.character.IReadBody;
 import javax.xml.bind.annotation.XmlElement;
 
 
 /**
  * Created by Klas on 2017-04-29.
  */
-public class PlayerWrapper {
+public class BodyWrapper {
     private float maxHitpoints;
     private float currentHitpoints;
     private InventoryWrapper inventory;
     private Vector2Wrapper position;
     private Vector2Wrapper direction;
 
-    public PlayerWrapper(){}
+    public BodyWrapper(){}
 
 
-    public PlayerWrapper(IReadMonster monster){
+    public BodyWrapper(IReadBody monster){
         this.maxHitpoints = monster.readMaxHp();
         this.currentHitpoints = monster.readCurrentHp();
         this.inventory = new InventoryWrapper(monster.readInventory());

@@ -1,6 +1,6 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.IReadBody;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,19 +18,19 @@ public class SavePlayer {
      Unmarshaller unmarshaller;
 
     public SavePlayer() throws JAXBException {
-        this.context = JAXBContext.newInstance(PlayerWrapper.class);
+        this.context = JAXBContext.newInstance(BodyWrapper.class);
         this.marshaller = this.context.createMarshaller();
         this.unmarshaller = this.context.createUnmarshaller();
     }
 
-    public void marshall(IReadMonster player, String filePath) throws JAXBException {
+    public void marshall(IReadBody player, String filePath) throws JAXBException {
         File file = new File(filePath);
-        marshaller.marshal(new PlayerWrapper(player), file);
+        marshaller.marshal(new BodyWrapper(player), file);
     }
 
-    public IPlayerWrapper unmarshall(String filePath) throws JAXBException {
+    public BodyWrapper unmarshall(String filePath) throws JAXBException {
         File file = new File(filePath);
-        IPlayerWrapper pw = (IPlayerWrapper) unmarshaller.unmarshal(file);
+        BodyWrapper pw = (BodyWrapper) unmarshaller.unmarshal(file);
         return pw;
     }
 }

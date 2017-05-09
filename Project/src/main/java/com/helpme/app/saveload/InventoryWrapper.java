@@ -39,9 +39,9 @@ public class InventoryWrapper {
     }
     public String toString(){
         String result = "";
-        for(ItemWrapper item : items){
-            if(item != null) result += "\nItem: " + (item.getName());
-        }
+        //for(ItemWrapper item : items){
+        //    if(item != null) result += "\nItem: " + (item.getName());
+        //}
         return result;
     }
 }

@@ -1,28 +1,29 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.IReadBody;
 
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Created by Klas on 2017-05-01.
  */
-public class MonsterWrapper {
+public class EnemyWrapper {
     private boolean isDead;
     private String dialogue;
-    PlayerWrapper character;
+    BodyWrapper body;
 
-    public MonsterWrapper(){}
+    public EnemyWrapper(){}
 
-    public MonsterWrapper(IReadMonster monster){
+    public EnemyWrapper(IReadBody monster){
         this.isDead = monster.isDead();
         this.dialogue = "temporary"; //monster.getDialogue().toString(); //TODO (klas)
-        this.character = new PlayerWrapper(monster);
+        this.body = new BodyWrapper(monster);
     }
     @XmlElement(name="isDead")
     public boolean getIsDead(){
         return isDead;
     }
+    public void setIsDead(boolean isDead){this.isDead = isDead;}
     @XmlElement(name="Dialogue")
     public String getDialogue(){
         return dialogue;
@@ -31,12 +32,15 @@ public class MonsterWrapper {
         String result = "";
         result += "isDead: " + isDead;
         result += "\nDialogue: " + dialogue;
-        result += "\n" + character.toString();
+        result += "\n" + body.toString();
         return result;
     }
-    @XmlElement(name="Character")
-    public PlayerWrapper getCharacter(){
-        return character;
+    @XmlElement(name="Body")
+    public BodyWrapper getBody(){
+        return body;
+    }
+    public void setBody(BodyWrapper body){
+        this.body = body;
     }
 
 }

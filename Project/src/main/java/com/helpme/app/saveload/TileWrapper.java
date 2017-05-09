@@ -1,32 +1,33 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.IReadTile;
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.List;
 
 /**
  * Created by Klas on 2017-05-01.
  */
 public class TileWrapper {
-    //edges
+    private Vector2Wrapper position;
     private ItemWrapper[] items;
 
     public TileWrapper(){}
 
-    public TileWrapper(IReadTile tile){
+    public TileWrapper(IReadTile tile, Vector2f position){
+        this.position = new Vector2Wrapper(position);
         IReadItem[] tileItems = tile.readItems().getValue(); //TODO (klas) Fix maybe nothing case?
         this.items = new ItemWrapper[tileItems.length];
         for(int i = 0; i < tileItems.length; i++){
             this.items[i] = new ItemWrapper(tileItems[i]);
         }
     }
+    @XmlElement(name="position")
+    public Vector2Wrapper getPosition(){ return this.position; }
     @XmlElement(name="items")
     public ItemWrapper[] getItems(){
-        return items;
+        return this.items;
     }
     public void setItems(ItemWrapper[] items) {
         this.items = new ItemWrapper[items.length];

@@ -1,57 +1,74 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.level.IReadLevel;
+
+import com.helpme.app.utils.Vector2f;
+import com.helpme.app.world.character.IReadBody;
+import com.helpme.app.world.consciousness.IReadSurroundings;
+import com.helpme.app.world.tile.ITile;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Klas on 2017-05-02.
  */
 @XmlRootElement(name="Level")
 public class LevelWrapper {
-    private PlayerWrapper player;
-    private MonsterWrapper[] monsters;
+    private BodyWrapper player;
+    private EnemyWrapper[] monsters;
     private Vector2Wrapper startingPoint;
+    private TileWrapper[] tiles;
 
     public LevelWrapper(){}
 
-    public LevelWrapper(IReadLevel level){
-        this.player = new PlayerWrapper(level.readPlayer().getValue()); //TODO (klas) maybe check?
-        IReadMonster[] levelMonsters = level.readMonsters();
-        monsters = new MonsterWrapper[levelMonsters.length];
+    public LevelWrapper(IReadSurroundings level){
+        this.player = new BodyWrapper(level.readPlayer().getValue()); //TODO (klas) maybe check?
+        IReadBody[] levelMonsters = level.readMonsters();
+        monsters = new EnemyWrapper[levelMonsters.length];
         for(int i = 0; i < levelMonsters.length; i++){
-            monsters[i] = new MonsterWrapper(levelMonsters[i]);
+            monsters[i] = new EnemyWrapper(levelMonsters[i]);
+        }
+        Map<Vector2f, ITile> levelTiles = level.getTiles();
+        this.tiles = new TileWrapper[levelTiles.size()];
+        Iterator<Vector2f> keys = levelTiles.keySet().iterator();
+        int i = 0;
+        while(keys.hasNext()){
+            Vector2f tmp = keys.next();
+            this.tiles[i] = new TileWrapper(levelTiles.get(tmp),tmp);
+            i++;
         }
         startingPoint = new Vector2Wrapper(level.readStartingPoint());
     }
 
     @XmlElement(name="Player")
-    public PlayerWrapper getPlayer(){
-
+    public BodyWrapper getPlayer(){
         return this.player;
     }
-    public void setPlayer(PlayerWrapper player) {
+    public void setPlayer(BodyWrapper player) {
         this.player = player;
     }
     @XmlElement(name="Monsters")
-    public MonsterWrapper[] getMonsters() {
-        return monsters;
+    public EnemyWrapper[] getMonsters() {
+        return this.monsters;
     }
-    public void setMonsters(MonsterWrapper[] monsters) {
+    public void setMonsters(EnemyWrapper[] monsters) {
         this.monsters = monsters;
     }
     @XmlElement(name="StartingPoint")
-    public Vector2Wrapper getStartingPoint(){return startingPoint;}
+    public Vector2Wrapper getStartingPoint(){return this.startingPoint;}
+    @XmlElement(name="Tiles")
+    public TileWrapper[] getTiles() {return this.tiles; }
+    public void setTiles(TileWrapper[] tiles){ this.tiles = tiles;}
     public void setStartingPoint(Vector2Wrapper v){this.startingPoint = v;}
     public String toString(){
         String result = "";
         result += "Starting Point: " + startingPoint;
         result += "\nPlayer: " + player.toString();
-        for(MonsterWrapper m : monsters){
-            result += "\n Monster: "+ m.toString();
+        for(EnemyWrapper m : monsters){
+            result += "\nMonster: "+ m.toString();
         }
         return result;
     }
