@@ -16,7 +16,7 @@ public class EngineCore {
 
     private Game game;
 
-    private final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
+    private final double OPTIMAL_FRAMERATE = Time.getSecond() / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
 
     public EngineCore(Game game) {
         RenderCore.init();
@@ -36,35 +36,36 @@ public class EngineCore {
     }
 
     private void run() {
+        Time time = new Time();
         int frames = 0;
         long frameCounter = 0;
 
-        long currentTime = Time.getTime();
+        long currentTime = time.getTime();
 
         while(!engineStopped) {
-            long newTime = Time.getTime();
+            long newTime = time.getTime();
             long frameTime = newTime - currentTime;
             currentTime = newTime;
 
             while(frameTime > 0.0) {
 
-                Time.deltaTime = Math.min(frameTime, OPTIMAL_FRAMERATE);
-                frameCounter += Time.deltaTime;
-                frameTime -= Time.deltaTime;
+                time.deltaTime = Math.min(frameTime, OPTIMAL_FRAMERATE);
+                frameCounter += time.deltaTime;
+                frameTime -= time.deltaTime;
 
                 if (Window.shouldClose()) {
                     stop();
                 }
 
-                Time.deltaTime = Time.deltaTime / Time.SECOND; //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
+                time.deltaTime = time.deltaTime / Time.getSecond(); //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
 
-                game.input();
+                game.input(time);
 
                 InputHandler.updateStates();
 
-                game.update();
+                game.update(time);
 
-                if (frameCounter >= Time.SECOND) {
+                if (frameCounter >= Time.getSecond()) {
                     //TODO(Olle): render frames ingame instead of sout
                     System.out.println(frames);
                     frames = 0;

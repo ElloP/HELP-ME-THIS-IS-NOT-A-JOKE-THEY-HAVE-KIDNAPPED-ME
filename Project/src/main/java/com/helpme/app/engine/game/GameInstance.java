@@ -24,22 +24,22 @@ public class GameInstance extends Game {
 
     }
 
-    public void input() {
-        playerCameraInput();
+    public void input(Time time) {
+        playerCameraInput(time);
     }
 
     Vector3f t = new Vector3f();
     float xy = 0;
-    public void update() {
+    public void update(Time time) {
         //TODO(Olle): update game
 
-        xy += Time.deltaTime;
+        xy += time.getDeltaTime();
         t = new Vector3f(0,xy,0);
         tile.transform.rotate(t);
     }
-    private void playerCameraInput() {
-        float movAmt = (float) (10 * Time.deltaTime);
-        float rotAmt = (float) (250 * Time.deltaTime);
+    private void playerCameraInput(Time time) {
+        float movAmt = (float) (10 * time.getDeltaTime());
+        float rotAmt = (float) (250 * time.getDeltaTime());
 
         if(Input.isKeyboardKeyDown(InputKey.MoveForward))
             playerCamera.moveForward(movAmt);

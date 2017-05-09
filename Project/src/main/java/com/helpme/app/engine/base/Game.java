@@ -11,9 +11,9 @@ public abstract class Game {
         scene = new Scene();
     }
 
-    public abstract void input();
+    public abstract void input(Time time);
 
-    public abstract void update();
+    public abstract void update(Time time);
 
     public void draw() {
         scene.draw(activeCamera);
