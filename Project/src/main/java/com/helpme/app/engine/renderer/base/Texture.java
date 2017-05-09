@@ -1,10 +1,6 @@
 package com.helpme.app.engine.renderer.base;
 
-import org.lwjgl.system.MemoryUtil;
-
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
@@ -12,7 +8,6 @@ import static org.lwjgl.opengl.GL30.*;
  * Authored by Olle on 2017-04-18.
  */
 public class Texture {
-
     private int id;
 
     private boolean mipMapping = true;
@@ -38,18 +33,11 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D,0);
     }
 
-    public void generate(ByteBuffer image, int width, int height, int comp) {
-        IntBuffer idBuffer = MemoryUtil.memAllocInt(1);
-        idBuffer.put(id).flip();
-
-        glGenTextures(idBuffer);
-
+    public void generate(ByteBuffer image, int width, int height) {
+        id = glGenTextures();
+        
         bind();
-            if(comp == 3) { //Note(Olle): comp = nr of channels, if 3 use RGB, else use RGBA
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-            } else {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-            }
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, maxFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);

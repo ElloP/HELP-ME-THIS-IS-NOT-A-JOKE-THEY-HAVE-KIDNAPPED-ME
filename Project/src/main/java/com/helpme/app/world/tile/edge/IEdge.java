@@ -1,6 +1,6 @@
 package com.helpme.app.world.tile.edge;
 
-import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
 
 /**

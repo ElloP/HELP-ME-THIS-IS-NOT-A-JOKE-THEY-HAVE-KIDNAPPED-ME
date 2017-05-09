@@ -100,6 +100,15 @@ public class Matrix4f {
         return this;
     }
 
+    public Matrix4f multiply(Matrix4f other, Matrix4f dest) {
+        if(this.matrix.isAffine()) {
+            this.matrix.mulAffine(other.matrix, dest.matrix);
+        } else {
+            this.matrix.mul(other.matrix, dest.matrix);
+        }
+        return dest;
+    }
+
     public Matrix4f multiply(Vector3f v) {
         this.matrix.transformPosition(v.vector);
         return this;

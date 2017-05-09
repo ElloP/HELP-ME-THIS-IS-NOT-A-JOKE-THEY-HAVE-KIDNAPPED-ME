@@ -1,5 +1,6 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.game.GameInstance;
 import com.helpme.app.engine.input.InputHandler;
 import com.helpme.app.engine.renderer.base.RenderCore;
 
@@ -17,10 +18,10 @@ public class EngineCore {
 
     private final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
 
-    public EngineCore() {
+    public EngineCore(Game game) {
         RenderCore.init();
         engineStopped = false;
-        game = new Game();
+        this.game = game;
     }
 
 
@@ -95,11 +96,12 @@ public class EngineCore {
     }
 
     public static void main(String args[]) {
-        Window.initWindow(800,600, "Hello WorldScreen!");
+        Window.initWindow(1600,900, "Help me this is not a joke!");
         Window.disableVSync();
 
-        EngineCore ec = new EngineCore();
-        ec.start();
+        Game game = new GameInstance();
 
+        EngineCore ec = new EngineCore(game);
+        ec.start();
     }
 }

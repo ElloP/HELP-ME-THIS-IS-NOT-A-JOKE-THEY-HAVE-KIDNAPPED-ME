@@ -21,106 +21,106 @@ public class ItemTest {
     @Test
     public void testAttackEnemyWithInventoryItem() {
         Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.playerHandler.changePlayerActiveItem(0);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.usePlayerAttack();
-        assert (mockWorld.level.readMonster(new Vector2f(2, 2)).getValue().readHitpoints().y == 90);
+        mockWorld.player.changePlayerActiveItem(0);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.usePlayerAttack();
+        assert (mockWorld.level.readBody(new Vector2f(2, 2)).getValue().readHitpoints().y == 90);
     }
 
 
     @Test
     public void testAttackEnemyWithDefaultItem() {
         Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.playerHandler.changePlayerActiveItem(-1);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.usePlayerAttack();
-        assert (mockWorld.level.readMonster(new Vector2f(2, 2)).getValue().readHitpoints().y == 98);
+        mockWorld.player.changePlayerActiveItem(-1);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.usePlayerAttack();
+        assert (mockWorld.level.readBody(new Vector2f(2, 2)).getValue().readHitpoints().y == 98);
     }
 
     @Test
     public void testSelfieWithDefaultItem() {
         Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.playerHandler.changePlayerActiveItem(-1);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.usePlayerSelfie();
-        assert ( mockWorld.playerHandler.getPlayer().readHitpoints().y == 99);
+        mockWorld.player.changePlayerActiveItem(-1);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.usePlayerSelfie();
+        assert ( mockWorld.player.getPlayer().readHitpoints().y == 99);
     }
 
     @Test
     public void testSelfieWithInventoryItem() {
         Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.playerHandler.changePlayerActiveItem(0);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.usePlayerSelfie();
-        assert ( mockWorld.playerHandler.getPlayer().readHitpoints().y == 95);
+        mockWorld.player.changePlayerActiveItem(0);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.usePlayerSelfie();
+        assert ( mockWorld.player.getPlayer().readHitpoints().y == 95);
     }
 
     @Test
     public void testHealWithInventoryConsumable() {
         Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.playerHandler.changePlayerActiveItem(0);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.usePlayerSelfie();
-        mockWorld.playerHandler.usePlayerSelfie();
-        mockWorld.playerHandler.changePlayerActiveItem(1);
-        mockWorld.playerHandler.usePlayerSelfie();
-        mockWorld.playerHandler.usePlayerSelfie();
-        assert ( mockWorld.playerHandler.getPlayer().readHitpoints().y == 99);
+        mockWorld.player.changePlayerActiveItem(0);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.usePlayerSelfie();
+        mockWorld.player.usePlayerSelfie();
+        mockWorld.player.changePlayerActiveItem(1);
+        mockWorld.player.usePlayerSelfie();
+        mockWorld.player.usePlayerSelfie();
+        assert ( mockWorld.player.getPlayer().readHitpoints().y == 99);
     }
 
     @Test
     public void testPickupItems() {
         Vector2f tileStart = new Vector2f(6, 0);
         Vector2f tileTo = new Vector2f(8, 0);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.rotatePlayerRight();
-        mockWorld.playerHandler.movePlayerForward();
-        mockWorld.playerHandler.usePlayerPickupAll();
-        mockWorld.playerHandler.movePlayerForward();
-        mockWorld.playerHandler.movePlayerForward();
-        mockWorld.playerHandler.changePlayerActiveItem(2);
-        mockWorld.playerHandler.usePlayerAttack();
-        assert (mockWorld.level.readMonster(new Vector2f(9, 0)).getValue().readHitpoints().y == 60
-                &&  mockWorld.playerHandler.getPlayer().readPosition().equals(tileTo));
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.rotatePlayerRight();
+        mockWorld.player.movePlayerForward();
+        mockWorld.player.usePlayerPickupAll();
+        mockWorld.player.movePlayerForward();
+        mockWorld.player.movePlayerForward();
+        mockWorld.player.changePlayerActiveItem(2);
+        mockWorld.player.usePlayerAttack();
+        assert (mockWorld.level.readBody(new Vector2f(9, 0)).getValue().readHitpoints().y == 60
+                &&  mockWorld.player.getPlayer().readPosition().equals(tileTo));
     }
 
     @Test
     public void testExcessivePickup() {
         Vector2f tileStart = new Vector2f(1, 5);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.setPlayerItems(new IItem[]{null});
-        mockWorld.playerHandler.usePlayerPickupAll();
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.setPlayerItems(new IItem[]{null});
+        mockWorld.player.usePlayerPickupAll();
         assert (mockWorld.level.removeTileItems(tileStart).length == 2
-                &&  mockWorld.playerHandler.getPlayer().readInventory().readItem(0) != null);
+                &&  mockWorld.player.getPlayer().readInventory().readItem(0) != null);
     }
 
     @Test
     public void testStackablePickup() {
         Vector2f tileStart = new Vector2f(2, 5);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.setPlayerItems(new IItem[]{null});
-        mockWorld.playerHandler.usePlayerPickupAll();
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.setPlayerItems(new IItem[]{null});
+        mockWorld.player.usePlayerPickupAll();
         assert (mockWorld.level.removeTileItems(tileStart).length == 0
-                && mockWorld.playerHandler.getPlayer().readInventory().readItem(0).check(i -> ((Consumable)i).getStacks() == 6));
+                && mockWorld.player.getPlayer().readInventory().readItem(0).check(i -> ((Consumable)i).getStacks() == 6));
     }
 
     @Test
     public void testSinglePickup() {
         Vector2f tileStart = new Vector2f(3, 5);
-        mockWorld.playerHandler.setPlayerPosition(tileStart);
-        mockWorld.playerHandler.setPlayerItems(new IItem[]{null, null, null});
-        mockWorld.playerHandler.usePlayerPickupSingle(0);
-        mockWorld.playerHandler.usePlayerPickupSingle(2);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.setPlayerItems(new IItem[]{null, null, null});
+        mockWorld.player.usePlayerPickupSingle(0);
+        mockWorld.player.usePlayerPickupSingle(2);
         IItem[] items = mockWorld.level.removeTileItems(tileStart);
         assert (items[0] == null && items[2] == null && items[1].toString().equals("Item: Box")
-                &&  mockWorld.playerHandler.getPlayer().readInventory().readItem(0).check(i -> i.toString().equals("Consumable: Paper"))
-                &&  mockWorld.playerHandler.getPlayer().readInventory().readItem(1).check(i -> i.toString().equals("Item: Sword")));
+                &&  mockWorld.player.getPlayer().readInventory().readItem(0).check(i -> i.toString().equals("Consumable: Paper"))
+                &&  mockWorld.player.getPlayer().readInventory().readItem(1).check(i -> i.toString().equals("Item: Sword")));
     }
 
     @Test
     public void testSingleDrop() {
         Vector2f tileStart = new Vector2f(0, 0);
-        mockWorld.playerHandler.dropPlayerItem(0);
+        mockWorld.player.dropPlayerItem(0);
         IItem[] items = mockWorld.level.removeTileItems(tileStart);
         assert(items[0].toString().equals("Item: Club") && items.length == 1);
     }

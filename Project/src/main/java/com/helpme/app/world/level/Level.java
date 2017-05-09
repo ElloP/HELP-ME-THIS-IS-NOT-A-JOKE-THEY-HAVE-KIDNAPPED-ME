@@ -3,9 +3,9 @@ package com.helpme.app.world.level;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.character.IMonster;
-import com.helpme.app.world.character.IReadMonster;
-import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.character.IReadBody;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.ITile;
 import com.helpme.app.world.tile.ITileFactory;
@@ -23,14 +23,14 @@ import java.util.*;
  */
 
 public class Level implements ILevel {
-    private IMonster player;
+    private IBody player;
     private Map<Vector2f, ITile> tiles;
-    private List<IMonster> monsters;
+    private List<IBody> bodies;
     private Vector2f startingPosition;
 
-    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IMonster> monsters, Vector2f startingPosition) {
+    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IBody> bodies, Vector2f startingPosition) {
         this.tiles = new HashMap<>();
-        this.monsters = monsters == null ? new ArrayList<>() : monsters;
+        this.bodies = bodies == null ? new ArrayList<>() : bodies;
         this.startingPosition = startingPosition;
         generateLevel(tiles, doors);
     }
@@ -86,29 +86,34 @@ public class Level implements ILevel {
     }
 
 
-    public boolean isMonsterBlockedByEdge(IReadMonster monster, Vector2f direction) {
-        ITile tile = tiles.get(monster.readPosition());
-        return tile.getEdge(direction).check(e -> !monster.isTraversable(e));
+    public boolean isBlockedByEdge(IReadBody body, Vector2f direction) {
+        ITile tile = tiles.get(body.readPosition());
+        return tile.getEdge(direction).check(e -> !body.isTraversable(e));
     }
 
     public boolean isTileOccupied(Vector2f position) {
-        for (IMonster monster : monsters) {
-            if (monster.readPosition().equals(position) && !monster.isDead()) {
+        for (IBody body : bodies) {
+            if (body.readPosition().equals(position) && !body.isDead()) {
                 return true;
             }
         }
         return false;
     }
 
-    public Maybe<ITarget> getTarget(IMonster monster, Vector2f direction) {
-        Vector2f position = monster.readPosition();
-        Vector2f destination = Vector2f.add(monster.readPosition(), direction);
+    public Maybe<ITarget> getTarget(IBody body, Vector2f direction) {
+        Vector2f position = body.readPosition();
+        Vector2f destination = Vector2f.add(body.readPosition(), direction);
 
-        if (isMonsterBlockedByEdge(monster, direction)) {
+        if (isBlockedByEdge(body, direction)) {
             return Maybe.wrap(tiles.get(position).getEdge(direction));
         }
 
-        return Maybe.wrap(accessMonster(destination));
+        return Maybe.wrap(accessBody(destination));
+    }
+
+    @Override
+    public Map<Vector2f, ITile> getTiles() {
+        return this.tiles;
     }
 
     @Override
@@ -129,9 +134,9 @@ public class Level implements ILevel {
     }
 
     @Override
-    public void addMonster(IMonster monster) {
-        if (monster == null || monsters.contains(monster)) return;
-        monsters.add(monster);
+    public void addBody(IBody body) {
+        if (body == null || bodies.contains(body)) return;
+        bodies.add(body);
     }
 
     @Override
@@ -153,42 +158,28 @@ public class Level implements ILevel {
     }
 
     @Override
-    public void setPlayer(IMonster player) {
+    public void setPlayer(IBody player) {
         this.player = player;
         player.setPosition(startingPosition);
     }
 
     @Override
-    public Maybe<IReadMonster> readMonster(Vector2f position) {
-        return Maybe.wrap(accessMonster(position));
-    }
-
-    @Override
-    public IReadMonster[] readMonsters() {
-        IReadMonster[] result = new IReadMonster[monsters.size()];
-        for(int i = 0; i < monsters.size(); i++){
-            result[i] = monsters.get(i);
-        }
-        return result;
-    }
-
-    @Override
-    public Vector2f readStartingPoint() {
-        return startingPosition.clone();
+    public Maybe<IReadBody> readBody(Vector2f position) {
+        return Maybe.wrap(accessBody(position));
     }
 
 
-    private Maybe<IMonster> accessMonster(Vector2f position) {
-        for (IMonster monster : monsters) {
-            if (monster.readPosition().equals(position)) {
-                return new Just(monster);
+    private Maybe<IBody> accessBody(Vector2f position) {
+        for (IBody body : bodies) {
+            if (body.readPosition().equals(position)) {
+                return new Just(body);
             }
         }
         return new Nothing();
     }
 
     @Override
-    public Maybe<IReadMonster> readPlayer() {
+    public Maybe<IReadBody> readPlayer() {
         return new Just(player);
     }
 
@@ -248,13 +239,26 @@ public class Level implements ILevel {
         return result;
     }
 
+    public boolean isMovementAllowed(IReadBody body, Vector2f direction) {
+        Vector2f position = body.readPosition();
+        Vector2f destination = Vector2f.add(position, direction);
 
+        if (isBlockedByEdge(body, direction)) {
+            return false;
+        }
+
+        if (isTileOccupied(destination)) {
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
-    public boolean isDistanceFrom(IReadMonster monster, Vector2f destination, int longestDistance) {
+    public boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance) {
         ArrayList<Vector2f> positions = new ArrayList<>();
         ArrayList<Vector2f> notAdded = new ArrayList<>();
-        notAdded.add(monster.readPosition());
+        notAdded.add(body.readPosition());
         for (int i = 1; i <= longestDistance; i++) {
             ArrayList<Vector2f> temp = new ArrayList<>();
             for (Vector2f pos : notAdded) {
@@ -271,8 +275,8 @@ public class Level implements ILevel {
     }
 
     @Override
-    public void updateDeadMonster(Vector2f position){
-        for(IMonster m : monsters){
+    public void updateDeadBody(Vector2f position){
+        for(IBody m : bodies){
             if(m.readPosition().equals(position)){
                 addTileItems(position,m.getInventory().dropItems());
                 m.dropAllItems();
@@ -281,13 +285,17 @@ public class Level implements ILevel {
         }
     }
 
-    public String toString(){
-        String result = "";
-        Iterator it = tiles.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            result.concat("Tile at " + pair.getKey().toString() + "\n");
+    @Override
+    public Maybe<IReadBody> readFacing(IReadBody body){
+        Vector2f position = body.readPosition();
+        Vector2f direction = body.readDirection();
+        Vector2f destination = Vector2f.add(position, direction);
+
+        if (isBlockedByEdge(body, direction)) {
+            return new Nothing();
         }
-        return result;
+
+        return readBody(destination);
+
     }
 }
