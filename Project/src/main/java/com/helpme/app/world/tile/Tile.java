@@ -1,10 +1,9 @@
 package com.helpme.app.world.tile;
 
-import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
+import com.helpme.app.world.tile.edge.EdgeType;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
@@ -74,5 +73,15 @@ public class Tile implements ITile {
     @Override
     public Maybe<IReadItem> readItem(int index) {
         return Maybe.wrap(items.get(index));
+    }
+
+    @Override
+    public Map<Vector2f, IEdge> readEdges() {
+        return edges;
+    }
+
+    @Override
+    public EdgeType readEdge(Vector2f direction) {
+        return edges.get(direction).getType();
     }
 }

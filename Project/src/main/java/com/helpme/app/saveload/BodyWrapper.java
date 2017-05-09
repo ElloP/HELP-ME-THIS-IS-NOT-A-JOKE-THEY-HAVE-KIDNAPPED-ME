@@ -1,5 +1,7 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.world.character.Body;
+import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -7,9 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by Klas on 2017-04-29.
  */
-public class BodyWrapper {
-    private float maxHitpoints;
-    private float currentHitpoints;
+public class BodyWrapper implements ILoadable<IBody>{
+    private Vector2Wrapper hitpoints;
     private InventoryWrapper inventory;
     private Vector2Wrapper position;
     private Vector2Wrapper direction;
@@ -18,25 +19,17 @@ public class BodyWrapper {
 
 
     public BodyWrapper(IReadBody monster){
-        this.maxHitpoints = monster.readMaxHp();
-        this.currentHitpoints = monster.readCurrentHp();
+        this.hitpoints = new Vector2Wrapper(monster.readHitpoints());
         this.inventory = new InventoryWrapper(monster.readInventory());
         this.position = new Vector2Wrapper(monster.readPosition());
         this.direction = new Vector2Wrapper(monster.readDirection());
     }
-    @XmlElement(name="maxHp")
-    public float getMaxHitpoints() {
-        return maxHitpoints;
+    @XmlElement(name="Hitpoints")
+    public Vector2Wrapper getHitpoints() {
+        return this.hitpoints;
     }
-    public void setMaxHitpoints(float maxHitpoints) {
-        this.maxHitpoints = maxHitpoints;
-    }
-    @XmlElement(name="currHp")
-    public float getCurrentHitpoints() {
-        return currentHitpoints;
-    }
-    public void setCurrentHitpoints(float currentHitpoints) {
-        this.currentHitpoints = currentHitpoints;
+    public void setHitpoints(Vector2Wrapper hitpoints) {
+        this.hitpoints = hitpoints;
     }
     @XmlElement(name="inventory")
     public InventoryWrapper getInventory() {
@@ -63,11 +56,16 @@ public class BodyWrapper {
     @Override
     public String toString(){
         String result = "";
-        result += "maxHitpoints: " + maxHitpoints;
-        result += "\ncurrHitpoints: " + currentHitpoints;
+        result += "maxHitpoints: " + hitpoints.getX();
+        result += "\ncurrHitpoints: " + hitpoints.getY();
         result += inventory.toString();
         result += "\nposition: " + position;
         result += "\ndirection: " + direction;
         return result;
+    }
+
+    @Override
+    public IBody getObject() {
+        return new Body(inventory.getObject(),position.getObject(),direction.getObject(),hitpoints.getObject());
     }
 }

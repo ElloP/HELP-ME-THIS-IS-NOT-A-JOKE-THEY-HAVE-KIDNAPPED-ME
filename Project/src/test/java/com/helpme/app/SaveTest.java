@@ -1,6 +1,7 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockItem;
+import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.Mock.MockWorld1;
 import com.helpme.app.saveload.LevelWrapper;
 import com.helpme.app.saveload.BodyWrapper;
@@ -70,6 +71,7 @@ public class SaveTest {
     public void saveTest2() throws JAXBException {
         MockWorld1 mock = new MockWorld1();
         mock.player.setPlayerPosition(new Vector2f(1,1));
+        mock.level.readPlayer().getValue();
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
         marshaller.marshal(new LevelWrapper(mock.level), file);

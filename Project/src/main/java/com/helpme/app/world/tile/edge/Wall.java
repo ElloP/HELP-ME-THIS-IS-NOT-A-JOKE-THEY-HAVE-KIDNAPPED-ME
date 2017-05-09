@@ -7,11 +7,18 @@ import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
  */
 public class Wall implements IEdge {
 
+    public static EdgeType type = EdgeType.WALL;
+
     public boolean isDead(){ return false; }
 
     @Override
     public boolean accept(IEdgeVisitor visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public EdgeType getType() {
+        return this.type;
     }
 
     @Override
