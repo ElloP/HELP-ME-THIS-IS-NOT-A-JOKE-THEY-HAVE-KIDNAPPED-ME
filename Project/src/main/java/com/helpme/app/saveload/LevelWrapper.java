@@ -70,6 +70,9 @@ public class LevelWrapper {
         for(EnemyWrapper m : monsters){
             result += "\nMonster: "+ m.toString();
         }
+        for(TileWrapper t : tiles){
+            result += "\n" + t;
+        }
         return result;
     }
 }

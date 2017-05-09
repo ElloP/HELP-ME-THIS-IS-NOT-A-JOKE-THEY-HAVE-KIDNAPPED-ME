@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by Klas on 2017-05-02.
  */
-public class Vector2Wrapper {
+public class Vector2Wrapper implements ILoadable<Vector2f> {
     private float x;
     private float y;
     public Vector2Wrapper(){}
@@ -32,5 +32,10 @@ public class Vector2Wrapper {
     }
     public String toString(){
         return "(" + x + ", " + y + ")";
+    }
+
+    @Override
+    public Vector2f getObject() {
+        return new Vector2f(x,y);
     }
 }

@@ -10,6 +10,7 @@ import com.helpme.app.world.item.IReadItem;
 public interface IReadInventory {
     int getSize();
     Maybe<IReadItem[]> readItems();
+    Maybe<IReadItem[]> readKeychain();
     Maybe<IReadItem> readItem(int index);
     boolean hasItem(IItem item);
 }

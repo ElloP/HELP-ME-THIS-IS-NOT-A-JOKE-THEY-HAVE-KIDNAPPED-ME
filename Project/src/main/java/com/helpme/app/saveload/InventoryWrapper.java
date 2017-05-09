@@ -11,17 +11,30 @@ import javax.xml.bind.annotation.XmlElement;
 public class InventoryWrapper {
 
     ItemWrapper[] items;
+    ItemWrapper[] keys;
 
     public InventoryWrapper(){};
 
     public InventoryWrapper(IReadInventory inventory){
-        if(inventory == null || inventory.readItems().isNothing()){
-            items = new ItemWrapper[]{};
-        } else{
-            IReadItem[] list = inventory.readItems().getValue();
-            items = new ItemWrapper[list.length];
-            for(int i = 0; i < list.length; i++){
-                items[i] = new ItemWrapper(list[i]);
+        if(inventory == null){
+            if(inventory.readItems().isNothing()){
+                items = new ItemWrapper[]{};
+            } else{
+                IReadItem[] list = inventory.readItems().getValue();
+                items = new ItemWrapper[list.length];
+                for(int i = 0; i < list.length; i++){
+                    items[i] = new ItemWrapper(list[i]);
+                }
+            }
+
+            if(inventory.readKeychain().isNothing()){
+                keys = new ItemWrapper[]{};
+            } else {
+                IReadItem[] list = inventory.readKeychain().getValue();
+                keys = new ItemWrapper[list.length];
+                for(int i = 0; i < list.length; i++){
+                    keys[i] = new ItemWrapper(list[i]);
+                }
             }
         }
     }
@@ -32,10 +45,11 @@ public class InventoryWrapper {
             this.items[i] = new ItemWrapper(items[i].getName());
         }
     }
-
-    @XmlElement(name="item")
+    @XmlElement(name="keys")
+    public ItemWrapper[] getKeys(){ return this.keys;}
+    @XmlElement(name="items")
     public ItemWrapper[] getItems(){
-        return items;
+        return this.items;
     }
     public String toString(){
         String result = "";
