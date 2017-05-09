@@ -22,6 +22,10 @@ public class Quaternion {
         quaternion = new Quaternionf(x, y, z, w);
     }
 
+    public Quaternion clone() {
+        return new Quaternion(this);
+    }
+
     // ----------- Getters -----------
 
     public float x() {

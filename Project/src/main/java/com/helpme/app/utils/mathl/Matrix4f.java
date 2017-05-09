@@ -43,10 +43,19 @@ public class Matrix4f {
         //TODO(Olle): finish this constructor (if needed)
     }
 
+    public Matrix4f clone() {
+        return new Matrix4f(this);
+    }
+
     // ----------- Operations/functions -----------
 
     public Matrix4f add(Matrix4f other) {
         this.matrix.add(other.matrix);
+        return this;
+    }
+
+    public Matrix4f billboard(Vector3f objPos, Vector3f targetPos, Vector3f up) {
+        this.matrix.billboardCylindrical(objPos.vector, targetPos.vector, up.vector);
         return this;
     }
 

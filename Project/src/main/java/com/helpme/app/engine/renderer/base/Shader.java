@@ -67,6 +67,8 @@ public abstract class Shader {
 
     public abstract void updateUniforms(Transform transform, Camera camera);
 
+    public abstract void updateUniforms(Matrix4f model, Transform transform, Camera camera);
+
     private String readShader(String fileName) {
         return ResourceLoader.readFile(SHADERPATH + fileName);
     }

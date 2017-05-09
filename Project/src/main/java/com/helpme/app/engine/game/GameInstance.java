@@ -20,7 +20,9 @@ public class GameInstance extends Game {
     public GameInstance() {
         activeCamera = playerCamera;
 
-        scene.addChild(tile);
+        //scene.addChild(tile);
+        NPCView npcView = new NPCView();
+        scene.addChild(npcView);
 
     }
 
@@ -35,7 +37,7 @@ public class GameInstance extends Game {
 
         xy += time.getDeltaTime();
         t = new Vector3f(0,xy,0);
-        tile.transform.rotate(t);
+        //tile.transform.rotate(t);
     }
     private void playerCameraInput(Time time) {
         float movAmt = (float) (10 * time.getDeltaTime());

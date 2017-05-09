@@ -45,6 +45,10 @@ public class Vector3f {
         this(vec.vector);
     }
 
+    public Vector3f clone() {
+        return new Vector3f(this);
+    }
+
     // ----------- Getters/Setters -----------
 
     public Vector3f toRadians() {
