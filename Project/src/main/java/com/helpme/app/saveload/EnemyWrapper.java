@@ -1,6 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.world.character.IReadBody;
+import com.helpme.app.world.consciousness.Enemy;
 import com.sun.org.apache.bcel.internal.generic.ILOAD;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -8,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by Klas on 2017-05-01.
  */
-public class EnemyWrapper {
+public class EnemyWrapper implements ILoadable<Enemy>{
     private boolean isDead;
     private String dialogue;
     BodyWrapper body;
@@ -44,4 +45,8 @@ public class EnemyWrapper {
         this.body = body;
     }
 
+    @Override
+    public Enemy getObject() {
+        return null; //fuck this
+    }
 }

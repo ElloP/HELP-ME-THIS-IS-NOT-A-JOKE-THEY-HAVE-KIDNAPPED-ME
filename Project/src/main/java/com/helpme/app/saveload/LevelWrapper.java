@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Klas on 2017-05-02.
@@ -18,7 +17,7 @@ import java.util.Set;
 @XmlRootElement(name="Level")
 public class LevelWrapper {
     private BodyWrapper player;
-    private EnemyWrapper[] monsters;
+    private BodyWrapper[] monsters;
     private Vector2Wrapper startingPoint;
     private TileWrapper[] tiles;
 
@@ -27,9 +26,9 @@ public class LevelWrapper {
     public LevelWrapper(IReadSurroundings level){
         this.player = new BodyWrapper(level.readPlayer().getValue()); //TODO (klas) maybe check?
         IReadBody[] levelMonsters = level.readMonsters();
-        monsters = new EnemyWrapper[levelMonsters.length];
+        monsters = new BodyWrapper[levelMonsters.length];
         for(int i = 0; i < levelMonsters.length; i++){
-            monsters[i] = new EnemyWrapper(levelMonsters[i]);
+            monsters[i] = new BodyWrapper(levelMonsters[i]);
         }
         Map<Vector2f, ITile> levelTiles = level.getTiles();
         this.tiles = new TileWrapper[levelTiles.size()];
@@ -51,10 +50,10 @@ public class LevelWrapper {
         this.player = player;
     }
     @XmlElement(name="Monsters")
-    public EnemyWrapper[] getMonsters() {
+    public BodyWrapper[] getMonsters() {
         return this.monsters;
     }
-    public void setMonsters(EnemyWrapper[] monsters) {
+    public void setMonsters(BodyWrapper[] monsters) {
         this.monsters = monsters;
     }
     @XmlElement(name="StartingPoint")
@@ -67,7 +66,7 @@ public class LevelWrapper {
         String result = "";
         result += "Starting Point: " + startingPoint;
         result += "\nPlayer: " + player.toString();
-        for(EnemyWrapper m : monsters){
+        for(BodyWrapper m : monsters){
             result += "\nMonster: "+ m.toString();
         }
         for(TileWrapper t : tiles){

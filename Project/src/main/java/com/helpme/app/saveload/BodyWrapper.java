@@ -14,15 +14,27 @@ public class BodyWrapper implements ILoadable<IBody>{
     private InventoryWrapper inventory;
     private Vector2Wrapper position;
     private Vector2Wrapper direction;
+    private boolean dead;
 
     public BodyWrapper(){}
 
 
     public BodyWrapper(IReadBody monster){
+        this.dead = monster.isDead();
         this.hitpoints = new Vector2Wrapper(monster.readHitpoints());
         this.inventory = new InventoryWrapper(monster.readInventory());
         this.position = new Vector2Wrapper(monster.readPosition());
         this.direction = new Vector2Wrapper(monster.readDirection());
+    }
+
+
+
+    @XmlElement(name="Dead")
+    public boolean getDead() {
+        return dead;
+    }
+    public void setDead(boolean dead){
+        this.dead = dead;
     }
     @XmlElement(name="Hitpoints")
     public Vector2Wrapper getHitpoints() {
