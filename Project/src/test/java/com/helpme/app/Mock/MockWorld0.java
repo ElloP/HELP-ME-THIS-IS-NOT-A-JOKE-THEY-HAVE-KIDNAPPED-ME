@@ -50,7 +50,7 @@ public class MockWorld0 {
         tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
         tiles.add(new Tuple2<>(new Vector2f(2, 2), null));
         tiles.add(new Tuple2<>(new Vector2f(3, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 3), null));
         tiles.add(new Tuple2<>(new Vector2f(2, 3), null));
         tiles.add(new Tuple2<>(new Vector2f(3, 3), null));
 

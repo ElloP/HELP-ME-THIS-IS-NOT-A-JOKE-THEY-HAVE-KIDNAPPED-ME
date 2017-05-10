@@ -27,6 +27,16 @@ public class EdgeTest {
     }
 
     @Test
+    public void testWalkBackThroughUnlockedDoor() {
+        Vector2f tileStart = new Vector2f(7, 2);
+        mockWorld.player.setPlayerPosition(tileStart);
+        mockWorld.player.rotatePlayerRight();
+        mockWorld.player.movePlayerForward();
+        mockWorld.player.movePlayerBackward();
+        assert ( mockWorld.player.getPlayer().readPosition().equals(tileStart));
+    }
+
+    @Test
     public void testBlockedByLockedDoor() {
         Vector2f tileStart = new Vector2f(7, 2);
          mockWorld.player.setPlayerPosition(tileStart);

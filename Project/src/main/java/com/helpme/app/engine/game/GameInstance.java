@@ -23,7 +23,7 @@ public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
     public GameInstance() {
         activeCamera = playerCamera;
-        scene.addChild(new com.helpme.app.engine.game.Level(testLevel()));
+        scene.addChild(new LevelController(testLevel()));
     }
 
     private ILevel testLevel(){
@@ -40,7 +40,7 @@ public class GameInstance extends Game {
         tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
         tiles.add(new Tuple2<>(new Vector2f(2, 2), null));
         tiles.add(new Tuple2<>(new Vector2f(3, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 3), null));
         tiles.add(new Tuple2<>(new Vector2f(2, 3), null));
         tiles.add(new Tuple2<>(new Vector2f(3, 3), null));
 
@@ -74,12 +74,12 @@ public class GameInstance extends Game {
         doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, null)));
 
         /**
-         *    [x][x][x]   [ ]   [e][ ]
+         *    [ ][ ][ ]   [ ]   [ ][ ]
          *
          *    [ ][ ][ ]
-         *    [ ][e][ ]      [ |[ ]/ ]| ][ ]
+         *    [ ][ ][ ]      [ |[ ]/ ]| ][ ]
          *    [ ][ ][ ]
-         * [p][ ][ ]         [ ][x]| ][e]
+         * [p][ ][ ]         [ ][ ]| ][ ]
          */
 
 

@@ -2,6 +2,7 @@ package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.world.character.target.ITarget;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,7 +68,7 @@ public class MoveTest {
         mockWorld.player.movePlayerForward();
         Vector2f monsterPos = new Vector2f(Vector2f.add(tileStart,mockWorld.player.getPlayer().readDirection()));
         //assert (monsterPos.equals(new Vector2f(2,2)));
-        while(!mockWorld.level.readBody(monsterPos).check(m -> m.isDead())){
+        while(!mockWorld.level.readBody(monsterPos).check(ITarget::isDead)){
             mockWorld.player.usePlayerAttack();
         }
         mockWorld.player.movePlayerForward();
