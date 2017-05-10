@@ -27,15 +27,20 @@ public final class Resources {
     }
 
 
-    public final static int[] floor = new int[]{
-            0, 3, 2,
-            3, 0, 1
-    };
+    public final static int[] floor() {
+        return new int[]{
+                0, 3, 2,
+                3, 0, 1
+        };
+    }
 
-    public final static int[] wall = new int[]{
-            0, 1, 2,
-            2, 3, 0
-    };
+    public final static int[] wall() {
+        return new int[]{
+                0, 1, 2,
+                2, 3, 0
+        };
+    }
+
 
     public static Vertex[] floorVert() {
         return new Vertex[]{
@@ -46,15 +51,11 @@ public final class Resources {
         };
     }
 
-    public static Vertex[] wallVert()
-    {
+    public static Vertex[] wallVert() {
         return new Vertex[]{
                 new Vertex(-3.0f, -1.0f, 3.0f, 0.0f, 0.0f),
-
                 new Vertex(3.0f, -1.0f, 3.0f, 1.0f, 0.0f),
-
                 new Vertex(3.0f, 3.0f, 3.0f, 1.0f, 1.0f),
-
                 new Vertex(-3.0f, 3.0f, 3.0f, 0.0f, 1.0f)
         };
     }

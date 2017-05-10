@@ -9,7 +9,7 @@ import com.helpme.app.world.tile.edge.Wall;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class Traverse implements IEdgeVisitor {
+public final class Traverse implements IEdgeVisitor {
     private final Maybe<IKeyChain> keychain;
 
     public Traverse(IKeyChain keychain){

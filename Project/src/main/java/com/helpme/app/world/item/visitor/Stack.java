@@ -7,7 +7,7 @@ import com.helpme.app.world.item.Key;
 /**
  * Created by kopa on 2017-04-10.
  */
-public class Stack implements IItemVisitor {
+public final class Stack implements IItemVisitor {
     private final int amount;
 
     public Stack(int amount){

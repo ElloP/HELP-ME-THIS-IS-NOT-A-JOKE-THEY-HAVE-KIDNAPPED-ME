@@ -9,7 +9,7 @@ import com.helpme.app.world.item.effect.IEffect;
 /**
  * Created by kopa on 2017-04-10.
  */
-public class Selfie implements IItemVisitor {
+public final class Selfie implements IItemVisitor {
     private final ITarget self;
 
     public Selfie(ITarget self){

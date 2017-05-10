@@ -8,7 +8,7 @@ import com.helpme.app.world.item.Key;
 /**
  * Created by kopa on 2017-04-10.
  */
-public class Pickup implements IItemVisitor {
+public final class Pickup implements IItemVisitor {
     private final IInventory inventory;
 
     public Pickup(IInventory inventory) {

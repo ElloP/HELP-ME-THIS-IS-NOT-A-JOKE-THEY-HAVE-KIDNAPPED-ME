@@ -9,7 +9,7 @@ import com.helpme.app.world.item.effect.IEffect;
 /**
  * Created by kopa on 2017-04-10.
  */
-public class Attack implements IItemVisitor {
+public final class Attack implements IItemVisitor {
     private final ITarget target;
 
     public Attack(ITarget target) {
