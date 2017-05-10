@@ -12,6 +12,9 @@ import java.util.Hashtable;
  * Created by kopa on 2017-05-10.
  */
 public final class Resources {
+    private Resources() {
+    }
+
     private static final Dictionary<String, Texture> textures = new Hashtable<String, Texture>() {
         {
             put("floor", TextureLoader.loadTexture("floor.jpg"));

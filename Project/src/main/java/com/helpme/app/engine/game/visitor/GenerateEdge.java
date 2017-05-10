@@ -1,6 +1,8 @@
-package com.helpme.app.engine.game;
+package com.helpme.app.engine.game.visitor;
 
 import com.helpme.app.engine.base.GameObject;
+import com.helpme.app.engine.game.Quad;
+import com.helpme.app.engine.game.Resources;
 import com.helpme.app.engine.renderer.base.Texture;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.tile.edge.*;

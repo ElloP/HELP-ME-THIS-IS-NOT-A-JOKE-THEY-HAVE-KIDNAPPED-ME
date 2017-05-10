@@ -2,10 +2,9 @@ package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
-import com.helpme.app.engine.renderer.base.Texture;
+import com.helpme.app.engine.game.visitor.GenerateEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.utils.maybe.Container;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.tile.ITile;
 import com.helpme.app.world.tile.edge.IEdge;
