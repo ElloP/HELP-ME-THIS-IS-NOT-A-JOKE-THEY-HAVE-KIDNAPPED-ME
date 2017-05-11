@@ -9,11 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by Klas on 2017-04-29.
  */
-public class BodyWrapper implements ILoadable<IBody>{
+public class BodyWrapper implements IBodyWrapper{
     private Vector2Wrapper hitpoints;
     private InventoryWrapper inventory;
     private Vector2Wrapper position;
     private Vector2Wrapper direction;
+    private Vector2Wrapper startingPoint;
     private boolean dead;
 
     public BodyWrapper(){}
@@ -25,10 +26,17 @@ public class BodyWrapper implements ILoadable<IBody>{
         this.inventory = new InventoryWrapper(monster.readInventory());
         this.position = new Vector2Wrapper(monster.readPosition());
         this.direction = new Vector2Wrapper(monster.readDirection());
+        this.startingPoint = new Vector2Wrapper(monster.readStartingPosition());
     }
 
 
-
+    @XmlElement(name="StartingPoint")
+    public Vector2Wrapper getStartingPoint(){
+        return startingPoint;
+    }
+    public void setStartingPoint(Vector2Wrapper sp){
+        this.startingPoint = sp;
+    }
     @XmlElement(name="Dead")
     public boolean getDead() {
         return dead;

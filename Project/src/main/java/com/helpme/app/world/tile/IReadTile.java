@@ -15,5 +15,5 @@ public interface IReadTile {
     Maybe<IReadItem[]> readItems();
     Maybe<IReadItem> readItem(int index);
     Map<Vector2f,IEdge> readEdges();
-    EdgeType readEdge(Vector2f direction);
+    IEdge readEdge(Vector2f direction);
 }

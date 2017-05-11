@@ -22,7 +22,7 @@ public abstract class Consciousness implements IConsciousness {
         this.surroundings = surroundings;
     }
 
-    public IReadBody readBody(){
+    public IBody readBody(){
         return body;
     }
 

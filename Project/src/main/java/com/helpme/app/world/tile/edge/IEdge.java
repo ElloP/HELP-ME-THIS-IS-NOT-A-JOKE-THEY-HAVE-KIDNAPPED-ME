@@ -14,7 +14,6 @@ public interface IEdge extends ITarget{
     EdgeType getType();
     static Maybe<IEdge> createEdge(EdgeType edge){
         switch (edge){
-            //case DOOR: return new Door(false,null); TODO(KLAS)
             case WALL: return Maybe.wrap(new Wall());
             case OPENING: return Maybe.wrap(new Opening());
             default: return new Nothing<>();

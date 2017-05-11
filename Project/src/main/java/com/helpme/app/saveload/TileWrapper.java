@@ -21,7 +21,7 @@ import java.util.Map;
 public class TileWrapper implements ILoadable<ITile> {
     private Vector2Wrapper position;
     private ItemWrapper[] items;
-    private EdgeType north,east,south,west;
+    private EdgeWrapper north,east,south,west;
 
     //TODO (klas) Save edges
     public TileWrapper(){}
@@ -33,10 +33,10 @@ public class TileWrapper implements ILoadable<ITile> {
         for(int i = 0; i < tileItems.length; i++){
             this.items[i] = new ItemWrapper(tileItems[i]);
         }
-        this.north = tile.readEdge(Vector2f.up);
-        this.east = tile.readEdge(Vector2f.right);
-        this.south = tile.readEdge(Vector2f.down);
-        this.west = tile.readEdge(Vector2f.left);
+        this.north = new EdgeWrapper(tile.readEdge(Vector2f.up));
+        this.east = new EdgeWrapper(tile.readEdge(Vector2f.right));
+        this.south = new EdgeWrapper(tile.readEdge(Vector2f.down));
+        this.west = new EdgeWrapper(tile.readEdge(Vector2f.left));
 
     }
     @XmlElement(name="position")
@@ -53,37 +53,37 @@ public class TileWrapper implements ILoadable<ITile> {
         }
     }
     @XmlElement(name="north")
-    public EdgeType getNorth(){
+    public EdgeWrapper getNorth(){
         return this.north;
     }
 
-    public void setNorth(EdgeType north) {
+    public void setNorth(EdgeWrapper north) {
         this.north = north;
     }
 
-    public void setEast(EdgeType east) {
+    public void setEast(EdgeWrapper east) {
         this.east = east;
     }
 
-    public void setSouth(EdgeType south) {
+    public void setSouth(EdgeWrapper south) {
         this.south = south;
     }
 
-    public void setWest(EdgeType west) {
+    public void setWest(EdgeWrapper west) {
         this.west = west;
     }
 
     @XmlElement(name="east")
 
-    public EdgeType getEast(){
+    public EdgeWrapper getEast(){
         return this.east;
     }
     @XmlElement(name="south")
-    public EdgeType getSouth(){
+    public EdgeWrapper getSouth(){
         return this.south;
     }
     @XmlElement(name="west")
-    public EdgeType getWest(){
+    public EdgeWrapper getWest(){
         return this.west;
     }
     public String toString(){
@@ -107,16 +107,15 @@ public class TileWrapper implements ILoadable<ITile> {
             }
         }
         Map<Vector2f, IEdge> edges = new HashMap<Vector2f, IEdge>();
-        Maybe<IEdge> edge = IEdge.createEdge(north);
-        if(edge.isJust()) edges.put(Vector2f.up, edge.getValue());
-        edge = IEdge.createEdge(east);
-        if(edge.isJust()) edges.put(Vector2f.right, edge.getValue());
-        edge = IEdge.createEdge(south);
-        if(edge.isJust()) edges.put(Vector2f.down, edge.getValue());
-        edge = IEdge.createEdge(west);
-        if(edge.isJust()) edges.put(Vector2f.left, edge.getValue());
+        edges.put(Vector2f.up, north.getObject());
+        edges.put(Vector2f.right, east.getObject());
+        edges.put(Vector2f.down, south.getObject());
+        edges.put(Vector2f.left, west.getObject());
 
         return new Tile(tmp, edges);
 
+    }
+    public Vector2f getLocation(){
+        return this.position.getObject();
     }
 }

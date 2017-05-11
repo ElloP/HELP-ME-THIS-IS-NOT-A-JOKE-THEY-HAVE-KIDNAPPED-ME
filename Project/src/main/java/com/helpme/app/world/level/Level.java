@@ -35,6 +35,11 @@ public class Level implements ILevel {
         generateLevel(tiles, doors);
     }
 
+    public Level(Map<Vector2f, ITile> tiles, Vector2f startingPosition){
+        this.tiles = tiles;
+        this.startingPosition = startingPosition;
+    }
+
     private void generateLevel(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
         generateTiles(tiles);
         generateEdges();
