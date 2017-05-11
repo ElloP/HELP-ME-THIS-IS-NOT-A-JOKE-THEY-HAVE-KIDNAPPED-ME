@@ -33,36 +33,46 @@ public class Body extends Observable implements IBody {
 
     //Right now just for testing
     public Body(Vector2f position, Vector2f direction, IDialogue dialogue) {
-        this.dialogue = dialogue;
-        this.position = position;
-        this.direction = direction;
-        this.startingPosition = position;
+        this(null, position, direction, null, dialogue);
 
     }
 
     public Body(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
-        this(inventory, position, direction, new Vector2f(hitpoints, hitpoints));
+        this(inventory, position, direction, new Vector2f(hitpoints, hitpoints), null);
     }
 
     public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
+        this(inventory, position, direction, hitpoints, null);
+    }
+
+    public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints, IDialogue dialogue) {
         this.inventory = inventory == null ? new Inventory(null, null, null) : inventory;
         this.position = position == null ? Vector2f.zero : position;
         this.direction = direction == null ? Vector2f.up : direction;
         this.hitpoints = hitpoints == null ? Vector2f.zero : hitpoints;
         this.startingPosition = position;
+        this.dialogue = dialogue;
     }
 
     @Override
     public void attack(ITarget target) {
         if (target == null) return;
-        IItem activeItem = inventory.getActiveItem();
-        activeItem.accept(new Attack(target));
+        Maybe<IItem> maybeItem = getCurrentItem();
+        maybeItem.run(i -> i.accept(new Attack(target)));
+    }
+
+    private Maybe<IItem> getCurrentItem(){
+        Maybe<IItem> maybeItem = inventory.getActiveItem();
+        if(maybeItem.isJust()){
+            return maybeItem;
+        }
+        return inventory.getDefaultItem();
     }
 
     @Override
     public void selfie() {
-        IItem activeItem = inventory.getActiveItem();
-        activeItem.accept(new Selfie(this));
+        Maybe<IItem> activeItem = getCurrentItem();
+        activeItem.run(i -> i.accept(new Selfie(this)));
     }
 
     @Override
@@ -140,8 +150,9 @@ public class Body extends Observable implements IBody {
     public Body clone() {
         return new Body(inventory.clone(), position.clone(), direction.clone(), readHitpoints());
     }
+
     @Override
-    public float readMaxHp(){
+    public float readMaxHp() {
         return hitpoints.x;
     }
 
@@ -149,6 +160,7 @@ public class Body extends Observable implements IBody {
     public float readCurrentHp() {
         return hitpoints.y;
     }
+
     @Override
     public Tuple2<String, String[]> getDialogue() {
         return dialogue.initiateDialogue();

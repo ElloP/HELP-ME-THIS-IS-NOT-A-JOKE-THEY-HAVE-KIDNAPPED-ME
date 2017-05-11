@@ -9,7 +9,8 @@ import com.helpme.app.utils.interfaces.ICloneable;
  */
 public interface IInventory extends IKeyChain, ICloneable<IInventory>, IReadInventory {
     Maybe<IItem> getItem(int index);
-    IItem getActiveItem();
+    Maybe<IItem> getActiveItem();
+    Maybe<IItem> getDefaultItem();
     void setItems(Maybe<IItem[]> items);
     boolean addItem(IItem item);
     boolean deleteItem(IItem item);

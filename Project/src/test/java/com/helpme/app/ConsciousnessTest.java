@@ -1,46 +1,14 @@
 package com.helpme.app;
 
-import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.target.ITarget;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by Jacob on 2017-04-11.
+ * Created by kopa on 2017-05-11.
  */
-public class MoveTest {
-    private MockWorld0 mockWorld;
-
-    @Before
-    public void setUp() {
-        mockWorld = new MockWorld0();
-    }
-
-    @Test
-    public void testRotateRight() {
-        mockWorld.player.rotatePlayerRight();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.right));
-         mockWorld.player.rotatePlayerRight();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.down));
-         mockWorld.player.rotatePlayerRight();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.left));
-         mockWorld.player.rotatePlayerRight();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.up));
-    }
-
-    @Test
-    public void testRotateLeft() {
-         mockWorld.player.rotatePlayerLeft();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.left));
-         mockWorld.player.rotatePlayerLeft();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.down));
-         mockWorld.player.rotatePlayerLeft();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.right));
-         mockWorld.player.rotatePlayerLeft();
-        assert ( mockWorld.player.getPlayer().readDirection().equals(Vector2f.up));
-    }
-
+public class ConsciousnessTest {
+    /*
     @Test
     public void testBlockedByMonster() {
         Vector2f tileStart = new Vector2f(2, 1);
@@ -73,6 +41,5 @@ public class MoveTest {
         }
         mockWorld.player.movePlayerForward();
         assert (mockWorld.player.getPlayer().readPosition().equals(monsterPos));
-
-    }
+    }*/
 }

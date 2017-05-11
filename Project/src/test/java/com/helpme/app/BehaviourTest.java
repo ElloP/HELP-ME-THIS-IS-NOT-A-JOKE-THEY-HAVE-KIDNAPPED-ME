@@ -11,7 +11,7 @@ import org.junit.Test;
 /**
  * Created by Jesper on 2017-04-14.
  */
-public class BodyTest {
+public class BehaviourTest {
     private MockWorld1 mockWorld;
 
     @Before

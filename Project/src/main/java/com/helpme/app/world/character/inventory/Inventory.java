@@ -40,14 +40,14 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public IItem getActiveItem() {
-        try {
-            IItem item = items[activeItemIndex];
-            return item == null ? defaultItem : item;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("using default weapon");
-            return defaultItem;
-        }
+    public Maybe<IItem> getActiveItem() {
+        if(activeItemIndex < 0 || items == null || activeItemIndex >= items.length) return new Nothing();
+        return Maybe.wrap(items[activeItemIndex]);
+    }
+
+    @Override
+    public Maybe<IItem> getDefaultItem() {
+        return Maybe.wrap(defaultItem);
     }
 
     @Override
