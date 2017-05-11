@@ -12,7 +12,7 @@ public class Wall implements IEdge {
     public boolean isDead(){ return false; }
 
     @Override
-    public boolean accept(IEdgeVisitor visitor) {
+    public <T> T accept(IEdgeVisitor<T> visitor) {
         return visitor.visit(this);
     }
 

@@ -17,7 +17,7 @@ public final class Selfie implements IItemVisitor {
     }
 
     @Override
-    public boolean visit(Consumable consumable) {
+    public Boolean visit(Consumable consumable) {
         if(consumable.isEmpty()) return false;
         consumable.removeStack();
         apply(consumable);
@@ -25,13 +25,13 @@ public final class Selfie implements IItemVisitor {
     }
 
     @Override
-    public boolean visit(Item item) {
+    public Boolean visit(Item item) {
         apply(item);
         return true;
     }
 
     @Override
-    public boolean visit(Key key) {
+    public Boolean visit(Key key) {
         return false;
     }
 

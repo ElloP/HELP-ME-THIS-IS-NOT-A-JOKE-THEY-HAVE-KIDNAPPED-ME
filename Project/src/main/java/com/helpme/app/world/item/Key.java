@@ -12,7 +12,7 @@ public class Key extends Item implements IItem {
     }
 
     @Override
-    public boolean accept(IItemVisitor visitor) {
+    public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
     }
 

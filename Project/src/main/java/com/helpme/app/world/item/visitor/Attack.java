@@ -17,21 +17,21 @@ public final class Attack implements IItemVisitor {
     }
 
     @Override
-    public boolean visit(Consumable consumable) {
+    public Boolean visit(Consumable consumable) {
         if(consumable.isEmpty()) return false;
         consumable.removeStack();
         return visit(consumable);
     }
 
     @Override
-    public boolean visit(Item item) {
+    public Boolean visit(Item item) {
         IEffect effect = item.getAttackEffect();
         effect.apply(target);
         return true;
     }
 
     @Override
-    public boolean visit(Key key) {
+    public Boolean visit(Key key) {
         return false;
     }
 }

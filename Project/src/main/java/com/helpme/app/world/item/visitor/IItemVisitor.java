@@ -7,8 +7,8 @@ import com.helpme.app.world.item.Key;
 /**
  * Created by kopa on 2017-04-10.
  */
-public interface IItemVisitor {
-    boolean visit(Consumable consumable);
-    boolean visit(Item item);
-    boolean visit(Key key);
+public interface IItemVisitor <T> {
+    T visit(Consumable consumable);
+    T visit(Item item);
+    T visit(Key key);
 }

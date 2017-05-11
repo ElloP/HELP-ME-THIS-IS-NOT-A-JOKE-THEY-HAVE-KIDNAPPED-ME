@@ -7,8 +7,8 @@ import com.helpme.app.world.tile.edge.Wall;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IEdgeVisitor {
-    boolean visit(Door door);
-    boolean visit(Wall wall);
-    boolean visit(Opening opening);
+public interface IEdgeVisitor<T> {
+    T visit(Door door);
+    T visit(Wall wall);
+    T visit(Opening opening);
 }

@@ -10,7 +10,7 @@ import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
  * Created by Jacob on 2017-03-30.
  */
 public interface IEdge extends ITarget{
-    boolean accept(IEdgeVisitor visitor);
+    <T> T accept(IEdgeVisitor<T> visitor);
     EdgeType getType();
     static Maybe<IEdge> createEdge(EdgeType edge){
         switch (edge){

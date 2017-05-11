@@ -42,7 +42,7 @@ public class Consumable extends Item {
     }
 
     @Override
-    public boolean accept(IItemVisitor visitor) {
+    public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
     }
 

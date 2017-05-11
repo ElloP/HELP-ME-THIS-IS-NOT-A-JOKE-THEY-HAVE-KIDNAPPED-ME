@@ -8,7 +8,7 @@ import com.helpme.app.world.item.Key;
 /**
  * Created by kopa on 2017-04-10.
  */
-public final class Pickup implements IItemVisitor {
+public final class Pickup implements IItemVisitor<Boolean> {
     private final IInventory inventory;
 
     public Pickup(IInventory inventory) {
@@ -16,7 +16,7 @@ public final class Pickup implements IItemVisitor {
     }
 
     @Override
-    public boolean visit(Consumable consumable) {
+    public Boolean visit(Consumable consumable) {
         if(inventory.hasItem(consumable)){
             return inventory.addStack(consumable, consumable.getStacks());
         }
@@ -24,12 +24,12 @@ public final class Pickup implements IItemVisitor {
     }
 
     @Override
-    public boolean visit(Item item) {
+    public Boolean visit(Item item) {
         return inventory.addItem(item);
     }
 
     @Override
-    public boolean visit(Key key) {
+    public Boolean visit(Key key) {
         inventory.addKey(key);
         return true;
     }

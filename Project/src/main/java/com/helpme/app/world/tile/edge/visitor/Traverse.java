@@ -9,7 +9,7 @@ import com.helpme.app.world.tile.edge.Wall;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public final class Traverse implements IEdgeVisitor {
+public final class Traverse implements IEdgeVisitor<Boolean> {
     private final Maybe<IKeyChain> keychain;
 
     public Traverse(IKeyChain keychain){
@@ -17,7 +17,7 @@ public final class Traverse implements IEdgeVisitor {
     }
 
     @Override
-    public boolean visit(Door door) {
+    public Boolean visit(Door door) {
         if(door.isLocked()){
             if(keychain.check(k -> k.hasKey(door.getKey()))){
                 door.unlock();
@@ -28,12 +28,12 @@ public final class Traverse implements IEdgeVisitor {
     }
 
     @Override
-    public boolean visit(Wall wall) {
+    public Boolean visit(Wall wall) {
         return false;
     }
 
     @Override
-    public boolean visit(Opening opening) {
+    public Boolean visit(Opening opening) {
         return true;
     }
 }

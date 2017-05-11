@@ -15,18 +15,18 @@ public final class Stack implements IItemVisitor {
     }
 
     @Override
-    public boolean visit(Consumable consumable) {
+    public Boolean visit(Consumable consumable) {
         consumable.addStack(amount);
         return true;
     }
 
     @Override
-    public boolean visit(Item item) {
+    public Boolean visit(Item item) {
         return false;
     }
 
     @Override
-    public boolean visit(Key key) {
+    public Boolean visit(Key key) {
         return false;
     }
 }

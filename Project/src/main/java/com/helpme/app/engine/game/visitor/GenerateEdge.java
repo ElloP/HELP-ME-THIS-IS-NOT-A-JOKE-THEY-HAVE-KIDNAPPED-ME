@@ -21,17 +21,17 @@ public final class GenerateEdge implements IEdgeVisitor {
     }
 
     @Override
-    public boolean visit(Door door) {
+    public Boolean visit(Door door) {
         return generate("door");
     }
 
     @Override
-    public boolean visit(Wall wall) {
+    public Boolean visit(Wall wall) {
         return generate("wall");
     }
 
     @Override
-    public boolean visit(Opening opening) {
+    public Boolean visit(Opening opening) {
         return false;
     }
 
