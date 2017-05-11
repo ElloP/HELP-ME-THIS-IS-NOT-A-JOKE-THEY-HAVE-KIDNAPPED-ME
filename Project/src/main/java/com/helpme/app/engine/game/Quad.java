@@ -14,7 +14,7 @@ public class Quad extends GameObject {
     private Texture texture;
 
     public Quad(Texture texture, int[] indices, Vertex[] vertices) {
-        this(texture, new DefaultShader(), indices, vertices);
+        this(texture, DefaultShader.getDefaultShader(), indices, vertices);
     }
 
     public Quad(Texture texture, Shader shader, int[] indices, Vertex[] vertices) {

@@ -93,7 +93,7 @@ public class GameInstance extends Game {
     Vector3f t = new Vector3f();
     float xy = 0;
 
-    public void update() {
+    public void update(Time time) {
         //TODO(Olle): update game
 
         // xy += Time.deltaTime;

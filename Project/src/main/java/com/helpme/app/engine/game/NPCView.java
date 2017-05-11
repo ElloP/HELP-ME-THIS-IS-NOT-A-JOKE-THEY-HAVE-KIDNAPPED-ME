@@ -34,7 +34,7 @@ public class NPCView extends GameObject {
     public NPCView() {
         modelMatrix = new Matrix4f();
         this.mesh = new Mesh(vertices, indices);
-        this.shader = new DefaultShader();
+        this.shader = DefaultShader.getDefaultShader();
     }
 
     private void setModelMatrix(Camera camera) {
