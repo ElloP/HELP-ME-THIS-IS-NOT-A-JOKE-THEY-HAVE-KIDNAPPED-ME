@@ -9,8 +9,16 @@ import com.helpme.app.utils.mathl.Matrix4f;
  * Authored by Olle on 2017-04-21.
  */
 public class DefaultShader extends Shader {
+    private DefaultShader ds;
 
-    public DefaultShader() {
+    public DefaultShader getDefaultShader() {
+        if(ds == null) {
+            ds = new DefaultShader();
+        }
+        return ds;
+    }
+
+    private DefaultShader() {
         super("vertexShader.vs", "fragmentShader.fs");
         addUniform("model");
         addUniform("view");
