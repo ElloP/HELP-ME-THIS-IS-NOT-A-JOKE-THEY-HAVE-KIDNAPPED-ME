@@ -1,10 +1,11 @@
 package com.helpme.app.world.character.behaviour;
 
+import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.character.IReadMonster;
+import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.level.IReadLevel;
+import com.helpme.app.world.consciousness.ISurroundings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,8 @@ public abstract class Intelligence implements IBehaviour {
 
     }
 
-    public static boolean isMonsterNextTo(IReadMonster monster, IReadMonster potentialNeighbour, IReadLevel level) {
-        for (Maybe<IReadMonster> maybeNeighbour : getMonsterNeighbours(monster, level)) {
+    public static boolean isMonsterNextTo(IReadBody body, IReadBody potentialNeighbour, ISurroundings surroundings) {
+        for (Maybe<IReadBody> maybeNeighbour : getMonsterNeighbours(body, surroundings)) {
             if(maybeNeighbour.check(n -> potentialNeighbour.equals(n))){
                 return true;
             }
@@ -27,49 +28,59 @@ public abstract class Intelligence implements IBehaviour {
         return false;
     }
 
-    public static List<Maybe<IReadMonster>> getMonsterNeighbours(IReadMonster monster, IReadLevel level) {
+    public static List<Maybe<IReadBody>> getMonsterNeighbours(IReadBody body, ISurroundings surroundings) {
         return new ArrayList(4) {
             {
-                add(getMonsterFrontNeighbour(monster, level));
-                add(getMonsterRightNeighbour(monster, level));
-                add(getMonsterBackNeighbour(monster, level));
-                add(getMonsterLeftNeighbour(monster, level));
+                add(getMonsterFrontNeighbour(body, surroundings));
+                add(getMonsterRightNeighbour(body, surroundings));
+                add(getMonsterBackNeighbour(body, surroundings));
+                add(getMonsterLeftNeighbour(body, surroundings));
             }
         };
     }
 
-    public static Maybe<IReadMonster> getMonsterFrontNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.readDirection().forward();
-        Vector2f frontPosition = Vector2f.add(monster.readPosition(), direction);
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(frontPosition);
+    public static Maybe<IReadBody> getMonsterFrontNeighbour(IReadBody body, ISurroundings surroundings) {
+        Vector2f direction = body.readDirection().forward();
+        Vector2f frontPosition = Vector2f.add(body.readPosition(), direction);
+        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(frontPosition);
 
     }
 
-    public static Maybe<IReadMonster> getMonsterRightNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.readDirection().forward();
-        Vector2f rightPosition = Vector2f.add(monster.readPosition(), direction.right());
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(rightPosition);
+    public static Maybe<IReadBody> getMonsterRightNeighbour(IReadBody body, ISurroundings surroundings) {
+        Vector2f direction = body.readDirection().forward();
+        Vector2f rightPosition = Vector2f.add(body.readPosition(), direction.right());
+        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(rightPosition);
     }
 
-    public static Maybe<IReadMonster> getMonsterBackNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.readDirection().forward();
-        Vector2f backPosition = Vector2f.add(monster.readPosition(), direction.backward());
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(backPosition);
+    public static Maybe<IReadBody> getMonsterBackNeighbour(IReadBody body, ISurroundings surroundings) {
+        Vector2f direction = body.readDirection().forward();
+        Vector2f backPosition = Vector2f.add(body.readPosition(), direction.backward());
+        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(backPosition);
     }
 
-    public static Maybe<IReadMonster> getMonsterLeftNeighbour(IReadMonster monster, IReadLevel level) {
-        Vector2f direction = monster.readDirection().forward();
-        Vector2f leftPosition = Vector2f.add(monster.readPosition(), direction.left());
-        return level.isMonsterBlockedByEdge(monster, direction) ? new Nothing() : level.readMonster(leftPosition);
+    public static Maybe<IReadBody> getMonsterLeftNeighbour(IReadBody body, ISurroundings surroundings) {
+        Vector2f direction = body.readDirection().forward();
+        Vector2f leftPosition = Vector2f.add(body.readPosition(), direction.left());
+        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(leftPosition);
     }
 
-    public static boolean isMonsterFacing(IReadMonster monster, Vector2f other){
-        return Vector2f.equals(Vector2f.add(monster.readPosition(), monster.readDirection()), other);
+    public static boolean isMonsterFacing(IReadBody body, Vector2f other){
+        return Vector2f.equals(Vector2f.add(body.readPosition(), body.readDirection()), other);
     }
 
-    public static boolean isLeftOf(IReadMonster monster, Vector2f other){
-        Vector2f right = monster.readDirection().right();
+    public static boolean isLeftOf(IReadBody body, Vector2f other){
+        Vector2f right = body.readDirection().right();
 
-        return Vector2f.equals(Vector2f.add(monster.readPosition(), right), other);
+        return Vector2f.equals(Vector2f.add(body.readPosition(), right), other);
+    }
+
+    public static Either moveOrRotateAction(IReadBody body, Vector2f nextPos) {
+        if (Intelligence.isMonsterFacing(body, nextPos)){
+            return Action.moveForwardAction();
+        } else if (Intelligence.isLeftOf(body, nextPos)){
+            return Action.rotateRight();
+        } else {
+            return Action.rotateLeft();
+        }
     }
 }

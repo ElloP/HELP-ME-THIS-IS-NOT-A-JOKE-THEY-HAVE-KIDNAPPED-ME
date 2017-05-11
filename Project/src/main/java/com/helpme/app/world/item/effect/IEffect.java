@@ -1,6 +1,6 @@
 package com.helpme.app.world.item.effect;
 
-import com.helpme.app.world.character.ITarget;
+import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.utils.functions.IAction;
 
 /**

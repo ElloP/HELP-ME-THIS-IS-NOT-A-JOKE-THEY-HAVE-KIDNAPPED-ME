@@ -3,9 +3,15 @@ package com.helpme.app.engine.game;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
-import com.helpme.app.engine.renderer.base.*;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
+import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.utils.tuple.Tuple3;
+import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.level.*;
+import com.helpme.app.world.level.Level;
+import com.helpme.app.world.tile.edge.Door;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +21,69 @@ import java.util.List;
  */
 public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
-
-    Tile tile = new Tile();
     public GameInstance() {
         activeCamera = playerCamera;
+        scene.addChild(new LevelController(testLevel()));
+    }
 
-        //scene.addChild(tile);
-        NPCView npcView = new NPCView();
-        scene.addChild(npcView);
+    private ILevel testLevel(){
+        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
+        List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
+        List<IBody> monsters = new ArrayList<>();
 
+        tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 1), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 1), null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 1), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 3), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 3), null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 3), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(5, 5), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(6, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(7, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(8, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(9, 2), null));
+        tiles.add(new Tuple2<>(new Vector2f(10, 2), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(6, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(7, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(8, 0), null));
+        tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
+
+        tiles.add(new Tuple2<>(new Vector2f(7,5),null));
+        tiles.add(new Tuple2<>(new Vector2f(8,5),null));
+
+        tiles.add(new Tuple2<>(new Vector2f(1, 5), null));
+        tiles.add(new Tuple2<>(new Vector2f(2, 5),null));
+        tiles.add(new Tuple2<>(new Vector2f(3, 5), null));
+
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, null)));
+
+        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, null)));
+
+        /**
+         *    [ ][ ][ ]   [ ]   [ ][ ]
+         *
+         *    [ ][ ][ ]
+         *    [ ][ ][ ]      [ |[ ]/ ]| ][ ]
+         *    [ ][ ][ ]
+         * [p][ ][ ]         [ ][ ]| ][ ]
+         */
+
+
+        ILevel level = new Level(tiles, doors, monsters, Vector2f.zero);
+        return level;
     }
 
     public void input(Time time) {
@@ -32,12 +92,14 @@ public class GameInstance extends Game {
 
     Vector3f t = new Vector3f();
     float xy = 0;
-    public void update(Time time) {
+
+    public void update() {
         //TODO(Olle): update game
 
-        xy += time.getDeltaTime();
-        t = new Vector3f(0,xy,0);
-        //tile.transform.rotate(t);
+        // xy += Time.deltaTime;
+        // t = new Vector3f(0,xy,0);
+        // Vector3f te = new Vector3f(0,-xy,0);
+        // tile.transform.rotate(t);
     }
     private void playerCameraInput(Time time) {
         float movAmt = (float) (10 * time.getDeltaTime());
@@ -55,5 +117,9 @@ public class GameInstance extends Game {
             playerCamera.rotate(0.0f, rotAmt, 0.0f);
         if(Input.isKeyboardKeyDown(InputKey.RotateRight))
             playerCamera.rotate(0.0f, -rotAmt, 0.0f);
+        if(Input.isKeyboardKeyDown(InputKey.Attack))
+            playerCamera.rotate(-rotAmt, 0.0f, 0.0f);
+        if(Input.isKeyboardKeyDown(InputKey.Selfie))
+            playerCamera.rotate(rotAmt, 0.0f, 0.0f);
     }
 }

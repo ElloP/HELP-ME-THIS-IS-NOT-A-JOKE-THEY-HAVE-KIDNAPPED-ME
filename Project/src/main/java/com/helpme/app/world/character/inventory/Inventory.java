@@ -118,6 +118,11 @@ public class Inventory implements IInventory {
     }
 
     @Override
+    public Maybe<IReadItem[]> readKeychain() {
+        return Maybe.wrap((IReadItem[])keychain.toArray());
+    }
+
+    @Override
     public Maybe<IReadItem> readItem(int index) {
         return Maybe.wrap(getItem(index));
     }

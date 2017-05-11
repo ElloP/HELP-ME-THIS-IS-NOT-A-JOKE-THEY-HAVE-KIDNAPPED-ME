@@ -11,6 +11,7 @@ import com.helpme.app.utils.mathl.Vector3f;
 public class Transform {
     // ----------- Transform variables -----------
     private Transform parent;
+    private Matrix4f parentMatrix;
 
     private Vector3f position;
     private Vector3f scale;
@@ -19,23 +20,28 @@ public class Transform {
 
     // ----------- Transform constructors -----------
 
-    //TODO(Olle): rotate transforms and cameras in the same way (maybe put a transform in the camera)
     public Transform() {
         position = new Vector3f();
         rotation = new Quaternion();
         scale = new Vector3f(1,1,1);
+
+        parentMatrix = new Matrix4f();
     }
 
     public Transform(Vector3f position, Quaternion rotation, Vector3f scale) {
         this.position = new Vector3f(position);
         this.rotation = new Quaternion(rotation);
         this.scale = new Vector3f(scale);
+
+        parent = new Transform();
     }
 
     public Transform(Vector3f position, Quaternion rotation) {
         this.position = new Vector3f(position);
         this.rotation = new Quaternion(rotation);
         this.scale = new Vector3f(1,1,1);
+
+        parent = new Transform();
     }
 
     // ----------- Transform setters and getters -----------
@@ -45,6 +51,13 @@ public class Transform {
 
     public void setParent(Transform parent) {
         this.parent = parent;
+    }
+
+    public Matrix4f getParentMatrix() {
+        if(parent != null) {
+            return parent.getModelMatrix();
+        }
+        return parentMatrix;
     }
 
     public void setPosition(Vector3f xyz) {
@@ -75,17 +88,13 @@ public class Transform {
 
     // ----------- Transform operations (mostly setters) -----------
 
-    public Matrix4f getModelMatrix() { //combine a matrix for the translation, rotation and scale of a transform
+    public Matrix4f getModelMatrix() { //Note(Olle): combine a matrix for the translation, rotation and scale of a transform
         Matrix4f transformMatrix = new Matrix4f()
                 .translate(position)
                 .rotate(rotation)
                 .scale(scale);
 
-        if(parent != null) {
-            //TODO(Olle): test this
-            //Note(Olle): parent * child, might have to be reversed
-            parent.getModelMatrix().multiply(transformMatrix, transformMatrix);
-        }
+        getParentMatrix().multiply(transformMatrix, transformMatrix);
 
         return transformMatrix;
     }

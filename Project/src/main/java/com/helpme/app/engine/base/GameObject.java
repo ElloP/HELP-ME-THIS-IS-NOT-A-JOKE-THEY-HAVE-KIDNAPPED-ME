@@ -33,7 +33,7 @@ public abstract class GameObject {
         draw(camera);
 
         for(GameObject child : children) {
-            child.draw(camera);
+            child.drawAll(camera);
         }
     }
 }

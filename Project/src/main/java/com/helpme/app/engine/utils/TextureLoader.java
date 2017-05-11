@@ -29,7 +29,7 @@ public class TextureLoader {
             ByteBuffer imageData = MemoryUtil.memAlloc(imageBuffer.getHeight() * imageBuffer.getWidth() * 4);
             for(int y = 0; y < imageBuffer.getHeight(); y++) {
                 for(int x = 0; x < imageBuffer.getWidth(); x++) {
-                    int pixel = pixels[y * imageBuffer.getWidth() + x];
+                    int pixel = pixels[y * imageBuffer.getWidth() + x]; //Note(Olle): uses RGBA8888, so 8 bits for every color channel, hence the 8 bif shuffling
                     imageData.put((byte) ((pixel >> 16) & 0xFF));
                     imageData.put((byte) ((pixel >> 8) & 0xFF));
                     imageData.put((byte) (pixel & 0xFF));

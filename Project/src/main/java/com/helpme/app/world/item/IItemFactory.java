@@ -18,4 +18,13 @@ public interface IItemFactory {
     static IItem club() {
         return new Item("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
     }
+
+    static IItem createItem(String item){
+        switch (item){
+            case "Fists": return fists();
+            case "Club": return club();
+            //case "Nothing": return nothing();
+            default: return nothing();
+        }
+    }
 }

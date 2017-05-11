@@ -10,6 +10,8 @@ public class Door implements IEdge {
     private boolean locked;
     private IItem key;
 
+    public static EdgeType type = EdgeType.DOOR;
+
     public Door(boolean locked, IItem key) {
         this.locked = locked;
         this.key = key == null ? IKeyFactory.skeletonKey() : key;
@@ -20,6 +22,11 @@ public class Door implements IEdge {
     @Override
     public boolean accept(IEdgeVisitor visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public EdgeType getType() {
+        return this.type;
     }
 
     public boolean isLocked() {
