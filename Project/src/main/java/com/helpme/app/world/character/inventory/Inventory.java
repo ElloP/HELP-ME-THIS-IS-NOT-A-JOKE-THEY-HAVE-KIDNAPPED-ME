@@ -112,7 +112,9 @@ public class Inventory implements IInventory {
 
     @Override
     public IItem[] dropItems() {
-        return cloneItems();
+        IItem[] droppedItems = cloneItems();
+        items = new IItem[items.length];
+        return droppedItems;
     }
 
     @Override

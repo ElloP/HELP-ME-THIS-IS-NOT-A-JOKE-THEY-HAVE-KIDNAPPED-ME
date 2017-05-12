@@ -15,7 +15,7 @@ public class InventoryTest {
 
     @Before
     public void setup() {
-        inventory = new Inventory(new IItem[]{MockItem.item(), null, null, null}, MockItem.def(), null);
+        inventory = new Inventory(new IItem[]{MockItem.item(), null, MockItem.item(), null}, MockItem.def(), null);
     }
 
     @Test
@@ -29,6 +29,15 @@ public class InventoryTest {
     public void testDropItem(){
         inventory.dropItem(0);
         assert (inventory.getItem(0) instanceof Nothing);
+    }
+
+    @Test
+    public void testDropItems(){
+        inventory.dropItems();
+        assert (inventory.getItem(0) instanceof Nothing
+                && inventory.getItem(1) instanceof Nothing
+                && inventory.getItem(2) instanceof Nothing
+                && inventory.getItem(3) instanceof Nothing);
     }
 
 
