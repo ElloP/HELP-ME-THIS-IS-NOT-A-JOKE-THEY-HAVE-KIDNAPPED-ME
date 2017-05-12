@@ -1,13 +1,7 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.bodytest.MockInventory;
-import com.helpme.app.bodytest.MockTarget;
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.Body;
-import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
-import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import org.junit.Before;
 import org.junit.Test;

@@ -12,7 +12,19 @@ public final class MockItem {
 
     }
 
-    static IItem weapon() {
+    static IItem activeWeapon() {
         return new Item("Club", target -> target.damage(1), target -> target.damage(1));
+    }
+
+    static IItem defaultWeapon(){
+        return new Item("Heal", target -> target.heal(0), target -> target.heal(1));
+    }
+
+    static IItem strongPotion(){
+        return new Item("Potion", target -> target.heal(101), target -> target.heal(101));
+    }
+
+    static IItem strongWeapon(){
+        return new Item("Katana", target -> target.damage(101), target -> target.damage(101));
     }
 }

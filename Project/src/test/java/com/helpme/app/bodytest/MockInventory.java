@@ -6,14 +6,17 @@ import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 
 /**
- * Created by kopa on 2017-05-11.
+ * Created by kopa on 2017-05-12.
  */
 public class MockInventory implements IInventory {
-    IItem weapon;
+    IItem activeItem;
+    IItem defaultItem;
 
-    public MockInventory(){
-        weapon = MockItem.weapon();
+    public MockInventory(IItem activeItem, IItem defaultItem){
+        this.activeItem = activeItem;
+        this.defaultItem = defaultItem;
     }
+
 
     @Override
     public boolean hasKey(IItem key) {
@@ -57,12 +60,12 @@ public class MockInventory implements IInventory {
 
     @Override
     public Maybe<IItem> getActiveItem() {
-        return Maybe.wrap(weapon);
+        return Maybe.wrap(activeItem);
     }
 
     @Override
     public Maybe<IItem> getDefaultItem() {
-        return null;
+        return Maybe.wrap(defaultItem);
     }
 
     @Override
