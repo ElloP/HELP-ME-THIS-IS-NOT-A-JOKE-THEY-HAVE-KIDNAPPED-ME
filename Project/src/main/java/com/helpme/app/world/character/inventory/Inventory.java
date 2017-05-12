@@ -67,7 +67,10 @@ public class Inventory implements IInventory {
 
     @Override
     public Maybe<IItem> dropItem(int index) {
-        return Maybe.wrap(index < 0 || index >= items.length ? null : items[index]);
+        if(index < 0 || index >= items.length) return new Nothing();
+        IItem item = items[index];
+        items[index] = null;
+        return Maybe.wrap(item);
     }
 
     private boolean setItem(IItem from, IItem to) {

@@ -1,5 +1,6 @@
 package com.helpme.app.inventorytest;
 
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.item.IItem;
@@ -18,10 +19,16 @@ public class InventoryTest {
     }
 
     @Test
-    public void testPickup(){
+    public void testPickupItem(){
         IItem mockItem = MockItem.pickup();
         inventory.addItem(mockItem);
         assert (inventory.getItem(1).check(i -> i.equals(mockItem)));
+    }
+
+    @Test
+    public void testDropItem(){
+        inventory.dropItem(0);
+        assert (inventory.getItem(0) instanceof Nothing);
     }
 
 
