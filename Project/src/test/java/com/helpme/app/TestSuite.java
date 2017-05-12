@@ -1,6 +1,7 @@
 package com.helpme.app;
 
 import com.helpme.app.bodytest.BodyTest;
+import com.helpme.app.inventorytest.InventoryTest;
 import org.junit.runners.Suite;
 import org.junit.runner.RunWith;
 
@@ -10,7 +11,7 @@ import org.junit.runner.RunWith;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DialogueTest.class, EdgeTest.class, ItemTest.class, BodyTest.class, BehaviourTest.class})
+@Suite.SuiteClasses({DialogueTest.class, EdgeTest.class, ItemTest.class, BodyTest.class, BehaviourTest.class, InventoryTest.class})
 public class TestSuite {
     //nothing
 }

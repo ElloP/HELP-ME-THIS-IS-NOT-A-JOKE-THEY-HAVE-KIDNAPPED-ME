@@ -23,7 +23,7 @@ public class BodyTest {
     private ITarget mockTarget;
 
     @Before
-    public void setUp() {
+    public void setup() {
         body = new Body(new MockInventory(), new Vector2f(0, 0), Vector2f.up, 100);
         mockTarget = new MockTarget();
     }
@@ -67,27 +67,30 @@ public class BodyTest {
      @Test
      public void testMoveForward(){
         body.moveForward();
-        assert(body.readPosition() == new Vector2f(0,1));
+        assert(body.readPosition().equals(new Vector2f(0,1)));
      }
 
      @Test
      public void testMoveRight(){
          body.moveRight();
-         assert (body.readPosition() == new Vector2f(1,0));
+         assert (body.readPosition().equals(new Vector2f(1,0)));
      }
 
-     @Test void testMoveBackward(){
+     @Test
+     public void testMoveBackward(){
          body.moveBackward();
-         assert (body.readPosition() == new Vector2f(0,-1));
+         assert (body.readPosition().equals(new Vector2f(0,-1)));
      }
 
-     @Test void testMoveLeft(){
+     @Test
+     public void testMoveLeft(){
          body.moveLeft();
-         assert (body.readPosition() == new Vector2f(-1,0));
+         assert (body.readPosition().equals(new Vector2f(-1,0)));
      }
 
-     @Test void testSetPosition(){
+     @Test
+     public void testSetPosition(){
          body.setPosition(new Vector2f(4,20));
-         assert (body.readPosition() == new Vector2f(4, 20));
+         assert (body.readPosition().equals(new Vector2f(4, 20)));
      }
 }
