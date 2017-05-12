@@ -3,7 +3,6 @@ package com.helpme.app.inventorytest;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.visitor.Pickup;
@@ -26,11 +25,6 @@ public class InventoryTest {
         IItem mockItem = MockItem.pickup();
         inventory.addItem(mockItem);
         assert (inventory.getItem(1).check(i -> i.equals(mockItem)));
-    }
-
-    @Test
-    public void testPickupItems(){
-
     }
 
     @Test
@@ -59,8 +53,4 @@ public class InventoryTest {
         MockItem.key3().accept(new Pickup(inventory));
         assert (inventory.hasKey(MockItem.key1()) && inventory.hasKey(MockItem.key2()) && inventory.hasKey(MockItem.key3()));
     }
-
-
-
-
 }

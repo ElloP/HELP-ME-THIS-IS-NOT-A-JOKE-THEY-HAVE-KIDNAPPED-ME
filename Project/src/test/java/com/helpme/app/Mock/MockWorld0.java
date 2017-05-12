@@ -4,6 +4,7 @@ package com.helpme.app.Mock;
 import com.helpme.app.world.character.*;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -28,7 +29,7 @@ public class MockWorld0 {
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IBody> bodies = new ArrayList<>();
 
-        IInventory inventory = new Inventory(new IItem[]{MockItem.weapon, MockItem.potion, null, null}, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        IInventory inventory = InventoryFactory.createInventory(new IItem[]{MockItem.weapon, MockItem.potion, null, null}, MockItem.defaultWeapon, new IItem[]{MockItem.key});
 
         MockDialogue dialogue = new MockDialogue();
 

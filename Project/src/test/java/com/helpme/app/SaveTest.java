@@ -11,6 +11,7 @@ import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.Body;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class SaveTest {
     @Test
     public void saveTest() throws JAXBException {
         items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        inventory = InventoryFactory.createInventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
         hitpoints = new Vector2f(100,50);
         IBody Body = new Body(inventory,Vector2f.right,Vector2f.left,hitpoints);
         File file = new File("test.xml");
@@ -57,7 +58,7 @@ public class SaveTest {
     @Test
     public void testMarshaller() throws JAXBException {
         items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        inventory = InventoryFactory.createInventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
         hitpoints = new Vector2f(100,50);
         IBody Body = new Body(inventory,Vector2f.right,Vector2f.left,hitpoints);
         String fileTest = "test.xml";
