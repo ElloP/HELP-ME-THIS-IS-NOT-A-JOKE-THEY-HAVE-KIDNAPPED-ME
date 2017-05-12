@@ -2,6 +2,7 @@ package com.helpme.app.bodytest;
 
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.Item;
+import com.helpme.app.world.item.Key;
 import com.helpme.app.world.item.visitor.IItemVisitor;
 
 /**

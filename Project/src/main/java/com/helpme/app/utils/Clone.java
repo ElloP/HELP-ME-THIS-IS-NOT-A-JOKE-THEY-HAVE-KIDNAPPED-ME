@@ -41,4 +41,12 @@ public abstract class Clone {
         }
         return array;
     }
+
+    public static <T extends ICloneable<T>> List<T> list(List<T> list){
+        List<T> cloned = new ArrayList<>();
+        for(T element : list){
+            cloned.add(element.clone());
+        }
+        return cloned;
+    }
 }

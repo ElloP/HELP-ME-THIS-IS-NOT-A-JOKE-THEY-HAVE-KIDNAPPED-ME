@@ -4,6 +4,7 @@ package com.helpme.app.saveload;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.IReadInventory;
 import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import javax.xml.bind.annotation.XmlElement;
@@ -72,7 +73,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
     @Override
     public IInventory getObject() {
-        return new Inventory(fixItems(items),null,fixItems(keys));
+        return InventoryFactory.createInventory(fixItems(items),null,fixItems(keys));
     }
 
     private IItem[] fixItems(ItemWrapper[] items){

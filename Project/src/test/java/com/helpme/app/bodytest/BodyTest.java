@@ -2,6 +2,7 @@ package com.helpme.app.bodytest;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.Body;
+import com.helpme.app.world.character.BodyFactory;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.target.ITarget;
 import org.junit.Before;
@@ -19,10 +20,10 @@ public class BodyTest {
 
     @Before
     public void setup() {
-        body0 = new Body(new MockInventory(MockItem.activeWeapon(), null), new Vector2f(0, 0), Vector2f.up, 100);
-        body1 = new Body(new MockInventory(null, MockItem.defaultWeapon()), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 1));
-        body2 = new Body(new MockInventory(MockItem.strongPotion(), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
-        body3 = new Body(new MockInventory(MockItem.strongWeapon(), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
+        body0 = BodyFactory.createBody(new MockInventory(MockItem.activeWeapon(), null), new Vector2f(0, 0), Vector2f.up, 100);
+        body1 = BodyFactory.createBody(new MockInventory(null, MockItem.defaultWeapon()), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 1));
+        body2 = BodyFactory.createBody(new MockInventory(MockItem.strongPotion(), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
+        body3 = BodyFactory.createBody(new MockInventory(MockItem.strongWeapon(), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
         mockTarget = new MockTarget();
     }
 

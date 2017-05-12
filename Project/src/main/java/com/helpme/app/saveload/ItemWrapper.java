@@ -1,7 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemFactory;
+import com.helpme.app.world.item.ItemFactory;
 import com.helpme.app.world.item.IReadItem;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -33,6 +33,6 @@ public class ItemWrapper implements ILoadable<IItem>{
 
     @Override
     public IItem getObject() {
-        return IItemFactory.createItem(name); //(TODO) klas. Create item from name
+        return ItemFactory.createItem(name); //(TODO) klas. Create item from name
     }
 }

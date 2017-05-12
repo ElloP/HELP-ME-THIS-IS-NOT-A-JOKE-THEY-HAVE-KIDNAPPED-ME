@@ -3,12 +3,10 @@ package com.helpme.app.world.character.inventory;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemFactory;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.item.visitor.Stack;
 import com.helpme.app.utils.Clone;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,10 +18,10 @@ public class Inventory implements IInventory {
     private IItem[] items;
     private int activeItemIndex = -1;
 
-    public Inventory(IItem[] items, IItem defaultItem, IItem[] keychain) {
-        this.defaultItem = defaultItem == null ? IItemFactory.nothing() : defaultItem.clone();
-        this.items = items == null ? new IItem[0] : Clone.array(items);
-        this.keychain = keychain == null ? new ArrayList<>() : Clone.toList(keychain);
+    public Inventory(IItem[] items, IItem defaultItem, List<IItem> keychain) {
+        this.defaultItem = defaultItem;
+        this.items = items;
+        this.keychain = keychain;
     }
 
     @Override
@@ -139,7 +137,7 @@ public class Inventory implements IInventory {
 
     @Override
     public IInventory clone() {
-        return new Inventory(cloneItems(), defaultItem.clone(), cloneKeychain());
+        return new Inventory(cloneItems(), defaultItem.clone(), Clone.list(keychain));
     }
 
     private IItem[] cloneItems() {
@@ -154,13 +152,5 @@ public class Inventory implements IInventory {
             clonedItems[i] = items[i].clone();
         }
         return clonedItems;
-    }
-
-    private IItem[] cloneKeychain() {
-        IItem[] clonedKeychain = new IItem[keychain.size()];
-        for (int i = 0; i < keychain.size(); i++) {
-            clonedKeychain[i] = keychain.get(i).clone();
-        }
-        return clonedKeychain;
     }
 }

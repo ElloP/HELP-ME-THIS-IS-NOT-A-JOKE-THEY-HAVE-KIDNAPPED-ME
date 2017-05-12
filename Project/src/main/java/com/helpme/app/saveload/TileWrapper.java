@@ -3,7 +3,6 @@ package com.helpme.app.saveload;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemFactory;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.IReadTile;
 import com.helpme.app.world.tile.ITile;
