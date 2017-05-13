@@ -35,7 +35,7 @@ public class Inventory implements IInventory {
 
     @Override
     public Maybe<IItem> getItem(int index) {
-        return Maybe.wrap(items.get(index));
+        return index < 0 || index >= items.size() ? new Nothing<>() : Maybe.wrap(items.get(index));
     }
 
     @Override
@@ -55,12 +55,12 @@ public class Inventory implements IInventory {
 
     @Override
     public boolean addItem(IItem item) {
-        return setItem(null, item);
+        return swapItem(new Nothing(), Maybe.wrap(item));
     }
 
     @Override
     public boolean deleteItem(IItem item) {
-        return setItem(item, null);
+        return swapItem(Maybe.wrap(item), new Nothing());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Inventory implements IInventory {
         return maybeItem;
     }
 
-    private boolean setItem(IItem from, IItem to) {
+    private boolean swapItem(Maybe<IItem> from, Maybe<IItem> to) {
         int index = items.indexOf(from);
         if (index == -1) return false;
         items.set(index, Maybe.wrap(to));
@@ -110,7 +110,7 @@ public class Inventory implements IInventory {
     @Override
     public List<Maybe<IItem>> dropItems() {
         List<Maybe<IItem>> droppedItems = items;
-        items = new ArrayList<>();
+        items = new ArrayList<>(items.size());
         return droppedItems;
     }
 
@@ -131,7 +131,12 @@ public class Inventory implements IInventory {
 
     @Override
     public boolean hasKey(IItem key) {
-        return keychain.contains(key);
+        for(Maybe<IItem> maybeKey : keychain){
+            if(maybeKey.equals(Maybe.wrap(key))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

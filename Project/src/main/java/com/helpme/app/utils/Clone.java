@@ -2,6 +2,7 @@ package com.helpme.app.utils;
 
 import com.helpme.app.utils.interfaces.ICloneable;
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public abstract class Clone {
         List<T> list = new ArrayList<>();
         for (T a : array) {
             if (a == null) {
+                list.add(null);
                 continue;
             }
             list.add(a.clone());
@@ -36,6 +38,7 @@ public abstract class Clone {
         List<Maybe<T>> list = new ArrayList<>();
         for (T a : array) {
             if (a == null) {
+                list.add(new Nothing<>());
                 continue;
             }
             list.add(Maybe.wrap(a.clone()));

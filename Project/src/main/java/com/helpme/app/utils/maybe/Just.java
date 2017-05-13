@@ -7,4 +7,9 @@ public class Just<T> extends Maybe<T> {
     public Just(T value) {
         super(value);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o.equals(getValue());
+    }
 }

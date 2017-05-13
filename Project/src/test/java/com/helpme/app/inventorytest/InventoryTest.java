@@ -26,7 +26,7 @@ public class InventoryTest {
     public void testPickupItem() {
         IItem mockItem = MockItem.pickup();
         inventory.addItem(mockItem);
-        assert (inventory.getItem(1).check(i -> i.equals(mockItem)));
+        assert (inventory.getItem(1).equals(mockItem));
     }
 
     @Test
