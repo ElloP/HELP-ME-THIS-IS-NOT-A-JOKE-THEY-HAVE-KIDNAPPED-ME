@@ -4,8 +4,6 @@ import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.functions.ICheck;
 import com.helpme.app.utils.functions.IFunction;
 
-import javax.swing.*;
-
 /**
  * Created by kopa on 2017-04-20.
  */
@@ -35,12 +33,7 @@ public abstract class Maybe<T> {
         return value == null;
     }
 
-    public static <T> Maybe<T> wrap(T value){
-        if(value == null){
-            return new Nothing<>();
-        }
-        return new Just<>(value);
-    }
+
 
     public void run(IAction<T> action){
         if(isJust()){
@@ -64,6 +57,13 @@ public abstract class Maybe<T> {
             return check.apply(value);
         }
         return ifNothing;
+    }
+
+    public static <T> Maybe<T> wrap(T value){
+        if(value == null){
+            return new Nothing<>();
+        }
+        return new Just<>(value);
     }
 
     public static <T extends Y, Y> Maybe<Y> wrap(Maybe<T> maybe){

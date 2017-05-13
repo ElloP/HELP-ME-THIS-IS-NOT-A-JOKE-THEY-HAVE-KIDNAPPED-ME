@@ -9,8 +9,8 @@ import com.helpme.app.world.item.IReadItem;
  * Created by kopa on 2017-05-12.
  */
 public class MockInventory implements IInventory {
-    IItem activeItem;
-    IItem defaultItem;
+    private IItem activeItem;
+    private IItem defaultItem;
 
     public MockInventory(IItem activeItem, IItem defaultItem){
         this.activeItem = activeItem;

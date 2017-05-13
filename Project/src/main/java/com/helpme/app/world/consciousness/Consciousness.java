@@ -1,10 +1,13 @@
 package com.helpme.app.world.consciousness;
+
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
+
+import java.util.List;
 
 /**
  * Created by Jesper on 2017-04-12.
@@ -17,12 +20,12 @@ public abstract class Consciousness implements IConsciousness {
     @Override
     public abstract void update();
 
-    public Consciousness(IBody body, ISurroundings surroundings){
+    public Consciousness(IBody body, ISurroundings surroundings) {
         this.body = body;
         this.surroundings = surroundings;
     }
 
-    public IReadBody readBody(){
+    public IReadBody readBody() {
         return body;
     }
 
@@ -94,37 +97,37 @@ public abstract class Consciousness implements IConsciousness {
         Vector2f direction = body.readDirection();
         Maybe<ITarget> maybeTarget = surroundings.getTarget(body, direction);
         maybeTarget.run(t -> body.attack(t));
-        if(maybeTarget.check(t -> t.isDead())){
+        if (maybeTarget.check(t -> t.isDead())) {
             surroundings.updateDeadBody(Vector2f.add(body.readPosition(), body.readDirection()));
         }
     }
 
     public void usePickupAll() {
         Vector2f position = body.readPosition();
-        IItem[] items = surroundings.removeTileItems(position);
+        Maybe<List<Maybe<IItem>>> maybeItems = surroundings.removeTileItems(position);
 
-        if (items == null) {
-            return;
-        }
-
-        for (IItem item : items) {
-            if (item == null) {
-                continue;
-            }
-
-            if (!body.pickupItem(item)) {
-                surroundings.addTileItem(position, item);
-            }
-        }
+        maybeItems.run(items -> {
+                    for (Maybe<IItem> maybeItem : items) {
+                        maybeItem.run(item -> {
+                                    if (!body.pickupItem(item)) {
+                                        surroundings.addTileItem(position, item);
+                                    }
+                                }
+                        );
+                    }
+                }
+        );
     }
 
     public void usePickupSingle(int index) {
         Vector2f position = body.readPosition();
-        IItem item = surroundings.removeTileItem(position, index);
-        if (item == null) {
-            return;
-        }
-        body.pickupItem(item);
+        Maybe<IItem> maybeItem = surroundings.removeTileItem(position, index);
+        maybeItem.run(item -> {
+                    if (!body.pickupItem(item)) {
+                        surroundings.addTileItem(position, item);
+                    }
+                }
+        );
     }
 
 }

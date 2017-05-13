@@ -8,7 +8,7 @@ import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.ITileFactory;
+import com.helpme.app.world.tile.TileFactory;
 import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.world.tile.edge.Opening;
 import com.helpme.app.world.tile.edge.Wall;
@@ -48,7 +48,7 @@ public class Level implements ILevel {
 
         for (Tuple2<Vector2f, IItem[]> tuple : tiles) {
             Vector2f position = tuple.a;
-            this.tiles.put(position, ITileFactory.tile(tuple.b));
+            this.tiles.put(position, TileFactory.createTile(tuple.b));
         }
     }
 
@@ -122,15 +122,18 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IItem[] removeTileItems(Vector2f position) {
-        ITile tile = tiles.get(position);
-        return tile == null ? null : tile.removeItems();
+    public Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position) {
+        Maybe<ITile> maybeTile = Maybe.wrap(tiles.get(position));
+        return maybeTile.chain(ITile::removeItems);
     }
 
     @Override
-    public IItem removeTileItem(Vector2f position, int index) {
-        ITile tile = tiles.get(position);
-        return tile == null ? null : tile.removeItem(index);
+    public Maybe<IItem> removeTileItem(Vector2f position, int index) {
+        Maybe<ITile> maybeTile = Maybe.wrap(tiles.get(position));
+        return maybeTile.chain(t -> {
+            Maybe<IItem> maybeItem = t.removeItem(index);
+            return maybeItem.isJust() ? maybeItem.getValue() : null;
+        });
     }
 
     @Override

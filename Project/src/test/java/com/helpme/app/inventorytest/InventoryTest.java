@@ -21,20 +21,20 @@ public class InventoryTest {
     }
 
     @Test
-    public void testPickupItem(){
+    public void testPickupItem() {
         IItem mockItem = MockItem.pickup();
         inventory.addItem(mockItem);
         assert (inventory.getItem(1).check(i -> i.equals(mockItem)));
     }
 
     @Test
-    public void testDropItem(){
+    public void testDropItem() {
         Maybe<IItem> maybeItem = inventory.dropItem(0);
         assert (inventory.getItem(0) instanceof Nothing && maybeItem.check(i -> i.equals(MockItem.item())));
     }
 
     @Test
-    public void testDropItems(){
+    public void testDropItems() {
         IItem[] items = inventory.dropItems();
         assert (inventory.getItem(0) instanceof Nothing
                 && inventory.getItem(1) instanceof Nothing
@@ -47,7 +47,7 @@ public class InventoryTest {
     }
 
     @Test
-    public void testPickupKey(){
+    public void testPickupKey() {
         MockItem.key1().accept(new Pickup(inventory));
         MockItem.key2().accept(new Pickup(inventory));
         MockItem.key3().accept(new Pickup(inventory));

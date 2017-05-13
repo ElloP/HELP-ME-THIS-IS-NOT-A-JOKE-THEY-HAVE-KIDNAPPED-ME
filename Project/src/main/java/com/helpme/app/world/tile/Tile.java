@@ -1,11 +1,11 @@
 package com.helpme.app.world.tile;
 
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.edge.EdgeType;
 import com.helpme.app.world.tile.edge.IEdge;
-import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.*;
@@ -15,15 +15,11 @@ import java.util.*;
  */
 public class Tile implements ITile {
     private Map<Vector2f, IEdge> edges;
-    private List<IItem> items;
+    private List<Maybe<IItem>> items;
 
-    public Tile(IItem[] items){
-        this(items, null);
-    }
-
-    public Tile(IItem[] items, Map<Vector2f, IEdge> edges){
-        this.items = items == null ? new ArrayList<>() : Clone.toList(items);
-        this.edges = edges == null ? new HashMap<>() : edges;
+    public Tile(List<Maybe<IItem>> items, Map<Vector2f, IEdge> edges){
+        this.items = items;
+        this.edges = edges;
     }
 
 
@@ -39,22 +35,22 @@ public class Tile implements ITile {
     }
 
     @Override
-    public IItem[] removeItems() {
-        IItem[] removed = items.toArray(new IItem[items.size()]);
-        items.clear();
+    public List<Maybe<IItem>> removeItems() {
+        List<Maybe<IItem>> removed = items;
+        items = new ArrayList<>();
         return removed;
     }
 
     @Override
-    public IItem removeItem(int index) {
-        IItem removed = items.get(index);
-        items.set(index, null);
+    public Maybe<IItem> removeItem(int index) {
+        Maybe<IItem> removed = items.get(index);
+        items.set(index, new Nothing<>());
         return removed;
     }
 
     @Override
     public void addItem(IItem item){
-        this.items.add(item);
+        this.items.add(Maybe.wrap(item));
     }
 
     @Override
@@ -66,8 +62,12 @@ public class Tile implements ITile {
     }
 
     @Override
-    public Maybe<IReadItem[]> readItems() {
-        return Maybe.wrap(items.toArray(new IItem[items.size()]));
+    public List<Maybe<IReadItem>> readItems() {
+        List<Maybe<IReadItem>> reads = new ArrayList<>();
+        for(Maybe<IItem> maybeItem : items){
+            reads.add(Maybe.wrap(maybeItem));
+        }
+        return reads;
     }
 
     @Override

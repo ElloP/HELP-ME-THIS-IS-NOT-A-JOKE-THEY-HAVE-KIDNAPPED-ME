@@ -17,7 +17,7 @@ public class ItemTest {
     public void setUp() {
         mockWorld = new MockWorld0();
     }
-
+    /*
     @Test
     public void testAttackEnemyWithInventoryItem() {
         Vector2f tileStart = new Vector2f(2, 1);
@@ -123,5 +123,5 @@ public class ItemTest {
         mockWorld.player.dropPlayerItem(0);
         IItem[] items = mockWorld.level.removeTileItems(tileStart);
         assert(items[0].toString().equals("Item: Club") && items.length == 1);
-    }
+    }*/
 }

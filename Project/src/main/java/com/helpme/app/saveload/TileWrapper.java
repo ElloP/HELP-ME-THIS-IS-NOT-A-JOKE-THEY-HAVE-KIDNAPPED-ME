@@ -7,11 +7,13 @@ import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.IReadTile;
 import com.helpme.app.world.tile.ITile;
 import com.helpme.app.world.tile.Tile;
+import com.helpme.app.world.tile.TileFactory;
 import com.helpme.app.world.tile.edge.EdgeType;
 import com.helpme.app.world.tile.edge.IEdge;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,10 +29,11 @@ public class TileWrapper implements ILoadable<ITile> {
 
     public TileWrapper(IReadTile tile, Vector2f position){
         this.position = new Vector2Wrapper(position);
-        IReadItem[] tileItems = tile.readItems().getValue(); //TODO (klas) Fix maybe nothing case?
-        this.items = new ItemWrapper[tileItems.length];
-        for(int i = 0; i < tileItems.length; i++){
-            this.items[i] = new ItemWrapper(tileItems[i]);
+        List<Maybe<IReadItem>> tileItems = tile.readItems(); //TODO (klas) Fix maybe nothing case?
+        this.items = new ItemWrapper[tileItems.size()];
+        for(int i = 0; i < items.length; i++){
+            int index = i;
+            tileItems.get(index).run(item -> this.items[index] = new ItemWrapper(item));
         }
         this.north = tile.readEdge(Vector2f.up);
         this.east = tile.readEdge(Vector2f.right);
@@ -115,7 +118,7 @@ public class TileWrapper implements ILoadable<ITile> {
         edge = IEdge.createEdge(west);
         if(edge.isJust()) edges.put(Vector2f.left, edge.getValue());
 
-        return new Tile(tmp, edges);
+        return TileFactory.createTile(tmp, edges);
 
     }
 }

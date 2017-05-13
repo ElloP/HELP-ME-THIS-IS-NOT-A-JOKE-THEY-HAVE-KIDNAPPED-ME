@@ -1,6 +1,9 @@
 package com.helpme.app.world.consciousness;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.item.IItem;
+
+import java.util.List;
 
 /**
  * Created by kopa on 2017-04-14.
@@ -8,8 +11,8 @@ import com.helpme.app.world.item.IItem;
 public interface ISurroundings extends IReadSurroundings {
     void addTileItem(Vector2f position, IItem item);
     void addTileItems(Vector2f position, IItem[] items);
-    IItem[] removeTileItems(Vector2f position);
-    IItem removeTileItem(Vector2f position, int index);
+    Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position);
+    Maybe<IItem> removeTileItem(Vector2f position, int index);
     void updateDeadBody(Vector2f position);
 
 }
