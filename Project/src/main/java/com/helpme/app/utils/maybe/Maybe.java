@@ -4,6 +4,9 @@ import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.functions.ICheck;
 import com.helpme.app.utils.functions.IFunction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by kopa on 2017-04-20.
  */
@@ -71,5 +74,16 @@ public abstract class Maybe<T> {
             return new Just<>(maybe.getValue());
         }
         return new Nothing<>();
+    }
+
+    public static <T extends Y, Y> List<Maybe<Y>> wrap(List<Maybe<T>> maybe){
+        List<Maybe<Y>> list = new ArrayList<Maybe<Y>>(){
+            {
+                for(Maybe<T> element : maybe){
+                    add(Maybe.wrap(element));
+                }
+            }
+        };
+        return list;
     }
 }

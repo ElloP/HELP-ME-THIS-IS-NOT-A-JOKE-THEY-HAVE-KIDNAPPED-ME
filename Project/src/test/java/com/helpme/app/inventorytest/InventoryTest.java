@@ -9,6 +9,8 @@ import com.helpme.app.world.item.visitor.Pickup;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * Created by kopa on 2017-05-12.
  */
@@ -35,15 +37,16 @@ public class InventoryTest {
 
     @Test
     public void testDropItems() {
-        IItem[] items = inventory.dropItems();
-        assert (inventory.getItem(0) instanceof Nothing
-                && inventory.getItem(1) instanceof Nothing
-                && inventory.getItem(2) instanceof Nothing
-                && inventory.getItem(3) instanceof Nothing
-                && items[0].equals(MockItem.item())
-                && items[1] == null
-                && items[2].equals(MockItem.item())
-                && items[3] == null);
+        List<Maybe<IItem>> items = inventory.dropItems();
+        assert (inventory.readItem(0) instanceof Nothing
+                && inventory.readItem(1) instanceof Nothing
+                && inventory.readItem(2) instanceof Nothing
+                && inventory.readItem(3) instanceof Nothing
+                && items.get(0).check(i -> i.equals(MockItem.item()))
+                && items.get(1) instanceof Nothing
+                && items.get(2).check(i -> i.equals(MockItem.item()))
+                && items.get(3) instanceof Nothing
+        );
     }
 
     @Test

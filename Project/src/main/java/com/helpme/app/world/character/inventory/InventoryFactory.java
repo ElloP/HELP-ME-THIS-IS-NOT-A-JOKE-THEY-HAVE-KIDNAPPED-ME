@@ -15,6 +15,6 @@ public final class InventoryFactory {
     }
 
     public static IInventory createInventory(IItem[] items, IItem defaultItem, IItem[] keychain){
-        return new Inventory(items == null ? new IItem[0] : items, defaultItem == null ? ItemFactory.nothing() : defaultItem, keychain == null ? new ArrayList<>() : Clone.toList(keychain));
+        return new Inventory(items == null ? new ArrayList<>() : Clone.toMaybeList(items), defaultItem == null ? ItemFactory.nothing() : defaultItem, keychain == null ? new ArrayList<>() : Clone.toMaybeList(keychain));
     }
 }

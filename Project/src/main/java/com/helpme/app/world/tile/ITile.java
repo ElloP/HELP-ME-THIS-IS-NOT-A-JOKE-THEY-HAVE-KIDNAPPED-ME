@@ -16,5 +16,6 @@ public interface ITile extends IReadTile{
     List<Maybe<IItem>> removeItems();
     Maybe<IItem> removeItem(int index);
     void addItem(IItem item);
-    void addItems(IItem[] item);
+    void addItems(IItem[] items);
+    void addItems(List<Maybe<IItem>> items);
 }

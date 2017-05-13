@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ISurroundings extends IReadSurroundings {
     void addTileItem(Vector2f position, IItem item);
-    void addTileItems(Vector2f position, IItem[] items);
+    void addTileItems(Vector2f position, List<Maybe<IItem>> items);
     Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position);
     Maybe<IItem> removeTileItem(Vector2f position, int index);
     void updateDeadBody(Vector2f position);

@@ -62,6 +62,13 @@ public class Tile implements ITile {
     }
 
     @Override
+    public void addItems(List<Maybe<IItem>> items) {
+        for(Maybe<IItem> maybeItem : items){
+            maybeItem.run(item -> this.items.add(Maybe.wrap(item)));
+        }
+    }
+
+    @Override
     public List<Maybe<IReadItem>> readItems() {
         List<Maybe<IReadItem>> reads = new ArrayList<>();
         for(Maybe<IItem> maybeItem : items){

@@ -5,6 +5,8 @@ import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 
+import java.util.List;
+
 /**
  * Created by kopa on 2017-05-12.
  */
@@ -34,12 +36,12 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public Maybe<IReadItem[]> readItems() {
+    public List<Maybe<IReadItem>> readItems() {
         return null;
     }
 
     @Override
-    public Maybe<IReadItem[]> readKeychain() {
+    public List<Maybe<IReadItem>> readKeychain() {
         return null;
     }
 
@@ -69,7 +71,7 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public void setItems(Maybe<IItem[]> items) {
+    public void setItems(List<Maybe<IItem>> items) {
 
     }
 
@@ -99,8 +101,8 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public IItem[] dropItems() {
-        return new IItem[0];
+    public List<Maybe<IItem>> dropItems() {
+        return null;
     }
 
     @Override

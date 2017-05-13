@@ -7,6 +7,7 @@ import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.item.visitor.Stack;
 import com.helpme.app.utils.Clone;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +15,11 @@ import java.util.List;
  */
 public class Inventory implements IInventory {
     private IItem defaultItem;
-    private List<IItem> keychain;
-    private IItem[] items;
+    private List<Maybe<IItem>> keychain;
+    private List<Maybe<IItem>> items;
     private int activeItemIndex = -1;
 
-    public Inventory(IItem[] items, IItem defaultItem, List<IItem> keychain) {
+    public Inventory(List<Maybe<IItem>> items, IItem defaultItem, List<Maybe<IItem>> keychain) {
         this.defaultItem = defaultItem;
         this.items = items;
         this.keychain = keychain;
@@ -26,21 +27,20 @@ public class Inventory implements IInventory {
 
     @Override
     public boolean hasItem(IItem item) {
-        for (IItem monsterItem : items) {
-            if (item.equals(monsterItem)) return true;
+        for (Maybe<IItem> maybeItem : items) {
+            if (maybeItem.check(i -> i.equals(item))) return true;
         }
         return false;
     }
 
     @Override
     public Maybe<IItem> getItem(int index) {
-        return Maybe.wrap(index < 0 || index >= items.length ? null : items[index]);
+        return Maybe.wrap(items.get(index));
     }
 
     @Override
     public Maybe<IItem> getActiveItem() {
-        if(activeItemIndex < 0 || items == null || activeItemIndex >= items.length) return new Nothing();
-        return Maybe.wrap(items[activeItemIndex]);
+        return Maybe.wrap(items.get(activeItemIndex));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Inventory implements IInventory {
 
     @Override
     public void addKey(IItem key) {
-        keychain.add(key);
+        keychain.add(Maybe.wrap(key));
     }
 
     @Override
@@ -65,32 +65,31 @@ public class Inventory implements IInventory {
 
     @Override
     public Maybe<IItem> dropItem(int index) {
-        if(index < 0 || index >= items.length) return new Nothing();
-        IItem item = items[index];
-        items[index] = null;
-        return Maybe.wrap(item);
+        Maybe<IItem> maybeItem = Maybe.wrap(items.get(index));
+        maybeItem.run(i -> {
+            items.set(index, new Nothing<>());
+        });
+        return maybeItem;
     }
 
     private boolean setItem(IItem from, IItem to) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == from) {
-                items[i] = to;
-                return true;
-            }
-        }
-        return false;
+        int index = items.indexOf(from);
+        if (index == -1) return false;
+        items.set(index, Maybe.wrap(to));
+        return true;
     }
 
     @Override
-    public void setItems(Maybe<IItem[]> items) {
-        items.run(is -> this.items = is);
+    public void setItems(List<Maybe<IItem>> items) {
+        if (items == null) return;
+        this.items = items;
     }
 
     @Override
     public boolean addStack(IItem item, int amount) {
-        for (IItem stack : items) {
-            if (item.equals(stack)) {
-                stack.accept(new Stack(amount));
+        for (Maybe<IItem> maybeStack : items) {
+            if (maybeStack.check(stack -> stack.equals(item))) {
+                maybeStack.run(stack -> stack.accept(new Stack(amount)));
                 return true;
             }
         }
@@ -100,29 +99,29 @@ public class Inventory implements IInventory {
 
     @Override
     public void changeActiveItem(int itemIndex) {
-        activeItemIndex = itemIndex == -1 ? -1 : Math.floorMod(itemIndex, items.length);
+        activeItemIndex = Math.floorMod(itemIndex, items.size());
     }
 
     @Override
     public int getSize() {
-        return items.length;
+        return items.size();
     }
 
     @Override
-    public IItem[] dropItems() {
-        IItem[] droppedItems = cloneItems();
-        items = new IItem[items.length];
+    public List<Maybe<IItem>> dropItems() {
+        List<Maybe<IItem>> droppedItems = items;
+        items = new ArrayList<>();
         return droppedItems;
     }
 
     @Override
-    public Maybe<IReadItem[]> readItems() {
+    public List<Maybe<IReadItem>> readItems() {
         return Maybe.wrap(items);
     }
 
     @Override
-    public Maybe<IReadItem[]> readKeychain() {
-        return Maybe.wrap((IReadItem[])keychain.toArray());
+    public List<Maybe<IReadItem>> readKeychain() {
+        return Maybe.wrap(keychain);
     }
 
     @Override
@@ -137,20 +136,6 @@ public class Inventory implements IInventory {
 
     @Override
     public IInventory clone() {
-        return new Inventory(cloneItems(), defaultItem.clone(), Clone.list(keychain));
-    }
-
-    private IItem[] cloneItems() {
-        if (items == null) {
-            return null;
-        }
-        IItem[] clonedItems = new IItem[items.length];
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                continue;
-            }
-            clonedItems[i] = items[i].clone();
-        }
-        return clonedItems;
+        return new Inventory(Clone.maybeList(items), defaultItem.clone(), Clone.maybeList(keychain));
     }
 }
