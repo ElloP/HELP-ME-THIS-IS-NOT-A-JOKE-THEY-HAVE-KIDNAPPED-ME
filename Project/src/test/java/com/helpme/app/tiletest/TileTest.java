@@ -1,6 +1,7 @@
 package com.helpme.app.tiletest;
 
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
@@ -49,12 +50,20 @@ public class TileTest {
 
     @Test
     public void testRemoveItem() {
-
+        tile.removeItem(1);
+        List<Maybe<IReadItem>> items = tile.readItems();
+        assert (items.size() == 3
+                && items.get(0).getValue().readName().equals("item0")
+                && items.get(1) instanceof Nothing
+                && items.get(2).getValue().readName().equals("item2")
+        );
     }
 
     @Test
     public void testRemoveItems() {
-
+        tile.removeItems();
+        List<Maybe<IReadItem>> items = tile.readItems();
+        assert (items.size() == 0);
     }
 
 }
