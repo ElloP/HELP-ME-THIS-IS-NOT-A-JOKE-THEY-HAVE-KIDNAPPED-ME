@@ -1,4 +1,4 @@
-package com.helpme.app.consciousnesstest;
+package com.helpme.app.thoughttest;
 
 import com.helpme.app.utils.either.Either;
 import com.helpme.app.utils.functions.IAction;

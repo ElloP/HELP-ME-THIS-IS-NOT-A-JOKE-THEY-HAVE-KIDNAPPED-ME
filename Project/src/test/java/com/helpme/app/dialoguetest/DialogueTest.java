@@ -1,26 +1,16 @@
-package com.helpme.app;
+package com.helpme.app.dialoguetest;
 
-import com.helpme.app.Mock.MockWorld0;
-import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.character.IReadBody;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by Jacob on 2017-04-11.
+ * Created by kopa on 2017-05-14.
  */
 public class DialogueTest {
-    private MockWorld0 mockWorld;
-
-    @Before
-    public void setUp() {
-
-        mockWorld = new MockWorld0();
-
-    }
-
+    /*
     @Test
     public void testTalkTo() {
         Vector2f tileStart = new Vector2f(8, 5);
@@ -85,5 +75,5 @@ public class DialogueTest {
         mockWorld.player.setPlayerPosition(tileStart);
         Maybe<Tuple2<String,String[]>> result = mockWorld.player.usePlayerTalk();
         assert (result.isNothing());
-    }
+    }*/
 }

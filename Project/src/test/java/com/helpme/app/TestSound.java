@@ -24,7 +24,7 @@ public class TestSound {
 
     public static void main(String[] args) throws Exception {
         TestSound testSound = new TestSound();
-        Body player = (Body) testSound.mockWorld.player.getPlayer();
+        Body player = (Body) testSound.mockWorld.player.readBody();
 
         AudioHandler.init();
         AudioHandler.setListenerPos(player.readPosition().x, player.readPosition().y, 0);

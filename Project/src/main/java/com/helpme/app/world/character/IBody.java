@@ -26,5 +26,5 @@ public interface IBody extends IReadBody {
     void setItems(IItem[] items);
     Body clone();
     void dropAllItems();
-    void setDead();
+    void kill();
 }

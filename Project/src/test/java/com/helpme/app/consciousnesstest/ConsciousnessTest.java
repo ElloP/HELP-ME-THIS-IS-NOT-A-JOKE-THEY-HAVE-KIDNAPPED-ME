@@ -1,10 +1,12 @@
 package com.helpme.app.consciousnesstest;
 
-import com.helpme.app.inventorytest.MockItem;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.inventory.InventoryFactory;
-import com.helpme.app.world.character.target.ITarget;
+import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.character.behaviour.FollowAndAttack;
+import com.helpme.app.world.character.behaviour.GoBack;
 import com.helpme.app.world.consciousness.ConsciousnessFactory;
+import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.world.consciousness.IThought;
 import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.item.IItem;
 import org.junit.Before;
@@ -14,19 +16,40 @@ import org.junit.Test;
  * Created by kopa on 2017-05-11.
  */
 public class ConsciousnessTest {
-    IConsciousness enemy;
+    IThought enemy;
     IConsciousness player;
+    IBody mockBody;
+    IBody mockTarget;
 
     @Before
     public void setup() {
-        enemy = ConsciousnessFactory.createEnemy(new MockBody(), new MockSurroundings(), new MockBehaviour(), new MockBehaviour());
-        player = ConsciousnessFactory.createPlayer(new MockBody(), new MockSurroundings());
+        mockTarget = new MockTarget();
+        mockBody = new MockBody();
+        player = ConsciousnessFactory.createPlayer(mockBody, new MockSurroundings(mockTarget, new IItem[]{}));
     }
 
     @Test
     public void testAttack(){
+        player.useAttack();
+        assert (mockTarget.readHitpoints().y == 90);
+    }
+
+    @Test
+    public void testSelfie(){
+        player.useSelfie();
+        assert (mockBody.isDead());
+    }
+
+    @Test
+    public void testPickupAll(){
 
     }
+
+    @Test
+    public void testPickupSingle(){
+
+    }
+
 
 
 }

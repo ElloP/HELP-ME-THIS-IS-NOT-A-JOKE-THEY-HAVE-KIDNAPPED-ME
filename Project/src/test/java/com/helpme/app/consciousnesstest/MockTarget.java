@@ -14,12 +14,13 @@ import com.helpme.app.world.tile.edge.IEdge;
 /**
  * Created by kopa on 2017-05-14.
  */
-public class MockBody implements IBody {
+public class MockTarget implements IBody {
     private boolean dead;
+    private Vector2f hitpoints = new Vector2f(100,100);
 
     @Override
     public void damage(float amount) {
-
+        hitpoints.y -= amount;
     }
 
     @Override
@@ -74,12 +75,12 @@ public class MockBody implements IBody {
 
     @Override
     public void attack(ITarget target) {
-        target.damage(10);
+
     }
 
     @Override
     public void selfie() {
-        kill();
+
     }
 
     @Override
@@ -119,17 +120,17 @@ public class MockBody implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return Vector2f.zero;
+        return null;
     }
 
     @Override
     public Vector2f readDirection() {
-        return Vector2f.zero;
+        return null;
     }
 
     @Override
     public Vector2f readHitpoints() {
-        return null;
+        return hitpoints;
     }
 
     @Override

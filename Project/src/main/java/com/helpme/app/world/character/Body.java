@@ -192,7 +192,7 @@ public class Body extends Observable implements IBody {
         amount = Math.abs(amount);
         hitpoints.y -= amount;
         if (hitpoints.y <= 0) {
-            setDead();
+            kill();
         }
     }
 
@@ -224,7 +224,7 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public void setDead() {
+    public void kill() {
         dead = true;
     }
 

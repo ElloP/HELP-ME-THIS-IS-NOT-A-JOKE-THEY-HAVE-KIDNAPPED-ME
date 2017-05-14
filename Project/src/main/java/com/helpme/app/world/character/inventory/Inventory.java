@@ -116,12 +116,12 @@ public class Inventory implements IInventory {
 
     @Override
     public List<Maybe<IReadItem>> readItems() {
-        return Maybe.wrap(items);
+        return Maybe.cast(items);
     }
 
     @Override
     public List<Maybe<IReadItem>> readKeychain() {
-        return Maybe.wrap(keychain);
+        return Maybe.cast(keychain);
     }
 
     @Override

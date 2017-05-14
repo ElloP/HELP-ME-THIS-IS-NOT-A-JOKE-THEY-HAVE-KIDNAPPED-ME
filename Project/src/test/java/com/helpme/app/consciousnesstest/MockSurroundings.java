@@ -1,6 +1,8 @@
 package com.helpme.app.consciousnesstest;
 
+import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.character.IBody;
@@ -17,6 +19,13 @@ import java.util.Map;
  * Created by kopa on 2017-05-14.
  */
 public class MockSurroundings implements ISurroundings {
+    IBody mockTarget;
+    List<Maybe<IItem>> tileItems;
+
+    public MockSurroundings(IBody mockTarget, IItem[] tileItems){
+        this.mockTarget = mockTarget; this.tileItems = Clone.toMaybeList(tileItems);
+    }
+
     @Override
     public void addTileItem(Vector2f position, IItem item) {
 
@@ -29,7 +38,7 @@ public class MockSurroundings implements ISurroundings {
 
     @Override
     public Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position) {
-        return null;
+        return Maybe.wrap(tileItems);
     }
 
     @Override
@@ -84,7 +93,7 @@ public class MockSurroundings implements ISurroundings {
 
     @Override
     public Maybe<ITarget> getTarget(IBody body, Vector2f direction) {
-        return null;
+        return new Just(mockTarget);
     }
 
     @Override
