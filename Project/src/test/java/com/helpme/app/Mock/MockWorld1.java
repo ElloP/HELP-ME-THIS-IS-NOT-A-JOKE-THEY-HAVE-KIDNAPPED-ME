@@ -1,11 +1,9 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.world.character.Body;
 import com.helpme.app.world.character.BodyFactory;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.behaviour.FollowAndAttack;
 import com.helpme.app.world.character.behaviour.GoBack;
-import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.consciousness.*;
 import com.helpme.app.world.item.IItem;
@@ -22,7 +20,7 @@ import java.util.List;
  */
 public class MockWorld1 {
     public ILevel level;
-    public IPlayer player;
+    public IConsciousness player;
     public Consciousness enemyConsciousness0;
     public Consciousness enemyConsciousness1;
     public Consciousness enemyConsciousness2;

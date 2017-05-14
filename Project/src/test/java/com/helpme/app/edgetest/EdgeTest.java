@@ -1,4 +1,4 @@
-package com.helpme.app;
+package com.helpme.app.edgetest;
 
 import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.utils.Vector2f;
@@ -16,6 +16,7 @@ public class EdgeTest {
         mockWorld = new MockWorld0();
     }
 
+    /*
     @Test
     public void testWalkThroughUnlockedDoor() {
         Vector2f tileStart = new Vector2f(7, 2);
@@ -80,5 +81,5 @@ public class EdgeTest {
         mockWorld.player.rotatePlayerLeft();
         mockWorld.player.movePlayerForward();
         assert ( mockWorld.player.getPlayer().readPosition().equals(tileTo));
-    }
+    }*/
 }

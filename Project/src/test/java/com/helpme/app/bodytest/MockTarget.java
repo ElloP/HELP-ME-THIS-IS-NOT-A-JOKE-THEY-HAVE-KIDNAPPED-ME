@@ -6,11 +6,11 @@ import com.helpme.app.world.character.target.ITarget;
  * Created by kopa on 2017-05-11.
  */
 public class MockTarget implements ITarget {
-    private boolean dead;
+    public int attacked;
 
     @Override
     public void damage(float amount) {
-        dead = true;
+        attacked++;
     }
 
     @Override
@@ -19,7 +19,5 @@ public class MockTarget implements ITarget {
     }
 
     @Override
-    public boolean isDead() {
-        return dead;
-    }
+    public boolean isDead() { return false; }
 }

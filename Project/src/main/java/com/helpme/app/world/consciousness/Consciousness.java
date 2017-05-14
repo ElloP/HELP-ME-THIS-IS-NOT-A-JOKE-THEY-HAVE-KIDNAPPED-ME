@@ -1,6 +1,8 @@
 package com.helpme.app.world.consciousness;
 
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.target.ITarget;
@@ -25,10 +27,12 @@ public abstract class Consciousness implements IConsciousness {
         this.surroundings = surroundings;
     }
 
+    @Override
     public IReadBody readBody() {
         return body;
     }
 
+    @Override
     public void moveForward() {
         if (!surroundings.isMovementAllowed(body, body.readDirection())) {
             return;
@@ -36,6 +40,7 @@ public abstract class Consciousness implements IConsciousness {
         body.moveForward();
     }
 
+    @Override
     public void moveRight() {
         if (!surroundings.isMovementAllowed(body, body.readDirection().right())) {
             return;
@@ -43,6 +48,7 @@ public abstract class Consciousness implements IConsciousness {
         body.moveRight();
     }
 
+    @Override
     public void moveBackward() {
         if (!surroundings.isMovementAllowed(body, body.readDirection().backward())) {
             return;
@@ -50,6 +56,7 @@ public abstract class Consciousness implements IConsciousness {
         body.moveBackward();
     }
 
+    @Override
     public void moveLeft() {
         if (!surroundings.isMovementAllowed(body, body.readDirection().left())) {
             return;
@@ -57,18 +64,22 @@ public abstract class Consciousness implements IConsciousness {
         body.moveLeft();
     }
 
+    @Override
     public void rotateRight() {
         body.rotateRight();
     }
 
+    @Override
     public void rotateLeft() {
         body.rotateLeft();
     }
 
+    @Override
     public void setItems(IItem[] items) {
         body.setItems(items);
     }
 
+    @Override
     public void dropItem(int index) {
         if (surroundings.isTileValid(body.readPosition())) {
             Maybe<IItem> maybeItem = body.dropItem(index);
@@ -77,11 +88,12 @@ public abstract class Consciousness implements IConsciousness {
 
     }
 
+    @Override
     public void changeActiveItem(int index) {
         body.changeActiveItem(index);
     }
 
-
+    @Override
     public void setPosition(Vector2f position) {
         if (!surroundings.isTileValid(position)) {
             return;
@@ -89,10 +101,12 @@ public abstract class Consciousness implements IConsciousness {
         body.setPosition(position);
     }
 
+    @Override
     public void useSelfie() {
         body.selfie();
     }
 
+    @Override
     public void useAttack() {
         Vector2f direction = body.readDirection();
         Maybe<ITarget> maybeTarget = surroundings.getTarget(body, direction);
@@ -102,6 +116,7 @@ public abstract class Consciousness implements IConsciousness {
         }
     }
 
+    @Override
     public void usePickupAll() {
         Vector2f position = body.readPosition();
         Maybe<List<Maybe<IItem>>> maybeItems = surroundings.removeTileItems(position);
@@ -119,6 +134,7 @@ public abstract class Consciousness implements IConsciousness {
         );
     }
 
+    @Override
     public void usePickupSingle(int index) {
         Vector2f position = body.readPosition();
         Maybe<IItem> maybeItem = surroundings.removeTileItem(position, index);
@@ -128,6 +144,16 @@ public abstract class Consciousness implements IConsciousness {
                     }
                 }
         );
+    }
+
+    @Override
+    public Maybe<Tuple2<String, String[]>> useTalk() {
+        return new Nothing<>();
+    }
+
+    @Override
+    public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
+        return new Nothing<>();
     }
 
 }

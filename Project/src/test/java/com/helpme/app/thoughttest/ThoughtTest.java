@@ -1,25 +1,12 @@
-package com.helpme.app;
-
-import com.helpme.app.Mock.MockWorld1;
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.behaviour.FollowAndAttack;
-import com.helpme.app.world.character.behaviour.GoBack;
-import com.helpme.app.world.consciousness.Enemy;
-import org.junit.Before;
-import org.junit.Test;
+package com.helpme.app.thoughttest;
 
 /**
- * Created by Jesper on 2017-04-14.
+ * Created by kopa on 2017-05-14.
  */
-public class BehaviourTest {
-    private MockWorld1 mockWorld;
+public class ThoughtTest {
 
-    @Before
-    public void setup(){
-        this.mockWorld = new MockWorld1();
-    }
 
-    @Test
+/*    @Test
     public void testAttack(){
         assert (mockWorld.enemyConsciousness0.readBody().readHitpoints().equals(new Vector2f(100,100)));
         mockWorld.enemyConsciousness0.update();
@@ -50,6 +37,5 @@ public class BehaviourTest {
         assert ((Enemy) mockWorld.enemyConsciousness3).getBehaviour() instanceof GoBack;
         mockWorld.enemyConsciousness3.update();
         assert ((Enemy) mockWorld.enemyConsciousness3).getBehaviour() instanceof FollowAndAttack;
-    }
-
+    }*/
 }

@@ -11,7 +11,7 @@ public final class ConsciousnessFactory {
 
     }
 
-    public static IConsciousness createEnemy(IBody body, ISurroundings surroundings, IBehaviour behaviour, IBehaviour defaultBehaviour){
+    public static IThought createEnemy(IBody body, ISurroundings surroundings, IBehaviour behaviour, IBehaviour defaultBehaviour){
         return new Enemy(body, surroundings, behaviour, defaultBehaviour);
     }
 

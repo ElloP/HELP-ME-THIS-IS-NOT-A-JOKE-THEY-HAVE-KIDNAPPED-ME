@@ -1,6 +1,5 @@
 package com.helpme.app.consciousnesstest;
 
-import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -12,29 +11,17 @@ import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by kopa on 2017-05-14.
  */
-public class MockBody implements IBody {
-    public int selfied;
-    public boolean full;
-    public int movedForward;
-    public int movedRight;
-    public int movedBackward;
-    public int movedLeft;
-
-    public int items;
-
-    public MockBody() {
-        this.items = 0;
-    }
+public class MockTarget implements IBody {
+    public int attacked;
 
     @Override
     public void damage(float amount) {
-
+        attacked++;
     }
 
     @Override
@@ -59,22 +46,22 @@ public class MockBody implements IBody {
 
     @Override
     public void moveForward() {
-        movedForward++;
+
     }
 
     @Override
     public void moveRight() {
-        movedRight++;
+
     }
 
     @Override
     public void moveBackward() {
-        movedBackward++;
+
     }
 
     @Override
     public void moveLeft() {
-        movedLeft++;
+
     }
 
     @Override
@@ -89,21 +76,17 @@ public class MockBody implements IBody {
 
     @Override
     public void attack(ITarget target) {
-        target.damage(10);
+
     }
 
     @Override
     public void selfie() {
-        kill();
+
     }
 
     @Override
     public boolean pickupItem(IItem item) {
-        if (full) {
-            return false;
-        }
-        items++;
-        return true;
+        return false;
     }
 
     @Override
@@ -133,17 +116,17 @@ public class MockBody implements IBody {
 
     @Override
     public void kill() {
-        selfied++;
+
     }
 
     @Override
     public Vector2f readPosition() {
-        return Vector2f.zero;
+        return null;
     }
 
     @Override
     public Vector2f readDirection() {
-        return Vector2f.zero;
+        return null;
     }
 
     @Override

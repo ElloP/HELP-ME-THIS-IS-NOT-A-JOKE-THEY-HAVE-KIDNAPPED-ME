@@ -4,6 +4,7 @@ import com.helpme.app.utils.either.Left;
 import com.helpme.app.utils.either.Right;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.behaviour.DoNothing;
