@@ -12,4 +12,9 @@ public class Nothing<T> extends Maybe<T> {
     public T getValue() {
         throw new NullPointerException("Trying to access value from Nothing");
     }
+
+    @Override
+    public boolean equals(Object o){
+        return o instanceof Nothing;
+    }
 }

@@ -1,6 +1,8 @@
 package com.helpme.app.utils;
 
 import com.helpme.app.utils.interfaces.ICloneable;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,25 @@ public abstract class Clone {
         List<T> list = new ArrayList<>();
         for (T a : array) {
             if (a == null) {
+                list.add(null);
                 continue;
             }
             list.add(a.clone());
+        }
+        return list;
+    }
+
+    public static <T extends ICloneable<T>> List<Maybe<T>> toMaybeList(T[] array) {
+        if (array == null) {
+            return null;
+        }
+        List<Maybe<T>> list = new ArrayList<>();
+        for (T a : array) {
+            if (a == null) {
+                list.add(new Nothing<>());
+                continue;
+            }
+            list.add(Maybe.wrap(a.clone()));
         }
         return list;
     }
@@ -46,6 +64,14 @@ public abstract class Clone {
         List<T> cloned = new ArrayList<>();
         for(T element : list){
             cloned.add(element.clone());
+        }
+        return cloned;
+    }
+
+    public static <T extends ICloneable<T>> List<Maybe<T>> maybeList(List<Maybe<T>> list){
+        List<Maybe<T>> cloned = new ArrayList<>();
+        for(Maybe<T> element : list){
+            element.run(e -> cloned.add(Maybe.wrap(e.clone())));
         }
         return cloned;
     }

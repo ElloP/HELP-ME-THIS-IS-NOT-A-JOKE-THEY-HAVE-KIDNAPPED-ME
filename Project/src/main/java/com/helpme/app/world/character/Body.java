@@ -1,5 +1,6 @@
 package com.helpme.app.world.character;
 
+import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.dialogue.IDialogue;
 import com.helpme.app.world.character.inventory.IInventory;
@@ -183,7 +184,7 @@ public class Body extends Observable implements IBody {
 
     @Override
     public void setItems(IItem[] items) {
-        inventory.setItems(Maybe.wrap(items));
+        inventory.setItems(Clone.toMaybeList(items));
     }
 
     @Override

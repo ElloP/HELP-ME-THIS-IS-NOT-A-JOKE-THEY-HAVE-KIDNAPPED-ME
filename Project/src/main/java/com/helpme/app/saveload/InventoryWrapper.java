@@ -1,6 +1,7 @@
 package com.helpme.app.saveload;
 
 
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.IReadInventory;
 import com.helpme.app.world.character.inventory.Inventory;
@@ -8,6 +9,7 @@ import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
 
 /**
  * Created by Klas on 2017-04-29.
@@ -19,28 +21,20 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
     public InventoryWrapper() {}
 
-
     public InventoryWrapper(IReadInventory inventory) {
-        if (inventory == null) {
-            if (inventory.readItems().isNothing()) {
-                items = new ItemWrapper[]{};
-            } else {
-                IReadItem[] list = inventory.readItems().getValue();
-                items = new ItemWrapper[list.length];
-                for (int i = 0; i < list.length; i++) {
-                    items[i] = new ItemWrapper(list[i]);
-                }
-            }
+        List<Maybe<IReadItem>> inventoryItems = inventory.readItems();
+        List<Maybe<IReadItem>> inventoryKeys = inventory.readKeychain();
+        items = new ItemWrapper[inventoryItems.size()];
+        keys = new ItemWrapper[inventoryKeys.size()];
 
-            if (inventory.readKeychain().isNothing()) {
-                keys = new ItemWrapper[]{};
-            } else {
-                IReadItem[] list = inventory.readKeychain().getValue();
-                keys = new ItemWrapper[list.length];
-                for (int i = 0; i < list.length; i++) {
-                    keys[i] = new ItemWrapper(list[i]);
-                }
-            }
+        for(int i = 0; i < inventoryItems.size(); i++){
+            int index = i;
+            inventoryItems.get(i).run(item -> items[index] = new ItemWrapper(item));
+        }
+
+        for(int i = 0; i < inventoryKeys.size(); i++){
+            int index = i;
+            inventoryKeys.get(i).run(item -> keys[index] = new ItemWrapper(item));
         }
     }
 

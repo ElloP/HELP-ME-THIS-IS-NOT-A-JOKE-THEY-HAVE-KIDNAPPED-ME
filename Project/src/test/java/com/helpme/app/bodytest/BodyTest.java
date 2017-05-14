@@ -16,7 +16,7 @@ public class BodyTest {
     private IBody body1;
     private IBody body2;
     private IBody body3;
-    private ITarget mockTarget;
+    private MockTarget mockTarget;
 
     @Before
     public void setup() {
