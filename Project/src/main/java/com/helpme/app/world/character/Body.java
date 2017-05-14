@@ -16,6 +16,7 @@ import com.helpme.app.world.tile.edge.visitor.Traverse;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -197,12 +198,8 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public void dropAllItems() {
-        for (int i = 0; i < inventory.getSize(); i++) {
-            if (inventory.getItem(i).isJust()) {
-                dropItem(i);
-            }
-        }
+    public List<Maybe<IItem>> dropAllItems() {
+        return inventory.dropItems();
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
+import java.util.List;
+
 /**
  * Created by Jacob on 2017-04-08.
  */
@@ -22,9 +24,10 @@ public interface IBody extends IReadBody {
     void selfie();
     boolean pickupItem(IItem item);
     Maybe<IItem> dropItem(int index);
+    List<Maybe<IItem>> dropAllItems();
     IInventory getInventory();
     void setItems(IItem[] items);
     Body clone();
-    void dropAllItems();
+
     void kill();
 }

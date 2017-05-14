@@ -42,7 +42,7 @@ public class ConsciousnessTest {
 
     @Test
     public void testPickupAll(){
-
+        player.usePickupAll();
     }
 
     @Test

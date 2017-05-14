@@ -11,11 +11,14 @@ import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 
+import java.util.List;
+
 /**
  * Created by kopa on 2017-05-14.
  */
 public class MockBody implements IBody {
     private boolean dead;
+    private List<Maybe<IItem>> items;
 
     @Override
     public void damage(float amount) {
@@ -84,7 +87,8 @@ public class MockBody implements IBody {
 
     @Override
     public boolean pickupItem(IItem item) {
-        return false;
+        items.add(Maybe.wrap(item));
+        return true;
     }
 
     @Override
