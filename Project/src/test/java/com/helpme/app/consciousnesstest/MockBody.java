@@ -112,8 +112,8 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public void dropAllItems() {
-
+    public List<Maybe<IItem>> dropAllItems() {
+        return null;
     }
 
     @Override
