@@ -108,7 +108,7 @@ public class MockSurroundings implements ISurroundings {
 
     @Override
     public Maybe<IReadBody> readFacing(IReadBody body) {
-        return null;
+        return new Just(mockTarget);
     }
 
     @Override

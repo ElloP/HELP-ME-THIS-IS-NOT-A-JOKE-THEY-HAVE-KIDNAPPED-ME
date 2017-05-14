@@ -1,10 +1,15 @@
 package com.helpme.app.consciousnesstest;
 
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.world.character.dialogue.IDialogue;
 import com.helpme.app.world.consciousness.ConsciousnessFactory;
 import com.helpme.app.world.consciousness.IThought;
 import com.helpme.app.world.consciousness.IConsciousness;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Created by kopa on 2017-05-11.
@@ -24,56 +29,56 @@ public class ConsciousnessTest {
     }
 
     @Test
-    public void testMoveForwardAllowed(){
+    public void testMoveForwardAllowed() {
         mockSurroundings.movementAllowed = true;
         player.moveForward();
         assert (mockBody.movedForward == 1);
     }
 
     @Test
-    public void testMoveForwardDisallowed(){
+    public void testMoveForwardDisallowed() {
         mockSurroundings.movementAllowed = false;
         player.moveForward();
         assert (mockBody.movedForward == 0);
     }
 
     @Test
-    public void testMoveRightAllowed(){
+    public void testMoveRightAllowed() {
         mockSurroundings.movementAllowed = true;
         player.moveRight();
         assert (mockBody.movedRight == 1);
     }
 
     @Test
-    public void testMoveRightDisallowed(){
+    public void testMoveRightDisallowed() {
         mockSurroundings.movementAllowed = false;
         player.moveRight();
         assert (mockBody.movedRight == 0);
     }
 
     @Test
-    public void testMoveBackwardAllowed(){
+    public void testMoveBackwardAllowed() {
         mockSurroundings.movementAllowed = true;
         player.moveBackward();
         assert (mockBody.movedBackward == 1);
     }
 
     @Test
-    public void testMoveBackwardDisallowed(){
+    public void testMoveBackwardDisallowed() {
         mockSurroundings.movementAllowed = false;
         player.moveBackward();
         assert (mockBody.movedBackward == 0);
     }
 
     @Test
-    public void testMoveLeftAllowed(){
+    public void testMoveLeftAllowed() {
         mockSurroundings.movementAllowed = true;
         player.moveLeft();
         assert (mockBody.movedLeft == 1);
     }
 
     @Test
-    public void testMoveLeftDisallowed(){
+    public void testMoveLeftDisallowed() {
         mockSurroundings.movementAllowed = false;
         player.moveLeft();
         assert (mockBody.movedLeft == 0);
@@ -113,5 +118,17 @@ public class ConsciousnessTest {
         mockBody.full = false;
         player.usePickupSingle(0);
         assert (mockBody.items == 1 && mockSurroundings.tileItems == 2);
+    }
+
+    @Test
+    public void testDialogue() {
+        Maybe<Tuple2<String, String[]>> dialogue = player.useTalk();
+        assert (dialogue.isJust());
+    }
+
+    @Test
+    public void testResponse() {
+        Maybe<Tuple2<String, String[]>> response = player.useTalk(0);
+        assert (response.isJust());
     }
 }

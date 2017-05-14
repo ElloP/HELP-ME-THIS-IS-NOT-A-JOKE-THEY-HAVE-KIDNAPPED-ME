@@ -151,12 +151,12 @@ public class MockTarget implements IBody {
 
     @Override
     public Tuple2<String, String[]> getResponse(int i) {
-        return null;
+        return new Tuple2<>(null, null);
     }
 
     @Override
     public Tuple2<String, String[]> getDialogue() {
-        return null;
+        return new Tuple2<>(null, null);
     }
 
     @Override
