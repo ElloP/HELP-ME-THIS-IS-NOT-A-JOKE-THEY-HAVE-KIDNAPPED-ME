@@ -40,7 +40,7 @@ public class Inventory implements IInventory {
 
     @Override
     public Maybe<IItem> getActiveItem() {
-        return Maybe.wrap(items.get(activeItemIndex));
+        return activeItemIndex < 0 || activeItemIndex >= items.size() ? new Nothing() : Maybe.wrap(items.get(activeItemIndex));
     }
 
     @Override

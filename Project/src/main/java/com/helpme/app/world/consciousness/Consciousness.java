@@ -77,10 +77,6 @@ public abstract class Consciousness implements IConsciousness {
 
     }
 
-    public void useSelfie() {
-        body.selfie();
-    }
-
     public void changeActiveItem(int index) {
         body.changeActiveItem(index);
     }
@@ -91,6 +87,10 @@ public abstract class Consciousness implements IConsciousness {
             return;
         }
         body.setPosition(position);
+    }
+
+    public void useSelfie() {
+        body.selfie();
     }
 
     public void useAttack() {

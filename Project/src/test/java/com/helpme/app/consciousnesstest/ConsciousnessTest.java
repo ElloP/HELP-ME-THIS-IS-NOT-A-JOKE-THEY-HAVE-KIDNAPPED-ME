@@ -20,39 +20,13 @@ public class ConsciousnessTest {
     @Before
     public void setup() {
         enemy = ConsciousnessFactory.createEnemy(new MockBody(), new MockSurroundings(), new MockBehaviour(), new MockBehaviour());
-    }
-    /*
-    @Test
-    public void testBlockedByMonster() {
-        Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.player.setPlayerPosition(tileStart);
-        mockWorld.player.movePlayerForward();
-        assert ( mockWorld.player.getPlayer().readPosition().equals(tileStart));
+        player = ConsciousnessFactory.createPlayer(new MockBody(), new MockSurroundings());
     }
 
     @Test
-    public void testWalkAroundMonster() {
-        Vector2f tileStart = new Vector2f(2, 1);
-        Vector2f tileTo = new Vector2f(2, 3);
-        mockWorld.player.setPlayerPosition(tileStart);
-        mockWorld.player.movePlayerRight();
-        mockWorld.player.movePlayerForward();
-        mockWorld.player.movePlayerForward();
-        mockWorld.player.movePlayerLeft();
-        assert ( mockWorld.player.getPlayer().readPosition().equals(tileTo));
+    public void testAttack(){
+
     }
 
-    @Test
-    public void testWalkOverDeadBodies(){
-        Vector2f tileStart = new Vector2f(2, 1);
-        mockWorld.player.setPlayerPosition(tileStart);
-        mockWorld.player.movePlayerForward();
-        Vector2f monsterPos = new Vector2f(Vector2f.add(tileStart,mockWorld.player.getPlayer().readDirection()));
-        //assert (monsterPos.equals(new Vector2f(2,2)));
-        while(!mockWorld.level.readBody(monsterPos).check(ITarget::isDead)){
-            mockWorld.player.usePlayerAttack();
-        }
-        mockWorld.player.movePlayerForward();
-        assert (mockWorld.player.getPlayer().readPosition().equals(monsterPos));
-    }*/
+
 }

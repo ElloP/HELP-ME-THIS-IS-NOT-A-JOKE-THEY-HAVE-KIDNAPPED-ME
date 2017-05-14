@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DialogueTest.class, EdgeTest.class, ItemTest.class, BodyTest.class, BehaviourTest.class, InventoryTest.class, TileTest.class})
+@Suite.SuiteClasses({DialogueTest.class, EdgeTest.class, BodyTest.class, BehaviourTest.class, InventoryTest.class, TileTest.class})
 public class TestSuite {
     //nothing
 }
