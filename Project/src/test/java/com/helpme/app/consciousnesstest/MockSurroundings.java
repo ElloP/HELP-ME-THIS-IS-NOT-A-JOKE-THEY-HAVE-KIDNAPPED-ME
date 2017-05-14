@@ -21,9 +21,10 @@ import java.util.Map;
 public class MockSurroundings implements ISurroundings {
     public IBody mockTarget;
     public int tileItems;
+    public boolean movementAllowed;
 
     public MockSurroundings(IBody mockTarget){
-
+        this.mockTarget = mockTarget;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class MockSurroundings implements ISurroundings {
 
     @Override
     public boolean isMovementAllowed(IReadBody body, Vector2f direction) {
-        return false;
+        return movementAllowed;
     }
 
     @Override

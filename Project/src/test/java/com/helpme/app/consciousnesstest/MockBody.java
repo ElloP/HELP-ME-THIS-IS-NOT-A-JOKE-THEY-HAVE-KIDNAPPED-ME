@@ -19,8 +19,12 @@ import java.util.List;
  * Created by kopa on 2017-05-14.
  */
 public class MockBody implements IBody {
-    public boolean selfied;
+    public int selfied;
     public boolean full;
+    public int movedForward;
+    public int movedRight;
+    public int movedBackward;
+    public int movedLeft;
 
     public int items;
 
@@ -55,22 +59,22 @@ public class MockBody implements IBody {
 
     @Override
     public void moveForward() {
-
+        movedForward++;
     }
 
     @Override
     public void moveRight() {
-
+        movedRight++;
     }
 
     @Override
     public void moveBackward() {
-
+        movedBackward++;
     }
 
     @Override
     public void moveLeft() {
-
+        movedLeft++;
     }
 
     @Override
@@ -129,7 +133,7 @@ public class MockBody implements IBody {
 
     @Override
     public void kill() {
-        selfied = true;
+        selfied++;
     }
 
     @Override

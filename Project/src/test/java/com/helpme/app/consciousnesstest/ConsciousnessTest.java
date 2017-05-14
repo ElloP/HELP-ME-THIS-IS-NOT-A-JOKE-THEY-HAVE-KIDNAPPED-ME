@@ -24,15 +24,71 @@ public class ConsciousnessTest {
     }
 
     @Test
+    public void testMoveForwardAllowed(){
+        mockSurroundings.movementAllowed = true;
+        player.moveForward();
+        assert (mockBody.movedForward == 1);
+    }
+
+    @Test
+    public void testMoveForwardDisallowed(){
+        mockSurroundings.movementAllowed = false;
+        player.moveForward();
+        assert (mockBody.movedForward == 0);
+    }
+
+    @Test
+    public void testMoveRightAllowed(){
+        mockSurroundings.movementAllowed = true;
+        player.moveRight();
+        assert (mockBody.movedRight == 1);
+    }
+
+    @Test
+    public void testMoveRightDisallowed(){
+        mockSurroundings.movementAllowed = false;
+        player.moveRight();
+        assert (mockBody.movedRight == 0);
+    }
+
+    @Test
+    public void testMoveBackwardAllowed(){
+        mockSurroundings.movementAllowed = true;
+        player.moveBackward();
+        assert (mockBody.movedBackward == 1);
+    }
+
+    @Test
+    public void testMoveBackwardDisallowed(){
+        mockSurroundings.movementAllowed = false;
+        player.moveBackward();
+        assert (mockBody.movedBackward == 0);
+    }
+
+    @Test
+    public void testMoveLeftAllowed(){
+        mockSurroundings.movementAllowed = true;
+        player.moveLeft();
+        assert (mockBody.movedLeft == 1);
+    }
+
+    @Test
+    public void testMoveLeftDisallowed(){
+        mockSurroundings.movementAllowed = false;
+        player.moveLeft();
+        assert (mockBody.movedLeft == 0);
+    }
+
+    @Test
     public void testAttack() {
         player.useAttack();
-        assert (mockTarget.attacked);
+        assert (mockTarget.attacked == 1);
     }
 
     @Test
     public void testSelfie() {
         player.useSelfie();
-        assert (mockBody.selfied);
+        assert (mockBody.selfied == 1);
     }
 
     @Test
@@ -58,6 +114,4 @@ public class ConsciousnessTest {
         player.usePickupSingle(0);
         assert (mockBody.items == 1 && mockSurroundings.tileItems == 2);
     }
-
-
 }

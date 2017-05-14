@@ -17,11 +17,11 @@ import java.util.List;
  * Created by kopa on 2017-05-14.
  */
 public class MockTarget implements IBody {
-    public boolean attacked;
+    public int attacked;
 
     @Override
     public void damage(float amount) {
-        attacked = true;
+        attacked++;
     }
 
     @Override

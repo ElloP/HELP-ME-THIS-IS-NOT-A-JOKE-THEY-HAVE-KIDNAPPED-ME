@@ -54,7 +54,7 @@ public class BodyTest {
     @Test
     public void testAttack() {
         body0.attack(mockTarget);
-        assert (mockTarget.attacked);
+        assert (mockTarget.attacked == 1);
     }
 
     @Test
