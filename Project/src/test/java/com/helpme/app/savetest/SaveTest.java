@@ -41,8 +41,8 @@ public class SaveTest {
     }
     @Test
     public void saveTest() throws JAXBException {
-        items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        inventory = InventoryFactory.createInventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        tileItems = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
+        inventory = InventoryFactory.createInventory(tileItems, MockItem.defaultWeapon, new IItem[]{MockItem.key});
         hitpoints = new Vector2f(100,50);
         IBody Body = new Body(inventory,Vector2f.right,Vector2f.left,hitpoints);
         File file = new File("test.xml");
@@ -57,8 +57,8 @@ public class SaveTest {
 
     @Test
     public void testMarshaller() throws JAXBException {
-        items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        inventory = InventoryFactory.createInventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        tileItems = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
+        inventory = InventoryFactory.createInventory(tileItems, MockItem.defaultWeapon, new IItem[]{MockItem.key});
         hitpoints = new Vector2f(100,50);
         IBody Body = new Body(inventory,Vector2f.right,Vector2f.left,hitpoints);
         String fileTest = "test.xml";

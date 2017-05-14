@@ -1,14 +1,8 @@
 package com.helpme.app.consciousnesstest;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.behaviour.FollowAndAttack;
-import com.helpme.app.world.character.behaviour.GoBack;
 import com.helpme.app.world.consciousness.ConsciousnessFactory;
-import com.helpme.app.world.consciousness.Enemy;
 import com.helpme.app.world.consciousness.IThought;
 import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.item.IItem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,40 +10,54 @@ import org.junit.Test;
  * Created by kopa on 2017-05-11.
  */
 public class ConsciousnessTest {
-    IThought enemy;
     IConsciousness player;
-    IBody mockBody;
-    IBody mockTarget;
+    MockBody mockBody;
+    MockTarget mockTarget;
+    MockSurroundings mockSurroundings;
 
     @Before
     public void setup() {
         mockTarget = new MockTarget();
         mockBody = new MockBody();
-        player = ConsciousnessFactory.createPlayer(mockBody, new MockSurroundings(mockTarget, new IItem[]{}));
+        mockSurroundings = new MockSurroundings(mockTarget);
+        player = ConsciousnessFactory.createPlayer(mockBody, mockSurroundings);
     }
 
     @Test
-    public void testAttack(){
+    public void testAttack() {
         player.useAttack();
-        assert (mockTarget.readHitpoints().y == 90);
+        assert (mockTarget.attacked);
     }
 
     @Test
-    public void testSelfie(){
+    public void testSelfie() {
         player.useSelfie();
-        assert (mockBody.isDead());
+        assert (mockBody.selfied);
     }
 
     @Test
-    public void testPickupAll(){
+    public void testPickupAllNotFull() {
+        mockSurroundings.tileItems = 3;
+        mockBody.full = false;
         player.usePickupAll();
+        assert (mockBody.items == 3 && mockSurroundings.tileItems == 0);
     }
 
     @Test
-    public void testPickupSingle(){
-
+    public void testPickupAllFull() {
+        mockSurroundings.tileItems = 3;
+        mockBody.full = true;
+        player.usePickupAll();
+        assert (mockBody.items == 0 && mockSurroundings.tileItems == 3);
     }
 
+    @Test
+    public void testPickupSingle() {
+        mockSurroundings.tileItems = 3;
+        mockBody.full = false;
+        player.usePickupSingle(0);
+        assert (mockBody.items == 1 && mockSurroundings.tileItems == 2);
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.helpme.app.consciousnesstest;
 
+import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -11,14 +12,21 @@ import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by kopa on 2017-05-14.
  */
 public class MockBody implements IBody {
-    private boolean dead;
-    private List<Maybe<IItem>> items;
+    public boolean selfied;
+    public boolean full;
+
+    public int items;
+
+    public MockBody() {
+        this.items = 0;
+    }
 
     @Override
     public void damage(float amount) {
@@ -32,7 +40,7 @@ public class MockBody implements IBody {
 
     @Override
     public boolean isDead() {
-        return dead;
+        return false;
     }
 
     @Override
@@ -87,7 +95,10 @@ public class MockBody implements IBody {
 
     @Override
     public boolean pickupItem(IItem item) {
-        items.add(Maybe.wrap(item));
+        if (full) {
+            return false;
+        }
+        items++;
         return true;
     }
 
@@ -118,7 +129,7 @@ public class MockBody implements IBody {
 
     @Override
     public void kill() {
-        dead = true;
+        selfied = true;
     }
 
     @Override

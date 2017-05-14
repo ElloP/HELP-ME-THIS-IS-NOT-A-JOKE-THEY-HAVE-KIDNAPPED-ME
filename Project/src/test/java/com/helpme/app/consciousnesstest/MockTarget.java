@@ -11,16 +11,17 @@ import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 
+import java.util.List;
+
 /**
  * Created by kopa on 2017-05-14.
  */
 public class MockTarget implements IBody {
-    private boolean dead;
-    private Vector2f hitpoints = new Vector2f(100,100);
+    public boolean attacked;
 
     @Override
     public void damage(float amount) {
-        hitpoints.y -= amount;
+        attacked = true;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class MockTarget implements IBody {
 
     @Override
     public boolean isDead() {
-        return dead;
+        return false;
     }
 
     @Override
@@ -109,13 +110,13 @@ public class MockTarget implements IBody {
     }
 
     @Override
-    public void dropAllItems() {
-
+    public List<Maybe<IItem>> dropAllItems() {
+        return null;
     }
 
     @Override
     public void kill() {
-        dead = true;
+
     }
 
     @Override
@@ -130,7 +131,7 @@ public class MockTarget implements IBody {
 
     @Override
     public Vector2f readHitpoints() {
-        return hitpoints;
+        return null;
     }
 
     @Override
