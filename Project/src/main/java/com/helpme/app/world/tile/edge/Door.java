@@ -12,7 +12,7 @@ public class Door implements IEdge {
 
     public Door(boolean locked, IItem key) {
         this.locked = locked;
-        this.key = key == null ? IKeyFactory.skeletonKey() : key;
+        this.key = key;
     }
 
     public boolean isDead(){ return false; }
