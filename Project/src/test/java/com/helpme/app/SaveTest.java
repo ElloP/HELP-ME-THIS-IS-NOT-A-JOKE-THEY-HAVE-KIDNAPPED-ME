@@ -13,6 +13,7 @@ import com.helpme.app.world.character.Body;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.world.consciousness.Player;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.ILevel;
 import org.junit.Before;
@@ -70,7 +71,13 @@ public class SaveTest {
         SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
         IBody player = loadroot.loadPlayer();
         ILevel level = loadroot.loadLevel();
-        enemy = loadroot.loadEnemies();
+        Enemy[] enemy1 = loadroot.loadEnemies();
+
+        Player player1 = new Player(player,level);
+        assert(player1.getPlayer().readCurrentHp() == mock.player.getPlayer().readCurrentHp());
+        assert(player1.getPlayer().readMaxHp() == mock.player.getPlayer().readMaxHp());
+        assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());
+        assert(true == enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
 
     }
 }
