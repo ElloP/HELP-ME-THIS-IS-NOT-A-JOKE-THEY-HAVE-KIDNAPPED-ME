@@ -81,8 +81,7 @@ public class Quaternion {
     }
 
     public Quaternion rotate(Vector3f eulerAngles) {
-        this.quaternion.rotationZYX(eulerAngles.z(), eulerAngles.y(), eulerAngles.x());
-        return this;
+        return this.rotate(eulerAngles.z(), eulerAngles.y(), eulerAngles.x());
     }
 
     public Quaternion rotate(float x, float y, float z) {
