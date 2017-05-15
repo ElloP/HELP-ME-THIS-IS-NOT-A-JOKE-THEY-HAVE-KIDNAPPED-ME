@@ -38,6 +38,7 @@ public class Level implements ILevel {
     public Level(Map<Vector2f, ITile> tiles, Vector2f startingPosition){
         this.tiles = tiles;
         this.startingPosition = startingPosition;
+        bodies = new ArrayList<>();
     }
 
     private void generateLevel(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
@@ -140,7 +141,8 @@ public class Level implements ILevel {
 
     @Override
     public void addBody(IBody body) {
-        if (body == null || bodies.contains(body)) return;
+        if (body == null) return;
+        if(bodies.contains(body)) return;
         bodies.add(body);
     }
 

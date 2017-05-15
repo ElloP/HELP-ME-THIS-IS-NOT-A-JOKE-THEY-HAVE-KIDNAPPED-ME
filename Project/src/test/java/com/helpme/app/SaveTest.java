@@ -14,6 +14,7 @@ import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.consciousness.Enemy;
 import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.level.ILevel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,6 +68,9 @@ public class SaveTest {
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
         SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
+        IBody player = loadroot.loadPlayer();
+        ILevel level = loadroot.loadLevel();
+        enemy = loadroot.loadEnemies();
 
     }
 }

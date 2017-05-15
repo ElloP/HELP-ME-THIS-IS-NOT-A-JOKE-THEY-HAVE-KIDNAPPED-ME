@@ -13,9 +13,7 @@ public class ItemWrapper implements ILoadable<IItem>{
 
     private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     public ItemWrapper(){}
 
@@ -29,6 +27,9 @@ public class ItemWrapper implements ILoadable<IItem>{
     @XmlElement(name="name")
     public String getName(){
         return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
