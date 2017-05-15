@@ -2,6 +2,7 @@ package com.helpme.app.saveload;
 
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.world.consciousness.ISurroundings;
 import com.sun.org.apache.bcel.internal.generic.ILOAD;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -9,32 +10,22 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by Klas on 2017-05-01.
  */
-public class EnemyWrapper implements ILoadable<Enemy>{
-    private boolean isDead;
-    private String dialogue;
-    BodyWrapper body;
+public class EnemyWrapper{
+    private BodyWrapper body;
+    private BehaviorWrapper defaultBehavior, currentBehavior;
+
 
     public EnemyWrapper(){}
 
-    public EnemyWrapper(IReadBody monster){
-        this.isDead = monster.isDead();
-        this.dialogue = "temporary"; //monster.getDialogue().toString(); //TODO (klas)
-        this.body = new BodyWrapper(monster);
+    public EnemyWrapper(Enemy monster){
+        this.body = new BodyWrapper(monster.readBody());
+        this.currentBehavior = new BehaviorWrapper(monster.getBehaviour());
+        this.defaultBehavior = new BehaviorWrapper(monster.getDefaultBehavior());
     }
-    @XmlElement(name="isDead")
-    public boolean getIsDead(){
-        return isDead;
-    }
-    public void setIsDead(boolean isDead){this.isDead = isDead;}
-    @XmlElement(name="Dialogue")
-    public String getDialogue(){
-        return dialogue;
-    }
+
     public String toString(){
         String result = "";
-        result += "isDead: " + isDead;
-        result += "\nDialogue: " + dialogue;
-        result += "\n" + body.toString();
+        result += body.toString();
         return result;
     }
     @XmlElement(name="Body")
@@ -45,8 +36,25 @@ public class EnemyWrapper implements ILoadable<Enemy>{
         this.body = body;
     }
 
-    @Override
-    public Enemy getObject() {
-        return null; //fuck this
+    @XmlElement(name="Default_Behavior")
+    public void setDefaultBehavior(BehaviorWrapper defaultBehavior) {
+        this.defaultBehavior = defaultBehavior;
     }
+    @XmlElement(name="Current_Behavior")
+    public void setCurrentBehavior(BehaviorWrapper currentBehavior) {
+        this.currentBehavior = currentBehavior;
+    }
+    public BehaviorWrapper getDefaultBehavior() {
+        return defaultBehavior;
+
+    }
+    public BehaviorWrapper getCurrentBehavior() {
+        return currentBehavior;
+    }
+
+    public Enemy getObject(ISurroundings level) {
+        return new Enemy(body.getObject(), level, currentBehavior.getObject(),defaultBehavior.getObject()); //fuck this
+    }
+
+
 }

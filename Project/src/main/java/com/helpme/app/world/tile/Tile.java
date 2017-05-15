@@ -86,4 +86,9 @@ public class Tile implements ITile {
         return edges;
     }
 
+    //@Override
+    //public IEdge readEdge(Vector2f direction) {
+    //    return edges.get(direction);
+    //}
+
 }

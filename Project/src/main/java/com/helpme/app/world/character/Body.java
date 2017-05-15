@@ -40,20 +40,23 @@ public class Body extends Observable implements IBody {
     }
 
     public Body(IInventory inventory, Vector2f position, Vector2f direction, float hitpoints) {
-        this(inventory, position, direction, new Vector2f(hitpoints, hitpoints), null);
+        this(inventory, position, direction, new Vector2f(hitpoints, hitpoints), position);
     }
 
     public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints) {
-        this(inventory, position, direction, hitpoints, null);
+        this(inventory, position, direction, hitpoints, position);
     }
 
     public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints, IDialogue dialogue) {
+        this(inventory,position,direction,hitpoints,position);
+    }
+    public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints, Vector2f startingPosition){
         this.inventory = inventory == null ? new Inventory(null, null, null) : inventory;
         this.position = position == null ? Vector2f.zero : position;
         this.direction = direction == null ? Vector2f.up : direction;
         this.hitpoints = hitpoints == null ? Vector2f.zero : hitpoints;
-        this.startingPosition = position;
-        this.dialogue = dialogue;
+        this.startingPosition = startingPosition;
+
     }
 
     @Override

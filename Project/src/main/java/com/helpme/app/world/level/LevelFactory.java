@@ -11,6 +11,7 @@ import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.world.tile.edge.Opening;
 import com.helpme.app.world.tile.edge.Wall;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,10 @@ public final class LevelFactory {
 
     public static ILevel createLevel(IBody player, Vector2f startingPosition, Map<Vector2f, ITile> tiles, List<IBody> bodies){
         return new Level(player, startingPosition, tiles, bodies);
+    }
+    public static ILevel createLevel(Map<Vector2f, ITile> tiles, Vector2f startingPos){
+        List<IBody> bodies = new ArrayList<>();
+        return new Level(null,startingPos,tiles,bodies);
     }
 
     private static Map<Vector2f, ITile> generateTiles(List<Tuple2<Vector2f, IItem[]>> info) {

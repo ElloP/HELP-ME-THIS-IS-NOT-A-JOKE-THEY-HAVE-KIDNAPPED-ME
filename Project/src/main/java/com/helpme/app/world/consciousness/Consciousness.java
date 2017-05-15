@@ -27,8 +27,9 @@ public abstract class Consciousness implements IConsciousness {
         this.surroundings = surroundings;
     }
 
+
     @Override
-    public IReadBody readBody() {
+    public IBody readBody() {
         return body;
     }
 

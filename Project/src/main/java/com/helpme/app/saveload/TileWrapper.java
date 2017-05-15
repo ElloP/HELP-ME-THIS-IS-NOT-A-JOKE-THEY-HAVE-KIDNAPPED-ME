@@ -23,9 +23,11 @@ import java.util.Map;
 
 @XmlRootElement(name="tile")
 public class TileWrapper implements ILoadable<ITile> {
+
     private Vector2Wrapper positionWrapper;
     private ItemWrapper[] itemWrappers;
     private Map<Vector2Wrapper, EdgeWrapper> edgeWrappers;
+
 
     //TODO (klas) Save edgeWrappers
     public TileWrapper() {
@@ -41,7 +43,6 @@ public class TileWrapper implements ILoadable<ITile> {
             tileItems.get(index).run(item -> this.itemWrappers[index] = new ItemWrapper(item));
         }
 
-
         for (Map.Entry<Vector2f, IEdge> entry : tile.readEdges().entrySet()) {
             edgeWrappers.put(new Vector2Wrapper(entry.getKey()), new EdgeWrapper(entry.getValue()));
         }
@@ -54,7 +55,9 @@ public class TileWrapper implements ILoadable<ITile> {
 
     public void setPositionWrapper(Vector2Wrapper pos) {
         this.positionWrapper = pos;
+
     }
+
 
 
     @XmlElementWrapper(name="items")
@@ -78,6 +81,7 @@ public class TileWrapper implements ILoadable<ITile> {
 
     public void setEdges(Map<Vector2Wrapper, EdgeWrapper> edges) {
         this.edgeWrappers = edges;
+
     }
 
     public String toString() {
@@ -114,5 +118,9 @@ public class TileWrapper implements ILoadable<ITile> {
 
         return TileFactory.createTile(tmp, edges);
 
+
+    }
+    public Vector2f getLocation(){
+        return this.positionWrapper.getObject();
     }
 }

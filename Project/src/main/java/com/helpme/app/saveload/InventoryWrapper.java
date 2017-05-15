@@ -93,6 +93,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     }
 
     private IItem[] fixItems(ItemWrapper[] items){
+        if(items == null) return new IItem[]{};
         IItem[] result = new IItem[items.length];
         for(int i = 0; i < result.length; i++){
             result[i] = items[i].getObject();

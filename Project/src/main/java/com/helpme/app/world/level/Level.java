@@ -28,7 +28,7 @@ public class Level implements ILevel {
         this.player = player;
         this.startingPosition = startingPosition;
         this.tiles = tiles;
-        this.bodies = bodies;
+        this.bodies = bodies == null? new ArrayList<IBody>() : bodies;
     }
 
 
@@ -84,7 +84,8 @@ public class Level implements ILevel {
 
     @Override
     public void addBody(IBody body) {
-        if (body == null || bodies.contains(body)) return;
+        if (body == null) return;
+        if(bodies.contains(body)) return;
         bodies.add(body);
     }
 

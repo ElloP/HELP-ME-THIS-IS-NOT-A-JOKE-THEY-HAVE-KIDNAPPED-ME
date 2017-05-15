@@ -1,6 +1,7 @@
 package com.helpme.app.world.consciousness;
 
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -10,7 +11,7 @@ import com.helpme.app.utils.Vector2f;
  * Created by kopa on 2017-04-15.
  */
 public interface IConsciousness extends IThought {
-    IReadBody readBody();
+    IBody readBody();
 
     void moveForward();
 

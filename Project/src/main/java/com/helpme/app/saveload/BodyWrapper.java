@@ -10,15 +10,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by Klas on 2017-04-29.
  */
-@XmlRootElement(name="body")
+
+@XmlRootElement(name="Body")
 public class BodyWrapper implements ILoadable<IBody>{
     private Vector2Wrapper hitpointsWrapper;
     private InventoryWrapper inventoryWrapper;
     private Vector2Wrapper positionWrapper;
     private Vector2Wrapper directionWrapper;
+
     private boolean dead;
 
     public BodyWrapper(){}
+
 
 
     public BodyWrapper(IReadBody body){
@@ -30,6 +33,7 @@ public class BodyWrapper implements ILoadable<IBody>{
     }
 
     @XmlElement(name="dead")
+
     public boolean getDead() {
         return dead;
     }

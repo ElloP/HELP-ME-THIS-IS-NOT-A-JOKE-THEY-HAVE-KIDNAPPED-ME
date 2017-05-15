@@ -13,7 +13,7 @@ import com.helpme.app.world.character.behaviour.IBehaviour;
 /**
  * Created by Jesper on 2017-04-12.
  */
-public class Enemy extends Consciousness {
+public class Enemy extends Consciousness implements IEnemy {
     private IBehaviour behaviour;
     private IBehaviour defaultBehavior;
 
@@ -46,6 +46,10 @@ public class Enemy extends Consciousness {
     }
 
     public IBehaviour getBehaviour(){
-        return behaviour;
+        return this.behaviour;
+    }
+
+    public IBehaviour getDefaultBehavior() {
+        return this.defaultBehavior;
     }
 }

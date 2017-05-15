@@ -1,5 +1,6 @@
 package com.helpme.app.saveload;
 
+
 import com.helpme.app.saveload.visitor.GetEdgeInfo;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.item.IItem;
@@ -41,7 +42,7 @@ public class EdgeWrapper implements ILoadable<IEdge> {
     public String toString() {
         String result = "";
         result += type;
-        if(type.equals("door")){
+        if (type.equals("door")) {
             result += " is " + (locked ? "locked" : "unlocked") + " with " + key.toString();
         }
         return result;
@@ -68,11 +69,12 @@ public class EdgeWrapper implements ILoadable<IEdge> {
     @Override
     public IEdge getObject() {
         switch (type) {
-            case "opening" :
+            case "opening":
                 return EdgeFactory.createOpening();
-            case "wall" :
+            case "wall":
                 return EdgeFactory.createWall();
         }
         return null;
+
     }
 }
