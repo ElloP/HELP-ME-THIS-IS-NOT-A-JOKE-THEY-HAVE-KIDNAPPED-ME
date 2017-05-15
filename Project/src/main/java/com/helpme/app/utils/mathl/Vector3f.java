@@ -169,6 +169,11 @@ public class Vector3f {
         return this;
     }
 
+    public Vector3f lerp(Vector3f other, float t, Vector3f dest) {
+        this.vector.lerp(other.vector, t, dest.vector);
+        return dest;
+    }
+
     public Vector3f logVector() {
         System.out.println(vector);
         return this;

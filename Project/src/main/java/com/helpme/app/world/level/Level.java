@@ -30,7 +30,7 @@ public class Level implements ILevel {
         this.tiles = tiles;
         this.bodies = bodies;
 
-        resetPlayer();
+        //resetPlayer();
     }
 
 

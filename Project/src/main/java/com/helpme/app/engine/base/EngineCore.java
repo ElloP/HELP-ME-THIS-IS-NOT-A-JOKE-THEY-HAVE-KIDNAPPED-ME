@@ -16,7 +16,7 @@ public class EngineCore {
 
     private Game game;
 
-    private final double OPTIMAL_FRAMERATE = Time.getSecond() / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
+    private final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
 
     public EngineCore(Game game) {
         RenderCore.init();
@@ -57,7 +57,7 @@ public class EngineCore {
                     stop();
                 }
 
-                time.deltaTime = time.deltaTime / Time.getSecond(); //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
+                time.deltaTime = time.deltaTime / Time.SECOND; //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
 
                 game.input(time);
 
@@ -65,7 +65,7 @@ public class EngineCore {
 
                 game.update(time);
 
-                if (frameCounter >= Time.getSecond()) {
+                if (frameCounter >= Time.SECOND) {
                     //TODO(Olle): render frames ingame instead of sout
                     System.out.println(frames);
                     frames = 0;

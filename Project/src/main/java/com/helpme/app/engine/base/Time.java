@@ -5,7 +5,7 @@ package com.helpme.app.engine.base;
  */
 public class Time {
     // ----------- Time variables -----------
-    private static final long SECOND = 1000000000;
+    public static final long SECOND = 1000000000;
 
     private long startTime;
     protected double deltaTime; //deltaTime in seconds
@@ -13,10 +13,6 @@ public class Time {
     // ----------- Time constructors and getters -----------
     public Time() {
         startTime = System.nanoTime();
-    }
-
-    public static long getSecond() {
-        return SECOND;
     }
 
     public double getDeltaTime() {

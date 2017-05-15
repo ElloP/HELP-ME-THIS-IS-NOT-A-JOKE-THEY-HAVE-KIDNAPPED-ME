@@ -1,8 +1,9 @@
 package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.base.*;
-import com.helpme.app.engine.input.Input;
-import com.helpme.app.engine.input.InputKey;
+import com.helpme.app.engine.game.controls.CameraController;
+import com.helpme.app.engine.game.controls.DebugCamera;
+import com.helpme.app.engine.game.controls.PlayerController;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -10,7 +11,6 @@ import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
-import com.helpme.app.world.level.Level;
 import com.helpme.app.world.tile.edge.Door;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
+    private CameraController cameraController;
     public GameInstance() {
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
@@ -87,11 +88,15 @@ public class GameInstance extends Game {
     }
 
     public void input(Time time) {
-        playerCameraInput(time);
+        if(cameraController == null) {
+            cameraController = new DebugCamera(activeCamera, time);
+        }
+        cameraController.update();
     }
 
     Vector3f t = new Vector3f();
     float xy = 0;
+
 
     public void update(Time time) {
         //TODO(Olle): update game
@@ -100,26 +105,5 @@ public class GameInstance extends Game {
         // t = new Vector3f(0,xy,0);
         // Vector3f te = new Vector3f(0,-xy,0);
         // tile.transform.rotate(t);
-    }
-    private void playerCameraInput(Time time) {
-        float movAmt = (float) (10 * time.getDeltaTime());
-        float rotAmt = (float) (250 * time.getDeltaTime());
-
-        if(Input.isKeyboardKeyDown(InputKey.MoveForward))
-            playerCamera.moveForward(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveLeft))
-            playerCamera.moveLeft(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveRight))
-            playerCamera.moveRight(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveBackward))
-            playerCamera.moveBackward(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.RotateLeft))
-            playerCamera.rotate(0.0f, rotAmt, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.RotateRight))
-            playerCamera.rotate(0.0f, -rotAmt, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.Attack))
-            playerCamera.rotate(-rotAmt, 0.0f, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.Selfie))
-            playerCamera.rotate(rotAmt, 0.0f, 0.0f);
     }
 }
