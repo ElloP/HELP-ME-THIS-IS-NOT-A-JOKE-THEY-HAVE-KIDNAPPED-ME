@@ -4,11 +4,13 @@ import com.helpme.app.world.character.Body;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  * Created by Klas on 2017-04-29.
  */
+@XmlRootElement(name="Body")
 public class BodyWrapper implements IBodyWrapper{
     private Vector2Wrapper hitpoints;
     private InventoryWrapper inventory;

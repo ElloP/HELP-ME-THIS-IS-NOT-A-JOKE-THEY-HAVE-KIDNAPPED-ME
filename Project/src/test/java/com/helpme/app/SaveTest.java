@@ -39,7 +39,7 @@ public class SaveTest {
 
     @Before
     public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(SaveRoot.class);
+        this.context = JAXBContext.newInstance(SaveRoot.class,BodyWrapper.class);
        // this.context = JAXBContext.newInstance(BodyWrapper.class);
     }
 
@@ -53,7 +53,6 @@ public class SaveTest {
         SavePlayer save = new SavePlayer();
         save.marshall(Body,fileTest);
 
-        System.out.println(save.unmarshall(fileTest).toString());
     }
 
     @Test
