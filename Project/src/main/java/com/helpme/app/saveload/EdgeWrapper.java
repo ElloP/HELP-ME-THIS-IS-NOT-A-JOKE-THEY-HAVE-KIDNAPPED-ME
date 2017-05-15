@@ -69,6 +69,8 @@ public class EdgeWrapper implements ILoadable<IEdge> {
     @Override
     public IEdge getObject() {
         switch (type) {
+            case "door":
+                return EdgeFactory.createDoor(locked, key.getObject());
             case "opening":
                 return EdgeFactory.createOpening();
             case "wall":
