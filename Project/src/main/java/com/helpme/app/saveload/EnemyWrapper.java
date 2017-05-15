@@ -1,9 +1,7 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.consciousness.Enemy;
 import com.helpme.app.world.consciousness.ISurroundings;
-import com.sun.org.apache.bcel.internal.generic.ILOAD;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -12,15 +10,15 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class EnemyWrapper{
     private BodyWrapper body;
-    private BehaviorWrapper defaultBehavior, currentBehavior;
+    private BehaviourWrapper defaultBehavior, currentBehavior;
 
 
     public EnemyWrapper(){}
 
     public EnemyWrapper(Enemy monster){
         this.body = new BodyWrapper(monster.readBody());
-        this.currentBehavior = new BehaviorWrapper(monster.getBehaviour());
-        this.defaultBehavior = new BehaviorWrapper(monster.getDefaultBehavior());
+        this.currentBehavior = new BehaviourWrapper(monster.getBehaviour());
+        this.defaultBehavior = new BehaviourWrapper(monster.getDefaultBehavior());
     }
 
     public String toString(){
@@ -37,18 +35,18 @@ public class EnemyWrapper{
     }
 
     @XmlElement(name="Default_Behavior")
-    public void setDefaultBehavior(BehaviorWrapper defaultBehavior) {
+    public void setDefaultBehavior(BehaviourWrapper defaultBehavior) {
         this.defaultBehavior = defaultBehavior;
     }
     @XmlElement(name="Current_Behavior")
-    public void setCurrentBehavior(BehaviorWrapper currentBehavior) {
+    public void setCurrentBehavior(BehaviourWrapper currentBehavior) {
         this.currentBehavior = currentBehavior;
     }
-    public BehaviorWrapper getDefaultBehavior() {
+    public BehaviourWrapper getDefaultBehavior() {
         return defaultBehavior;
 
     }
-    public BehaviorWrapper getCurrentBehavior() {
+    public BehaviourWrapper getCurrentBehavior() {
         return currentBehavior;
     }
 

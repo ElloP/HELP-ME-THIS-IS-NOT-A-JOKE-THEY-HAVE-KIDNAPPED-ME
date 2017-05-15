@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by og on 2017-05-11.
  */
-public class BehaviorWrapper implements ILoadable<IBehaviour>{
+public class BehaviourWrapper implements ILoadable<IBehaviour>{
     private String behavior;
-    public BehaviorWrapper(){}
+    public BehaviourWrapper(){}
 
-    public BehaviorWrapper(IBehaviour behave){
+    public BehaviourWrapper(IBehaviour behave){
         if(behave instanceof FollowAndAttack){
             this.behavior = "FollowAndAttack";
         }
