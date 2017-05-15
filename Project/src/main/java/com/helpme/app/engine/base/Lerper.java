@@ -23,6 +23,15 @@ public class Lerper {
         this.currentTime = 0f;
     }
 
+    public Lerper(Vector3f startPoint, Vector3f endPoint, Time time, float endTime) {
+        this.startPoint = new Vector3f(startPoint);
+        this.endPoint = new Vector3f(endPoint);
+        this.time = time;
+        this.endTime = endTime; //Note(Olle): set lerp duration in seconds
+
+        this.currentTime = 0f;
+    }
+
     public boolean finished() {
         return currentTime == endTime;
     }
@@ -33,8 +42,10 @@ public class Lerper {
             currentTime = endTime; //Note(Olle): clamp to 1 to avoid overshooting
         }
 
+        float lerpPerc = currentTime / endTime;
+
         Vector3f lerpedPoint = new Vector3f();
-        startPoint.lerp(endPoint, currentTime, lerpedPoint); //Note(Olle): lerp from startPoint to endPoint into lerpedPoint
+        startPoint.lerp(endPoint, lerpPerc, lerpedPoint); //Note(Olle): lerp from startPoint to endPoint into lerpedPoint
         return lerpedPoint;
     }
 }

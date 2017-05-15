@@ -89,7 +89,7 @@ public class GameInstance extends Game {
 
     public void input(Time time) {
         if(cameraController == null) {
-            cameraController = new DebugCamera(activeCamera, time);
+            cameraController = new PlayerController(activeCamera, time);
         }
         cameraController.update();
     }

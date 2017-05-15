@@ -16,17 +16,26 @@ public class PlayerController extends CameraController {
     private boolean moving = false;
     private boolean rotating = false;
 
+    private float rotationDuration = 1f;
+    private float movementDuration = 1f;
+
     private final float moveLength = 6.0f;
 
     public PlayerController(Camera camera, Time time) {
         super(camera, time);
     }
 
+    public PlayerController(Camera camera, Time time, float rotationDuration, float movementDuration) {
+        this(camera, time);
+        this.rotationDuration = rotationDuration;
+        this.movementDuration = movementDuration;
+    }
+
     private void lerpMove(Vector3f direction) {
         Vector3f startPos = getCamera().getPosition();
         Vector3f endPos = getCamera().getPosition().add(direction.multiply(moveLength)); //Note(Olle): move camera 6 units forward
 
-        lerper = new Lerper(startPos, endPos, getTime());
+        lerper = new Lerper(startPos, endPos, getTime(), movementDuration);
         moving = true;
     }
 
@@ -35,7 +44,7 @@ public class PlayerController extends CameraController {
         Vector3f startPos = new Vector3f(getCamera().getForward().add(camPos));
         Vector3f endPos = new Vector3f(dir.add(camPos));
 
-        lerper = new Lerper(startPos, endPos, getTime());
+        lerper = new Lerper(startPos, endPos, getTime(), rotationDuration);
         rotating = true;
     }
 
