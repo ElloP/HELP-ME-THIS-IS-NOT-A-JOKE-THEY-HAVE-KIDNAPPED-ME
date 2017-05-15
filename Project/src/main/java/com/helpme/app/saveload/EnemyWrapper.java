@@ -36,11 +36,11 @@ public class EnemyWrapper{
         this.body = body;
     }
 
-    @XmlElement(name="Default Behavior")
+    @XmlElement(name="Default_Behavior")
     public void setDefaultBehavior(BehaviorWrapper defaultBehavior) {
         this.defaultBehavior = defaultBehavior;
     }
-    @XmlElement(name="Current Behavior")
+    @XmlElement(name="Current_Behavior")
     public void setCurrentBehavior(BehaviorWrapper currentBehavior) {
         this.currentBehavior = currentBehavior;
     }

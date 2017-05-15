@@ -6,11 +6,13 @@ import com.helpme.app.Mock.MockWorld1;
 import com.helpme.app.saveload.LevelWrapper;
 import com.helpme.app.saveload.BodyWrapper;
 import com.helpme.app.saveload.SavePlayer;
+import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.Body;
 import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.consciousness.Enemy;
 import com.helpme.app.world.item.IItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,23 +37,8 @@ public class SaveTest {
 
     @Before
     public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(LevelWrapper.class);
+        this.context = JAXBContext.newInstance(SaveRoot.class);
        // this.context = JAXBContext.newInstance(BodyWrapper.class);
-    }
-    @Test
-    public void saveTest() throws JAXBException {
-        items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
-        hitpoints = new Vector2f(100,50);
-        IBody Body = new Body(inventory,Vector2f.right,Vector2f.left,hitpoints);
-        File file = new File("test.xml");
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new BodyWrapper(Body), file);
-
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        BodyWrapper pw = (BodyWrapper) unmarshaller.unmarshal(file);
-
-        System.out.println(pw);
     }
 
     @Test
@@ -72,14 +59,15 @@ public class SaveTest {
         MockWorld1 mock = new MockWorld1();
         mock.player.setPlayerPosition(new Vector2f(1,1));
         mock.level.readPlayer().getValue();
+        Enemy[] enemy = {(Enemy) mock.enemyConsciousness0};
+        SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new LevelWrapper(mock.level), file);
+        marshaller.marshal(saveroot, file);
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        LevelWrapper pw = (LevelWrapper) unmarshaller.unmarshal(file);
-        assert (pw.getPlayer().getPosition().getX() == mock.player.getPlayer().readPosition().x);
-        System.out.println(pw);
+        SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
+
     }
 }
 
