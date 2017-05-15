@@ -25,7 +25,7 @@ public class LevelWrapper {
 
     public LevelWrapper(IReadSurroundings level){
         this.player = new BodyWrapper(level.readPlayer().getValue()); //TODO (klas) maybe check?
-        IReadBody[] levelMonsters = level.readMonsters();
+        IReadBody[] levelMonsters = level.readBodies();
         monsters = new BodyWrapper[levelMonsters.length];
         for(int i = 0; i < levelMonsters.length; i++){
             monsters[i] = new BodyWrapper(levelMonsters[i]);

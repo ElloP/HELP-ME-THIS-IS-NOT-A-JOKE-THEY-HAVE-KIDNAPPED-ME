@@ -62,7 +62,7 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public boolean isBlockedByEdge(IReadBody body, Vector2f direction) {
+    public boolean isDirectionBlocked(IReadBody body, Vector2f direction) {
         return false;
     }
 
@@ -112,7 +112,7 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public IReadBody[] readMonsters() {
+    public IReadBody[] readBodies() {
         return new IReadBody[0];
     }
 

@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by kopa on 2017-05-04.
  */
 public interface IReadSurroundings {
-    boolean isBlockedByEdge(IReadBody body, Vector2f direction);
+    boolean isDirectionBlocked(IReadBody body, Vector2f direction);
     boolean isMovementAllowed(IReadBody body, Vector2f direction);
     boolean isTileOccupied(Vector2f position);
     boolean isTileValid(Vector2f position);
@@ -25,7 +25,7 @@ public interface IReadSurroundings {
     Maybe<IReadBody> readBody(Vector2f position);
     Maybe<ITarget> getTarget(IBody body, Vector2f direction);
     Maybe<IReadBody> readFacing(IReadBody body);
-    IReadBody[] readMonsters();
+    IReadBody[] readBodies();
     Vector2f readStartingPoint();
     Map<Vector2f, ITile> getTiles();
 }

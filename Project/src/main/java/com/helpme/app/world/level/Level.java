@@ -8,11 +8,6 @@ import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.target.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.TileFactory;
-import com.helpme.app.world.tile.edge.Door;
-import com.helpme.app.world.tile.edge.Opening;
-import com.helpme.app.world.tile.edge.Wall;
-import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
 
@@ -34,10 +29,12 @@ public class Level implements ILevel {
         this.startingPosition = startingPosition;
         this.tiles = tiles;
         this.bodies = bodies;
+
+        resetPlayer();
     }
 
 
-    public boolean isBlockedByEdge(IReadBody body, Vector2f direction) {
+    public boolean isDirectionBlocked(IReadBody body, Vector2f direction) {
         ITile tile = tiles.get(body.readPosition());
         return tile.getEdge(direction).check(e -> !body.isTraversable(e));
     }
@@ -55,7 +52,7 @@ public class Level implements ILevel {
         Vector2f position = body.readPosition();
         Vector2f destination = Vector2f.add(body.readPosition(), direction);
 
-        if (isBlockedByEdge(body, direction)) {
+        if (isDirectionBlocked(body, direction)) {
             return Maybe.wrap(tiles.get(position).getEdge(direction));
         }
 
@@ -114,6 +111,10 @@ public class Level implements ILevel {
     @Override
     public void setPlayer(IBody player) {
         this.player = player;
+    }
+
+    @Override
+    public void resetPlayer() {
         player.setPosition(startingPosition);
     }
 
@@ -134,7 +135,7 @@ public class Level implements ILevel {
 
     @Override
     public Maybe<IReadBody> readPlayer() {
-        return new Just(player);
+        return Maybe.wrap(player);
     }
 
     class CameFrom {
@@ -197,7 +198,7 @@ public class Level implements ILevel {
         Vector2f position = body.readPosition();
         Vector2f destination = Vector2f.add(position, direction);
 
-        if (isBlockedByEdge(body, direction)) {
+        if (isDirectionBlocked(body, direction)) {
             return false;
         }
 
@@ -230,10 +231,10 @@ public class Level implements ILevel {
 
     @Override
     public void updateDeadBody(Vector2f position){
-        for(IBody m : bodies){
-            if(m.readPosition().equals(position)){
-                addTileItems(position,m.getInventory().dropItems());
-                m.dropAllItems();
+        for(IBody body : bodies){
+            if(body.readPosition().equals(position)){
+                addTileItems(position,body.getInventory().dropItems());
+                body.dropAllItems();
                 return;
             }
         }
@@ -245,7 +246,7 @@ public class Level implements ILevel {
         Vector2f direction = body.readDirection();
         Vector2f destination = Vector2f.add(position, direction);
 
-        if (isBlockedByEdge(body, direction)) {
+        if (isDirectionBlocked(body, direction)) {
             return new Nothing();
         }
 
@@ -254,7 +255,7 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IReadBody[] readMonsters() {
+    public IReadBody[] readBodies() {
         IReadBody[] result = new IReadBody[bodies.size()];
         for(int i = 0; i < bodies.size(); i++){
             result[i] = bodies.get(i);

@@ -42,26 +42,26 @@ public abstract class Intelligence implements IBehaviour {
     public static Maybe<IReadBody> getMonsterFrontNeighbour(IReadBody body, ISurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f frontPosition = Vector2f.add(body.readPosition(), direction);
-        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(frontPosition);
+        return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(frontPosition);
 
     }
 
     public static Maybe<IReadBody> getMonsterRightNeighbour(IReadBody body, ISurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f rightPosition = Vector2f.add(body.readPosition(), direction.right());
-        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(rightPosition);
+        return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(rightPosition);
     }
 
     public static Maybe<IReadBody> getMonsterBackNeighbour(IReadBody body, ISurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f backPosition = Vector2f.add(body.readPosition(), direction.backward());
-        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(backPosition);
+        return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(backPosition);
     }
 
     public static Maybe<IReadBody> getMonsterLeftNeighbour(IReadBody body, ISurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f leftPosition = Vector2f.add(body.readPosition(), direction.left());
-        return surroundings.isBlockedByEdge(body, direction) ? new Nothing() : surroundings.readBody(leftPosition);
+        return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(leftPosition);
     }
 
     public static boolean isMonsterFacing(IReadBody body, Vector2f other){
