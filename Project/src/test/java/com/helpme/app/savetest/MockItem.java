@@ -1,17 +1,17 @@
-package com.helpme.app.consciousnesstest;
+package com.helpme.app.savetest;
 
+import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.Item;
-import com.helpme.app.world.item.Key;
 import com.helpme.app.world.item.visitor.IItemVisitor;
 
 /**
- * Created by kopa on 2017-05-14.
+ * Created by kopa on 2017-05-15.
  */
-public final class MockItem implements IItem{
+public class MockItem implements IItem {
     private String name;
 
-    public MockItem(String name){
+    public MockItem(String name) {
         this.name = name;
     }
 
@@ -22,7 +22,7 @@ public final class MockItem implements IItem{
 
     @Override
     public IItem clone() {
-        return null;
+        return new Item(name, null, null);
     }
 
     @Override

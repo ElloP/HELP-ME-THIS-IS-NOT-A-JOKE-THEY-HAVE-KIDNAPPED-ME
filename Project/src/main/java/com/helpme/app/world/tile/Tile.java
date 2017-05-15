@@ -4,7 +4,6 @@ import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
-import com.helpme.app.world.tile.edge.EdgeType;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 
@@ -87,8 +86,4 @@ public class Tile implements ITile {
         return edges;
     }
 
-    @Override
-    public EdgeType readEdge(Vector2f direction) {
-        return edges.get(direction).getType();
-    }
 }

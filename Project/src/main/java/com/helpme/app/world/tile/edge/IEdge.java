@@ -11,13 +11,4 @@ import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
  */
 public interface IEdge extends ITarget{
     <T> T accept(IEdgeVisitor<T> visitor);
-    EdgeType getType();
-    static Maybe<IEdge> createEdge(EdgeType edge){
-        switch (edge){
-            //case DOOR: return new Door(false,null); TODO(KLAS)
-            case WALL: return Maybe.wrap(new Wall());
-            case OPENING: return Maybe.wrap(new Opening());
-            default: return new Nothing<>();
-        }
-    }
 }

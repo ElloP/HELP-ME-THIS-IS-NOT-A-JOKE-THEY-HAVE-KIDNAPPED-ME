@@ -11,6 +11,7 @@ public class Vector2Wrapper implements ILoadable<Vector2f> {
     private float x;
     private float y;
     public Vector2Wrapper(){}
+
     public Vector2Wrapper(Vector2f vec){
         this.x = vec.x;
         this.y = vec.y;
@@ -20,16 +21,18 @@ public class Vector2Wrapper implements ILoadable<Vector2f> {
     public float getX(){
         return x;
     }
+    public void setX(float x){
+        this.x = x;
+    }
+
     @XmlElement(name="y")
     public float getY(){
         return y;
     }
-    public void setX(float x){
-        this.x = x;
-    }
     public void setY(float y){
         this.y = y;
     }
+
     public String toString(){
         return "(" + x + ", " + y + ")";
     }

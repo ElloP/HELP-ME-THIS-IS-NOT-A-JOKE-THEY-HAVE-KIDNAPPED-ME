@@ -6,12 +6,13 @@ import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.IReadTile;
 import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.Tile;
 import com.helpme.app.world.tile.TileFactory;
-import com.helpme.app.world.tile.edge.EdgeType;
+import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.world.tile.edge.IEdge;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,81 +20,78 @@ import java.util.Map;
 /**
  * Created by Klas on 2017-05-01.
  */
+
+@XmlRootElement(name="tile")
 public class TileWrapper implements ILoadable<ITile> {
-    private Vector2Wrapper position;
-    private ItemWrapper[] items;
-    private EdgeType north,east,south,west;
+    private Vector2Wrapper positionWrapper;
+    private ItemWrapper[] itemWrappers;
+    private Map<Vector2Wrapper, EdgeWrapper> edgeWrappers;
 
-    //TODO (klas) Save edges
-    public TileWrapper(){}
+    //TODO (klas) Save edgeWrappers
+    public TileWrapper() {
+    }
 
-    public TileWrapper(IReadTile tile, Vector2f position){
-        this.position = new Vector2Wrapper(position);
+    public TileWrapper(IReadTile tile, Vector2f position) {
+        this.positionWrapper = new Vector2Wrapper(position);
         List<Maybe<IReadItem>> tileItems = tile.readItems(); //TODO (klas) Fix maybe nothing case?
-        this.items = new ItemWrapper[tileItems.size()];
-        for(int i = 0; i < items.length; i++){
+        this.itemWrappers = new ItemWrapper[tileItems.size()];
+        this.edgeWrappers = new HashMap<>();
+        for (int i = 0; i < itemWrappers.length; i++) {
             int index = i;
-            tileItems.get(index).run(item -> this.items[index] = new ItemWrapper(item));
+            tileItems.get(index).run(item -> this.itemWrappers[index] = new ItemWrapper(item));
         }
-        this.north = tile.readEdge(Vector2f.up);
-        this.east = tile.readEdge(Vector2f.right);
-        this.south = tile.readEdge(Vector2f.down);
-        this.west = tile.readEdge(Vector2f.left);
 
-    }
-    @XmlElement(name="position")
-    public Vector2Wrapper getPosition(){ return this.position; }
-    public void setPosition(Vector2Wrapper pos) { this.position = pos;}
-    @XmlElement(name="items")
-    public ItemWrapper[] getItems(){
-        return this.items;
-    }
-    public void setItems(ItemWrapper[] items) {
-        this.items = new ItemWrapper[items.length];
-        for(int i = 0; i < items.length; i++){
-            this.items[i] = new ItemWrapper(items[i].getName());
+
+        for (Map.Entry<Vector2f, IEdge> entry : tile.readEdges().entrySet()) {
+            edgeWrappers.put(new Vector2Wrapper(entry.getKey()), new EdgeWrapper(entry.getValue()));
         }
     }
-    @XmlElement(name="north")
-    public EdgeType getNorth(){
-        return this.north;
+
+    @XmlElement(name = "position")
+    public Vector2Wrapper getPositionWrapper() {
+        return this.positionWrapper;
     }
 
-    public void setNorth(EdgeType north) {
-        this.north = north;
+    public void setPositionWrapper(Vector2Wrapper pos) {
+        this.positionWrapper = pos;
     }
 
-    public void setEast(EdgeType east) {
-        this.east = east;
+
+    @XmlElementWrapper(name="items")
+    @XmlElement(name = "item")
+    public ItemWrapper[] getItemWrappers() {
+        return this.itemWrappers;
     }
 
-    public void setSouth(EdgeType south) {
-        this.south = south;
+    public void setItemWrappers(ItemWrapper[] itemWrappers) {
+        this.itemWrappers = new ItemWrapper[itemWrappers.length];
+        for (int i = 0; i < itemWrappers.length; i++) {
+            this.itemWrappers[i] = new ItemWrapper(itemWrappers[i].getName());
+        }
     }
 
-    public void setWest(EdgeType west) {
-        this.west = west;
+    @XmlElementWrapper(name="edges")
+    @XmlElement(name = "edge")
+    public Map<Vector2Wrapper, EdgeWrapper> getEdges() {
+        return this.edgeWrappers;
     }
 
-    @XmlElement(name="east")
+    public void setEdges(Map<Vector2Wrapper, EdgeWrapper> edges) {
+        this.edgeWrappers = edges;
+    }
 
-    public EdgeType getEast(){
-        return this.east;
-    }
-    @XmlElement(name="south")
-    public EdgeType getSouth(){
-        return this.south;
-    }
-    @XmlElement(name="west")
-    public EdgeType getWest(){
-        return this.west;
-    }
-    public String toString(){
+    public String toString() {
         String result = "";
-        result += "Tile at " + position;
-        if(items != null){
-            for(ItemWrapper item : items){
-                if(item != null) result += "\nItem: " + (item.getName());
+        result += "Tile at " + positionWrapper;
+        if (itemWrappers != null) {
+            for (ItemWrapper item : itemWrappers) {
+                if (item != null) result += "\nItem: " + (item.getName());
+            }
+        }
+
+        if(edgeWrappers != null){
+            for(Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()){
+                if(entry != null) result += "\nEdge: " + (entry.getValue().toString()) + " facing " + entry.getKey().toString();
             }
         }
         return result;
@@ -102,21 +100,17 @@ public class TileWrapper implements ILoadable<ITile> {
     @Override
     public ITile getObject() {
         IItem[] tmp = null;
-        if(items != null){
-            tmp = new IItem[items.length];
-            for(int i = 0; i < items.length; i++){
-                tmp[i] = items[i].getObject();
+        if (itemWrappers != null) {
+            tmp = new IItem[itemWrappers.length];
+            for (int i = 0; i < itemWrappers.length; i++) {
+                tmp[i] = itemWrappers[i].getObject();
             }
         }
-        Map<Vector2f, IEdge> edges = new HashMap<Vector2f, IEdge>();
-        Maybe<IEdge> edge = IEdge.createEdge(north);
-        if(edge.isJust()) edges.put(Vector2f.up, edge.getValue());
-        edge = IEdge.createEdge(east);
-        if(edge.isJust()) edges.put(Vector2f.right, edge.getValue());
-        edge = IEdge.createEdge(south);
-        if(edge.isJust()) edges.put(Vector2f.down, edge.getValue());
-        edge = IEdge.createEdge(west);
-        if(edge.isJust()) edges.put(Vector2f.left, edge.getValue());
+
+        Map<Vector2f, IEdge> edges = new HashMap<>();
+        for (Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()) {
+            edges.put(entry.getKey().getObject(), entry.getValue().getObject());
+        }
 
         return TileFactory.createTile(tmp, edges);
 

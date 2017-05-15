@@ -29,8 +29,6 @@ public class Level implements ILevel {
         this.startingPosition = startingPosition;
         this.tiles = tiles;
         this.bodies = bodies;
-
-        resetPlayer();
     }
 
 

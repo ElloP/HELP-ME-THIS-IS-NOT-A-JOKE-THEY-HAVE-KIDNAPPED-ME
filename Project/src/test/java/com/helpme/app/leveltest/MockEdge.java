@@ -1,6 +1,5 @@
 package com.helpme.app.leveltest;
 
-import com.helpme.app.world.tile.edge.EdgeType;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
 
@@ -25,11 +24,6 @@ public class MockEdge implements IEdge{
 
     @Override
     public <T> T accept(IEdgeVisitor<T> visitor) {
-        return null;
-    }
-
-    @Override
-    public EdgeType getType() {
         return null;
     }
 }

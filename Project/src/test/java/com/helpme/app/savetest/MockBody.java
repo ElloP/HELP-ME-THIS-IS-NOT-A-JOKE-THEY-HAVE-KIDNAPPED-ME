@@ -1,4 +1,4 @@
-package com.helpme.app.consciousnesstest;
+package com.helpme.app.savetest;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
@@ -14,20 +14,14 @@ import com.helpme.app.world.tile.edge.IEdge;
 import java.util.List;
 
 /**
- * Created by kopa on 2017-05-14.
+ * Created by kopa on 2017-05-15.
  */
 public class MockBody implements IBody {
-    public int selfied;
-    public boolean full;
-    public int movedForward;
-    public int movedRight;
-    public int movedBackward;
-    public int movedLeft;
 
-    public int items;
+    private IInventory mockInventory;
 
-    public MockBody() {
-        this.items = 0;
+    public MockBody(IInventory inventory){
+        this.mockInventory = inventory;
     }
 
     @Override
@@ -57,22 +51,22 @@ public class MockBody implements IBody {
 
     @Override
     public void moveForward() {
-        movedForward++;
+
     }
 
     @Override
     public void moveRight() {
-        movedRight++;
+
     }
 
     @Override
     public void moveBackward() {
-        movedBackward++;
+
     }
 
     @Override
     public void moveLeft() {
-        movedLeft++;
+
     }
 
     @Override
@@ -87,21 +81,17 @@ public class MockBody implements IBody {
 
     @Override
     public void attack(ITarget target) {
-        target.damage(10);
+
     }
 
     @Override
     public void selfie() {
-        kill();
+
     }
 
     @Override
     public boolean pickupItem(IItem item) {
-        if (full) {
-            return false;
-        }
-        items++;
-        return true;
+        return false;
     }
 
     @Override
@@ -110,8 +100,13 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public IInventory getInventory() {
+    public List<Maybe<IItem>> dropAllItems() {
         return null;
+    }
+
+    @Override
+    public IInventory getInventory() {
+        return mockInventory;
     }
 
     @Override
@@ -125,13 +120,8 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public List<Maybe<IItem>> dropAllItems() {
-        return null;
-    }
-
-    @Override
     public void kill() {
-        selfied++;
+
     }
 
     @Override
@@ -141,12 +131,12 @@ public class MockBody implements IBody {
 
     @Override
     public Vector2f readDirection() {
-        return Vector2f.zero;
+        return new Vector2f(0,1);
     }
 
     @Override
     public Vector2f readHitpoints() {
-        return null;
+        return new Vector2f(100,100);
     }
 
     @Override
@@ -181,6 +171,6 @@ public class MockBody implements IBody {
 
     @Override
     public IReadInventory readInventory() {
-        return null;
+        return mockInventory;
     }
 }

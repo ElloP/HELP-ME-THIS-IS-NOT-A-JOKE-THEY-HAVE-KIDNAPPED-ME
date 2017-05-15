@@ -1,7 +1,6 @@
-package com.helpme.app.leveltest;
+package com.helpme.app.savetest;
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
@@ -14,10 +13,18 @@ import java.util.Map;
 /**
  * Created by kopa on 2017-05-15.
  */
-public class MockTile implements ITile {
+public class MockTile implements ITile{
+    List<Maybe<IItem>> items;
+    Map<Vector2f, IEdge> edges;
+
+    public MockTile(List<Maybe<IItem>> items, Map<Vector2f, IEdge> edges){
+        this.items = items;
+        this.edges = edges;
+    }
+
     @Override
     public Maybe<IEdge> getEdge(Vector2f direction) {
-        return new Just(new MockEdge());
+        return null;
     }
 
     @Override
@@ -52,7 +59,7 @@ public class MockTile implements ITile {
 
     @Override
     public List<Maybe<IReadItem>> readItems() {
-        return null;
+        return Maybe.cast(items);
     }
 
     @Override
@@ -62,6 +69,6 @@ public class MockTile implements ITile {
 
     @Override
     public Map<Vector2f, IEdge> readEdges() {
-        return null;
+        return edges;
     }
 }
