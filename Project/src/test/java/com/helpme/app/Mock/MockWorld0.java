@@ -6,6 +6,7 @@ import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.character.inventory.Inventory;
 import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.level.LevelFactory;
 import com.helpme.app.world.tile.edge.Door;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
@@ -94,7 +95,7 @@ public class MockWorld0 {
          */
 
 
-        ILevel level = new Level(tiles, doors, bodies, Vector2f.zero);
+        ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.zero);
         this.player = new Player(player, level);
         this.level = level;
     }

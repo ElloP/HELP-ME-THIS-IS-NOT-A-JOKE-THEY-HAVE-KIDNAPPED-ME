@@ -24,65 +24,16 @@ import java.util.*;
 
 public class Level implements ILevel {
     private IBody player;
+    private Vector2f startingPosition;
     private Map<Vector2f, ITile> tiles;
     private List<IBody> bodies;
-    private Vector2f startingPosition;
 
-    public Level(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors, List<IBody> bodies, Vector2f startingPosition) {
-        this.tiles = new HashMap<>();
-        this.bodies = bodies == null ? new ArrayList<>() : bodies;
+
+    public Level(IBody player, Vector2f startingPosition, Map<Vector2f, ITile> tiles, List<IBody> bodies) {
+        this.player = player;
         this.startingPosition = startingPosition;
-        generateLevel(tiles, doors);
-    }
-
-    private void generateLevel(List<Tuple2<Vector2f, IItem[]>> tiles, List<Tuple3<Vector2f, Vector2f, Door>> doors) {
-        generateTiles(tiles);
-        generateEdges();
-        generateDoors(doors);
-    }
-
-    private void generateTiles(List<Tuple2<Vector2f, IItem[]>> tiles) {
-        if (tiles == null) {
-            return;
-        }
-
-        for (Tuple2<Vector2f, IItem[]> tuple : tiles) {
-            Vector2f position = tuple.a;
-            this.tiles.put(position, TileFactory.createTile(tuple.b));
-        }
-    }
-
-    private void generateDoors(List<Tuple3<Vector2f, Vector2f, Door>> doors) {
-        if (doors == null) {
-            return;
-        }
-
-        for (Tuple3<Vector2f, Vector2f, Door> tuple : doors) {
-            Vector2f defaultPosition = tuple.a;
-            Vector2f defaultDirection = tuple.b;
-            Vector2f oppositeDirection = defaultDirection.rotateRightAngle(2);
-            Vector2f oppositePosition = Vector2f.add(defaultPosition, defaultDirection);
-            ITile defaultTile = tiles.get(defaultPosition);
-            ITile oppositeTile = tiles.get(oppositePosition);
-            Door door = tuple.c;
-
-            if (oppositeTile == null || defaultTile == null || door == null) {
-                continue;
-            }
-
-            defaultTile.setEdge(door, defaultDirection);
-            oppositeTile.setEdge(door, oppositeDirection);
-        }
-    }
-
-    private void generateEdges() {
-        for (Vector2f position : tiles.keySet()) {
-            ITile tile = tiles.get(position);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.up)) == null ? new Wall() : new Opening(), Vector2f.up);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.right)) == null ? new Wall() : new Opening(), Vector2f.right);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.down)) == null ? new Wall() : new Opening(), Vector2f.down);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.left)) == null ? new Wall() : new Opening(), Vector2f.left);
-        }
+        this.tiles = tiles;
+        this.bodies = bodies;
     }
 
 

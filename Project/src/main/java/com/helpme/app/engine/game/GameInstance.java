@@ -82,7 +82,7 @@ public class GameInstance extends Game {
          */
 
 
-        ILevel level = new Level(tiles, doors, monsters, Vector2f.zero);
+        ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.zero);
         return level;
     }
 

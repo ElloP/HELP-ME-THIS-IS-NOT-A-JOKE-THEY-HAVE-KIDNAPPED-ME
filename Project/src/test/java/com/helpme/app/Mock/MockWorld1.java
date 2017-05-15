@@ -11,6 +11,7 @@ import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
 import com.helpme.app.world.level.Level;
+import com.helpme.app.world.level.LevelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class MockWorld1 {
         IBody enemy2 = BodyFactory.createBody(InventoryFactory.createInventory(null, MockItem.defaultWeapon, null), new Vector2f(1, 2), Vector2f.right, 100);
         IBody enemy3 = BodyFactory.createBody(InventoryFactory.createInventory(null, MockItem.defaultWeapon, null), new Vector2f(3, 3), Vector2f.right, 100);
 
-        ILevel level = new Level(createEmptyTileSquare(4, 4), null, null, new Vector2f(0, 0));
+        ILevel level = LevelFactory.createLevel(createEmptyTileSquare(4, 4), null, null, new Vector2f(0, 0));
 
         /**
          * [e][ ][e][ ]
