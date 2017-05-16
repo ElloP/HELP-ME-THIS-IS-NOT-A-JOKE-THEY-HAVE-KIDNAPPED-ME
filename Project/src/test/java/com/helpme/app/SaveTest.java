@@ -79,5 +79,10 @@ public class SaveTest {
         assert(true == enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
 
     }
+
+    @Test
+    public void loadGameTest(){
+        
+    }
 }
 
