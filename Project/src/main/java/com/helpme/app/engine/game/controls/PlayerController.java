@@ -102,7 +102,7 @@ public class PlayerController extends CameraController {
             if (Input.isKeyboardKeyPress(InputKey.RotateLeft)) {
                 rotateLeft();
             }
-            if (Input.isKeyboardKeyDown(InputKey.RotateRight)) {
+            if (Input.isKeyboardKeyPress(InputKey.RotateRight)) {
                 rotateRight();
             }
         }
