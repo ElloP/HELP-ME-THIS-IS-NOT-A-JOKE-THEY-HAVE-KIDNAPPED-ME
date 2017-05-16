@@ -43,10 +43,6 @@ public class Matrix4f {
         //TODO(Olle): finish this constructor (if needed)
     }
 
-    public Matrix4f clone() {
-        return new Matrix4f(this);
-    }
-
     // ----------- Operations/functions -----------
 
     public Matrix4f add(Matrix4f other) {

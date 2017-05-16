@@ -126,11 +126,13 @@ public abstract class Shader {
         FloatBuffer fb = MemoryUtil.memAllocFloat(16);
         value.get(fb);
         glUniformMatrix4fv(uniforms.get(uniformName), false, fb);
+        MemoryUtil.memFree(fb);
     }
 
     public void setUniform(String uniformName, Vector3f value) {
         FloatBuffer fb = MemoryUtil.memAllocFloat(3);
         value.get(fb);
         glUniform3fv(uniforms.get(uniformName), fb);
+        MemoryUtil.memFree(fb);
     }
 }
