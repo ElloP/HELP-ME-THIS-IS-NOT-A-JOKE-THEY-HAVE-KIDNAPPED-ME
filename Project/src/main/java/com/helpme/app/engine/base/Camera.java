@@ -20,7 +20,7 @@ public class Camera {
     // ----------- Constructors -----------
 
     public Camera() {
-        this.position = new Vector3f();
+        this.position = new Vector3f(0,1,0);
         this.forward = new Vector3f(0.0f,0.0f,-1.0f); //Note(Olle): -z is forward in OpenGL
         this.up = new Vector3f(Vector3f.UP);
         setRight();

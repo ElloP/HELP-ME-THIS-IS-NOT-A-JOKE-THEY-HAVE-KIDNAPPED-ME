@@ -32,9 +32,9 @@ public final class LevelFactory {
     public static ILevel createLevel(IBody player, Vector2f startingPosition, Map<Vector2f, ITile> tiles, List<IBody> bodies){
         return new Level(player, startingPosition, tiles, bodies);
     }
-    public static ILevel createLevel(Map<Vector2f, ITile> tiles, Vector2f startingPos){
+    public static ILevel createLevel(Map<Vector2f, ITile> tiles, Vector2f startingPosition){
         List<IBody> bodies = new ArrayList<>();
-        return new Level(null,startingPos,tiles,bodies);
+        return new Level(null,startingPosition,tiles,bodies);
     }
 
     private static Map<Vector2f, ITile> generateTiles(List<Tuple2<Vector2f, IItem[]>> info) {

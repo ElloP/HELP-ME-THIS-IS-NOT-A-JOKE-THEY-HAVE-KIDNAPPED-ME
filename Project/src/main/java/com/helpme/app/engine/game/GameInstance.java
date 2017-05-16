@@ -15,6 +15,8 @@ import com.helpme.app.world.tile.edge.Door;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Authored by Olle on 2017-04-21.
@@ -25,6 +27,7 @@ public class GameInstance extends Game {
     public GameInstance() {
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
+        scene.addChild(new NPCView());
     }
 
     private ILevel testLevel(){

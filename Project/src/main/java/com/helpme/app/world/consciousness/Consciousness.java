@@ -10,12 +10,14 @@ import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.Vector2f;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-04-12.
  */
 
-public abstract class Consciousness implements IConsciousness {
+public abstract class Consciousness extends Observable implements IConsciousness {
     protected IBody body;
     protected ISurroundings surroundings;
 
@@ -156,5 +158,4 @@ public abstract class Consciousness implements IConsciousness {
     public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
         return new Nothing<>();
     }
-
 }
