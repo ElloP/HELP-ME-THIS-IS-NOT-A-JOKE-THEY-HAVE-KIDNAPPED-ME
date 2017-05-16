@@ -25,6 +25,7 @@ public class GameInstance extends Game {
     public GameInstance() {
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
+        scene.addChild(new NPCView());
     }
 
     private ILevel testLevel(){
@@ -93,10 +94,6 @@ public class GameInstance extends Game {
         }
         cameraController.update();
     }
-
-    Vector3f t = new Vector3f();
-    float xy = 0;
-
 
     public void update(Time time) {
         //TODO(Olle): update game
