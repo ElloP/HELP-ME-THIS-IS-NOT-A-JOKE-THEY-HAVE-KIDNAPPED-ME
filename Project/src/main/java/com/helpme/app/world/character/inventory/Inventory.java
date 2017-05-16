@@ -38,6 +38,7 @@ public class Inventory implements IInventory {
         return index < 0 || index >= items.size() ? new Nothing<>() : Maybe.wrap(items.get(index));
     }
 
+    //TODO check using not exception
     @Override
     public Maybe<IItem> getActiveItem() {
         return activeItemIndex < 0 || activeItemIndex >= items.size() ? new Nothing() : Maybe.wrap(items.get(activeItemIndex));

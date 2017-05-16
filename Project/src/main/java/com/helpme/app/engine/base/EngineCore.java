@@ -98,7 +98,7 @@ public class EngineCore {
 
     public static void main(String args[]) {
         Window.initWindow(1600,900, "Help me this is not a joke!");
-        Window.disableVSync();
+        Window.enableVSync();
 
         Game game = new GameInstance();
 

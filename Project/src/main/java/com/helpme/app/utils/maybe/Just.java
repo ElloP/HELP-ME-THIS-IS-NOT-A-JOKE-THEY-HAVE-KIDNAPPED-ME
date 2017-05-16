@@ -9,6 +9,11 @@ public class Just<T> extends Maybe<T> {
     }
 
     @Override
+    public String toString(){
+        return "Just(" + getValue() + ")";
+    }
+
+    @Override
     public boolean equals(Object o) {
         return o.equals(getValue());
     }

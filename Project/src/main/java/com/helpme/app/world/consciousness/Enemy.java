@@ -10,10 +10,12 @@ import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.character.behaviour.DoNothing;
 import com.helpme.app.world.character.behaviour.IBehaviour;
 
+import java.util.Observer;
+
 /**
  * Created by Jesper on 2017-04-12.
  */
-public class Enemy extends Consciousness implements IEnemy {
+public class Enemy extends Consciousness {
     private IBehaviour behaviour;
     private IBehaviour defaultBehavior;
 

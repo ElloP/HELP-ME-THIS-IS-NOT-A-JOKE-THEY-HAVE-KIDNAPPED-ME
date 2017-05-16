@@ -26,7 +26,6 @@ public final class ItemFactory {
         switch (item){
             case "Fists": return fists();
             case "Club": return club();
-            //case "Nothing": return nothing();
             default: return nothing();
         }
     }
