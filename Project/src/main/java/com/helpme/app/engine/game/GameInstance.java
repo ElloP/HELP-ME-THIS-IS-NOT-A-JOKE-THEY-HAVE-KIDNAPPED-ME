@@ -29,12 +29,19 @@ public class GameInstance extends Game {
     private CameraController cameraController;
     private GameLoader gameLoader;
     public GameInstance() {
-        activeCamera = playerCamera;
-        //scene.addChild(new LevelController(testLevel()));
-
         this.gameLoader = new GameLoader();
 
-        scene.addChild(new LevelController(loadGame("text.xml").loadLevel()));
+        SaveRoot game = loadGame("text.xml");
+        IBody player = game.loadPlayer();
+        player.setPosition(new Vector2f(10,10));
+        activeCamera = playerCamera;
+        //activeCamera.setPosition(player.readPosition().x,player.readPosition().y);
+        activeCamera.setPosition(-6,0,6);
+        //scene.addChild(new LevelController(testLevel()));
+
+
+
+        scene.addChild(new LevelController(game.loadLevel()));
     }
 
 
