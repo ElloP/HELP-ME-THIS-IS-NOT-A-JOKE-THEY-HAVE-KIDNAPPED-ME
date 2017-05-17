@@ -4,15 +4,20 @@ import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.DebugCamera;
 import com.helpme.app.engine.game.controls.PlayerController;
+import com.helpme.app.saveload.GameLoader;
+import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.consciousness.Enemy;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
 import com.helpme.app.world.tile.edge.Door;
+import org.lwjgl.system.CallbackI;
 
+import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +27,39 @@ import java.util.List;
 public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
     private CameraController cameraController;
+    private GameLoader gameLoader;
     public GameInstance() {
         activeCamera = playerCamera;
-        scene.addChild(new LevelController(testLevel()));
+        //scene.addChild(new LevelController(testLevel()));
+
+        this.gameLoader = new GameLoader();
+
+        scene.addChild(new LevelController(loadGame("text.xml").loadLevel()));
     }
+
+
+    private SaveRoot loadGame(String filePath) {
+        try{
+            SaveRoot loaded = gameLoader.unmarshall(filePath);
+            return loaded;
+        } catch (JAXBException e){
+            System.out.println("Unable to load game from that filepath");
+            System.out.println(e);
+            return null;
+        }
+    }
+    private void saveGame(SaveRoot saveRoot, String filePath){
+        try{
+            gameLoader.marshall(saveRoot, filePath);
+        } catch (JAXBException e){
+            System.out.println("Unable to save game");
+            System.out.println(e);
+        }
+    }
+    private void saveGame(ILevel level, IBody player, Enemy[] enemies, String filePath){
+        saveGame(new SaveRoot(level,player,enemies),filePath);
+    }
+
 
     private ILevel testLevel(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();

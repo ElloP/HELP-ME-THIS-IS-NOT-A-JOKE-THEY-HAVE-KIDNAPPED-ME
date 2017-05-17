@@ -19,10 +19,15 @@ public class GameLoader {
     Marshaller marshaller;
     Unmarshaller unmarshaller;
 
-    public GameLoader() throws JAXBException {
-        this.context = JAXBContext.newInstance(SaveRoot.class);
-        this.marshaller = this.context.createMarshaller();
-        this.unmarshaller = this.context.createUnmarshaller();
+    public GameLoader()  {
+        try{
+            this.context = JAXBContext.newInstance(SaveRoot.class);
+            this.marshaller = this.context.createMarshaller();
+            this.unmarshaller = this.context.createUnmarshaller();
+        } catch (JAXBException e){
+            System.out.println("Could not create GameLoader");
+            System.out.println(e);
+        }
     }
 
 

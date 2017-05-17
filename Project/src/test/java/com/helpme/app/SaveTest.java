@@ -3,10 +3,7 @@ package com.helpme.app;
 import com.helpme.app.Mock.MockItem;
 import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.Mock.MockWorld1;
-import com.helpme.app.saveload.LevelWrapper;
-import com.helpme.app.saveload.BodyWrapper;
-import com.helpme.app.saveload.SavePlayer;
-import com.helpme.app.saveload.SaveRoot;
+import com.helpme.app.saveload.*;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.Body;
@@ -82,6 +79,26 @@ public class SaveTest {
 
     @Test
     public void loadGameTest(){
+        MockWorld1 mock = new MockWorld1();
+        // mock.player.setPlayerPosition(new Vector2f(1,1));
+
+        Enemy[] enemy = {(Enemy) mock.enemyConsciousness0};
+        SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
+        try{
+            GameLoader gl = new GameLoader();
+            String fp = "text.xml";
+            gl.marshall(saveroot, fp);
+            SaveRoot loadedGame = gl.unmarshall(fp);
+            loadedGame.loadGame();
+            ILevel lvl = loadedGame.loadLevel();
+            IBody plyr = loadedGame.loadPlayer();
+            Player realPlayer = new Player(plyr,lvl);
+            Enemy[] enms = loadedGame.loadEnemies();
+        } catch (JAXBException exc){
+            System.out.println(exc);
+            assert (false);
+        }
+
         
     }
 }
