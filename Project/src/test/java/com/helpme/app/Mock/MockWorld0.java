@@ -1,19 +1,18 @@
 package com.helpme.app.Mock;
 
 
-import com.helpme.app.world.character.*;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.Inventory;
-import com.helpme.app.world.character.inventory.InventoryFactory;
+import com.helpme.app.world.body.*;
+import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.level.LevelFactory;
-import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.level.concrete.LevelFactory;
+import com.helpme.app.world.tile.edge.concrete.Door;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.consciousness.Player;
+import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * Created by Jacob on 2017-04-11.
  */
-public class MockWorld0 {
+public class    MockWorld0 {
     public ILevel level;
     public Player player;
 

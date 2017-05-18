@@ -1,17 +1,19 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.world.character.BodyFactory;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.behaviour.FollowAndAttack;
-import com.helpme.app.world.character.behaviour.GoBack;
-import com.helpme.app.world.character.inventory.InventoryFactory;
+import com.helpme.app.world.body.concrete.BodyFactory;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.behaviour.FollowAndAttack;
+import com.helpme.app.world.consciousness.behaviour.GoBack;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.consciousness.*;
+import com.helpme.app.world.consciousness.concrete.Consciousness;
+import com.helpme.app.world.consciousness.concrete.Enemy;
+import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.Level;
-import com.helpme.app.world.level.LevelFactory;
+import com.helpme.app.world.level.concrete.LevelFactory;
 
 import java.util.ArrayList;
 import java.util.List;

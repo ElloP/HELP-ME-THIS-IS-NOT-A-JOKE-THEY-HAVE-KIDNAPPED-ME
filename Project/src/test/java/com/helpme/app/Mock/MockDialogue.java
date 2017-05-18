@@ -1,9 +1,9 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.world.character.dialogue.Dialogue;
-import com.helpme.app.world.character.dialogue.DialogueNode;
-import com.helpme.app.world.character.dialogue.IDialogue;
-import com.helpme.app.world.character.dialogue.IDialogueNode;
+import com.helpme.app.world.body.dialogue.Dialogue;
+import com.helpme.app.world.body.dialogue.DialogueNode;
+import com.helpme.app.world.body.dialogue.IDialogue;
+import com.helpme.app.world.body.dialogue.IDialogueNode;
 
 /**
  * Created by Klas on 2017-04-13.

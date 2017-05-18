@@ -1,10 +1,10 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.world.item.Consumable;
+import com.helpme.app.world.item.concrete.Consumable;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.Item;
-import com.helpme.app.world.item.Key;
-import com.helpme.app.world.item.visitor.IItemVisitor;
+import com.helpme.app.world.item.concrete.Item;
+import com.helpme.app.world.item.concrete.Key;
+import com.helpme.app.world.item.concrete.Single;
 
 /**
  * Created by kopa on 2017-05-12.
@@ -15,19 +15,19 @@ public final class MockItem {
     }
 
     static IItem defaultItem() {
-        return new Item("default", t -> {
+        return new Single("default", t -> {
         }, t -> {
         });
     }
 
     static IItem item() {
-        return new Item("item", t -> {
+        return new Single("item", t -> {
         }, t -> {
         });
     }
 
     static IItem pickup() {
-        return new Item("pickup", t -> {
+        return new Single("pickup", t -> {
         }, t -> {
         });
     }

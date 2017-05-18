@@ -2,14 +2,10 @@ package com.helpme.app.consciousnesstest;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.character.dialogue.IDialogue;
-import com.helpme.app.world.consciousness.ConsciousnessFactory;
-import com.helpme.app.world.consciousness.IThought;
+import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.world.consciousness.IConsciousness;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * Created by kopa on 2017-05-11.

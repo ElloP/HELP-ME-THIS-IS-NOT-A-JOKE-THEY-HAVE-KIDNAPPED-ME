@@ -3,9 +3,9 @@ package com.helpme.app.saveload;
 
 import com.helpme.app.saveload.visitor.GetEdgeInfo;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.edge.*;
+import com.helpme.app.world.tile.edge.concrete.EdgeFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 

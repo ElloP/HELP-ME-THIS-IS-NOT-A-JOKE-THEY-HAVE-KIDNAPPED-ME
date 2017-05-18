@@ -1,6 +1,6 @@
 package com.helpme.app.dialoguetest;
 
-import com.helpme.app.world.character.dialogue.IDialogueNode;
+import com.helpme.app.world.body.dialogue.IDialogueNode;
 
 /**
  * Created by kopa on 2017-05-15.
