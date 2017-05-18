@@ -16,8 +16,8 @@ public class PlayerController extends CameraController {
     private boolean moving = false;
     private boolean rotating = false;
 
-    private float rotationDuration = 1f;
-    private float movementDuration = 1f;
+    private float rotationDuration = .5f;
+    private float movementDuration = .5f;
 
     private final float moveLength = 6.0f;
 
