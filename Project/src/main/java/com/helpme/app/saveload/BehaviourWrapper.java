@@ -29,7 +29,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour>{
         return this.behavior;
     }
     public void setBehavior(String behavior){
-        if(behavior == "FollowAndAttack" || behavior.equals("GoBack")) this.behavior = behavior;
+        if(behavior.equals("FollowAndAttack") || behavior.equals("GoBack")) this.behavior = behavior;
         else this.behavior = "DoNothing";
     }
 
