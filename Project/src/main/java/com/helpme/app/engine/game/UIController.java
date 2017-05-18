@@ -32,10 +32,13 @@ public class UIController extends GameObject{
         });
         this.shader = new UIShader();
         this.mesh = new Mesh(Resources.uiVert2());
+        transform.scale(200, 100, 1);
         /*Resources.getTexture(texture).run(t -> {
             Quad floor = new Quad(t, new UIShader(), Resources.floor(), Resources.uiVert2());
             addChild(floor);
         });*/
+        this.transform.setPosition(1200, 200, 0);
+
     }
 
 
@@ -43,10 +46,12 @@ public class UIController extends GameObject{
     @Override
     public void draw(Camera camera) {
         shader.useProgram();
-        transform.setPosition(camera.getPosition().add(camera.getForward()));
-        //transform.translate(camera.getForward());
+        //transform.translate(0.5f * transform.getPosition().x(), 0.5f * transform.getPosition().y(), 0);
+        //transform.rotate(0, 0, 1);
+        //transform.translate(-0.5f * transform.getPosition().x(), -0.5f * transform.getPosition().y(), 0);
+        //transform.translate(camera.getPosition().add(camera.getForward()));
         shader.updateUniforms(transform, camera);
-        //GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL13.glActiveTexture(GL13.GL_TEXTURE0);
         texture.bind();
         glBindVertexArray(mesh.vao);
         glDrawArrays(GL_TRIANGLES, 0, 6);

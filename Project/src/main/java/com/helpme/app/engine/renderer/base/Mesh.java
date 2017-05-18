@@ -94,7 +94,6 @@ public class Mesh {
         glBindVertexArray(vao);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        //TODO:Vertices?
         glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
 
         //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);

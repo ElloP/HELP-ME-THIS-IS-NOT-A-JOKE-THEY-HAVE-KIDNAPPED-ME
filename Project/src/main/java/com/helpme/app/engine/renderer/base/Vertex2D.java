@@ -18,6 +18,7 @@ public class Vertex2D {
 
     public FloatBuffer get(FloatBuffer fb) {
         position.get(fb);
+        texCoords.get(fb);
         return fb;
     }
 }
