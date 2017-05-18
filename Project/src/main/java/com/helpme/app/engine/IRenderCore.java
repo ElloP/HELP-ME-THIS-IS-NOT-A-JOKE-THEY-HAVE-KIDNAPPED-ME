@@ -1,4 +1,4 @@
-package com.helpme.app.engine.base;
+package com.helpme.app.engine;
 
 /**
  * Authored by Olle on 2017-05-18.

@@ -1,5 +1,6 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.IRenderCore;
 import com.helpme.app.engine.input.InputHandler;
 
 /**

@@ -1,7 +1,7 @@
 package com.helpme.app.engine.renderer.base;
 
 
-import com.helpme.app.engine.base.IRenderCore;
+import com.helpme.app.engine.IRenderCore;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
