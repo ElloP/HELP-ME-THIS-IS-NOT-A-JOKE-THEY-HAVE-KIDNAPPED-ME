@@ -1,8 +1,8 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.behaviour.DoNothing;
-import com.helpme.app.world.character.behaviour.FollowAndAttack;
-import com.helpme.app.world.character.behaviour.GoBack;
+import com.helpme.app.world.character.behaviour.Follow;
+import com.helpme.app.world.character.behaviour.Stay;
+import com.helpme.app.world.character.behaviour.Return;
 import com.helpme.app.world.character.behaviour.IBehaviour;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,35 +10,44 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by og on 2017-05-11.
  */
-public class BehaviourWrapper implements ILoadable<IBehaviour>{
-    private String behavior;
-    public BehaviourWrapper(){}
+public class BehaviourWrapper implements ILoadable<IBehaviour> {
+    FollowWrapper followWrapper;
 
-    public BehaviourWrapper(IBehaviour behave){
-        if(behave instanceof FollowAndAttack){
-            this.behavior = "FollowAndAttack";
-        }
-        else if(behave instanceof GoBack){
-            this.behavior = "GoBack";
-        } else {
-            this.behavior = "DoNothing";
+    public BehaviourWrapper() {
+    }
+
+    public BehaviourWrapper(IBehaviour behaviour) {
+        if (behaviour instanceof Follow) {
+            this.followWrapper = new FollowWrapper((Follow)behaviour);
+        } else if (behaviour instanceof Return) {
+            this.behavior = "Return";
+        } else if (behaviour instanceof Stay) {
+            this.behavior = "Stay";
         }
     }
-    @XmlElement(name="Behavior")
-    public String getBehavior(){
+
+    @XmlElement(name = "Behavior")
+    public String getBehavior() {
         return this.behavior;
     }
-    public void setBehavior(String behavior){
-        if(behavior == "FollowAndAttack" || behavior == "GoBack" ) this.behavior = behavior;
-        else this.behavior = "DoNothing";
+
+    public void setBehavior(String behavior) {
+        if (behavior.equals("Follow") || behavior.equals("Return")) {
+            this.behavior = behavior;
+        } else if (behavior.equals("Stay")) {
+            this.behavior = "Stay";
+        }
     }
 
     @Override
     public IBehaviour getObject() {
-        switch (behavior){
-            case "FollowAndAttack": return new FollowAndAttack();
-            case "GoBack": return new GoBack();
-            default: return new DoNothing();
+        switch (behavior) {
+            case "Follow":
+                return new Follow();
+            case "Return":
+                return new Return();
+            default:
+                return new Stay();
         }
     }
 }

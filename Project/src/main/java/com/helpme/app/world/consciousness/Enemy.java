@@ -4,13 +4,10 @@ import com.helpme.app.utils.either.Left;
 import com.helpme.app.utils.either.Right;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
-import com.helpme.app.world.character.behaviour.DoNothing;
+import com.helpme.app.world.character.behaviour.Stay;
 import com.helpme.app.world.character.behaviour.IBehaviour;
-
-import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-04-12.
@@ -21,7 +18,7 @@ public class Enemy extends Consciousness {
 
     public Enemy(IBody body, ISurroundings surroundings, IBehaviour behaviour, IBehaviour defaultBehavior){
         super(body, surroundings);
-        this.behaviour = behaviour == null ? new DoNothing() : behaviour;
+        this.behaviour = behaviour == null ? new Stay() : behaviour;
         this.defaultBehavior = defaultBehavior;
     }
 

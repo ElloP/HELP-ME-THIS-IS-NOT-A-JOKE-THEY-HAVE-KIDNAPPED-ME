@@ -1,8 +1,10 @@
 package com.helpme.app.world.character.behaviour;
 
 import com.helpme.app.utils.either.Either;
+import com.helpme.app.utils.functions.IAction2;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
+import com.helpme.app.world.character.IBody;
 import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.consciousness.ISurroundings;
@@ -29,7 +31,7 @@ public abstract class Intelligence implements IBehaviour {
     }
 
     public static List<Maybe<IReadBody>> getMonsterNeighbours(IReadBody body, ISurroundings surroundings) {
-        return new ArrayList(4) {
+        return new ArrayList<Maybe<IReadBody>>(4) {
             {
                 add(getMonsterFrontNeighbour(body, surroundings));
                 add(getMonsterRightNeighbour(body, surroundings));
@@ -74,13 +76,13 @@ public abstract class Intelligence implements IBehaviour {
         return Vector2f.equals(Vector2f.add(body.readPosition(), right), other);
     }
 
-    public static Either moveOrRotateAction(IReadBody body, Vector2f nextPos) {
+    public static Maybe<IAction2<IBody, ISurroundings>> followAction(IReadBody body, Vector2f nextPos) {
         if (Intelligence.isMonsterFacing(body, nextPos)){
-            return Action.moveForwardAction();
+            return ActionFactory.createAction("move_forward");
         } else if (Intelligence.isLeftOf(body, nextPos)){
-            return Action.rotateRight();
+            return ActionFactory.rotateRight();
         } else {
-            return Action.rotateLeft();
+            return ActionFactory.rotateLeft();
         }
     }
 }

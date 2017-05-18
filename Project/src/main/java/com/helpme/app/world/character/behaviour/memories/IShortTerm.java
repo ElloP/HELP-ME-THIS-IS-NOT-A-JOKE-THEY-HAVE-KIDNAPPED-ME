@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * Created by kopa on 2017-05-17.
  */
-public interface IReadMemory<T> {
-    Map<String, T> readMemory();
+public interface IShortTerm {
+    Map<String, Integer> readMemory();
+    void updateShortTermMemory(String name, int value);
+    void removeShortTermMemory(String name);
 }

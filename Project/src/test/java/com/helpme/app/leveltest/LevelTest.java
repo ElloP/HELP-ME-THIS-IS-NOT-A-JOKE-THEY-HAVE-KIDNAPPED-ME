@@ -162,10 +162,10 @@ public class LevelTest {
 //        assert (int) path.c == 4;
 //        assert path.b.equals(new Vector2f(0, 2));
 //        ArrayList<Vector2f> positions = new ArrayList<>();
-//        positions.add(enemyPos);
-//        positions.add(new Vector2f(0, 2));
-//        positions.add(new Vector2f(0, 1));
-//        positions.add(playerPos);
+//        positions.updateLongTermMemory(enemyPos);
+//        positions.updateLongTermMemory(new Vector2f(0, 2));
+//        positions.updateLongTermMemory(new Vector2f(0, 1));
+//        positions.updateLongTermMemory(playerPos);
 //        for (int i = 0; i < positions.size(); i++){
 //            assert positions.get(i).equals(((ArrayList<Vector2f>) path.a).get(i));
 //        }

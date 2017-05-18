@@ -109,50 +109,5 @@ public class SaveTest {
 
         System.out.println(tileWrapper);
     }
-
-    /*
-    @Test
-    public void saveTest() throws JAXBException {
-        mockItems = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        mockInventory = InventoryFactory.createInventory(mockItems, MockItem.defaultWeapon, new IItem[]{MockItem.key});
-        mockHitpoints = new Vector2f(100,50);
-        IBody Body = new Body(mockInventory,Vector2f.right,Vector2f.left,mockHitpoints);
-        File file = new File("test.xml");
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new BodyWrapper(Body), file);
-
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        BodyWrapper pw = (BodyWrapper) unmarshaller.unmarshal(file);
-
-        System.out.println(pw);
-    }
-
-    @Test
-    public void testMarshaller() throws JAXBException {
-        mockItems = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        mockInventory = InventoryFactory.createInventory(mockItems, MockItem.defaultWeapon, new IItem[]{MockItem.key});
-        mockHitpoints = new Vector2f(100,50);
-        IBody Body = new Body(mockInventory,Vector2f.right,Vector2f.left,mockHitpoints);
-        String fileTest = "test.xml";
-        SavePlayer save = new SavePlayer();
-        save.marshall(Body,fileTest);
-
-        System.out.println(save.unmarshall(fileTest).toString());
-    }
-
-    @Test
-    public void saveTest2() throws JAXBException {
-        MockWorld1 mock = new MockWorld1();
-        mock.player.setPlayerPosition(new Vector2f(1,1));
-        mock.level.readPlayer().getValue();
-        File file = new File("test.xml");
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new LevelWrapper(mock.level), file);
-
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        LevelWrapper pw = (LevelWrapper) unmarshaller.unmarshal(file);
-        assert (pw.getPlayer().getPositionWrapper().getX() == mock.player.getPlayer().readPosition().x);
-        System.out.println(pw);
-    }*/
 }
 

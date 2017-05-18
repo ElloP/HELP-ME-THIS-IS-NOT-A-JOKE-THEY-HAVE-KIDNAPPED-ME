@@ -103,7 +103,7 @@ public class Transform {
         return new Matrix4f().perspective(fov, width/height, zNear, zFar);
     }
 
-    //TODO(Olle): if needed add function for orthogonal projection matrix
+    //TODO(Olle): if needed updateLongTermMemory function for orthogonal projection matrix
 
     public void translate(Vector3f xyz) {
         position.add(xyz);

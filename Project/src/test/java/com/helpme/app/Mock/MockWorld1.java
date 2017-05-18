@@ -2,15 +2,13 @@ package com.helpme.app.Mock;
 
 import com.helpme.app.world.character.BodyFactory;
 import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.behaviour.FollowAndAttack;
-import com.helpme.app.world.character.behaviour.GoBack;
+import com.helpme.app.world.character.behaviour.Return;
 import com.helpme.app.world.character.inventory.InventoryFactory;
 import com.helpme.app.world.consciousness.*;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.Level;
 import com.helpme.app.world.level.LevelFactory;
 
 import java.util.ArrayList;
@@ -52,7 +50,7 @@ public class MockWorld1 {
         level.addBody(enemy1);
         enemyConsciousness2 = new Enemy(enemy2, level, new FollowAndAttack(1), new FollowAndAttack(1));
         level.addBody(enemy2);
-        enemyConsciousness3 = new Enemy(enemy3, level, new GoBack(), new FollowAndAttack(1));
+        enemyConsciousness3 = new Enemy(enemy3, level, new Return(), new FollowAndAttack(1));
         level.addBody(enemy3);
 
         this.level = level;

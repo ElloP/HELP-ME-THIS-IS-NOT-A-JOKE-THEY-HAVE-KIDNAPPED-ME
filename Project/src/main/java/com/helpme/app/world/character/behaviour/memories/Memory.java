@@ -1,29 +1,47 @@
 package com.helpme.app.world.character.behaviour.memories;
 
-import java.util.List;
-import java.util.function.Function;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by kopa on 2017-05-17.
  */
-public class Memories<T> implements IMemories<T> {
+public class Memory implements ILongTerm {
+    Map<String, Integer> shortterm;
+    Map<String, Integer> longterm;
+
+
     @Override
-    public List<IMemory<T>> readMemories() {
-        return null;
+    public Map<String, Integer> readMemory() {
+        Map<String, Integer> combined = new HashMap<>();
+        for(Map.Entry<String, Integer> entry : longterm.entrySet()){
+            combined.put(entry.getKey(), entry.getValue());
+        }
+
+        for(Map.Entry<String, Integer> entry : shortterm.entrySet()){
+            combined.put(entry.getKey(), entry.getValue());
+        }
+
+        return combined;
     }
 
     @Override
-    public void removeMemory(String name) {
-
+    public void updateShortTermMemory(String name, int value) {
+        shortterm.put(name, value);
     }
 
     @Override
-    public void addMemory(IMemory memory) {
-
+    public void removeShortTermMemory(String name) {
+        shortterm.remove(name);
     }
 
     @Override
-    public void updateMemory(String name, Function<T, T> value) {
+    public void removeLongTermMemory(String name) {
+        longterm.remove(name);
+    }
+
+    @Override
+    public void updateLongTermMemory(String name, int value) {
 
     }
 }
