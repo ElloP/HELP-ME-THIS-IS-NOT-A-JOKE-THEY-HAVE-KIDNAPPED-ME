@@ -2,6 +2,7 @@ package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.renderer.base.Texture;
 import com.helpme.app.engine.renderer.base.Vertex;
+import com.helpme.app.engine.renderer.base.Vertex2D;
 import com.helpme.app.engine.utils.TextureLoader;
 import com.helpme.app.utils.maybe.Maybe;
 
@@ -20,6 +21,7 @@ public final class Resources {
             put("floor", TextureLoader.loadTexture("floor.jpg"));
             put("wall", TextureLoader.loadTexture("brick.jpg"));
             put("door", TextureLoader.loadTexture("door.jpg"));
+            put("health", TextureLoader.loadTexture("health.png"));
             put("default", TextureLoader.loadTexture("default.png"));
         }
     };
@@ -41,6 +43,32 @@ public final class Resources {
         return new int[]{
                 0, 1, 2,
                 2, 3, 0
+        };
+    }
+
+    public final static int[] ui() {
+        return new int[] {
+                -1, 1, -1, -1, 1, 1, 1, -1
+        };
+    }
+
+    /*public static Vertex2D[] uiVert() {
+        return new Vertex2D[] {
+                new Vertex2D(-0.5f, -0.5f),
+                new Vertex2D(0.5f, -0.5f),
+                new Vertex2D(0.5f, 0.5f),
+                new Vertex2D(-0.5f, 0.5f)
+        };
+    }*/
+
+    public static Vertex2D[] uiVert2() {
+        return new Vertex2D[] {
+                new Vertex2D(0.0f, 1.0f, 0.0f, 1.0f),
+                new Vertex2D(1.0f, 0.0f, 1.0f, 0.0f),
+                new Vertex2D(0.0f, 0.0f, 0.0f, 0.0f),
+                new Vertex2D(0.0f, 1.0f, 0.0f, 1.0f),
+                new Vertex2D(1.0f, 1.0f, 1.0f, 1.0f),
+                new Vertex2D(1.0f, 0.0f, 1.0f, 0.0f)
         };
     }
 

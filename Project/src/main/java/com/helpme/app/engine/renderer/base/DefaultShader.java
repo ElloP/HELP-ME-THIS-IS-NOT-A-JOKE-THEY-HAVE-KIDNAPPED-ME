@@ -8,8 +8,16 @@ import com.helpme.app.engine.base.Window;
  * Created by Olle on 2017-04-21.
  */
 public class DefaultShader extends Shader {
+    private static DefaultShader defaultShader;
 
-    public DefaultShader() {
+    public static DefaultShader getDefaultShader() {
+        if (defaultShader == null) {
+            defaultShader = new DefaultShader();
+        }
+        return defaultShader;
+    }
+
+    private DefaultShader() {
         super("vertexShader.vs", "fragmentShader.fs");
         addUniform("model");
         addUniform("view");

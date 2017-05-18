@@ -29,13 +29,13 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, id);
     }
 
-    public static void unBind() {
+    public void unBind() {
         glBindTexture(GL_TEXTURE_2D,0);
     }
 
     public void generate(ByteBuffer image, int width, int height) {
         id = glGenTextures();
-        
+
         bind();
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);

@@ -14,11 +14,17 @@ public class Quad extends GameObject {
     private Texture texture;
 
     public Quad(Texture texture, int[] indices, Vertex[] vertices) {
-        this(texture, new DefaultShader(), indices, vertices);
+        this(texture, DefaultShader.getDefaultShader(), indices, vertices);
     }
 
     public Quad(Texture texture, Shader shader, int[] indices, Vertex[] vertices) {
         this.mesh = new Mesh(vertices, indices);
+        this.shader = shader;
+        this.texture = texture;
+    }
+
+    public Quad(Texture texture, Shader shader, Vertex2D[] vertices) {
+        this.mesh = new Mesh(vertices);
         this.shader = shader;
         this.texture = texture;
     }
@@ -29,5 +35,8 @@ public class Quad extends GameObject {
         texture.bind();
         shader.useProgram();
         mesh.draw();
+        texture.unBind();
     }
+
+
 }

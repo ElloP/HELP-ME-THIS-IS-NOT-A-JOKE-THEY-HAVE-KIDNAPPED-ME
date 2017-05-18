@@ -127,6 +127,11 @@ public class Matrix4f {
         return this.matrix.perspectiveFov();
     }
 
+    public Matrix4f ortho(float left, float right, float bottom, float top, float zNear, float zFar) {
+        this.matrix.setOrtho(left, right, bottom, top, zNear, zFar);
+        return this;
+    }
+
     public Matrix4f rotate(float angle, float x, float y, float z) {
         if(this.matrix.isAffine()) {
             this.matrix.rotateAffine(angle, x, y, z);

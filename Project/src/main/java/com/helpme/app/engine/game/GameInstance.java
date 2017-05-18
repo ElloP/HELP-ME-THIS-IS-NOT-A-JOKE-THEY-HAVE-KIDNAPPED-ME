@@ -24,6 +24,7 @@ public class GameInstance extends Game {
     public GameInstance() {
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
+        scene.addChild(new UIController("health"));
     }
 
     private ILevel testLevel(){

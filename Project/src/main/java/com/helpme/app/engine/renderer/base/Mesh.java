@@ -13,9 +13,10 @@ import org.lwjgl.system.MemoryUtil;
  */
 
 public class Mesh {
-    private int vao; //NOTE(Olle): Vertex Array Object (saves drawing settings)
-    private int vbo; //NOTE(Olle): Vertex Buffer Object (buffer to send vertices to graphics card)
-    private int ebo; //NOTE(Olle): Element Buffer Object (buffer to send drawing orders to graphics card)
+    public int vao; //NOTE(Olle): Vertex Array Object (saves drawing settings)
+    public int vbo; //NOTE(Olle): Vertex Buffer Object (buffer to send vertices to graphics card)
+    public int ebo; //NOTE(Olle): Element Buffer Object (buffer to send drawing orders to graphics card)
+    private final int FLOATSIZE = 4;
 
     private int vertexCount;
 
@@ -31,8 +32,15 @@ public class Mesh {
         addVertices(vertices, indices);
     }
 
+    public Mesh(Vertex2D[] vertices) {
+        vao = glGenVertexArrays();
+        vbo = glGenBuffers();
+        ebo = glGenBuffers();
+
+        addVertices(vertices);
+    }
+
     public void addVertices(Vertex[] vertices, int[] indices) {
-        final int FLOATSIZE = 4; //in bytes
         vertexCount = indices.length;
 
         FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertexCount * Vertex.VERTEXSIZE);
@@ -66,6 +74,54 @@ public class Mesh {
 
         MemoryUtil.memFree(vertexBuffer);
         MemoryUtil.memFree(indexBuffer);
+    }
+
+    public void addVertices(Vertex2D[] vertices) {
+        //vertexCount = indices.length;
+        //vertexCount = vertices.length;
+        vertexCount = 6;
+
+        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertexCount * 4);
+        //IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
+
+        for(Vertex2D v : vertices) {
+            v.get(vertexBuffer);
+        }
+
+        vertexBuffer.flip();
+        //indexBuffer.put(indices).flip();
+
+        glBindVertexArray(vao);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        //TODO:Vertices?
+        glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
+
+        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        //glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
+
+        //glBindVertexArray(vao);
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 4 * FLOATSIZE, 0);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 4 * FLOATSIZE, 2 * FLOATSIZE);
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+
+        /*glVertexAttribPointer(0, 3, GL_FLOAT, false, 4 * FLOATSIZE, 0);
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 4 * FLOATSIZE, 4 * FLOATSIZE);
+        glEnableVertexAttribArray(1);
+
+        glBindVertexArray(0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);*/
+
+        MemoryUtil.memFree(vertexBuffer);
+        //MemoryUtil.memFree(indexBuffer);
     }
 
     public void draw() {
