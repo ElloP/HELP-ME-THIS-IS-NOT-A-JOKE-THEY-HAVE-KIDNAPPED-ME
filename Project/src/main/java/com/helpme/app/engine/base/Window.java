@@ -23,7 +23,7 @@ public class Window {
 
     public static long getWindow() { return window; }
 
-    public static boolean shouldClose() {
+    static boolean shouldClose() {
         return glfwWindowShouldClose(window);
     }
 
@@ -56,7 +56,7 @@ public class Window {
         GL.createCapabilities();
     }
 
-    public static void update() { //NOTE(Olle): tells window to swap the framebuffers and get input from mouse and keyboard
+    public static void update() { //NOTE(Olle): tells window to swap the frame buffers and get input from mouse and keyboard
         glfwSwapBuffers(window);
 
         glfwPollEvents();
@@ -70,13 +70,6 @@ public class Window {
     }
 
     // ----------- Settings -----------
-
-    public static void exitWithESC() { //NOTE(Olle): closes window with ESC. good to have during development
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-                glfwSetWindowShouldClose(window, true);
-        });
-    }
 
     public static void lockMouse() {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

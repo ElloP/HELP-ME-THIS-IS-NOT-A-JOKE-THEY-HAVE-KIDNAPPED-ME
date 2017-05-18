@@ -14,8 +14,8 @@ public class Texture {
 
     private int maxFilter = GL_LINEAR;
     private int minFilter = GL_LINEAR_MIPMAP_LINEAR;
-    private int wrapT = GL_REPEAT;
     private int wrapS = GL_REPEAT;
+    private int wrapT = GL_REPEAT;
 
     public void enableMipMapping() {
         mipMapping = true;
@@ -33,9 +33,9 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D,0);
     }
 
-    public void generate(ByteBuffer image, int width, int height) {
+    void generate(ByteBuffer image, int width, int height) {
         id = glGenTextures();
-        
+
         bind();
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);

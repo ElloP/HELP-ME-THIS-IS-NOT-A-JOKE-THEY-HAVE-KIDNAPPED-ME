@@ -1,53 +1,62 @@
 package com.helpme.app.engine.renderer.base;
 
 
+import com.helpme.app.engine.base.IRenderCore;
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
 /**
  * Authored by Olle on 2017-04-04.
  */
-public class RenderCore {
+public class RenderCore implements IRenderCore {
+    private static RenderCore rc;
 
+    public static RenderCore getRenderCore() {
+        if(rc == null) {
+            rc = new RenderCore();
+        }
+        return rc;
+    }
 
-    public static void init() {
+    private RenderCore() {
         setClearColor();
         enableFaceCulling();
         enableDepthTest();
         enableGammaCorrection();
     }
 
-    public static void setClearColor() {
+    public void setClearColor() {
         glClearColor(0.0f,0.0f,0.0f,0.0f);
     }
 
-    public static void enableFaceCulling() {
+    public void enableFaceCulling() {
         glFrontFace(GL_CW);
         glCullFace(GL_BACK);
         glEnable(GL_CULL_FACE);
     }
 
-    public static void disableFaceCulling() {
+    public void disableFaceCulling() {
         glDisable(GL_CULL_FACE);
     }
 
-    public static void enableDepthTest() {
+    public void enableDepthTest() {
         glEnable(GL_DEPTH_TEST);
     }
 
-    public static void disableDepthTest() {
+    public void disableDepthTest() {
         glDisable(GL_DEPTH_TEST);
     }
 
-    public static void enableGammaCorrection() {
+    public void enableGammaCorrection() {
         glEnable(GL_FRAMEBUFFER_SRGB);
     }
 
-    public static void disableGammaCorrection() {
+    public void disableGammaCorrection() {
         glDisable(GL_FRAMEBUFFER_SRGB);
     }
 
-    public static void clearWindow() {
+    public void clearWindow() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 }

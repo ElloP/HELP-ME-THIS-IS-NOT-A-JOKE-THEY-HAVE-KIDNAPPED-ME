@@ -2,7 +2,7 @@ package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.renderer.base.Texture;
 import com.helpme.app.engine.renderer.base.Vertex;
-import com.helpme.app.engine.utils.TextureLoader;
+import com.helpme.app.engine.renderer.base.TextureLoader;
 import com.helpme.app.utils.maybe.Maybe;
 
 import java.util.Dictionary;

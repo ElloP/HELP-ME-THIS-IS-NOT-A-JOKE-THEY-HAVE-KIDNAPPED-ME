@@ -1,16 +1,16 @@
-package com.helpme.app.engine.utils;
+package com.helpme.app.engine.renderer.base;
 
 import com.helpme.app.engine.renderer.base.Texture;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Authored by Olle on 2017-04-04.
  */
-public class ResourceLoader {
-
-    public static String readFile(String fileName) {
+public class ShaderLoader {
+    public static String readShader(String fileName) {
         StringBuilder fileText = new StringBuilder();
         BufferedReader fileReader = null;
 
@@ -31,10 +31,12 @@ public class ResourceLoader {
                 }
             }
             fileReader.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.err.print("IOException in ShaderLoader.readShader::");
             e.printStackTrace();
             System.exit(1);
         }
+
         return fileText.toString();
     }
 }

@@ -3,7 +3,7 @@ package com.helpme.app.engine.game;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.*;
-import com.helpme.app.engine.utils.TextureLoader;
+import com.helpme.app.engine.renderer.base.TextureLoader;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Vector3f;
 
@@ -15,7 +15,7 @@ import com.helpme.app.utils.mathl.Vector3f;
 public class NPCView extends GameObject {
     private Mesh mesh;
     private Shader shader;
-    Matrix4f modelMatrix;
+    private Matrix4f modelMatrix;
 
     private static Texture texture = TextureLoader.loadTexture("default.png");
 

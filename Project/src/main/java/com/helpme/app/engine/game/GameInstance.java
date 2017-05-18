@@ -23,6 +23,7 @@ public class GameInstance extends Game {
     private CameraController cameraController;
     public GameInstance() {
         activeCamera = playerCamera;
+
         scene.addChild(new LevelController(testLevel()));
         scene.addChild(new NPCView());
     }
