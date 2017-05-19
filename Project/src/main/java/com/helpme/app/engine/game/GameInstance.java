@@ -3,8 +3,9 @@ package com.helpme.app.engine.game;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerController;
+import com.helpme.app.engine.input.Input;
+import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.saveload.GameLoader;
-import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
@@ -12,15 +13,14 @@ import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
 import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.level.*;
 import com.helpme.app.world.level.concrete.LevelFactory;
 import com.helpme.app.world.tile.edge.concrete.Door;
 
 
-import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.awt.SystemColor.text;
 
 /**
  * Authored by Olle on 2017-04-21.
@@ -29,46 +29,31 @@ public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
     private CameraController cameraController;
     private GameLoader gameLoader;
+    private boolean loaded = false;
     public GameInstance() {
         this.gameLoader = new GameLoader();
-
-        SaveRoot game = loadGame("text.xml");
-        IBody player = game.loadPlayer();
-        player.setPosition(new Vector2f(10,10));
+    }
+    private void loadScene(){
+        Scene scene = new Scene();
+        Tuple3<ILevel,IBody,Enemy[]> game = gameLoader.loadGame("text.xml");
+        IBody player = game.b;
         activeCamera = playerCamera;
-        //activeCamera.setPosition(player.readPosition().x,player.readPosition().y);
-        activeCamera.setPosition(-6,0,6);
-        //scene.addChild(new LevelController(testLevel()));
-
-      //  scene.addChild(new LevelController(testLevel()));
-       // scene.addChild(new NPCView());
-
-        scene.addChild(new LevelController(game.loadLevel()));
-    }
-
-
-    private SaveRoot loadGame(String filePath) {
-        try{
-            SaveRoot loaded = gameLoader.unmarshall(filePath);
-            return loaded;
-        } catch (JAXBException e){
-            System.out.println("Unable to load game from that filepath");
-            System.out.println(e);
-            return null;
+        Vector2f playerPos = player.readPosition();
+        activeCamera.setPosition(-6*playerPos.x,0,6*playerPos.y);
+        scene.addChild(new LevelController(game.a));
+        for(Enemy e : game.c){
+            Vector2f enemyPos = e.readBody().readPosition();
+            NPCView tmp = new NPCView();
+            tmp.transform.setPosition(-6*enemyPos.x,0,6*enemyPos.y);
+            scene.addChild(tmp);
         }
+        setActiveScene(scene);
     }
-    private void saveGame(SaveRoot saveRoot, String filePath){
-        try{
-            gameLoader.marshall(saveRoot, filePath);
-        } catch (JAXBException e){
-            System.out.println("Unable to save game");
-            System.out.println(e);
-        }
+    private void loadNewGame(){
+        activeCamera = playerCamera;
+        scene.addChild(new LevelController(testLevel()));
+        scene.addChild(new NPCView());
     }
-    private void saveGame(ILevel level, IBody player, Enemy[] enemies, String filePath){
-        saveGame(new SaveRoot(level,player,enemies),filePath);
-    }
-
 
     private ILevel testLevel(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -131,15 +116,26 @@ public class GameInstance extends Game {
     }
 
     public void input(Time time) {
-        if(cameraController == null) {
-            cameraController = new PlayerController(activeCamera, time);
+        if(!loaded){
+            if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
+                loaded = true;
+                loadScene();
+            }
+            if(Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
+                loaded = true;
+                loadNewGame();
+            }
+        } else{
+            if(cameraController == null) {
+                cameraController = new PlayerController(activeCamera, time);
+            }
+            cameraController.update();
         }
-        cameraController.update();
+
     }
 
     public void update(Time time) {
         //TODO(Olle): update game
-
         // xy += Time.deltaTime;
         // t = new Vector3f(0,xy,0);
         // Vector3f te = new Vector3f(0,-xy,0);

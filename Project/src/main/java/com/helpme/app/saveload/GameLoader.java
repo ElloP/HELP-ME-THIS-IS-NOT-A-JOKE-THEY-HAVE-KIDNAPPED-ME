@@ -1,9 +1,9 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.utils.tuple.Tuple3;
+import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.level.ILevel;
-
+import com.helpme.app.world.body.IBody;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * Created by og on 2017-05-16.
  */
-public class GameLoader {
+public class GameLoader implements SaveLoad {
 
     JAXBContext context;
     Marshaller marshaller;
@@ -43,5 +43,28 @@ public class GameLoader {
         File file = new File(filePath);
         SaveRoot saveRoot = (SaveRoot) unmarshaller.unmarshal(file);
         return saveRoot;
+    }
+
+    @Override
+    public void saveGame(ILevel level, IBody player, Enemy[] enemies, String filePath) {
+        try{
+            marshall(new SaveRoot(level,player,enemies), filePath);
+        } catch (JAXBException e){
+            System.out.println("Unable to save game");
+            System.out.println(e);
+        }
+
+    }
+
+    @Override
+    public Tuple3<ILevel, IBody, Enemy[]> loadGame(String filePath) {
+        try{
+            SaveRoot saveRoot = unmarshall(filePath);
+            return new Tuple3<>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());
+        } catch (JAXBException e){
+            System.out.println("Could not load game from that path");
+            System.out.println(e);
+            return null;
+        }
     }
 }

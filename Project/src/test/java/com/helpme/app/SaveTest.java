@@ -83,7 +83,7 @@ public class SaveTest {
         MockWorld1 mock = new MockWorld1();
         // mock.player.setPlayerPosition(new Vector2f(1,1));
 
-        Enemy[] enemy = {(Enemy) mock.enemyConsciousness0};
+        Enemy[] enemy = {(Enemy) mock.enemyConsciousness0, (Enemy) mock.enemyConsciousness1};
         SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
         try{
             GameLoader gl = new GameLoader();
