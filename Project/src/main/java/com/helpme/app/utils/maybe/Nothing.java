@@ -14,6 +14,11 @@ public class Nothing<T> extends Maybe<T> {
     }
 
     @Override
+    public String toString(){
+        return "Nothing";
+    }
+
+    @Override
     public boolean equals(Object o){
         return o instanceof Nothing;
     }

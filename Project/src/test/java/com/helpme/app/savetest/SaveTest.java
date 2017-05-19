@@ -6,13 +6,14 @@ import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.IReadInventory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.tile.edge.concrete.Door;
 import com.helpme.app.world.tile.edge.IEdge;
-import com.helpme.app.world.tile.edge.Opening;
-import com.helpme.app.world.tile.edge.Wall;
+import com.helpme.app.world.tile.edge.concrete.Opening;
+import com.helpme.app.world.tile.edge.concrete.Wall;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,11 +36,9 @@ public class SaveTest {
 
     @Before
     public void setup() throws JAXBException {
-        this.context = JAXBContext.newInstance(LevelWrapper.class);
-
-
-        // this.context = JAXBContext.newInstance(BodyWrapper.class);
+        this.context = JAXBContext.newInstance(LevelWrapper.class, BodyWrapper.class);
     }
+
 
     @Test
     public void testSaveBody() throws JAXBException {
@@ -63,7 +62,6 @@ public class SaveTest {
 
         IInventory mockInventory = new MockInventory(mockItems, mockKeys);
         IBody mockBody = new MockBody(mockInventory);
-        Vector2f mockHitpoints = new Vector2f(100,100);
 
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
@@ -72,8 +70,11 @@ public class SaveTest {
         Unmarshaller unmarshaller = this.context.createUnmarshaller();
 
         BodyWrapper bodyWrapper = (BodyWrapper) unmarshaller.unmarshal(file);
-
-        System.out.println(bodyWrapper);
+        IBody loadedBody = bodyWrapper.getObject();
+        assert(loadedBody.readHitpoints().equals(new Vector2f(100,100)));
+        IReadInventory loadedInventory = loadedBody.readInventory();
+        System.out.println(loadedInventory.readItems());
+        assert(loadedInventory.readItem(0).getValue().readName().equals("item0"));
     }
 
     @Test

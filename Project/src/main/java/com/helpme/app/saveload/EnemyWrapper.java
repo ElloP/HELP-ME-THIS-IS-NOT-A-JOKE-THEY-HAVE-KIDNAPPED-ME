@@ -1,6 +1,6 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.consciousness.ISurroundings;
 
 import javax.xml.bind.annotation.XmlElement;

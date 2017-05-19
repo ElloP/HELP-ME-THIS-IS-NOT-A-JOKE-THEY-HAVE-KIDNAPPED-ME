@@ -2,10 +2,9 @@ package com.helpme.app.saveload;
 
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.IReadInventory;
-import com.helpme.app.world.character.inventory.Inventory;
-import com.helpme.app.world.character.inventory.InventoryFactory;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.IReadInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import javax.xml.bind.annotation.XmlElement;

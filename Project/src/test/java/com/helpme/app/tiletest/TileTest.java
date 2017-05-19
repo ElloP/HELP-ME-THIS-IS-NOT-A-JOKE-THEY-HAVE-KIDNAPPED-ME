@@ -2,11 +2,10 @@ package com.helpme.app.tiletest;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.character.inventory.IInventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.TileFactory;
+import com.helpme.app.world.tile.concrete.TileFactory;
 import org.junit.Before;
 import org.junit.Test;
 

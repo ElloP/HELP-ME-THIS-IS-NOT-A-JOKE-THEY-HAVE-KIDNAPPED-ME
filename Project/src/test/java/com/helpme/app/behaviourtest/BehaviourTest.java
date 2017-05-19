@@ -1,6 +1,6 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.world.character.behaviour.IBehaviour;
+import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import org.junit.Before;
 
 /**

@@ -1,7 +1,7 @@
 package com.helpme.app.leveltest;
 
 import com.helpme.app.world.tile.edge.IEdge;
-import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
+import com.helpme.app.world.tile.edge.IEdgeVisitor;
 
 /**
  * Created by kopa on 2017-05-15.

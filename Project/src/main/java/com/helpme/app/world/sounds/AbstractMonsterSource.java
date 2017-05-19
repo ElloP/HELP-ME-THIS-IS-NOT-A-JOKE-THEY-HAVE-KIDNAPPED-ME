@@ -1,7 +1,6 @@
 package com.helpme.app.world.sounds;
 
-import com.helpme.app.world.character.IReadBody;
-import com.helpme.app.world.sounds.Source.Source;
+import com.helpme.app.world.body.IReadBody;
 
 /**
  * Created by Jesper on 2017-04-24.

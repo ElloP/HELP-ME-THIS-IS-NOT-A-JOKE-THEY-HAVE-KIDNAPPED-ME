@@ -1,9 +1,7 @@
 package com.helpme.app.consciousnesstest;
 
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.Item;
-import com.helpme.app.world.item.Key;
-import com.helpme.app.world.item.visitor.IItemVisitor;
+import com.helpme.app.world.item.IItemVisitor;
 
 /**
  * Created by kopa on 2017-05-14.

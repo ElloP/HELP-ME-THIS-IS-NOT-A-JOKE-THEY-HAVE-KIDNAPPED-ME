@@ -12,15 +12,13 @@ public class Lerper {
 
     private Time time;
 
-    private float currentTime;
+    private float currentTime = 0f;
     private float endTime = 1f;
 
     public Lerper(Vector3f startPoint, Vector3f endPoint, Time time) {
         this.startPoint = new Vector3f(startPoint);
         this.endPoint = new Vector3f(endPoint);
         this.time = time;
-
-        this.currentTime = 0f;
     }
 
     public Lerper(Vector3f startPoint, Vector3f endPoint, Time time, float endTime) {
@@ -28,8 +26,6 @@ public class Lerper {
         this.endPoint = new Vector3f(endPoint);
         this.time = time;
         this.endTime = endTime; //Note(Olle): set lerp duration in seconds
-
-        this.currentTime = 0f;
     }
 
     public boolean finished() {

@@ -1,7 +1,7 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.level.ILevel;
 
 import javax.xml.bind.annotation.XmlElement;

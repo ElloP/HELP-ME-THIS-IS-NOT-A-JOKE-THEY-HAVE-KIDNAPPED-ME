@@ -1,8 +1,8 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.Body;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.IReadBody;
+import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.IReadBody;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 

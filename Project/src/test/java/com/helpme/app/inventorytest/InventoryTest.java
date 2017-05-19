@@ -2,10 +2,10 @@ package com.helpme.app.inventorytest;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.InventoryFactory;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.visitor.Pickup;
+import com.helpme.app.world.body.concrete.visitor.Pickup;
 import org.junit.Before;
 import org.junit.Test;
 

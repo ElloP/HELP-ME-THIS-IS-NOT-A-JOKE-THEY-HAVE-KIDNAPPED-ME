@@ -1,9 +1,9 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.behaviour.DoNothing;
-import com.helpme.app.world.character.behaviour.FollowAndAttack;
-import com.helpme.app.world.character.behaviour.GoBack;
-import com.helpme.app.world.character.behaviour.IBehaviour;
+import com.helpme.app.world.consciousness.behaviour.DoNothing;
+import com.helpme.app.world.consciousness.behaviour.FollowAndAttack;
+import com.helpme.app.world.consciousness.behaviour.GoBack;
+import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -29,7 +29,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour>{
         return this.behavior;
     }
     public void setBehavior(String behavior){
-        if(behavior == "FollowAndAttack" || behavior == "GoBack" ) this.behavior = behavior;
+        if(behavior.equals("FollowAndAttack") || behavior.equals("GoBack")) this.behavior = behavior;
         else this.behavior = "DoNothing";
     }
 

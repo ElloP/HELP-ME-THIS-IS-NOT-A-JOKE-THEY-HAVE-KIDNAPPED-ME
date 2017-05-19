@@ -2,20 +2,21 @@ package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
-import com.helpme.app.engine.game.controls.DebugCamera;
 import com.helpme.app.engine.game.controls.PlayerController;
 import com.helpme.app.saveload.GameLoader;
 import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
-import com.helpme.app.world.tile.edge.Door;
-import org.lwjgl.system.CallbackI;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.level.*;
+import com.helpme.app.world.level.concrete.LevelFactory;
+import com.helpme.app.world.tile.edge.concrete.Door;
+
 
 import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class GameInstance extends Game {
         activeCamera.setPosition(-6,0,6);
         //scene.addChild(new LevelController(testLevel()));
 
-
+      //  scene.addChild(new LevelController(testLevel()));
+       // scene.addChild(new NPCView());
 
         scene.addChild(new LevelController(game.loadLevel()));
     }
@@ -134,10 +136,6 @@ public class GameInstance extends Game {
         }
         cameraController.update();
     }
-
-    Vector3f t = new Vector3f();
-    float xy = 0;
-
 
     public void update(Time time) {
         //TODO(Olle): update game

@@ -1,6 +1,6 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.character.IReadBody;
+import com.helpme.app.world.body.IReadBody;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

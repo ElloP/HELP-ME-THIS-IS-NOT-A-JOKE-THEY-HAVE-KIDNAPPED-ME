@@ -1,16 +1,17 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockItem;
-import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.Mock.MockWorld1;
-import com.helpme.app.saveload.*;
+import com.helpme.app.saveload.BodyWrapper;
+import com.helpme.app.saveload.GameLoader;
+import com.helpme.app.saveload.SavePlayer;
+import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.Body;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.Inventory;
-import com.helpme.app.world.consciousness.Enemy;
-import com.helpme.app.world.consciousness.Player;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.consciousness.concrete.Enemy;
+import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.ILevel;
 import org.junit.Before;
