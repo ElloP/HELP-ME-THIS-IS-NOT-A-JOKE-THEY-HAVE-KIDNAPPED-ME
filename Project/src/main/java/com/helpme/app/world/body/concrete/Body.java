@@ -3,16 +3,13 @@ package com.helpme.app.world.body.concrete;
 import com.helpme.app.utils.Clone;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.concrete.visitor.*;
 import com.helpme.app.world.body.dialogue.IDialogue;
 import com.helpme.app.world.body.inventory.IInventory;
 import com.helpme.app.world.body.inventory.IReadInventory;
 import com.helpme.app.world.body.inventory.concrete.Inventory;
 import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.body.concrete.visitor.Traverse;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.body.concrete.visitor.Attack;
-import com.helpme.app.world.body.concrete.visitor.Pickup;
-import com.helpme.app.world.body.concrete.visitor.Selfie;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
@@ -84,11 +81,15 @@ public class Body extends Observable implements IBody {
     @Override
     public void rotateRight() {
         direction = direction.rotateRightAngle(1);
+        setChanged();
+        notifyObservers(Event.Direction);
     }
 
     @Override
     public void rotateLeft() {
         direction = direction.rotateRightAngle(-1);
+        setChanged();
+        notifyObservers(Event.Direction);
     }
 
     private void move(Vector2f direction) {
@@ -100,21 +101,29 @@ public class Body extends Observable implements IBody {
     @Override
     public void moveForward() {
         move(direction.forward());
+        setChanged();
+        notifyObservers(Event.Position);
     }
 
     @Override
     public void moveRight() {
         move(direction.right());
+        setChanged();
+        notifyObservers(Event.Position);
     }
 
     @Override
     public void moveBackward() {
         move(direction.backward());
+        setChanged();
+        notifyObservers(Event.Position);
     }
 
     @Override
     public void moveLeft() {
         move(direction.left());
+        setChanged();
+        notifyObservers(Event.Position);
     }
 
     @Override
@@ -211,7 +220,7 @@ public class Body extends Observable implements IBody {
         amount = Math.abs(amount);
         hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
         setChanged();
-        notifyObservers();
+        notifyObservers(Event.Health);
     }
 
     @Override
@@ -227,6 +236,8 @@ public class Body extends Observable implements IBody {
     @Override
     public void kill() {
         dead = true;
+        setChanged();
+        notifyObservers(Event.Dead);
     }
 
     public Vector2f readStartingPosition() {
