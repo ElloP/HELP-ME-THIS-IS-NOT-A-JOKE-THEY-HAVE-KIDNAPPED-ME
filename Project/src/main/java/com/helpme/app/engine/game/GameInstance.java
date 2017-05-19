@@ -24,7 +24,7 @@ public class GameInstance extends Game {
     public GameInstance() {
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
-        UIRenderer health = new UIRenderer("health", new Vector2f(1200, 200), 2);
+        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
         health.setTexture("health80");
 
