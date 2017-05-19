@@ -30,9 +30,9 @@ public class Quad extends GameObject {
 
     @Override
     public void draw(Camera camera) {
+        shader.useProgram();
         shader.updateUniforms(transform, camera);
         texture.bind();
-        shader.useProgram();
         mesh.draw();
         texture.unBind();
     }
