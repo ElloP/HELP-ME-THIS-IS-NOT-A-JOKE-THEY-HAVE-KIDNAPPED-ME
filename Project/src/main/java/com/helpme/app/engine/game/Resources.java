@@ -22,6 +22,7 @@ public final class Resources {
             put("wall", TextureLoader.loadTexture("brick.jpg"));
             put("door", TextureLoader.loadTexture("door.jpg"));
             put("health", TextureLoader.loadTexture("health.png"));
+            put("health80", TextureLoader.loadTexture("health80.png"));
             put("default", TextureLoader.loadTexture("default.png"));
         }
     };

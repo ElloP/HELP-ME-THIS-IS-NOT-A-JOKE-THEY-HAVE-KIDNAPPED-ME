@@ -12,7 +12,6 @@ import org.lwjgl.opengl.GL13;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL11.glDrawArrays;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.stb.STBImage.*;
 
 /**
  * Created by Jesper on 2017-05-14.
@@ -35,7 +34,7 @@ public class UIRenderer extends GameObject{
         //this.transform.scale(10, 10, 0);
         this.transform.setPosition(position.x, position.y, 0);
         //If faceculling is enabled the transform has to be rotated. Otherwise it doesn't matter.
-        this.transform.rotate(0, 180, 0);
+        this.transform.rotate(180, 0, 0);
 
 
     }
@@ -44,6 +43,11 @@ public class UIRenderer extends GameObject{
         this(texture, position, new Vector2f(scale, scale));
     }
 
+    public void setTexture (String texture) {
+        Resources.getTexture(texture).run(t -> {
+            this.texture = t;
+        });
+    }
 
 
     @Override
