@@ -46,15 +46,15 @@ public final class Resources {
         };
     }
 
-    public static Vertex2D[] uiVert() {
+    public static Vertex2D[] uiVert(float width, float height) {
         return new Vertex2D[] {
-                new Vertex2D(0.5f, 0.5f, 1, 1),
-                new Vertex2D(0.5f, -0.5f, 1, 0),
-                new Vertex2D(-0.5f, 0.5f, 0, 1),
+                new Vertex2D(0.2f * width, 0.2f * height, 1, 1),
+                new Vertex2D(0.2f * width, -0.2f * height, 1, 0),
+                new Vertex2D(-0.2f * width, 0.2f * height, 0, 1),
 
-                new Vertex2D(0.5f, -0.5f, 1, 0),
-                new Vertex2D(-0.5f, -0.5f, 0, 0),
-                new Vertex2D(-0.5f, 0.5f, 0, 1),
+                new Vertex2D(0.2f * width, -0.2f * height, 1, 0),
+                new Vertex2D(-0.2f * width, -0.2f * height, 0, 0),
+                new Vertex2D(-0.2f * width, 0.2f * height, 0, 1),
         };
 
     }
