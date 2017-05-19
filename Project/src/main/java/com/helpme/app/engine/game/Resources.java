@@ -46,21 +46,7 @@ public final class Resources {
         };
     }
 
-    public final static int[] ui() {
-        return new int[] {
-                -1, 1, -1, -1, 1, 1, 1, -1
-        };
-    }
-
-    /*public static Vertex2D[] uiVert2() {
-        return new Vertex2D[] {
-                new Vertex2D(0.5f, 0.5f, 1, 1),
-                new Vertex2D(0.5f, -0.5f, 1, 0),
-                new Vertex2D(-0.5f, -0.5f, 0, 0),
-                new Vertex2D(-0.5f, 0.5f, 0, 1)
-        };
-    }*/
-    public static Vertex2D[] uiVert2() {
+    public static Vertex2D[] uiVert() {
         return new Vertex2D[] {
                 new Vertex2D(0.5f, 0.5f, 1, 1),
                 new Vertex2D(0.5f, -0.5f, 1, 0),
@@ -72,17 +58,6 @@ public final class Resources {
         };
 
     }
-
-    /*public static Vertex2D[] uiVert2() {
-        return new Vertex2D[] {
-                new Vertex2D(0.0f, 1.0f, 0.0f, 1.0f),
-                new Vertex2D(1.0f, 0.0f, 1.0f, 0.0f),
-                new Vertex2D(0.0f, 0.0f, 0.0f, 0.0f),
-                new Vertex2D(0.0f, 1.0f, 0.0f, 1.0f),
-                new Vertex2D(1.0f, 1.0f, 0.5f, 1.0f),
-                new Vertex2D(1.0f, 0.0f, 1.0f, 0.0f)
-        };
-    }*/
 
 
     public static Vertex[] floorVert() {

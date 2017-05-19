@@ -103,8 +103,6 @@ public class Transform {
         return new Matrix4f().perspective(fov, width/height, zNear, zFar);
     }
 
-    //TODO(Olle): if needed add function for orthogonal projection matrix
-
     public static Matrix4f getOrthoMatrix(float left, float right, float bottom, float top, float zNear, float zFar) {
         return new Matrix4f().ortho(left, right, bottom, top, zNear, zFar);
     }

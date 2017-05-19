@@ -12,9 +12,8 @@ public class RenderCore {
 
     public static void init() {
         setClearColor();
-        //enableFaceCulling();
+        enableFaceCulling();
         enableDepthTest();
-        //disableDepthTest();
         enableGammaCorrection();
     }
 
