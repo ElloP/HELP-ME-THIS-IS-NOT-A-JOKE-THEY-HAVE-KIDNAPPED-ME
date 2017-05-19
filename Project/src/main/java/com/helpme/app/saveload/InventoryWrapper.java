@@ -1,16 +1,21 @@
 package com.helpme.app.saveload;
 
 
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.IReadInventory;
-import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.IReadInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * Created by Klas on 2017-04-29.
  */
+@XmlRootElement(name="inventory")
 public class InventoryWrapper implements ILoadable<IInventory> {
 
     ItemWrapper[] items;
@@ -18,31 +23,47 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
     public InventoryWrapper() {}
 
-
     public InventoryWrapper(IReadInventory inventory) {
-        if (inventory == null) {
-            if (inventory.readItems().isNothing()) {
-                items = new ItemWrapper[]{};
-            } else {
-                IReadItem[] list = inventory.readItems().getValue();
-                items = new ItemWrapper[list.length];
-                for (int i = 0; i < list.length; i++) {
-                    items[i] = new ItemWrapper(list[i]);
-                }
+        List<Maybe<IReadItem>> inventoryItems = inventory.readItems();
+        List<Maybe<IReadItem>> inventoryKeys = inventory.readKeychain();
+        this.items = new ItemWrapper[inventoryItems.size()];
+        this.keys = new ItemWrapper[inventoryKeys.size()];
+
+        for(int i = 0; i < inventoryItems.size(); i++){
+            int index = i;
+            if(inventoryItems.get(i).isJust()){
+                this.items[index] = new ItemWrapper(inventoryItems.get(i).getValue());
+            }
+            else{
+                this.items[index] = new ItemWrapper("empty");
             }
 
-            if (inventory.readKeychain().isNothing()) {
-                keys = new ItemWrapper[]{};
-            } else {
-                IReadItem[] list = inventory.readKeychain().getValue();
-                keys = new ItemWrapper[list.length];
-                for (int i = 0; i < list.length; i++) {
-                    keys[i] = new ItemWrapper(list[i]);
-                }
-            }
+        }
+
+        for(int i = 0; i < inventoryKeys.size(); i++){
+            int index = i;
+            inventoryKeys.get(i).run(item -> this.keys[index] = new ItemWrapper(item));
         }
     }
 
+
+    @XmlElementWrapper(name="keys")
+    @XmlElement(name = "key")
+    public ItemWrapper[] getKeys() {
+        return this.keys;
+    }
+    public void setKeys(ItemWrapper[] keys) {
+        this.keys = new ItemWrapper[keys.length];
+        for (int i = 0; i < keys.length; i++) {
+            this.keys[i] = new ItemWrapper(keys[i].getName());
+        }
+    }
+
+    @XmlElementWrapper(name="items")
+    @XmlElement(name = "item")
+    public ItemWrapper[] getItems() {
+        return this.items;
+    }
     public void setItems(ItemWrapper[] items) {
         this.items = new ItemWrapper[items.length];
         for (int i = 0; i < items.length; i++) {
@@ -50,21 +71,16 @@ public class InventoryWrapper implements ILoadable<IInventory> {
         }
     }
 
-    @XmlElement(name = "keys")
-    public ItemWrapper[] getKeys() {
-        return this.keys;
-    }
-
-    @XmlElement(name = "items")
-    public ItemWrapper[] getItems() {
-        return this.items;
-    }
-
     public String toString() {
-        String result = "";
+        String result = "\nInventory: ";
         if(items != null){
             for (ItemWrapper item : items) {
-                if (item != null) result += "\nItem: " + (item.getName());
+                if (item != null) result += "\n\tItem:\t" + (item.getName());
+            }
+        }
+        if(keys != null){
+            for (ItemWrapper key : keys) {
+                if (key != null) result += "\n\tKey:\t" + (key.getName());
             }
         }
         return result;
@@ -72,10 +88,11 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
     @Override
     public IInventory getObject() {
-        return new Inventory(fixItems(items),null,fixItems(keys));
+        return InventoryFactory.createInventory(fixItems(items),null,fixItems(keys));
     }
 
     private IItem[] fixItems(ItemWrapper[] items){
+        if(items == null) return new IItem[]{};
         IItem[] result = new IItem[items.length];
         for(int i = 0; i < result.length; i++){
             result[i] = items[i].getObject();

@@ -1,7 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemFactory;
+import com.helpme.app.world.item.concrete.ItemFactory;
 import com.helpme.app.world.item.IReadItem;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,14 +13,12 @@ public class ItemWrapper implements ILoadable<IItem>{
 
     private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     public ItemWrapper(){}
 
     public ItemWrapper(IReadItem item){
-        name = item == null? "Empty" : item.readName();
+        name = item == null ? "empty" : item.readName();
     }
     public ItemWrapper(String name){
         this.name = name;
@@ -30,9 +28,17 @@ public class ItemWrapper implements ILoadable<IItem>{
     public String getName(){
         return name;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 
     @Override
     public IItem getObject() {
-        return IItemFactory.createItem(name); //(TODO) klas. Create item from name
+        return ItemFactory.createItem(name); //(TODO) klas. Create item from name
     }
 }

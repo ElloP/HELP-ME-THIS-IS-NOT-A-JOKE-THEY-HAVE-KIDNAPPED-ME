@@ -1,6 +1,6 @@
 package com.helpme.app.world.level;
 
-import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.consciousness.ISurroundings;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.tile.ITile;
@@ -14,5 +14,6 @@ import java.util.Map;
 public interface ILevel extends ISurroundings {
     void addBody(IBody body);
     void setPlayer(IBody player);
+    void resetPlayer();
     Map<Vector2f, ITile> getTiles();
 }

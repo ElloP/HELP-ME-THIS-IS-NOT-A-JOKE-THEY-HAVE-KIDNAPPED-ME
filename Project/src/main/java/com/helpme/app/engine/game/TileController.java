@@ -27,9 +27,8 @@ public class TileController extends GameObject {
         Vector2f[] directions = new Vector2f[]{Vector2f.up, Vector2f.left, Vector2f.down, Vector2f.right};
 
         for (int i = 0; i < 4; i++) {
-            Maybe<IEdge> maybeEdge = this.model.getEdge(directions[i]);
             int rotation = 90 * i;
-            maybeEdge.run(e -> e.accept(new GenerateEdge(this, rotation)));
+            this.model.getEdge(directions[i]).run(e -> e.accept(new GenerateEdge(this, rotation)));
         }
     }
 

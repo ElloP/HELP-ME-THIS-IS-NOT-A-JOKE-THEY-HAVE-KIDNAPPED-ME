@@ -2,8 +2,6 @@ package com.helpme.app.engine.renderer.base;
 
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.Transform;
-import com.helpme.app.engine.base.Window;
-import com.helpme.app.engine.utils.ResourceLoader;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Vector3f;
 import org.lwjgl.system.MemoryUtil;
@@ -67,8 +65,10 @@ public abstract class Shader {
 
     public abstract void updateUniforms(Transform transform, Camera camera);
 
+    public abstract void updateUniforms(Matrix4f model, Transform transform, Camera camera);
+
     private String readShader(String fileName) {
-        return ResourceLoader.readFile(SHADERPATH + fileName);
+        return ShaderLoader.readShader(SHADERPATH + fileName);
     }
 
     private void createVertexShader(String fileName) {
@@ -124,11 +124,13 @@ public abstract class Shader {
         FloatBuffer fb = MemoryUtil.memAllocFloat(16);
         value.get(fb);
         glUniformMatrix4fv(uniforms.get(uniformName), false, fb);
+        MemoryUtil.memFree(fb);
     }
 
     public void setUniform(String uniformName, Vector3f value) {
         FloatBuffer fb = MemoryUtil.memAllocFloat(3);
         value.get(fb);
         glUniform3fv(uniforms.get(uniformName), fb);
+        MemoryUtil.memFree(fb);
     }
 }

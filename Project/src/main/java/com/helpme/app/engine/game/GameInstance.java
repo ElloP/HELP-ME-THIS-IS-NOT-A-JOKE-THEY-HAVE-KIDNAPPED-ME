@@ -1,17 +1,16 @@
 package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.base.*;
-import com.helpme.app.engine.input.Input;
-import com.helpme.app.engine.input.InputKey;
+import com.helpme.app.engine.game.controls.CameraController;
+import com.helpme.app.engine.game.controls.PlayerController;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
-import com.helpme.app.world.level.Level;
-import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.level.concrete.LevelFactory;
+import com.helpme.app.world.tile.edge.concrete.Door;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +20,16 @@ import java.util.List;
  */
 public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
+    private CameraController cameraController;
     public GameInstance() {
         activeCamera = playerCamera;
+
         scene.addChild(new LevelController(testLevel()));
         UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
         health.setTexture("health80");
 
+        scene.addChild(new NPCView());
     }
 
     private ILevel testLevel(){
@@ -63,7 +65,6 @@ public class GameInstance extends Game {
 
         tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
 
-
         tiles.add(new Tuple2<>(new Vector2f(7,5),null));
         tiles.add(new Tuple2<>(new Vector2f(8,5),null));
 
@@ -87,44 +88,23 @@ public class GameInstance extends Game {
          */
 
 
-        ILevel level = new Level(tiles, doors, monsters, Vector2f.zero);
+        ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.zero);
         return level;
     }
 
-    public void input() {
-        playerCameraInput();
+    public void input(Time time) {
+        if(cameraController == null) {
+            cameraController = new PlayerController(activeCamera, time);
+        }
+        cameraController.update();
     }
 
-    Vector3f t = new Vector3f();
-    float xy = 0;
-
-    public void update() {
+    public void update(Time time) {
         //TODO(Olle): update game
 
         // xy += Time.deltaTime;
         // t = new Vector3f(0,xy,0);
         // Vector3f te = new Vector3f(0,-xy,0);
         // tile.transform.rotate(t);
-    }
-    private void playerCameraInput() {
-        float movAmt = (float) (10 * Time.deltaTime);
-        float rotAmt = (float) (250 * Time.deltaTime);
-
-        if(Input.isKeyboardKeyDown(InputKey.MoveForward))
-            playerCamera.moveForward(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveLeft))
-            playerCamera.moveLeft(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveRight))
-            playerCamera.moveRight(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.MoveBackward))
-            playerCamera.moveBackward(movAmt);
-        if(Input.isKeyboardKeyDown(InputKey.RotateLeft))
-            playerCamera.rotate(0.0f, rotAmt, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.RotateRight))
-            playerCamera.rotate(0.0f, -rotAmt, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.Attack))
-            playerCamera.rotate(-rotAmt, 0.0f, 0.0f);
-        if(Input.isKeyboardKeyDown(InputKey.Selfie))
-            playerCamera.rotate(rotAmt, 0.0f, 0.0f);
     }
 }

@@ -1,17 +1,18 @@
 package com.helpme.app.Mock;
 
 
-import com.helpme.app.world.character.*;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.Inventory;
+import com.helpme.app.world.body.*;
+import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.level.concrete.LevelFactory;
+import com.helpme.app.world.tile.edge.concrete.Door;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.consciousness.Player;
+import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * Created by Jacob on 2017-04-11.
  */
-public class MockWorld0 {
+public class    MockWorld0 {
     public ILevel level;
     public Player player;
 
@@ -28,7 +29,7 @@ public class MockWorld0 {
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IBody> bodies = new ArrayList<>();
 
-        IInventory inventory = new Inventory(new IItem[]{MockItem.weapon, MockItem.potion, null, null}, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        IInventory inventory = InventoryFactory.createInventory(new IItem[]{MockItem.weapon, MockItem.potion, null, null}, MockItem.defaultWeapon, new IItem[]{MockItem.key});
 
         MockDialogue dialogue = new MockDialogue();
 
@@ -93,7 +94,7 @@ public class MockWorld0 {
          */
 
 
-        ILevel level = new Level(tiles, doors, bodies, Vector2f.zero);
+        ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.zero);
         this.player = new Player(player, level);
         this.level = level;
     }

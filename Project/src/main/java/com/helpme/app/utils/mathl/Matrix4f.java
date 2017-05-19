@@ -50,6 +50,11 @@ public class Matrix4f {
         return this;
     }
 
+    public Matrix4f billboard(Vector3f objPos, Vector3f targetPos, Vector3f up) {
+        this.matrix.billboardCylindrical(objPos.vector, targetPos.vector, up.vector);
+        return this;
+    }
+
     public float determinant() {
         if(this.matrix.isAffine()) {
             return this.matrix.determinantAffine();

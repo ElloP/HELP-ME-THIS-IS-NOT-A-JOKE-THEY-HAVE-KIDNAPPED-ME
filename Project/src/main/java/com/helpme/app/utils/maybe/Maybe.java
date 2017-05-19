@@ -4,7 +4,8 @@ import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.functions.ICheck;
 import com.helpme.app.utils.functions.IFunction;
 
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kopa on 2017-04-20.
@@ -35,12 +36,7 @@ public abstract class Maybe<T> {
         return value == null;
     }
 
-    public static <T> Maybe<T> wrap(T value){
-        if(value == null){
-            return new Nothing<>();
-        }
-        return new Just<>(value);
-    }
+
 
     public void run(IAction<T> action){
         if(isJust()){
@@ -66,10 +62,36 @@ public abstract class Maybe<T> {
         return ifNothing;
     }
 
+    @Override
+    public int hashCode(){
+        assert (value != null);
+        return value.hashCode();
+    }
+
+    public static <T> Maybe<T> wrap(T value){
+        if(value == null){
+            return new Nothing<>();
+        }
+        return new Just<>(value);
+    }
+
     public static <T extends Y, Y> Maybe<Y> wrap(Maybe<T> maybe){
         if(maybe.isJust()){
             return new Just<>(maybe.getValue());
         }
         return new Nothing<>();
     }
+
+    public static <T extends Y, Y> List<Maybe<Y>> cast(List<Maybe<T>> maybe){
+        List<Maybe<Y>> list = new ArrayList<Maybe<Y>>(){
+            {
+                for(Maybe<T> element : maybe){
+                    add(Maybe.wrap(element));
+                }
+            }
+        };
+        return list;
+    }
+
+
 }

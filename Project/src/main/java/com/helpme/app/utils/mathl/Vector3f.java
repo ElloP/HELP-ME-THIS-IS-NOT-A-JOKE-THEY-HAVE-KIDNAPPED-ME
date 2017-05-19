@@ -45,6 +45,10 @@ public class Vector3f {
         this(vec.vector);
     }
 
+    public Vector3f clone() {
+        return new Vector3f(this);
+    }
+
     // ----------- Getters/Setters -----------
 
     public Vector3f toRadians() {
@@ -163,6 +167,11 @@ public class Vector3f {
     public Vector3f lerp(Vector3f other, float t) {
         this.vector.lerp(other.vector, t);
         return this;
+    }
+
+    public Vector3f lerp(Vector3f other, float t, Vector3f dest) {
+        this.vector.lerp(other.vector, t, dest.vector);
+        return dest;
     }
 
     public Vector3f logVector() {

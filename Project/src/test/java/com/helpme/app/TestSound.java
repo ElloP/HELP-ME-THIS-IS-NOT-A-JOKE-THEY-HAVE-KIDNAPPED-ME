@@ -1,13 +1,13 @@
 package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld1;
-import com.helpme.app.world.character.Body;
-import com.helpme.app.world.sounds.Source.AbstractMonsterSource;
+import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.sounds.AbstractMonsterSource;
 import com.helpme.app.world.sounds.AudioHandler;
 import com.helpme.app.world.sounds.AudioObserver;
-import com.helpme.app.world.sounds.Source.PlayerSource;
-import com.helpme.app.world.sounds.Source.MonsterSource;
-import com.helpme.app.world.sounds.Source.Source;
+import com.helpme.app.world.sounds.PlayerSource;
+import com.helpme.app.world.sounds.MonsterSource;
+import com.helpme.app.world.sounds.Source;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class TestSound {
 
     public static void main(String[] args) throws Exception {
         TestSound testSound = new TestSound();
-        Body player = (Body) testSound.mockWorld.player.getPlayer();
+        Body player = (Body) testSound.mockWorld.player.readBody();
 
         AudioHandler.init();
         AudioHandler.setListenerPos(player.readPosition().x, player.readPosition().y, 0);

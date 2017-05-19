@@ -1,8 +1,7 @@
 package com.helpme.app.world.sounds;
 
-import com.helpme.app.world.character.Event;
-import com.helpme.app.world.character.IReadBody;
-import com.helpme.app.world.sounds.Source.AbstractMonsterSource;
+import com.helpme.app.world.body.concrete.visitor.Event;
+import com.helpme.app.world.body.IReadBody;
 
 import java.util.ArrayList;
 import java.util.Observable;

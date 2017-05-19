@@ -20,7 +20,7 @@ public class Camera {
     // ----------- Constructors -----------
 
     public Camera() {
-        this.position = new Vector3f();
+        this.position = new Vector3f(0,1,0);
         this.forward = new Vector3f(0.0f,0.0f,-1.0f); //Note(Olle): -z is forward in OpenGL
         this.up = new Vector3f(Vector3f.UP);
         setRight();
@@ -49,7 +49,7 @@ public class Camera {
     }
 
     public void setPosition(Vector3f position) {
-        position = new Vector3f(position);
+        this.position = new Vector3f(position);
     }
 
     public Vector3f getRight() {
@@ -110,9 +110,16 @@ public class Camera {
         position.add(deltaPos);
     }
 
+    public void lookAt(Vector3f target) {
+        target.subtract(position, forward);
+        setRight();
+        setUp();
+        normalizeVectors();
+    }
+
     public void moveRight(float amt) {
         move(getRight(), amt);
-    } //Note(Olle): use the getters for immutabilitya
+    } //Note(Olle): use the getters for immutability
 
     public void moveLeft(float amt) {
         move(getLeft(), amt);
@@ -146,6 +153,13 @@ public class Camera {
             right = new Vector3f(); //Note(Olle): prevents null pointer errors
         }
         forward.cross(up, right);
+    }
+
+    private void setUp() {
+        if(up == null) {
+            up = new Vector3f();
+        }
+        forward.cross(getLeft(), up);
     }
 
 }
