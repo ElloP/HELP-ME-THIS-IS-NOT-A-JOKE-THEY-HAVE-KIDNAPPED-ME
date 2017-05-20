@@ -2,9 +2,8 @@ package com.helpme.app.engine.renderer.base;
 
 import com.helpme.app.engine.renderer.exceptions.ShaderLoadingException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Authored by Olle on 2017-04-04.
@@ -15,7 +14,7 @@ public class ShaderLoader {
         try {
             BufferedReader fileReader = null;
             try {
-                fileReader = new BufferedReader(new FileReader(fileName));
+                fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8));
 
                 String line;
 
