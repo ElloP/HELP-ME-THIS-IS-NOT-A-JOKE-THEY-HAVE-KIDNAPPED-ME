@@ -2,6 +2,7 @@ package com.helpme.app.saveload.behaviour;
 
 import com.helpme.app.saveload.ILoadable;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
+import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
 import com.helpme.app.world.consciousness.behaviour.concrete.Stay;
 
 /**
@@ -19,6 +20,6 @@ public class StayWrapper implements ILoadable<IBehaviour> {
 
     @Override
     public IBehaviour getObject() {
-        return null;
+        return BehaviourFactory.createStay(0, null);
     }
 }

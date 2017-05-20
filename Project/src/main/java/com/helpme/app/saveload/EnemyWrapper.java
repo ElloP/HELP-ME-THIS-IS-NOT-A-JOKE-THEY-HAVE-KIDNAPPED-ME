@@ -1,6 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.saveload.behaviour.BehaviourWrapper;
+import com.helpme.app.saveload.memory.MemoryWrapper;
 import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by Klas on 2017-05-01.
  */
-public class EnemyWrapper{
+public class EnemyWrapper {
     private BodyWrapper bodyWrapper;
     private MemoryWrapper memoryWrapper;
     private BehaviourWrapper[] behaviourWrappers;
@@ -23,8 +24,14 @@ public class EnemyWrapper{
 
     public EnemyWrapper(){}
 
-    public EnemyWrapper(Enemy monster){
-        this.bodyWrapper = new BodyWrapper(monster.readBody());
+    public EnemyWrapper(Enemy enemy){
+        this.bodyWrapper = new BodyWrapper(enemy.readBody());
+        this.memoryWrapper = new MemoryWrapper(enemy.readMemory());
+        List<IBehaviour> behaviours = enemy.getBehaviours();
+        behaviourWrappers = new BehaviourWrapper[behaviours.size()];
+        for(int i = 0; i < behaviours.size(); i++){
+            behaviourWrappers[i] = new BehaviourWrapper(behaviours.get(i));
+        }
     }
 
     public String toString(){
@@ -64,6 +71,4 @@ public class EnemyWrapper{
 
         return ConsciousnessFactory.createEnemy(bodyWrapper.getObject(), level, memoryWrapper.getObject(), behaviours);
     }
-
-
 }

@@ -22,7 +22,7 @@ public final class MockSingle implements ISingle {
 
     @Override
     public String readName() {
-        return null;
+        return name;
     }
 
     @Override
@@ -37,11 +37,11 @@ public final class MockSingle implements ISingle {
 
     @Override
     public IItem clone() {
-        return null;
+        return new MockSingle(name);
     }
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }

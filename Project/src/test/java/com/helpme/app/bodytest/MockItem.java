@@ -42,6 +42,6 @@ public class MockItem implements ISingle{
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }

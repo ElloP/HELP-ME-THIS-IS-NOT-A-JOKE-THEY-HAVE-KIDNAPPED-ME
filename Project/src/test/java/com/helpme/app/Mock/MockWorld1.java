@@ -2,8 +2,6 @@ package com.helpme.app.Mock;
 
 import com.helpme.app.world.body.concrete.BodyFactory;
 import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.consciousness.behaviour.FollowAndAttack;
-import com.helpme.app.world.consciousness.behaviour.GoBack;
 import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.consciousness.*;
 import com.helpme.app.world.consciousness.concrete.Consciousness;
@@ -47,7 +45,7 @@ public class MockWorld1 {
         this.player = new Player(player, level);
         level.addBody(player);
         level.setPlayer(player);
-
+/*
         enemyConsciousness0 = new Enemy(enemy0, level, new FollowAndAttack(2), new FollowAndAttack(2));
         level.addBody(enemy0);
         enemyConsciousness1 = new Enemy(enemy1, level, new FollowAndAttack(), new FollowAndAttack());
@@ -55,7 +53,7 @@ public class MockWorld1 {
         enemyConsciousness2 = new Enemy(enemy2, level, new FollowAndAttack(1), new FollowAndAttack(1));
         level.addBody(enemy2);
         enemyConsciousness3 = new Enemy(enemy3, level, new GoBack(), new FollowAndAttack(1));
-        level.addBody(enemy3);
+        level.addBody(enemy3);*/
 
         this.level = level;
     }

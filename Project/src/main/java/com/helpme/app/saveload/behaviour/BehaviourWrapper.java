@@ -35,7 +35,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
             this.returnWrapper = new ReturnWrapper((Return) behaviour);
         } else if (behaviour instanceof Stay) {
             this.stayWrapper = new StayWrapper((Stay) behaviour);
-        } else if (behaviour instanceof AttackWrapper) {
+        } else if (behaviour instanceof Attack) {
             this.attackWrapper = new AttackWrapper((Attack) behaviour);
         }
     }

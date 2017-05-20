@@ -9,6 +9,8 @@ import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
 import javafx.collections.transformation.SortedList;
 
+import java.util.List;
+
 /**
  * Created by Jesper on 2017-04-12.
  */
@@ -20,6 +22,14 @@ public class Enemy extends Consciousness {
         super(body, surroundings);
         this.memory = memory;
         this.behaviours = behaviours;
+    }
+
+    public IMemory readMemory(){
+        return memory.clone();
+    }
+
+    public List<IBehaviour> getBehaviours(){
+        return behaviours;
     }
 
     @Override

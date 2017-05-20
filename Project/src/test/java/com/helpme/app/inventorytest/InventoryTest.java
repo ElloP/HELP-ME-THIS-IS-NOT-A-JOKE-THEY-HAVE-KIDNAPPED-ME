@@ -23,7 +23,7 @@ public class InventoryTest {
     public void setup() {
         mockSingle0 = new MockSingle("Item");
         mockSingle1 = new MockSingle("Item");
-        mockSingle2 = new MockSingle("DefaultItem")
+        mockSingle2 = new MockSingle("DefaultItem");
         inventory = InventoryFactory.createInventory(new IItem[]{mockSingle0, null, mockSingle1, null}, mockSingle2, null);
     }
 
@@ -37,7 +37,7 @@ public class InventoryTest {
     @Test
     public void testDropItem() {
         Maybe<IItem> maybeItem = inventory.dropItem(0);
-        assert (inventory.getItem(0) instanceof Nothing && maybeItem.check(i -> i.equals(mockSingle0)));
+        assert (inventory.getItem(0) instanceof Nothing && maybeItem.check(i -> i.readName().equals(mockSingle0.readName())));
     }
 
     @Test
@@ -47,9 +47,9 @@ public class InventoryTest {
                 && inventory.readItem(1) instanceof Nothing
                 && inventory.readItem(2) instanceof Nothing
                 && inventory.readItem(3) instanceof Nothing
-                && items.get(0).check(i -> i.equals(mockSingle0))
+                && items.get(0).check(i -> i.readName().equals(mockSingle0.readName()))
                 && items.get(1) instanceof Nothing
-                && items.get(2).check(i -> i.equals(mockSingle1))
+                && items.get(2).check(i -> i.readName().equals(mockSingle1.readName()))
                 && items.get(3) instanceof Nothing
         );
     }

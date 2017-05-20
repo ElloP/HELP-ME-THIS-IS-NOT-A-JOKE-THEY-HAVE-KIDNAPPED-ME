@@ -9,9 +9,15 @@ import com.helpme.app.world.item.effect.IEffect;
  * Created by kopa on 2017-05-19.
  */
 public class MockConsumable implements IConsumable {
+    private String name;
+
+    public MockConsumable(String name){
+        this.name = name;
+    }
+
     @Override
     public String readName() {
-        return null;
+        return name;
     }
 
     @Override
@@ -46,11 +52,11 @@ public class MockConsumable implements IConsumable {
 
     @Override
     public IItem clone() {
-        return null;
+        return new MockConsumable(name);
     }
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }
