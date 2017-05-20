@@ -1,7 +1,8 @@
 package com.helpme.app.saveload.behaviour;
 
-import com.helpme.app.saveload.ILoadable;
+import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.world.consciousness.behaviour.Comparison;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import com.helpme.app.world.consciousness.behaviour.concrete.*;
 
@@ -110,14 +111,13 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
             behaviour = stayWrapper.getObject();
         }
 
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>(){
-            {
-                for(PreconditionWrapper preconditionWrapper : preconditionWrappers){
-                    Entry<String, Tuple2<Integer, Comparison>> entry = preconditionWrapper.getObject();
-                    put(entry.getKey(), entry.getValue());
-                }
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        if(preconditionWrappers != null){
+            for(PreconditionWrapper preconditionWrapper : preconditionWrappers){
+                Map.Entry<String, Tuple2<Integer, Comparison>> entry = preconditionWrapper.getObject();
+                preconditions.put(entry.getKey(), entry.getValue());
             }
-        };
+        }
 
         behaviour.setPriority(priority);
         behaviour.setPreconditions(preconditions);

@@ -1,20 +1,15 @@
 package com.helpme.app.world.consciousness;
 
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
-import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.utils.Vector2f;
-
-import java.util.List;
+import com.helpme.app.world.item.IItem;
 
 /**
  * Created by kopa on 2017-04-15.
  */
 public interface IConsciousness extends IThought {
-    IBody readBody();
 
     void moveForward();
 
@@ -43,6 +38,8 @@ public interface IConsciousness extends IThought {
     void useSelfie();
 
     void changeActiveItem(int index);
+
+    IBody readBody();
 
     Maybe<Tuple2<String, String[]>> useTalk();
 

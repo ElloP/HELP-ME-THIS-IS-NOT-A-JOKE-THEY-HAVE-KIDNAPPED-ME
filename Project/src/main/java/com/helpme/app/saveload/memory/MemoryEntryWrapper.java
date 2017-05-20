@@ -1,6 +1,6 @@
 package com.helpme.app.saveload.memory;
 
-import com.helpme.app.saveload.ILoadable;
+import com.helpme.app.utils.interfaces.ILoadable;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.AbstractMap;

@@ -1,6 +1,6 @@
 package com.helpme.app;
 
-import com.helpme.app.Mock.MockWorld1;
+import com.helpme.app.savetest.TestWorld;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * Created by Jesper on 2017-04-21.
  */
 public class TestSound {
-    private MockWorld1 mockWorld;
+    private TestWorld mockWorld;
 
 
     public TestSound(){
-        this.mockWorld = new MockWorld1();
+        this.mockWorld = new TestWorld();
     }
 
     public static void main(String[] args) throws Exception {

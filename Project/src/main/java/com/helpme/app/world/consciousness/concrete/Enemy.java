@@ -1,9 +1,11 @@
 package com.helpme.app.world.consciousness.concrete;
 
+import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.ISurroundings;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
@@ -24,17 +26,17 @@ public class Enemy extends Consciousness {
         this.behaviours = behaviours;
     }
 
-    public IMemory readMemory(){
+    public IMemory readMemory() {
         return memory.clone();
     }
 
-    public List<IBehaviour> getBehaviours(){
+    public List<IBehaviour> getBehaviours() {
         return behaviours;
     }
 
     @Override
     public void update() {
-        Maybe<String> maybeAction = new Nothing<>();
+        Maybe<IAction<IConsciousness>> maybeAction = new Nothing<>();
         for (IBehaviour behaviour : behaviours) {
             if (behaviour.valid(memory.readMemory())) {
                 behaviour.reset(memory);
@@ -42,20 +44,7 @@ public class Enemy extends Consciousness {
                 break;
             }
         }
-        maybeAction.run(this::executeAction);
-    }
-
-    private void executeAction(String action){
-        switch (action){
-            case "move_forward" : moveForward(); break;
-            case "move_right" : moveRight(); break;
-            case "move_backward" : moveBackward(); break;
-            case "move_left" : moveLeft(); break;
-            case "rotate_right" : rotateRight(); break;
-            case "rotate_left" : rotateLeft(); break;
-            case "attack" : useAttack(); break;
-            case "selfie" : useSelfie(); break;
-        }
+        maybeAction.run(action -> action.apply(this));
     }
 
 

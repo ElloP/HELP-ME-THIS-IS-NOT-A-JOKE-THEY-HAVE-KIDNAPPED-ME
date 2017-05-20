@@ -2,6 +2,7 @@ package com.helpme.app.saveload;
 
 
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.world.consciousness.IReadSurroundings;
 import com.helpme.app.world.level.ILevel;
 import com.helpme.app.world.level.concrete.LevelFactory;
@@ -15,7 +16,7 @@ import java.util.Map;
 /**
  * Created by Klas on 2017-05-02.
  */
-public class LevelWrapper implements ILoadable<ILevel>{
+public class LevelWrapper implements ILoadable<ILevel> {
     private TileWrapper[] tiles;
     private Vector2Wrapper startingPosition;
 

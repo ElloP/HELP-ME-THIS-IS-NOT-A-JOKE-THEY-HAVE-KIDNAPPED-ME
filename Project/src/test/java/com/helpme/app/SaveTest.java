@@ -1,18 +1,19 @@
 package com.helpme.app;
 
-import com.helpme.app.Mock.MockItem;
-import com.helpme.app.Mock.MockWorld1;
+import com.helpme.app.savetest.TestWorld;
 import com.helpme.app.saveload.BodyWrapper;
 import com.helpme.app.saveload.SavePlayer;
 import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.body.concrete.BodyFactory;
 import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.item.concrete.ItemFactory;
 import com.helpme.app.world.level.ILevel;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +23,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.security.KeyFactory;
 
 /**
  * Created by Klas on 2017-04-29.
@@ -43,10 +45,10 @@ public class SaveTest {
 
     @Test
     public void testMarshaller() throws JAXBException {
-        items = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-       // inventory = new Inventory(items, MockItem.defaultWeapon, new IItem[]{MockItem.key});
+        items = new IItem[]{ItemFactory.club(), ItemFactory.fists(), null, null};
+        inventory = InventoryFactory.createInventory(items, ItemFactory.fists(), new IItem[]{ItemFactory.createKey("Red Key")});
         hitpoints = new Vector2f(100,50);
-        IBody Body = new Body(inventory,Vector2f.right,Vector2f.left,hitpoints);
+        IBody Body = BodyFactory.createBody(inventory,Vector2f.right,Vector2f.left,hitpoints);
         String fileTest = "test.xml";
         SavePlayer save = new SavePlayer();
         save.marshall(Body,fileTest);
@@ -55,7 +57,7 @@ public class SaveTest {
 
     @Test
     public void saveTest2() throws JAXBException {
-        MockWorld1 mock = new MockWorld1();
+        TestWorld mock = new TestWorld();
        // mock.player.setPlayerPosition(new Vector2f(1,1));
 
         Enemy[] enemy = {(Enemy) mock.enemyConsciousness0};

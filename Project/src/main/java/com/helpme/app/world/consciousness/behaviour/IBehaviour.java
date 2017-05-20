@@ -1,13 +1,13 @@
 package com.helpme.app.world.consciousness.behaviour;
 
+import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.consciousness.behaviour.concrete.Comparison;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.behaviour.memories.IShortTerm;
 import com.helpme.app.world.consciousness.IReadSurroundings;
 
-import java.util.Comparator;
 import java.util.Map;
 
 /**
@@ -22,5 +22,5 @@ public interface IBehaviour{
 
     boolean valid(Map<String, Integer> conditions);
     void reset(IShortTerm memory);
-    Maybe<String> execute(IReadBody body, IReadSurroundings surroundings, IShortTerm memory);
+    Maybe<IAction<IConsciousness>> execute(IReadBody body, IReadSurroundings surroundings, IShortTerm memory);
 }

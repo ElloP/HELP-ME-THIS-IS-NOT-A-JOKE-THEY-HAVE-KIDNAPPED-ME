@@ -1,6 +1,5 @@
 package com.helpme.app.edgetest;
 
-import com.helpme.app.Mock.MockWorld0;
 import com.helpme.app.utils.Vector2f;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,12 +8,6 @@ import org.junit.Test;
  * Created by Jacob on 2017-04-11.
  */
 public class EdgeTest {
-    private MockWorld0 mockWorld;
-
-    @Before
-    public void setUp() {
-        mockWorld = new MockWorld0();
-    }
 
     /*
     @Test

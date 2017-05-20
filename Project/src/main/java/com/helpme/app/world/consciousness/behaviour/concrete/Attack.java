@@ -1,10 +1,13 @@
 package com.helpme.app.world.consciousness.behaviour.concrete;
 
+import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.body.IReadBody;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.IReadSurroundings;
+import com.helpme.app.world.consciousness.behaviour.Comparison;
 import com.helpme.app.world.consciousness.behaviour.memories.IShortTerm;
 
 import java.util.Map;
@@ -30,10 +33,10 @@ public class Attack extends Behaviour {
     }
 
     @Override
-    public Maybe<String> execute(IReadBody body, IReadSurroundings surroundings, IShortTerm memory) {
+    public Maybe<IAction<IConsciousness>> execute(IReadBody body, IReadSurroundings surroundings, IShortTerm memory) {
         if(surroundings.readFacing(body).isJust()){
             memory.updateShortTermMemory(attackEvent, 1);
         }
-        return new Just<>("attack");
+        return new Just<>(IConsciousness::useAttack);
     }
 }

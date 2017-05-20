@@ -1,14 +1,13 @@
 package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.utils.tuple.Tuple3;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.Behaviour;
 import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.world.consciousness.behaviour.concrete.Comparison;
-import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.world.consciousness.behaviour.Comparison;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,15 +18,16 @@ import java.util.Map;
  * Created by kopa on 2017-05-15.
  */
 public class BehaviourTest {
-    MockBody mockBody;
-    MockPlayer mockPlayer;
-    MockSurroundings mockSurroundings;
-    MockMemory mockMemory;
+    private MockBody mockBody;
+    private MockPlayer mockPlayer;
+    private MockSurroundings mockSurroundings;
+    private MockMemory mockMemory;
+    private MockConsciousness mockConsciousness;
 
-    IBehaviour followBehaviour;
-    IBehaviour returnBehaviour;
-    IBehaviour stayBehaviour;
-    IBehaviour attackBehaviour;
+    private IBehaviour followBehaviour;
+    private IBehaviour returnBehaviour;
+    private IBehaviour stayBehaviour;
+    private IBehaviour attackBehaviour;
 
     @Before
     public void setup() {
@@ -35,6 +35,7 @@ public class BehaviourTest {
         mockPlayer = new MockPlayer();
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
+        mockConsciousness = new MockConsciousness();
         followBehaviour = BehaviourFactory.createFollow(
                 0,
                 null,
@@ -66,7 +67,8 @@ public class BehaviourTest {
         mockBody.direction = new Vector2f(0, 1);
         mockMemory.memory = new HashMap<>();
 
-        Maybe<String> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
         assert (maybeAction.isNothing() &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("found").equals(1));
@@ -76,7 +78,6 @@ public class BehaviourTest {
     public void testFollowLost() {
         mockSurroundings.pathCost = 3;
         mockMemory.memory = new HashMap<>();
-
         followBehaviour = BehaviourFactory.createFollow(
                 0,
                 null,
@@ -85,7 +86,8 @@ public class BehaviourTest {
                 "following",
                 "lost");
 
-        Maybe<String> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
         assert (maybeAction.isNothing() &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("lost").equals(1));
@@ -95,9 +97,12 @@ public class BehaviourTest {
     public void testFollowFollowingFacing() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathNextPosition = Vector2f.up;
-        Maybe<String> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("move_forward") &&
+                mockConsciousness.movedForward == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("following").equals(1));
     }
@@ -105,11 +110,13 @@ public class BehaviourTest {
     @Test
     public void testFollowFollowingRightOf() {
         mockMemory.memory = new HashMap<>();
-
         mockSurroundings.pathNextPosition = Vector2f.right;
-        Maybe<String> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("rotate_right") &&
+                mockConsciousness.rotatedRight == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("following").equals(1));
     }
@@ -117,11 +124,13 @@ public class BehaviourTest {
     @Test
     public void testFollowFollowingBehind() {
         mockMemory.memory = new HashMap<>();
-
         mockSurroundings.pathNextPosition = Vector2f.down;
-        Maybe<String> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("rotate_left") &&
+                mockConsciousness.rotatedLeft == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("following").equals(1));
     }
@@ -131,9 +140,11 @@ public class BehaviourTest {
         mockMemory.memory = new HashMap<>();
 
         mockSurroundings.pathNextPosition = Vector2f.left;
-        Maybe<String> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("rotate_left") &&
+                mockConsciousness.rotatedLeft == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("following").equals(1));
     }
@@ -143,7 +154,7 @@ public class BehaviourTest {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 0;
 
-        Maybe<String> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
 
         assert (maybeAction.isNothing() &&
                 mockMemory.readMemory().size() == 1 &&
@@ -154,11 +165,13 @@ public class BehaviourTest {
     public void testReturnReturningFacing() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-
         mockSurroundings.pathNextPosition = Vector2f.up;
-        Maybe<String> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("move_forward") &&
+                mockConsciousness.movedForward == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("returning").equals(1));
     }
@@ -167,11 +180,13 @@ public class BehaviourTest {
     public void testReturnReturningRightOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-
         mockSurroundings.pathNextPosition = Vector2f.right;
-        Maybe<String> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("rotate_right") &&
+                mockConsciousness.rotatedRight == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("returning").equals(1));
     }
@@ -180,11 +195,13 @@ public class BehaviourTest {
     public void testReturnReturningBehind() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-
         mockSurroundings.pathNextPosition = Vector2f.down;
-        Maybe<String> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("rotate_left") &&
+                mockConsciousness.rotatedLeft == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("returning").equals(1));
     }
@@ -193,11 +210,13 @@ public class BehaviourTest {
     public void testReturnReturningLeftOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-
         mockSurroundings.pathNextPosition = Vector2f.left;
-        Maybe<String> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+
+        Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
         assert (maybeAction.isJust() &&
-                maybeAction.getValue().equals("rotate_left") &&
+                mockConsciousness.rotatedLeft == 1 &&
                 mockMemory.readMemory().size() == 1 &&
                 mockMemory.readMemory().get("returning").equals(1));
     }
@@ -206,7 +225,7 @@ public class BehaviourTest {
     public void testStay() {
         mockMemory.memory = new HashMap<>();
 
-        Maybe<String> maybeAction = stayBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        Maybe<IAction<IConsciousness>> maybeAction = stayBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         assert (maybeAction.isNothing() && mockMemory.readMemory().size() == 0);
     }
 
@@ -215,8 +234,12 @@ public class BehaviourTest {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.facing = true;
 
-        Maybe<String> maybeAction = attackBehaviour.execute(mockBody, mockSurroundings, mockMemory);
-        assert (maybeAction.isJust() && maybeAction.getValue().equals("attack") && mockMemory.readMemory().get("attack").equals(1));
+        Maybe<IAction<IConsciousness>> maybeAction = attackBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
+        assert (maybeAction.isJust() &&
+                mockConsciousness.attacked == 1 &&
+                mockMemory.readMemory().get("attack").equals(1));
     }
 
     @Test
@@ -224,8 +247,12 @@ public class BehaviourTest {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.facing = false;
 
-        Maybe<String> maybeAction = attackBehaviour.execute(mockBody, mockSurroundings, mockMemory);
-        assert (maybeAction.isJust() && maybeAction.getValue().equals("attack") && mockMemory.readMemory().size() == 0);
+        Maybe<IAction<IConsciousness>> maybeAction = attackBehaviour.execute(mockBody, mockSurroundings, mockMemory);
+        maybeAction.run(action -> action.apply(mockConsciousness));
+
+        assert (maybeAction.isJust() &&
+                mockConsciousness.attacked == 1 &&
+                mockMemory.readMemory().size() == 0);
     }
 
 

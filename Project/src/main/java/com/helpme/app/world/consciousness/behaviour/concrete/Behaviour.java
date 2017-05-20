@@ -1,8 +1,11 @@
 package com.helpme.app.world.consciousness.behaviour.concrete;
 
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.body.IReadBody;
+import com.helpme.app.world.consciousness.IConsciousness;
+import com.helpme.app.world.consciousness.behaviour.Comparison;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import com.helpme.app.world.consciousness.behaviour.memories.IShortTerm;
 
@@ -89,13 +92,13 @@ public abstract class Behaviour implements IBehaviour {
 
     }
 
-    protected String moveTowards(IReadBody body, Vector2f nextPosition) {
+    protected IAction<IConsciousness> moveTowards(IReadBody body, Vector2f nextPosition) {
         if (Intelligence.isFacing(body, nextPosition)) {
-            return "move_forward";
+            return IConsciousness::moveForward;
         } else if (Intelligence.isRightOf(body, nextPosition)) {
-            return "rotate_right";
+            return IConsciousness::rotateRight;
         } else {
-            return "rotate_left";
+            return IConsciousness::rotateLeft;
         }
     }
 }

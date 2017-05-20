@@ -1,6 +1,7 @@
 package com.helpme.app.world.consciousness.behaviour.concrete;
 
 import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.world.consciousness.behaviour.Comparison;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 
 import java.util.HashMap;

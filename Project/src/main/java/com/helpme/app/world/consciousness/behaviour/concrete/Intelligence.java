@@ -1,13 +1,10 @@
 package com.helpme.app.world.consciousness.behaviour.concrete;
 
-import com.helpme.app.utils.functions.IAction2;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.consciousness.ISurroundings;
-import com.helpme.app.world.consciousness.concrete.ActionFactory;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 
 import java.util.ArrayList;

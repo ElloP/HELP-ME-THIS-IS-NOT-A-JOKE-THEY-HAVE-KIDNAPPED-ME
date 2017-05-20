@@ -13,6 +13,10 @@ public final class MemoryFactory {
 
     }
 
+    public static IMemory createMemory(){
+        return new Memory(new HashMap<>(), new HashMap<>());
+    }
+
     public static IMemory createMemory(Map<String, Integer> shortTerm, Map<String, Integer> longTerm){
         return new Memory(shortTerm == null ? new HashMap<>() : shortTerm, longTerm == null ? new HashMap<>() : longTerm);
     }

@@ -1,5 +1,6 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @XmlRootElement(name="Body")
-public class BodyWrapper implements ILoadable<IBody>{
+public class BodyWrapper implements ILoadable<IBody> {
     private Vector2Wrapper hitpointsWrapper;
     private InventoryWrapper inventoryWrapper;
     private Vector2Wrapper positionWrapper;

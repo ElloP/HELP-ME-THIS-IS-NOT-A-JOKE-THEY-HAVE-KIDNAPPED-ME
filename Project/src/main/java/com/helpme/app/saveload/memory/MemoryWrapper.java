@@ -1,6 +1,6 @@
 package com.helpme.app.saveload.memory;
 
-import com.helpme.app.saveload.ILoadable;
+import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
 import com.helpme.app.world.consciousness.behaviour.memories.concrete.MemoryFactory;
 
@@ -16,11 +16,11 @@ public class MemoryWrapper implements ILoadable<IMemory> {
     MemoryEntryWrapper[] longTermWrapper;
     MemoryEntryWrapper[] shortTermWrapper;
 
-    public MemoryWrapper(){
+    public MemoryWrapper() {
 
     }
 
-    public MemoryWrapper(IMemory memory){
+    public MemoryWrapper(IMemory memory) {
         Map<String, Integer> longTerm = memory.readLongTerm();
         Map<String, Integer> shortTerm = memory.readShortTerm();
         longTermWrapper = new MemoryEntryWrapper[longTerm.size()];
@@ -28,13 +28,13 @@ public class MemoryWrapper implements ILoadable<IMemory> {
         int i = 0;
 
 
-        for(Map.Entry<String, Integer> entry : longTerm.entrySet()){
+        for (Map.Entry<String, Integer> entry : longTerm.entrySet()) {
             longTermWrapper[i] = new MemoryEntryWrapper(entry.getKey(), entry.getValue());
             i++;
         }
 
         i = 0;
-        for(Map.Entry<String, Integer> entry : shortTerm.entrySet()){
+        for (Map.Entry<String, Integer> entry : shortTerm.entrySet()) {
             shortTermWrapper[i] = new MemoryEntryWrapper(entry.getKey(), entry.getValue());
             i++;
         }
@@ -44,49 +44,45 @@ public class MemoryWrapper implements ILoadable<IMemory> {
 
     @XmlElementWrapper(name = "long_term")
     @XmlElement(name = "event")
-    public MemoryEntryWrapper[] getLongTerm(){
+    public MemoryEntryWrapper[] getLongTerm() {
         return longTermWrapper;
     }
-    public void setLongTerm(MemoryEntryWrapper[] longTermWrapper){
-        for(int i = 0; i < longTermWrapper.length; i++){
+
+    public void setLongTerm(MemoryEntryWrapper[] longTermWrapper) {
+        for (int i = 0; i < longTermWrapper.length; i++) {
             this.longTermWrapper[i] = longTermWrapper[i];
         }
     }
 
     @XmlElementWrapper(name = "short_term")
     @XmlElement(name = "event")
-    public MemoryEntryWrapper[] getShortTerm(){
+    public MemoryEntryWrapper[] getShortTerm() {
         return shortTermWrapper;
     }
-    public void setShortTerm(MemoryEntryWrapper[] shortTermWrapper){
-        for(int i = 0; i < shortTermWrapper.length; i++){
+
+    public void setShortTerm(MemoryEntryWrapper[] shortTermWrapper) {
+        for (int i = 0; i < shortTermWrapper.length; i++) {
             this.shortTermWrapper[i] = shortTermWrapper[i];
         }
     }
 
 
-
-
     @Override
     public IMemory getObject() {
-        Map<String, Integer> longTerm = new HashMap<String, Integer>(){
-            {
-                for(MemoryEntryWrapper memoryEntryWrapper : longTermWrapper){
-                    Entry<String, Integer> entry = memoryEntryWrapper.getObject();
-                    put(entry.getKey(), entry.getValue());
-                }
-            }
-        };
-
-        Map<String, Integer> shortTerm = new HashMap<String, Integer>(){
-            {
-                for(MemoryEntryWrapper memoryEntryWrapper : shortTermWrapper){
-                    Entry<String, Integer> entry = memoryEntryWrapper.getObject();
-                    put(entry.getKey(), entry.getValue());
-                }
-            }
-        };
+        Map<String, Integer> longTerm = memoryWrapperToMap(longTermWrapper);
+        Map<String, Integer> shortTerm = memoryWrapperToMap(shortTermWrapper);
 
         return MemoryFactory.createMemory(shortTerm, longTerm);
+    }
+
+    private Map<String, Integer> memoryWrapperToMap(MemoryEntryWrapper[] memoryWrapper){
+        Map<String, Integer> map = new HashMap<>();
+        if (memoryWrapper != null) {
+            for (MemoryEntryWrapper memoryEntryWrapper : memoryWrapper) {
+                Map.Entry<String, Integer> entry = memoryEntryWrapper.getObject();
+                map.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return map;
     }
 }

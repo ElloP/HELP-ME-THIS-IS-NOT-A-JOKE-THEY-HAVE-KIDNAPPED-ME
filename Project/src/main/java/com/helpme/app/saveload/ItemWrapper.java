@@ -1,5 +1,6 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.concrete.ItemFactory;
 import com.helpme.app.world.item.IReadItem;
@@ -9,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by Klas on 2017-04-29.
  */
-public class ItemWrapper implements ILoadable<IItem>{
+public class ItemWrapper implements ILoadable<IItem> {
 
     private String name;
 

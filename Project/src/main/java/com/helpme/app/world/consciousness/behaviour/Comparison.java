@@ -1,4 +1,4 @@
-package com.helpme.app.world.consciousness.behaviour.concrete;
+package com.helpme.app.world.consciousness.behaviour;
 
 /**
  * Created by kopa on 2017-05-18.
