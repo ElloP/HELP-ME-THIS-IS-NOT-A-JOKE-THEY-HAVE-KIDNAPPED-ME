@@ -12,7 +12,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class RenderCore implements IRenderCore {
     private static RenderCore rc;
 
-    public static RenderCore getRenderCore() {
+    public static synchronized RenderCore getRenderCore() {
         if(rc == null) {
             rc = new RenderCore();
         }

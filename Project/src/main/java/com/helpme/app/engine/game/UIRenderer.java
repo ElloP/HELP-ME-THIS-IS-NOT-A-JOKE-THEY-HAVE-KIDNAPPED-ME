@@ -30,7 +30,7 @@ public class UIRenderer extends GameObject{
             this.height = t.getHeight();
         });
         this.mesh = new Mesh(Resources.uiVert(width, height));
-        this.shader = new UIShader();
+        this.shader = UIShader.getInstance();
         this.transform.scale(scale.x, scale.y, 1);
         this.transform.setPosition(position.x, position.y, 0);
         //Note (Jesper): If faceculling is enabled the transform has to be rotated. Otherwise it doesn't matter.
