@@ -1,6 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.level.ILevel;
 
@@ -13,23 +14,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Root")
 public class SaveRoot {
     private BodyWrapper player;
-    private EnemyWrapper[] monsters;
+    private EnemyWrapper[] enemies;
     private LevelWrapper level;
     private ILevel loadLevel;
     private IBody loadPlayer;
-    private Enemy[] loadEnemies;
+    private IConsciousness[] loadEnemies;
 
     public SaveRoot(){}
 
-    public SaveRoot(ILevel level, IBody player, Enemy[] enemies){
+    public SaveRoot(ILevel level, IBody player, IConsciousness[] enemies){
 
-        this.player = new BodyWrapper(level.readPlayer().getValue()); //TODO (klas) maybe check?
+        level.readPlayer().run(p -> this.player = new BodyWrapper(p)); //TODO (klas) maybe check?
 
         this.level = new LevelWrapper(level);
 
-        this.monsters = new EnemyWrapper[enemies.length];
+        this.enemies = new EnemyWrapper[enemies.length];
         for(int i = 0; i < enemies.length; i++){
-            this.monsters[i] = new EnemyWrapper(enemies[i]);
+            this.enemies[i] = new EnemyWrapper((Enemy)enemies[i]);
         }
     }
 
@@ -40,12 +41,12 @@ public class SaveRoot {
     public void setPlayer(BodyWrapper player) {
         this.player = player;
     }
-    @XmlElement(name="Monsters")
-    public EnemyWrapper[] getMonsters() {
-        return this.monsters;
+    @XmlElement(name="Enemies")
+    public EnemyWrapper[] getEnemies() {
+        return this.enemies;
     }
-    public void setMonsters(EnemyWrapper[] monsters) {
-        this.monsters = monsters;
+    public void setEnemies(EnemyWrapper[] enemies) {
+        this.enemies = enemies;
     }
     @XmlElement(name="Level")
     public LevelWrapper getLevel() {
@@ -59,10 +60,10 @@ public class SaveRoot {
     public void loadGame(){
         this.loadLevel = level.getObject();
         this.loadPlayer = player.getObject();
-        this.loadEnemies = new Enemy[monsters.length];
-        for(int i = 0; i < monsters.length; i++){
-            this.loadEnemies[i] = monsters[i].getObject(this.loadLevel);
-            this.loadLevel.addBody((IBody)this.loadEnemies[i].readBody());
+        this.loadEnemies = new IConsciousness[enemies.length];
+        for(int i = 0; i < enemies.length; i++){
+            this.loadEnemies[i] = enemies[i].getObject(this.loadLevel);
+            this.loadLevel.addBody(this.loadEnemies[i].readBody());
         }
         this.loadLevel.setPlayer(this.loadPlayer);
     }
@@ -70,7 +71,7 @@ public class SaveRoot {
         if(loadPlayer == null) loadGame();
         return this.loadPlayer;
     }
-    public Enemy[] loadEnemies(){
+    public IConsciousness[] loadEnemies(){
         if(loadEnemies == null) loadGame();
         return this.loadEnemies;
     }

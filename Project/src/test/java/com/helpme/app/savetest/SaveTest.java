@@ -1,15 +1,26 @@
 package com.helpme.app.savetest;
-import com.helpme.app.saveload.BodyWrapper;
-import com.helpme.app.saveload.LevelWrapper;
-import com.helpme.app.saveload.TileWrapper;
+import com.helpme.app.saveload.*;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
+import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.concrete.BodyFactory;
 import com.helpme.app.world.body.inventory.IInventory;
 import com.helpme.app.world.body.inventory.IReadInventory;
+import com.helpme.app.world.consciousness.IConsciousness;
+import com.helpme.app.world.consciousness.ISurroundings;
+import com.helpme.app.world.consciousness.behaviour.IBehaviour;
+import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
+import com.helpme.app.world.consciousness.behaviour.concrete.Comparison;
+import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.world.consciousness.behaviour.memories.concrete.MemoryFactory;
+import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.world.item.IItem;
+import com.helpme.app.world.level.ILevel;
+import com.helpme.app.world.level.concrete.Level;
+import com.helpme.app.world.level.concrete.LevelFactory;
 import com.helpme.app.world.tile.edge.concrete.Door;
 import com.helpme.app.world.tile.edge.IEdge;
 import com.helpme.app.world.tile.edge.concrete.Opening;
@@ -36,7 +47,7 @@ public class SaveTest {
 
     @Before
     public void setup() throws JAXBException {
-        this.context = JAXBContext.newInstance(LevelWrapper.class, BodyWrapper.class);
+        this.context = JAXBContext.newInstance(LevelWrapper.class, BodyWrapper.class, SaveRoot.class);
     }
 
 
@@ -110,49 +121,51 @@ public class SaveTest {
         System.out.println(tileWrapper);
     }
 
-    /*
     @Test
-    public void saveTest() throws JAXBException {
-        mockItems = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        mockInventory = InventoryFactory.createInventory(mockItems, MockItem.defaultWeapon, new IItem[]{MockItem.key});
-        mockHitpoints = new Vector2f(100,50);
-        IBody Body = new Body(mockInventory,Vector2f.right,Vector2f.left,mockHitpoints);
+    public void testSaveEnemy() throws JAXBException {
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
+            {
+                put("name0", new Tuple2<>(1, Comparison.EQUAL));
+                put("name1", new Tuple2<>(4, Comparison.LESS_THAN));
+            }
+        };
+        IBehaviour attack = BehaviourFactory.createAttack(2, preconditions, "test");
+        IBehaviour stay = BehaviourFactory.createStay(1, null);
+
+        List<IBehaviour> behaviours = new ArrayList<IBehaviour>(){
+            {
+                add(attack);
+                add(stay);
+            }
+        };
+
+        Map<String, Integer> longTerm = new HashMap<String, Integer>(){
+            {
+                put("longterm0", 1);
+                put("longterm1", 5);
+            }
+        };
+
+        Map<String, Integer> shortTerm = new HashMap<String, Integer>(){
+            {
+                put("shortterm0", 3);
+                put("shortterm1", 0);
+            }
+        };
+
+        IMemory memory = MemoryFactory.createMemory(shortTerm, longTerm);
+
+        IBody body = BodyFactory.createBody(null, Vector2f.zero, Vector2f.up,100);
+
+        ILevel level = LevelFactory.createLevel(null, Vector2f.zero, null, null);
+
+        IConsciousness enemy = ConsciousnessFactory.createEnemy(body, level, memory, behaviours);
+
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new BodyWrapper(Body), file);
+        marshaller.marshal(new SaveRoot(level, body, new IConsciousness[]{enemy}), file);
 
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        BodyWrapper pw = (BodyWrapper) unmarshaller.unmarshal(file);
 
-        System.out.println(pw);
     }
-
-    @Test
-    public void testMarshaller() throws JAXBException {
-        mockItems = new IItem[]{MockItem.weapon, MockItem.potion, null, null};
-        mockInventory = InventoryFactory.createInventory(mockItems, MockItem.defaultWeapon, new IItem[]{MockItem.key});
-        mockHitpoints = new Vector2f(100,50);
-        IBody Body = new Body(mockInventory,Vector2f.right,Vector2f.left,mockHitpoints);
-        String fileTest = "test.xml";
-        SavePlayer save = new SavePlayer();
-        save.marshall(Body,fileTest);
-
-        System.out.println(save.unmarshall(fileTest).toString());
-    }
-
-    @Test
-    public void saveTest2() throws JAXBException {
-        MockWorld1 mock = new MockWorld1();
-        mock.player.setPlayerPosition(new Vector2f(1,1));
-        mock.level.readPlayer().getValue();
-        File file = new File("test.xml");
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new LevelWrapper(mock.level), file);
-
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        LevelWrapper pw = (LevelWrapper) unmarshaller.unmarshal(file);
-        assert (pw.getPlayer().getPositionWrapper().getX() == mock.player.getPlayer().readPosition().x);
-        System.out.println(pw);
-    }*/
 }
 

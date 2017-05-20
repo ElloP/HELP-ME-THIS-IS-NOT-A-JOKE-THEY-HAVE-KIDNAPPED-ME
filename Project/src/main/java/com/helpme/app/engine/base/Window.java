@@ -35,7 +35,7 @@ public class Window {
         return glfwWindowShouldClose(window);
     }
 
-    // ----------- Initiation, update and clean up -----------
+    // ----------- Initiation, execute and clean up -----------
 
     public static void initWindow(int width, int height, String title) {
         if(!glfwInit()) {

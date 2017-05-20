@@ -27,15 +27,15 @@ public final class LevelFactory {
 
     public static ILevel createLevel(List<Tuple2<Vector2f, IItem[]>> tileInfo, List<Tuple3<Vector2f, Vector2f, Door>> doorInfo, List<IBody> bodies, Vector2f startingPosition){
         Map<Vector2f, ITile> tiles = generateDoors(doorInfo, generateEdges(generateTiles(tileInfo)));
-        return new Level(null, startingPosition, tiles, bodies);
+        return createLevel(null, startingPosition, tiles, bodies);
     }
 
     public static ILevel createLevel(IBody player, Vector2f startingPosition, Map<Vector2f, ITile> tiles, List<IBody> bodies){
-        return new Level(player, startingPosition, tiles, bodies);
+        return new Level(player, startingPosition == null ? Vector2f.zero : startingPosition, tiles == null ? new HashMap<>() : tiles, bodies == null ? new ArrayList<>() : bodies);
     }
     public static ILevel createLevel(Map<Vector2f, ITile> tiles, Vector2f startingPosition){
         List<IBody> bodies = new ArrayList<>();
-        return new Level(null,startingPosition,tiles,bodies);
+        return createLevel(null,startingPosition,tiles,bodies);
     }
 
     private static Map<Vector2f, ITile> generateTiles(List<Tuple2<Vector2f, IItem[]>> info) {

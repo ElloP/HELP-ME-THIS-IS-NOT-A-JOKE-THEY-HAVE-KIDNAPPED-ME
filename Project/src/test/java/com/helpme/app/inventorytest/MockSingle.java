@@ -1,43 +1,43 @@
-package com.helpme.app.bodytest;
+package com.helpme.app.inventorytest;
 
-import com.helpme.app.savetest.MockTile;
-import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IItemVisitor;
 import com.helpme.app.world.item.ISingle;
+import com.helpme.app.world.item.concrete.Consumable;
+import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.concrete.Item;
+import com.helpme.app.world.item.concrete.Key;
 import com.helpme.app.world.item.concrete.Single;
 import com.helpme.app.world.item.effect.IEffect;
 
 /**
- * Created by kopa on 2017-05-11.
+ * Created by kopa on 2017-05-12.
  */
-public class MockItem implements ISingle{
-    private IEffect attack;
-    private IEffect selfie;
+public final class MockSingle implements ISingle {
 
-    public MockItem(IEffect attack, IEffect selfie){
-        this.attack = attack;
-        this.selfie = selfie;
+    private String name;
+
+    public MockSingle(String name){
+        this.name = name;
     }
 
     @Override
     public String readName() {
-        return null;
+        return name;
     }
 
     @Override
     public IEffect getAttackEffect() {
-        return attack;
+        return null;
     }
 
     @Override
     public IEffect getSelfieEffect() {
-        return selfie;
+        return null;
     }
 
     @Override
     public IItem clone() {
-        return null;
+        return new MockSingle(name);
     }
 
     @Override

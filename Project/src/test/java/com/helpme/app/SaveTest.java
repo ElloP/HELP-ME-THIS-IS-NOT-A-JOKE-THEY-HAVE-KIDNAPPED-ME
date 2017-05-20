@@ -9,6 +9,7 @@ import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.item.IItem;
@@ -67,7 +68,7 @@ public class SaveTest {
         SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
         IBody player = loadroot.loadPlayer();
         ILevel level = loadroot.loadLevel();
-        Enemy[] enemy1 = loadroot.loadEnemies();
+        IConsciousness[] enemy1 = loadroot.loadEnemies();
 
         Player player1 = new Player(player,level);
         assert(player1.readBody().readCurrentHp() == mock.player.readBody().readCurrentHp());

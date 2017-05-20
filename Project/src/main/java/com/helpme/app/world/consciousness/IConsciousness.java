@@ -2,9 +2,13 @@ package com.helpme.app.world.consciousness;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.behaviour.IBehaviour;
+import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
+
+import java.util.List;
 
 /**
  * Created by kopa on 2017-04-15.
