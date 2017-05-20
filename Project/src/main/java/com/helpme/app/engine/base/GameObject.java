@@ -1,5 +1,7 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.ICamera;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +29,9 @@ public abstract class GameObject {
         child.transform.setParent(this.transform);
     }
 
-    public abstract void draw(Camera camera);
+    public abstract void draw(ICamera camera);
 
-    public void drawAll(Camera camera) {
+    public void drawAll(ICamera camera) {
         draw(camera);
 
         for(GameObject child : children) {

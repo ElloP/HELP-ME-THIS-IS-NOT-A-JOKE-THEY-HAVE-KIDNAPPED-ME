@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.Mesh;
@@ -50,7 +51,7 @@ public class UIRenderer extends GameObject{
 
 
     @Override
-    public void draw(Camera camera) {
+    public void draw(ICamera camera) {
         shader.useProgram();
         //transform.translate(0.5f * transform.getPosition().x(), 0.5f * transform.getPosition().y(), 0);
         //transform.rotate(0, 0, 1);

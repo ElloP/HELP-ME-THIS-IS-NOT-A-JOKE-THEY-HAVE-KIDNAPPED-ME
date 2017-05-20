@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerController;
@@ -19,7 +20,7 @@ import java.util.List;
  * Authored by Olle on 2017-04-21.
  */
 public class GameInstance extends Game {
-    private Camera playerCamera = new Camera();
+    private ICamera playerCamera = new Camera();
     private CameraController cameraController;
     public GameInstance(ILevel level, Time time) {
         activeCamera = playerCamera;
@@ -109,10 +110,5 @@ public class GameInstance extends Game {
 
     public void update(Time time) {
         //TODO(Olle): update game
-
-        // xy += Time.deltaTime;
-        // t = new Vector3f(0,xy,0);
-        // Vector3f te = new Vector3f(0,-xy,0);
-        // tile.transform.rotate(t);
     }
 }

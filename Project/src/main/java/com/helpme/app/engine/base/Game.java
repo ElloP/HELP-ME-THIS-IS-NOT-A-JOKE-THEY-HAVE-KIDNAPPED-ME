@@ -1,10 +1,12 @@
 package com.helpme.app.engine.base;
 
+import com.helpme.app.engine.ICamera;
+
 /**
  * Authored by Olle on 2017-04-05.
  */
 public abstract class Game {
-    public Camera activeCamera;
+    public ICamera activeCamera;
     public Scene scene; //Note(Olle): Every gameobject in the scene will have this as a root object
 
     public Game() {
