@@ -82,14 +82,14 @@ public class Body extends Observable implements IBody {
     public void rotateRight() {
         direction = direction.rotateRightAngle(1);
         setChanged();
-        notifyObservers(Event.Direction);
+        notifyObservers(WorldEvent.ROT_RIGHT);
     }
 
     @Override
     public void rotateLeft() {
         direction = direction.rotateRightAngle(-1);
         setChanged();
-        notifyObservers(Event.Direction);
+        notifyObservers(WorldEvent.ROT_LEFT);
     }
 
     private void move(Vector2f direction) {
@@ -101,29 +101,30 @@ public class Body extends Observable implements IBody {
     @Override
     public void moveForward() {
         move(direction.forward());
+        System.out.println("SOMEONE WANTS TO MOVE FORWARD");
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_FORWARD);
     }
 
     @Override
     public void moveRight() {
         move(direction.right());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_RIGHT);
     }
 
     @Override
     public void moveBackward() {
         move(direction.backward());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_BACK);
     }
 
     @Override
     public void moveLeft() {
         move(direction.left());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_LEFT);
     }
 
     @Override
@@ -220,7 +221,7 @@ public class Body extends Observable implements IBody {
         amount = Math.abs(amount);
         hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
         setChanged();
-        notifyObservers(Event.Health);
+        notifyObservers(WorldEvent.Health);
     }
 
     @Override
@@ -237,7 +238,7 @@ public class Body extends Observable implements IBody {
     public void kill() {
         dead = true;
         setChanged();
-        notifyObservers(Event.Dead);
+        notifyObservers(WorldEvent.DEAD);
     }
 
     public Vector2f readStartingPosition() {

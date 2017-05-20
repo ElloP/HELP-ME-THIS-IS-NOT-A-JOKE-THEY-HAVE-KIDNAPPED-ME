@@ -21,10 +21,13 @@ import java.util.List;
 public class GameInstance extends Game {
     private Camera playerCamera = new Camera();
     private CameraController cameraController;
-    public GameInstance() {
+    public GameInstance(ILevel level, Time time) {
         activeCamera = playerCamera;
+        if(cameraController == null) {
+            cameraController = new PlayerController(activeCamera, time);
+        }
 
-        scene.addChild(new LevelController(testLevel()));
+        scene.addChild(new LevelController(level));
         scene.addChild(new NPCView());
         UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
@@ -32,8 +35,12 @@ public class GameInstance extends Game {
 
     }
 
+    public CameraController getCameraController() {
+        return cameraController;
+    }
+
     private ILevel testLevel(){
-        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
+        /*List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IBody> monsters = new ArrayList<>();
 
@@ -88,8 +95,9 @@ public class GameInstance extends Game {
          */
 
 
-        ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.zero);
-        return level;
+        /*ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.zero);
+        return level;*/
+        return null;
     }
 
     public void input(Time time) {

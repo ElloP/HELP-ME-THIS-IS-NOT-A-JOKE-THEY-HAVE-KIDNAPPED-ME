@@ -10,7 +10,7 @@ import com.helpme.app.utils.mathl.Vector3f;
 /**
  * Authored by Olle on 2017-05-15.
  */
-public class PlayerController extends CameraController {
+public class PlayerController extends CameraController{
     private Lerper lerper;
 
     private boolean moving = false;
@@ -56,19 +56,19 @@ public class PlayerController extends CameraController {
         rotate(getCamera().getLeft());
     }
 
-    private void moveForward() {
+    public void moveForward() {
         lerpMove(getCamera().getForward());
     }
 
-    private void moveBack() {
+    public void moveBack() {
         lerpMove(getCamera().getBack());
     }
 
-    private void moveLeft() {
+    public void moveLeft() {
         lerpMove(getCamera().getLeft());
     }
 
-    private void moveRight() {
+    public void moveRight() {
         lerpMove(getCamera().getRight());
     }
 
@@ -88,22 +88,34 @@ public class PlayerController extends CameraController {
             rotating = false;
 
             if (Input.isKeyboardKeyPress(InputKey.MoveForward)) {
-                moveForward();
+                setChanged();
+                notifyObservers(GameEvent.MOV_FORWARD);
+                //moveForward();
             }
             if (Input.isKeyboardKeyPress(InputKey.MoveLeft)) {
-                moveLeft();
+                setChanged();
+                notifyObservers(GameEvent.MOV_LEFT);
+                //moveLeft();
             }
             if (Input.isKeyboardKeyPress(InputKey.MoveRight)) {
-                moveRight();
+                setChanged();
+                notifyObservers(GameEvent.MOV_RIGHT);
+                //moveRight();
             }
             if (Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
-                moveBack();
+                setChanged();
+                notifyObservers(GameEvent.MOV_BACK);
+                //moveBack();
             }
             if (Input.isKeyboardKeyPress(InputKey.RotateLeft)) {
-                rotateLeft();
+                setChanged();
+                notifyObservers(GameEvent.ROT_LEFT);
+                //rotateLeft();
             }
             if (Input.isKeyboardKeyPress(InputKey.RotateRight)) {
-                rotateRight();
+                setChanged();
+                notifyObservers(GameEvent.ROT_RIGHT);
+                //rotateRight();
             }
         }
     }
