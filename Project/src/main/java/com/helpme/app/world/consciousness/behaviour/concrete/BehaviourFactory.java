@@ -22,8 +22,8 @@ public final class BehaviourFactory {
         return new Follow(priority, preconditions == null ? new HashMap<>() : preconditions, followingDistance, foundEvent, followingEvent, lostEvent);
     }
 
-    public static IBehaviour createReturn(int priority, Map<String, Tuple2<Integer, Comparison>> preconditions, String returnEvent){
-        return new Return(priority, preconditions == null ? new HashMap<>() : preconditions, returnEvent);
+    public static IBehaviour createReturn(int priority, Map<String, Tuple2<Integer, Comparison>> preconditions, String returningEvent, String returnedEvent){
+        return new Return(priority, preconditions == null ? new HashMap<>() : preconditions, returningEvent, returnedEvent);
     }
 
     public static IBehaviour createStay(int priority, Map<String, Tuple2<Integer, Comparison>> preconditions){

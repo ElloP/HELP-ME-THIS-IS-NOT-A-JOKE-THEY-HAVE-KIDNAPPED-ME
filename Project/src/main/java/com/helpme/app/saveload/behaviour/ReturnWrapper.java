@@ -12,24 +12,32 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class ReturnWrapper implements ILoadable<IBehaviour> {
 
-    String returnEvent;
+    String returnedEvent;
+    String returningEvent;
 
     public ReturnWrapper(){
 
     }
 
     public ReturnWrapper(Return returnBehaviour){
-        returnEvent = returnBehaviour.getReturnEvent();
+        returnedEvent = returnBehaviour.getReturnedEvent();
+        returningEvent = returnBehaviour.getReturningEvent();
     }
 
-    @XmlElement(name = "return_event")
-    public String getReturnEvent(){ return returnEvent; }
-    public void setReturnEvent(String returnEvent){
-        this.returnEvent = returnEvent;
+    @XmlElement(name = "returned_event")
+    public String getReturnedEvent(){ return returnedEvent; }
+    public void setReturnedEvent(String returnedEvent){
+        this.returnedEvent = returnedEvent;
+    }
+
+    @XmlElement(name = "returning_event")
+    public String getReturningEvent(){ return returningEvent; }
+    public void setReturningEvent(String returningEvent){
+        this.returningEvent = returningEvent;
     }
 
     @Override
     public IBehaviour getObject() {
-        return BehaviourFactory.createReturn(0, null, returnEvent);
+        return BehaviourFactory.createReturn(0, null, returningEvent, returnedEvent);
     }
 }
