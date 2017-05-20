@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
  * Authored by Olle on 2017-03-30.
  */
 public class Vector2f {
-    private final float RIGHT_ANGLE = (float) Math.PI / 2;
+    private static final float RIGHT_ANGLE = (float) Math.PI / 2;
 
     public float x;
     public float y;

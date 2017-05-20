@@ -2,12 +2,12 @@ package com.helpme.app;
 
 import com.helpme.app.Mock.MockWorld1;
 import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.sounds.AbstractMonsterSource;
-import com.helpme.app.world.sounds.AudioHandler;
-import com.helpme.app.world.sounds.AudioObserver;
-import com.helpme.app.world.sounds.PlayerSource;
-import com.helpme.app.world.sounds.MonsterSource;
-import com.helpme.app.world.sounds.Source;
+import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
+import com.helpme.app.engine.sounds.audio.AudioHandler;
+import com.helpme.app.engine.sounds.AudioObserver;
+import com.helpme.app.engine.sounds.sources.PlayerSource;
+import com.helpme.app.engine.sounds.sources.MonsterSource;
+import com.helpme.app.engine.sounds.sources.Source;
 
 import java.util.ArrayList;
 

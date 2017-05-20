@@ -1,13 +1,11 @@
-package com.helpme.app.world.sounds;
+package com.helpme.app.engine.sounds.audio;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.*;
-import org.lwjgl.openal.ALCCapabilities.*;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;

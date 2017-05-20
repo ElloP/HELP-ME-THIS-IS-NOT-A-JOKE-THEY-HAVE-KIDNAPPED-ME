@@ -17,6 +17,9 @@ public class Texture {
     private int wrapS = GL_REPEAT;
     private int wrapT = GL_REPEAT;
 
+    private int width;
+    private  int height;
+
     public void enableMipMapping() {
         mipMapping = true;
     }
@@ -29,12 +32,14 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, id);
     }
 
-    public static void unBind() {
+    public void unBind() {
         glBindTexture(GL_TEXTURE_2D,0);
     }
 
     void generate(ByteBuffer image, int width, int height) {
         id = glGenTextures();
+        this.width = width;
+        this.height = height;
 
         bind();
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
@@ -50,5 +55,13 @@ public class Texture {
 
     public int getID() {
         return id;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

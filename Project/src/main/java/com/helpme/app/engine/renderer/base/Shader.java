@@ -1,7 +1,11 @@
 package com.helpme.app.engine.renderer.base;
 
-import com.helpme.app.engine.base.Camera;
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Transform;
+import com.helpme.app.engine.renderer.exceptions.ShaderCreationException;
+import com.helpme.app.engine.renderer.exceptions.ShaderLinkingException;
+import com.helpme.app.engine.renderer.exceptions.ShaderLoadingException;
+import com.helpme.app.engine.renderer.exceptions.ShaderUniformNotFoundException;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Vector3f;
 import org.lwjgl.system.MemoryUtil;
@@ -41,12 +45,11 @@ public abstract class Shader {
         linkProgram();
     }
 
-    private void createShaderProgram() {
+    private void createShaderProgram() throws ShaderCreationException {
         shaderProgram = glCreateProgram();
 
         if(shaderProgram == 0) {
-            System.err.println("Failed to create a shader program!");
-            System.exit(1);
+            throw new ShaderCreationException("Thrown from Shader.createShaderProgram");
         }
     }
 
@@ -55,19 +58,28 @@ public abstract class Shader {
     }
 
     private void linkProgram() {
-        glLinkProgram(shaderProgram);
+        try {
+            glLinkProgram(shaderProgram);
 
-        if(glGetProgrami(shaderProgram, GL_LINK_STATUS) == 0) {
-            System.err.println("LINKING_ERROR::" + glGetProgramInfoLog(shaderProgram, 1024));
-            System.exit(1);
+            if (glGetProgrami(shaderProgram, GL_LINK_STATUS) == 0) {
+                throw new ShaderLinkingException("LINKING_ERROR::" + glGetProgramInfoLog(shaderProgram, 1024));
+            }
+        } catch(ShaderLinkingException e) {
+            System.err.println("ShaderLinkingException in Shader.linkProgram::" + e.getMessage());
         }
     }
 
-    public abstract void updateUniforms(Transform transform, Camera camera);
+    public abstract void updateUniforms(Transform transform, ICamera camera);
 
-    public abstract void updateUniforms(Matrix4f model, Transform transform, Camera camera);
+    public abstract void updateUniforms(Matrix4f model, Transform transform, ICamera camera);
 
     private String readShader(String fileName) {
+        String shaderCode;
+        try {
+            shaderCode = ShaderLoader.readShader(SHADERPATH + fileName);
+        } catch (ShaderLoadingException e) {
+            System.err.println("ShaderLoadingException in Shader.readShader::" + e.getMessage());
+        }
         return ShaderLoader.readShader(SHADERPATH + fileName);
     }
 
@@ -80,36 +92,40 @@ public abstract class Shader {
     }
 
     private void createShader(String fileName, int shaderType) {
-        String source = readShader(fileName);
+        try {
+            String source = readShader(fileName);
 
-        int shader = glCreateShader(shaderType);
+            int shader = glCreateShader(shaderType);
 
-        if(shader == 0) {
-            System.err.println("CREATE_SHADER_ERROR:: shader creation failed for type: " + shaderType);
-            System.exit(1);
+            if (shader == 0) {
+                throw new ShaderCreationException("CREATE_SHADER_ERROR:: shader creation failed for type: " + shaderType);
+            }
+
+            glShaderSource(shader, source);
+            glCompileShader(shader);
+
+            if (glGetShaderi(shader, GL_COMPILE_STATUS) == 0) {
+                throw new ShaderCreationException("GET_SHADER_ERROR:: " + glGetShaderInfoLog(shader, 1024));
+            }
+
+            glAttachShader(shaderProgram, shader);
+        } catch (ShaderCreationException e) {
+            System.err.println("ShaderCreationException in Shader.createShader::" + e.getMessage());
         }
-
-        glShaderSource(shader, source);
-        glCompileShader(shader);
-
-        if(glGetShaderi(shader, GL_COMPILE_STATUS) == 0) {
-            System.err.println("SHADER_ERROR:: " + glGetShaderInfoLog(shader,1024));
-            System.exit(1);
-        }
-
-        glAttachShader(shaderProgram, shader);
     }
 
     // ----------- Shader usage functions -----------
     public void addUniform(String uniform) {
-        int uniformLocation = glGetUniformLocation(shaderProgram, uniform);
+        try {
+            int uniformLocation = glGetUniformLocation(shaderProgram, uniform);
 
-        if(uniformLocation == -1) {
-            System.err.println("UNIFORM_COULD_NOT_BE_FOUND::" + uniform);
-            new Exception().printStackTrace();
-            System.exit(1);
+            if (uniformLocation == -1) {
+                throw new ShaderUniformNotFoundException("UNIFORM_COULD_NOT_BE_FOUND::" + uniform);
+            }
+            uniforms.put(uniform, uniformLocation);
+        } catch (ShaderUniformNotFoundException e) {
+            System.err.println("ShaderUniformNotFoundException in Shader.addUniform::" + e.getMessage());
         }
-        uniforms.put(uniform, uniformLocation);
     }
 
     public void setUniform(String uniformName, int value) {

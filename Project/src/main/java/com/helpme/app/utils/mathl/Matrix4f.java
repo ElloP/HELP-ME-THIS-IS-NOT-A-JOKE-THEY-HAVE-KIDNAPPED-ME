@@ -39,10 +39,6 @@ public class Matrix4f {
         this.matrix = new org.joml.Matrix4f(mat);
     }
 
-    public Matrix4f(com.helpme.app.utils.Vector4f col0, com.helpme.app.utils.Vector4f col1, com.helpme.app.utils.Vector4f col2, com.helpme.app.utils.Vector4f col3) {
-        //TODO(Olle): finish this constructor (if needed)
-    }
-
     // ----------- Operations/functions -----------
 
     public Matrix4f add(Matrix4f other) {
@@ -61,10 +57,6 @@ public class Matrix4f {
         } else {
             return this.matrix.determinant();
         }
-    }
-
-    public boolean equals(Matrix4f other) {
-        return this.matrix.equals(other.matrix);
     }
     
     public FloatBuffer get(FloatBuffer fb) {
@@ -130,6 +122,11 @@ public class Matrix4f {
 
     public float perspectiveFov() {
         return this.matrix.perspectiveFov();
+    }
+
+    public Matrix4f ortho(float left, float right, float bottom, float top, float zNear, float zFar) {
+        this.matrix.setOrtho(left, right, bottom, top, zNear, zFar);
+        return this;
     }
 
     public Matrix4f rotate(float angle, float x, float y, float z) {

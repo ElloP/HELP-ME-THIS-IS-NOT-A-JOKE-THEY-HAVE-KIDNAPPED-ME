@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game.controls;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.Lerper;
 import com.helpme.app.engine.base.Time;
@@ -24,11 +25,11 @@ public class PlayerController extends CameraController {
 
     private final float moveLength = 6.0f;
 
-    public PlayerController(Camera camera, Time time) {
+    public PlayerController(ICamera camera, Time time) {
         super(camera, time);
     }
 
-    public PlayerController(Camera camera, Time time, float rotationDuration, float movementDuration) {
+    public PlayerController(ICamera camera, Time time, float rotationDuration, float movementDuration) {
         this(camera, time);
         this.rotationDuration = rotationDuration;
         this.movementDuration = movementDuration;

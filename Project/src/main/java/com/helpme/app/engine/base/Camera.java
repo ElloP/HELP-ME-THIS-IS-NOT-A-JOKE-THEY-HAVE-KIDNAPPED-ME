@@ -1,6 +1,7 @@
 package com.helpme.app.engine.base;
 
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Quaternion;
 import com.helpme.app.utils.mathl.Vector3f;
@@ -9,7 +10,7 @@ import com.helpme.app.utils.mathl.Vector3f;
  * Authored by Olle on 2017-04-12.
  */
 
-public class Camera {
+public class Camera implements ICamera {
     // ----------- Variables -----------
     //TODO(Olle): Add some sort of parent child structure with transforms
     private Vector3f position;

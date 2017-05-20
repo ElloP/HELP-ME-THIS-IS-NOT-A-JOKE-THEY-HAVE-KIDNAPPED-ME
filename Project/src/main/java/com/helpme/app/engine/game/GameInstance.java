@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerController;
@@ -26,7 +27,7 @@ import static java.awt.SystemColor.text;
  * Authored by Olle on 2017-04-21.
  */
 public class GameInstance extends Game {
-    private Camera playerCamera = new Camera();
+    private ICamera playerCamera = new Camera();
     private CameraController cameraController;
     private GameLoader gameLoader;
     private boolean loaded = false;
@@ -53,6 +54,10 @@ public class GameInstance extends Game {
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
         scene.addChild(new NPCView());
+        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
+        scene.addChild(health);
+        health.setTexture("health80");
+
     }
 
     private ILevel testLevel(){
@@ -136,9 +141,6 @@ public class GameInstance extends Game {
 
     public void update(Time time) {
         //TODO(Olle): update game
-        // xy += Time.deltaTime;
-        // t = new Vector3f(0,xy,0);
-        // Vector3f te = new Vector3f(0,-xy,0);
-        // tile.transform.rotate(t);
+
     }
 }
