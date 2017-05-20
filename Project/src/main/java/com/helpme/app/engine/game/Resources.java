@@ -24,6 +24,7 @@ public final class Resources {
             put("health", TextureLoader.loadTexture("health.png"));
             put("health80", TextureLoader.loadTexture("health80.png"));
             put("default", TextureLoader.loadTexture("default.png"));
+            put("menu", TextureLoader.loadTexture("menu.png"));
         }
     };
 

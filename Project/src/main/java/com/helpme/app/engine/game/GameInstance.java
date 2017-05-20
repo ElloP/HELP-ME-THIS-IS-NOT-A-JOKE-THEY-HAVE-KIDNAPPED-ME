@@ -33,6 +33,9 @@ public class GameInstance extends Game {
     private boolean loaded = false;
     public GameInstance() {
         this.gameLoader = new GameLoader();
+        UIRenderer menu = new UIRenderer("menu", new Vector2f(800, 450), 2);
+        scene.addChild(menu);
+
     }
     private void loadScene(){
         Scene scene = new Scene();
@@ -40,7 +43,7 @@ public class GameInstance extends Game {
         IBody player = game.b;
         activeCamera = playerCamera;
         Vector2f playerPos = player.readPosition();
-        activeCamera.setPosition(-6*playerPos.x,0,6*playerPos.y);
+        activeCamera.setPosition(-6*playerPos.x,0.5f,6*playerPos.y);
         scene.addChild(new LevelController(game.a));
         for(Enemy e : game.c){
             Vector2f enemyPos = e.readBody().readPosition();
@@ -48,16 +51,24 @@ public class GameInstance extends Game {
             tmp.transform.setPosition(-6*enemyPos.x,0,6*enemyPos.y);
             scene.addChild(tmp);
         }
+        addUI(scene);
         setActiveScene(scene);
     }
     private void loadNewGame(){
+        Scene scene = new Scene();
         activeCamera = playerCamera;
         scene.addChild(new LevelController(testLevel()));
         scene.addChild(new NPCView());
+        addUI(scene);
+        //health.setTexture("health80");
+
+        setActiveScene(scene);
+
+    }
+
+    private void addUI(Scene scene){
         UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
-        health.setTexture("health80");
-
     }
 
     private ILevel testLevel(){
