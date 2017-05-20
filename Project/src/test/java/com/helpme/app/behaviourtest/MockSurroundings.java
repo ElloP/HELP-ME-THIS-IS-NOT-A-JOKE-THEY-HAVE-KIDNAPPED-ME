@@ -2,6 +2,7 @@ package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class MockSurroundings implements IReadSurroundings {
     Vector2f pathNextPosition = Vector2f.zero;
     int pathCost = 3;
+    boolean facing;
     IReadBody player;
 
     public MockSurroundings(IReadBody player){
@@ -71,7 +73,7 @@ public class MockSurroundings implements IReadSurroundings {
 
     @Override
     public Maybe<IReadBody> readFacing(IReadBody body) {
-        return null;
+        return Maybe.wrap(facing ? new MockBody() : null);
     }
 
     @Override
