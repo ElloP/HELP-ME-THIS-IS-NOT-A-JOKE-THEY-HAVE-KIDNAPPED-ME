@@ -20,10 +20,10 @@ public class NPCView extends GameObject {
     private static Texture texture = TextureLoader.loadTexture("default.png");
 
     private static Vertex[] vertices = new Vertex[] {
-            new Vertex(-3.0f, -1.0f,  3.0f, 0.0f, 0.0f),
-            new Vertex(3.0f, -1.0f,  3.0f, 1.0f, 0.0f),
-            new Vertex(3.0f,  3.0f,  3.0f, 1.0f, 1.0f),
-            new Vertex(-3.0f,  3.0f,  3.0f, 0.0f,1.0f)
+            new Vertex(-1.5f, -1.0f,  0.0f, 0.0f, 0.0f),
+            new Vertex(1.5f, -1.0f,  0.0f, 1.0f, 0.0f),
+            new Vertex(1.5f,  2.0f,  0.0f, 1.0f, 1.0f),
+            new Vertex(-1.5f,  2.0f,  0.0f, 0.0f,1.0f)
     };
 
     private static int[] indices = new int[] {
