@@ -33,13 +33,13 @@ public class AttackTest {
 
     @Test
     public void testAttackWithConsumable(){
-        assert (mockConsumable.accept(new Attack(mockTarget)) && mockTarget.attacked == 1 && mockConsumable.stack == -1);
+        assert (mockConsumable.accept(new Attack(mockTarget)) && mockTarget.attacked == 1 && mockConsumable.stacks == -1);
     }
 
     @Test
     public void testAttackWithNoConsumable(){
         mockConsumable.empty = true;
-        assert (!mockConsumable.accept(new Attack(mockTarget)) && mockTarget.attacked == 0 && mockConsumable.stack == 0);
+        assert (!mockConsumable.accept(new Attack(mockTarget)) && mockTarget.attacked == 0 && mockConsumable.stacks == 0);
     }
 
 

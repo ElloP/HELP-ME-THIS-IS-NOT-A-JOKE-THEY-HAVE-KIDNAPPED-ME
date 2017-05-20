@@ -1,4 +1,4 @@
-package com.helpme.app.attacktest;
+package com.helpme.app.selfietest;
 
 import com.helpme.app.world.item.IConsumable;
 import com.helpme.app.world.item.IItem;
@@ -9,8 +9,8 @@ import com.helpme.app.world.item.effect.IEffect;
  * Created by kopa on 2017-05-20.
  */
 public class MockConsumable implements IConsumable {
-    boolean empty;
     int stacks;
+    boolean empty;
 
     @Override
     public String readName() {
@@ -19,7 +19,7 @@ public class MockConsumable implements IConsumable {
 
     @Override
     public void addStack(int amount) {
-        stacks++;
+
     }
 
     @Override
@@ -39,12 +39,12 @@ public class MockConsumable implements IConsumable {
 
     @Override
     public IEffect getAttackEffect() {
-        return t -> t.damage(0);
+        return null;
     }
 
     @Override
     public IEffect getSelfieEffect() {
-        return null;
+        return t -> t.heal(0);
     }
 
     @Override
