@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.game.visitor.GenerateEdge;
@@ -33,11 +34,7 @@ public class TileController extends GameObject {
     }
 
     @Override
-    public void draw(Camera camera) {
+    public void draw(ICamera camera) {
 
     }
-
-    /*public Quad(Shader shader) {
-        this.shader = shader;
-    }*/
 }

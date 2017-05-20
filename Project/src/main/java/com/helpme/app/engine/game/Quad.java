@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.*;
@@ -29,7 +30,7 @@ public class Quad extends GameObject {
     }
 
     @Override
-    public void draw(Camera camera) {
+    public void draw(ICamera camera) {
         shader.useProgram();
         shader.updateUniforms(transform, camera);
         texture.bind();

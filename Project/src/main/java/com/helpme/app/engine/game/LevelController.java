@@ -1,5 +1,6 @@
 package com.helpme.app.engine.game;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.utils.Vector2f;
@@ -32,7 +33,7 @@ public class LevelController extends GameObject {
     }
 
     @Override
-    public void draw(Camera camera) {
+    public void draw(ICamera camera) {
 
     }
 }

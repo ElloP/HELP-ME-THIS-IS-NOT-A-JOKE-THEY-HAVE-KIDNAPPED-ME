@@ -1,6 +1,6 @@
 package com.helpme.app.engine.game;
 
-import com.helpme.app.engine.base.Camera;
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.*;
 import com.helpme.app.engine.renderer.base.TextureLoader;
@@ -37,12 +37,12 @@ public class NPCView extends GameObject {
         this.shader = DefaultShader.getDefaultShader();
     }
 
-    private void setModelMatrix(Camera camera) {
+    private void setModelMatrix(ICamera camera) {
         modelMatrix.billboard(transform.getPosition(),camera.getPosition(), Vector3f.UP);
     }
     //TODO(Olle): decide how to represent model rotation in npcs
     @Override
-    public void draw(Camera camera) {
+    public void draw(ICamera camera) {
         setModelMatrix(camera);
         shader.updateUniforms(modelMatrix, transform, camera);
         texture.bind();
