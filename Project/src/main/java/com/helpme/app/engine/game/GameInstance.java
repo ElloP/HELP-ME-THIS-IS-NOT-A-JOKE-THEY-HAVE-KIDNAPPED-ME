@@ -30,10 +30,11 @@ public class GameInstance extends Game {
     private ICamera playerCamera = new Camera();
     private CameraController cameraController;
     private GameLoader gameLoader;
+    private Menu menu;
     private boolean loaded = false;
     public GameInstance() {
         this.gameLoader = new GameLoader();
-        UIRenderer menu = new UIRenderer("menu", new Vector2f(800, 450), 2);
+        this.menu = new Menu();
         scene.addChild(menu);
 
     }
@@ -134,12 +135,10 @@ public class GameInstance extends Game {
     public void input(Time time) {
         if(!loaded){
             if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
-                loaded = true;
-                loadScene();
+                menu.up();
             }
             if(Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
-                loaded = true;
-                loadNewGame();
+                menu.down();
             }
         } else{
             if(cameraController == null) {
