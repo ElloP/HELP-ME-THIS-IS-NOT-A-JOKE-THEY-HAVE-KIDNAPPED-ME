@@ -71,7 +71,7 @@ public abstract class Intelligence implements IBehaviour {
         return Vector2f.equals(Vector2f.add(body.readPosition(), body.readDirection()), other);
     }
 
-    public static boolean isLeftOf(IReadBody body, Vector2f other){
+    public static boolean isRightOf(IReadBody body, Vector2f other){
         Vector2f right = body.readDirection().right();
 
         return Vector2f.equals(Vector2f.add(body.readPosition(), right), other);

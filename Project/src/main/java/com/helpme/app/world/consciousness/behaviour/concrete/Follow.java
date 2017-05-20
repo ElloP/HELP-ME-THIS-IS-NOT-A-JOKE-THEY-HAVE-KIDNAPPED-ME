@@ -56,14 +56,14 @@ public class Follow extends Behaviour {
             memory.updateShortTermMemory(foundEvent, 1);
             return new Nothing<>();
         } else if (lostPlayer(body, surroundings)) {
+            memory.updateShortTermMemory(lostEvent, 1);
+            return new Nothing<>();
+        } else {
             memory.updateShortTermMemory(followingEvent, 1);
             return surroundings.readPlayer().chain(p -> {
                 Vector2f nextPosition = surroundings.getShortestPath(body.readPosition(), p.readPosition()).b;
-                return moveTowards(p, nextPosition);
+                return moveTowards(body, nextPosition);
             });
-        } else {
-            memory.updateShortTermMemory(lostEvent, 1);
-            return new Nothing<>();
         }
     }
 

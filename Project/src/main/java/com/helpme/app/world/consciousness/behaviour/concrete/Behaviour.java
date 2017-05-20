@@ -22,15 +22,15 @@ public abstract class Behaviour implements IBehaviour {
     }
 
     @Override
-    public int getPriority(){
+    public int getPriority() {
         return priority;
     }
 
     @Override
-    public Map<String, Tuple2<Integer, Comparison>> getPreconditions(){
-        return new HashMap<String, Tuple2<Integer, Comparison>>(){
+    public Map<String, Tuple2<Integer, Comparison>> getPreconditions() {
+        return new HashMap<String, Tuple2<Integer, Comparison>>() {
             {
-                for(Entry<String, Tuple2<Integer, Comparison>> entry : preconditions.entrySet()) {
+                for (Entry<String, Tuple2<Integer, Comparison>> entry : preconditions.entrySet()) {
                     int value = entry.getValue().a;
                     Comparison comparison = entry.getValue().b;
                     put(entry.getKey(), new Tuple2<>(value, comparison));
@@ -40,12 +40,12 @@ public abstract class Behaviour implements IBehaviour {
     }
 
     @Override
-    public void setPriority(int priority){
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
     @Override
-    public void setPreconditions(Map<String, Tuple2<Integer, Comparison>> preconditions){
+    public void setPreconditions(Map<String, Tuple2<Integer, Comparison>> preconditions) {
         this.preconditions = preconditions;
     }
 
@@ -62,14 +62,22 @@ public abstract class Behaviour implements IBehaviour {
                     if (entry.getValue().a <= value) {
                         return false;
                     }
+                    break;
                 case LESS_THAN:
                     if (entry.getValue().a >= value) {
                         return false;
                     }
+                    break;
                 case EQUAL:
                     if (!entry.getValue().a.equals(value)) {
                         return false;
                     }
+                    break;
+                case NOT_EQUAL:
+                    if (entry.getValue().a.equals(value)) {
+                        return false;
+                    }
+                    break;
             }
         }
 
@@ -77,17 +85,17 @@ public abstract class Behaviour implements IBehaviour {
     }
 
     @Override
-    public void reset(IShortTerm memory){
+    public void reset(IShortTerm memory) {
 
     }
 
     protected String moveTowards(IReadBody body, Vector2f nextPosition) {
-        if (Intelligence.isFacing(body, nextPosition)){
+        if (Intelligence.isFacing(body, nextPosition)) {
             return "move_forward";
-        } else if (Intelligence.isLeftOf(body, nextPosition)){
-            return "rotate_left";
-        } else {
+        } else if (Intelligence.isRightOf(body, nextPosition)) {
             return "rotate_right";
+        } else {
+            return "rotate_left";
         }
     }
 }

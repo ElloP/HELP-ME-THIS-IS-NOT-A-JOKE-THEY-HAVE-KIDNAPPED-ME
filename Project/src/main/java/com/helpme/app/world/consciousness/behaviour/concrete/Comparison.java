@@ -7,4 +7,5 @@ public enum Comparison {
     MORE_THAN,
     LESS_THAN,
     EQUAL,
+    NOT_EQUAL
 }
