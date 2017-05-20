@@ -36,7 +36,6 @@ public class UIRenderer extends GameObject{
         //Note (Jesper): If faceculling is enabled the transform has to be rotated. Otherwise it doesn't matter.
         this.transform.rotate(180, 0, 0);
 
-
     }
 
     public UIRenderer(String texture, Vector2f position, float scale) {
@@ -53,12 +52,7 @@ public class UIRenderer extends GameObject{
     @Override
     public void draw(ICamera camera) {
         shader.useProgram();
-        //transform.translate(0.5f * transform.getPosition().x(), 0.5f * transform.getPosition().y(), 0);
-        //transform.rotate(0, 0, 1);
-        //transform.translate(-0.5f * transform.getPosition().x(), -0.5f * transform.getPosition().y(), 0);
-        //transform.translate(camera.getPosition().add(camera.getForward()));
         shader.updateUniforms(transform, camera);
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
         texture.bind();
         glBindVertexArray(mesh.vao);
         glDrawArrays(GL_TRIANGLES, 0, 6);
