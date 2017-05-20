@@ -6,8 +6,7 @@ import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 import com.helpme.app.world.tile.IReadTile;
 import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.TileFactory;
-import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.tile.concrete.TileFactory;
 import com.helpme.app.world.tile.edge.IEdge;
 
 import javax.xml.bind.annotation.XmlElement;

@@ -1,6 +1,5 @@
 package com.helpme.app.world.item;
 
-import com.helpme.app.world.item.visitor.IItemVisitor;
 import com.helpme.app.utils.interfaces.ICloneable;
 
 /**

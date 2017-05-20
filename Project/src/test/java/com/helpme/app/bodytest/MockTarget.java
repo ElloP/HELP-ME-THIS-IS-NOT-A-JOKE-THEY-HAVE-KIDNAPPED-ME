@@ -1,6 +1,6 @@
 package com.helpme.app.bodytest;
 
-import com.helpme.app.world.character.target.ITarget;
+import com.helpme.app.world.item.effect.ITarget;
 
 /**
  * Created by kopa on 2017-05-11.

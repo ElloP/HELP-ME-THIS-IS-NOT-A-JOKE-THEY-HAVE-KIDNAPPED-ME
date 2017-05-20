@@ -1,7 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.ItemFactory;
+import com.helpme.app.world.item.concrete.ItemFactory;
 import com.helpme.app.world.item.IReadItem;
 
 import javax.xml.bind.annotation.XmlElement;

@@ -1,9 +1,8 @@
 package com.helpme.app.savetest;
 
-import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.Item;
-import com.helpme.app.world.item.visitor.IItemVisitor;
+import com.helpme.app.world.item.concrete.Item;
+import com.helpme.app.world.item.IItemVisitor;
 
 /**
  * Created by kopa on 2017-05-15.
@@ -22,7 +21,7 @@ public class MockItem implements IItem {
 
     @Override
     public IItem clone() {
-        return new Item(name, null, null);
+        return new MockItem(name);
     }
 
     @Override

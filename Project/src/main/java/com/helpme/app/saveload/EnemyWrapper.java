@@ -1,57 +1,68 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.consciousness.Enemy;
+import com.helpme.app.saveload.behaviour.BehaviourWrapper;
+import com.helpme.app.world.consciousness.IConsciousness;
+import com.helpme.app.world.consciousness.behaviour.IBehaviour;
+import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
+import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.consciousness.ISurroundings;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Klas on 2017-05-01.
  */
 public class EnemyWrapper{
-    private BodyWrapper body;
-    private BehaviourWrapper defaultBehavior, currentBehavior;
+    private BodyWrapper bodyWrapper;
+    private MemoryWrapper memoryWrapper;
+    private BehaviourWrapper[] behaviourWrappers;
 
 
     public EnemyWrapper(){}
 
     public EnemyWrapper(Enemy monster){
-        this.body = new BodyWrapper(monster.readBody());
-        this.currentBehavior = new BehaviourWrapper(monster.getBehaviour());
-        this.defaultBehavior = new BehaviourWrapper(monster.getDefaultBehavior());
+        this.bodyWrapper = new BodyWrapper(monster.readBody());
     }
 
     public String toString(){
         String result = "";
-        result += body.toString();
+        result += bodyWrapper.toString();
         return result;
     }
-    @XmlElement(name="Body")
+    @XmlElement(name="body")
     public BodyWrapper getBody(){
-        return body;
+        return bodyWrapper;
     }
     public void setBody(BodyWrapper body){
-        this.body = body;
+        this.bodyWrapper = body;
     }
 
-    @XmlElement(name="Default_Behavior")
-    public void setDefaultBehavior(BehaviourWrapper defaultBehavior) {
-        this.defaultBehavior = defaultBehavior;
-    }
-    @XmlElement(name="Current_Behavior")
-    public void setCurrentBehavior(BehaviourWrapper currentBehavior) {
-        this.currentBehavior = currentBehavior;
-    }
-    public BehaviourWrapper getDefaultBehavior() {
-        return defaultBehavior;
-
-    }
-    public BehaviourWrapper getCurrentBehavior() {
-        return currentBehavior;
+    @XmlElementWrapper(name = "behaviours")
+    @XmlElement(name = "behaviour")
+    public BehaviourWrapper[] getBehaviours() { return behaviourWrappers; }
+    public void setBehaviours(BehaviourWrapper[] behaviours){
+        this.behaviourWrappers = new BehaviourWrapper[behaviours.length];
+        for(int i = 0; i < behaviours.length; i++){
+            this.behaviourWrappers[i] = behaviours[i];
+        }
     }
 
-    public Enemy getObject(ISurroundings level) {
-        return new Enemy(body.getObject(), level, currentBehavior.getObject(),defaultBehavior.getObject()); //fuck this
+    @XmlElement(name = "memory")
+    public MemoryWrapper getMemory(){ return memoryWrapper; }
+    public void setMemory(MemoryWrapper memoryWrapper){
+        this.memoryWrapper = memoryWrapper;
+    }
+
+    public IConsciousness getObject(ISurroundings level) {
+        List<IBehaviour> behaviours = new ArrayList<>();
+        for(BehaviourWrapper behaviourWrapper : behaviourWrappers){
+            behaviours.add(behaviourWrapper.getObject());
+        }
+
+        return ConsciousnessFactory.createEnemy(bodyWrapper.getObject(), level, memoryWrapper.getObject(), behaviours);
     }
 
 

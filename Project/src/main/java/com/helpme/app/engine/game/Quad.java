@@ -3,7 +3,6 @@ package com.helpme.app.engine.game;
 import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.*;
-import com.helpme.app.engine.utils.TextureLoader;
 
 /**
  * Authored by Olle on 2017-05-02.

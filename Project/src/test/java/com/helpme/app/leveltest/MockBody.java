@@ -3,11 +3,11 @@ package com.helpme.app.leveltest;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.character.Body;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.IReadInventory;
-import com.helpme.app.world.character.target.ITarget;
+import com.helpme.app.world.body.concrete.Body;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.IReadInventory;
+import com.helpme.app.world.item.effect.ITarget;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 

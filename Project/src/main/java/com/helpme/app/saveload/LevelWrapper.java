@@ -2,15 +2,12 @@ package com.helpme.app.saveload;
 
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.IReadBody;
 import com.helpme.app.world.consciousness.IReadSurroundings;
 import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.Level;
-import com.helpme.app.world.level.LevelFactory;
+import com.helpme.app.world.level.concrete.LevelFactory;
 import com.helpme.app.world.tile.ITile;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

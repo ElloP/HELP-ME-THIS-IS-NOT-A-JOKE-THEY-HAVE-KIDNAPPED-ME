@@ -6,8 +6,6 @@ import com.helpme.app.engine.game.Resources;
 import com.helpme.app.engine.renderer.base.Texture;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.tile.edge.*;
-import com.helpme.app.world.tile.edge.visitor.IEdgeVisitor;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * Created by kopa on 2017-05-10.
@@ -22,17 +20,17 @@ public final class GenerateEdge implements IEdgeVisitor {
     }
 
     @Override
-    public Boolean visit(Door door) {
+    public Boolean visit(IDoor door) {
         return generate("door");
     }
 
     @Override
-    public Boolean visit(Wall wall) {
+    public Boolean visit(IWall wall) {
         return generate("wall");
     }
 
     @Override
-    public Boolean visit(Opening opening) {
+    public Boolean visit(IOpening opening) {
         return false;
     }
 

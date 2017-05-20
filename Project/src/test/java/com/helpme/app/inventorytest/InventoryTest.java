@@ -2,10 +2,9 @@ package com.helpme.app.inventorytest;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.character.inventory.IInventory;
-import com.helpme.app.world.character.inventory.InventoryFactory;
+import com.helpme.app.world.body.inventory.IInventory;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.visitor.Pickup;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,23 +15,29 @@ import java.util.List;
  */
 public class InventoryTest {
     private IInventory inventory;
+    private MockSingle mockSingle0;
+    private MockSingle mockSingle1;
+    private MockSingle mockSingle2;
 
     @Before
     public void setup() {
-        inventory = InventoryFactory.createInventory(new IItem[]{MockItem.item(), null, MockItem.item(), null}, MockItem.defaultItem(), null);
+        mockSingle0 = new MockSingle("Item");
+        mockSingle1 = new MockSingle("Item");
+        mockSingle2 = new MockSingle("DefaultItem")
+        inventory = InventoryFactory.createInventory(new IItem[]{mockSingle0, null, mockSingle1, null}, mockSingle2, null);
     }
 
     @Test
     public void testPickupItem() {
-        IItem mockItem = MockItem.pickup();
-        inventory.addItem(mockItem);
-        assert (inventory.getItem(1).equals(mockItem));
+        IItem mockPickup = new MockSingle("Pickup");
+        inventory.addItem(mockPickup);
+        assert (inventory.getItem(1).equals(mockPickup));
     }
 
     @Test
     public void testDropItem() {
         Maybe<IItem> maybeItem = inventory.dropItem(0);
-        assert (inventory.getItem(0) instanceof Nothing && maybeItem.check(i -> i.equals(MockItem.item())));
+        assert (inventory.getItem(0) instanceof Nothing && maybeItem.check(i -> i.equals(mockSingle0)));
     }
 
     @Test
@@ -42,18 +47,10 @@ public class InventoryTest {
                 && inventory.readItem(1) instanceof Nothing
                 && inventory.readItem(2) instanceof Nothing
                 && inventory.readItem(3) instanceof Nothing
-                && items.get(0).check(i -> i.equals(MockItem.item()))
+                && items.get(0).check(i -> i.equals(mockSingle0))
                 && items.get(1) instanceof Nothing
-                && items.get(2).check(i -> i.equals(MockItem.item()))
+                && items.get(2).check(i -> i.equals(mockSingle1))
                 && items.get(3) instanceof Nothing
         );
-    }
-
-    @Test
-    public void testPickupKey() {
-        MockItem.key1().accept(new Pickup(inventory));
-        MockItem.key2().accept(new Pickup(inventory));
-        MockItem.key3().accept(new Pickup(inventory));
-        assert (inventory.hasKey(MockItem.key1()) && inventory.hasKey(MockItem.key2()) && inventory.hasKey(MockItem.key3()));
     }
 }

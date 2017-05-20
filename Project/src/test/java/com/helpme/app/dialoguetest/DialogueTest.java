@@ -1,15 +1,9 @@
 package com.helpme.app.dialoguetest;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.character.IReadBody;
-import com.helpme.app.world.character.dialogue.Dialogue;
-import com.helpme.app.world.character.dialogue.DialogueNode;
-import com.helpme.app.world.character.dialogue.IDialogue;
-import com.helpme.app.world.character.dialogue.IDialogueNode;
+import com.helpme.app.world.body.dialogue.Dialogue;
+import com.helpme.app.world.body.dialogue.IDialogue;
+import com.helpme.app.world.body.dialogue.IDialogueNode;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Created by kopa on 2017-05-14.

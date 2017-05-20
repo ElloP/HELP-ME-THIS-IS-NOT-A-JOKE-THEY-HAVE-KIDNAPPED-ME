@@ -1,11 +1,10 @@
 package com.helpme.app.savetest;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.character.inventory.IInventory;
+import com.helpme.app.world.body.inventory.IInventory;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.item.IReadItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

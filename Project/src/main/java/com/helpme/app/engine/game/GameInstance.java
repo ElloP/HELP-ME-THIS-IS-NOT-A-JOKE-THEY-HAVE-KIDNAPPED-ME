@@ -2,21 +2,18 @@ package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
-import com.helpme.app.engine.game.controls.DebugCamera;
 import com.helpme.app.engine.game.controls.PlayerController;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.character.IBody;
+import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
-import com.helpme.app.world.tile.edge.Door;
+import com.helpme.app.world.level.concrete.LevelFactory;
+import com.helpme.app.world.tile.edge.concrete.Door;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Authored by Olle on 2017-04-21.
@@ -26,6 +23,7 @@ public class GameInstance extends Game {
     private CameraController cameraController;
     public GameInstance() {
         activeCamera = playerCamera;
+
         scene.addChild(new LevelController(testLevel()));
         scene.addChild(new NPCView());
     }
@@ -98,7 +96,7 @@ public class GameInstance extends Game {
     }
 
     public void update(Time time) {
-        //TODO(Olle): update game
+        //TODO(Olle): execute game
 
         // xy += Time.deltaTime;
         // t = new Vector3f(0,xy,0);

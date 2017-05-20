@@ -72,12 +72,12 @@ public class PlayerController extends CameraController {
         lerpMove(getCamera().getRight());
     }
 
-    private boolean lerperFinished() {
+    private boolean finished() {
         return lerper == null || lerper.finished();
     }
 
     public void update() {
-        if(!lerperFinished()) {
+        if(!finished()) {
             if(moving) {
                 getCamera().setPosition(lerper.lerp());
             } else if(rotating) {

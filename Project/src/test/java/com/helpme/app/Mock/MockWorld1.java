@@ -1,15 +1,19 @@
 package com.helpme.app.Mock;
 
-import com.helpme.app.world.character.BodyFactory;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.behaviour.Return;
-import com.helpme.app.world.character.inventory.InventoryFactory;
+import com.helpme.app.world.body.concrete.BodyFactory;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.behaviour.FollowAndAttack;
+import com.helpme.app.world.consciousness.behaviour.GoBack;
+import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.world.consciousness.*;
+import com.helpme.app.world.consciousness.concrete.Consciousness;
+import com.helpme.app.world.consciousness.concrete.Enemy;
+import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.LevelFactory;
+import com.helpme.app.world.level.concrete.LevelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +54,7 @@ public class MockWorld1 {
         level.addBody(enemy1);
         enemyConsciousness2 = new Enemy(enemy2, level, new FollowAndAttack(1), new FollowAndAttack(1));
         level.addBody(enemy2);
-        enemyConsciousness3 = new Enemy(enemy3, level, new Return(), new FollowAndAttack(1));
+        enemyConsciousness3 = new Enemy(enemy3, level, new GoBack(), new FollowAndAttack(1));
         level.addBody(enemy3);
 
         this.level = level;

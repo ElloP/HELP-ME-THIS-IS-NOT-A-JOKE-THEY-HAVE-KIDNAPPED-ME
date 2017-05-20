@@ -62,6 +62,12 @@ public abstract class Maybe<T> {
         return ifNothing;
     }
 
+    @Override
+    public int hashCode(){
+        assert (value != null);
+        return value.hashCode();
+    }
+
     public static <T> Maybe<T> wrap(T value){
         if(value == null){
             return new Nothing<>();
@@ -86,4 +92,6 @@ public abstract class Maybe<T> {
         };
         return list;
     }
+
+
 }

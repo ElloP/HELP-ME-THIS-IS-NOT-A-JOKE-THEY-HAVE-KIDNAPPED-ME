@@ -1,10 +1,8 @@
 package com.helpme.app.bodytest;
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.character.Body;
-import com.helpme.app.world.character.BodyFactory;
-import com.helpme.app.world.character.IBody;
-import com.helpme.app.world.character.target.ITarget;
+import com.helpme.app.world.body.concrete.BodyFactory;
+import com.helpme.app.world.body.IBody;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,10 +18,10 @@ public class BodyTest {
 
     @Before
     public void setup() {
-        body0 = BodyFactory.createBody(new MockInventory(MockItem.activeWeapon(), null), new Vector2f(0, 0), Vector2f.up, 100);
-        body1 = BodyFactory.createBody(new MockInventory(null, MockItem.defaultWeapon()), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 1));
-        body2 = BodyFactory.createBody(new MockInventory(MockItem.strongPotion(), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
-        body3 = BodyFactory.createBody(new MockInventory(MockItem.strongWeapon(), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
+        body0 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.damage(1), t -> t.damage(1)), null), new Vector2f(0, 0), Vector2f.up, 100);
+        body1 = BodyFactory.createBody(new MockInventory(null, new MockItem(t -> t.heal(1), t -> t.heal(1))), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 1));
+        body2 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.heal(101), t -> t.heal(101)), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
+        body3 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.damage(101), t -> t.damage(100)), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
         mockTarget = new MockTarget();
     }
 
