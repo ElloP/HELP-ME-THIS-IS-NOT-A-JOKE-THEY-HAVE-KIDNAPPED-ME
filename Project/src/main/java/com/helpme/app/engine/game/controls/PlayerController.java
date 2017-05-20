@@ -1,7 +1,6 @@
 package com.helpme.app.engine.game.controls;
 
 import com.helpme.app.engine.ICamera;
-import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.Lerper;
 import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.input.Input;

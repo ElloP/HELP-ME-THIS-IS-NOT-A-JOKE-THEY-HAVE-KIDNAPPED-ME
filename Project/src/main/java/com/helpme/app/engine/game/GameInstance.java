@@ -8,6 +8,7 @@ import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
 import com.helpme.app.world.level.concrete.LevelFactory;
@@ -20,19 +21,28 @@ import java.util.List;
  * Authored by Olle on 2017-04-21.
  */
 public class GameInstance extends Game {
-    private ICamera playerCamera = new Camera();
+    private ICamera playerCamera; // = new Camera();
     private CameraController cameraController;
-    public GameInstance(ILevel level, Time time) {
+    private UIRenderer health;
+    public GameInstance(ILevel level, Time time, Vector2f playerPos) {
+
+        this.playerCamera = new Camera(playerPos);
         activeCamera = playerCamera;
         if(cameraController == null) {
             cameraController = new PlayerController(activeCamera, time);
         }
 
         scene.addChild(new LevelController(level));
-        scene.addChild(new NPCView());
-        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
+        for (IReadBody body : level.readBodies()) {
+            //if (!(playerCamera.getPosition().x() == body.readPosition().x || playerCamera.getPosition().z() == body.readPosition().y)){
+                System.out.println("Hello");
+                System.out.println(body.readPosition());
+                scene.addChild(new NPCView(body.readPosition().x, body.readPosition().y));
+
+            //}
+        }
+        health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
-        health.setTexture("health80");
 
     }
 
@@ -101,11 +111,20 @@ public class GameInstance extends Game {
         return null;
     }
 
+    public void updateHealth(int newHealth) {
+        if (newHealth > 80) {
+            health.setTexture("health");
+        } else if (newHealth <= 80 && newHealth > 60) {
+            health.setTexture("health80");
+        }
+    }
+
     public void input(Time time) {
         if(cameraController == null) {
             cameraController = new PlayerController(activeCamera, time);
         }
         cameraController.update();
+        //System.out.println(playerCamera.getPosition());
     }
 
     public void update(Time time) {

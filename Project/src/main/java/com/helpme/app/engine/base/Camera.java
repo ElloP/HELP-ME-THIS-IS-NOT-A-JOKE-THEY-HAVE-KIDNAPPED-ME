@@ -2,6 +2,7 @@ package com.helpme.app.engine.base;
 
 
 import com.helpme.app.engine.ICamera;
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Quaternion;
 import com.helpme.app.utils.mathl.Vector3f;
@@ -22,7 +23,7 @@ public class Camera implements ICamera {
 
     public Camera() {
         this.position = new Vector3f(0,1,0);
-        this.forward = new Vector3f(0.0f,0.0f,-1.0f); //Note(Olle): -z is forward in OpenGL
+        this.forward = new Vector3f(0,0.0f,-1.0f); //Note(Olle): -z is forward in OpenGL
         this.up = new Vector3f(Vector3f.UP);
         setRight();
         normalizeVectors();
@@ -32,6 +33,14 @@ public class Camera implements ICamera {
         this.position = position;
         this.forward = forward;
         up = new Vector3f(Vector3f.UP);
+        setRight();
+        normalizeVectors();
+    }
+
+    public Camera(Vector2f position) {
+        this.position = new Vector3f(-position.x * 6, 1, position.y * 6);
+        this.forward = new Vector3f(0, 0, -1);
+        this.up = new Vector3f(Vector3f.UP);
         setRight();
         normalizeVectors();
     }

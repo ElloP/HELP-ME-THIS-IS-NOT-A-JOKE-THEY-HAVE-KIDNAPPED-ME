@@ -7,6 +7,7 @@ import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.game.GameInstance;
 import com.helpme.app.engine.game.controls.PlayerController;
 import com.helpme.app.engine.renderer.base.RenderCore;
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.world.level.ILevel;
@@ -26,7 +27,7 @@ public class Main {
         ILevel level = setup.setup();
 
         Time time = new Time();
-        Game game = new GameInstance(level, time);
+        Game game = new GameInstance(level, time, setup.playerBody.readPosition());
         GameController gameController = new GameController((PlayerController) ((GameInstance)game).getCameraController(), setup.player, level);
 
         for (IReadBody body : level.readBodies()) {

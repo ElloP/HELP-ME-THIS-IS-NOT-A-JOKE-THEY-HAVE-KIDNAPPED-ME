@@ -17,6 +17,7 @@ public class GameController implements Observer {
     private PlayerController playerController;
     private Player player;
     private Body body123;
+    private ILevel level;
 
     public GameController(PlayerController playerController, Player player, ILevel level) {
         this.playerController = playerController;
@@ -25,6 +26,7 @@ public class GameController implements Observer {
         player.addObserver(this);
         level.readPlayer().run(t -> this.body123 = (Body) t);
         body123.addObserver(this);
+        this.level = level;
     }
 
     @Override
@@ -54,6 +56,7 @@ public class GameController implements Observer {
             }
         } else if (arg instanceof GameEvent && o instanceof PlayerController) {
             GameEvent gameEvent = (GameEvent) arg;
+            System.out.println(player);
             switch (gameEvent) {
                 case MOV_FORWARD:
                     player.moveForward();

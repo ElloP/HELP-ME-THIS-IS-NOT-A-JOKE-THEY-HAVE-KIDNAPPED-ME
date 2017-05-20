@@ -16,10 +16,12 @@ import java.util.List;
 
 /**
  * Created by Jesper on 2017-05-20.
+ * Copy of MockWorld0
  */
 public class Setup {
     public ILevel level;
     public Player player;
+    public IBody playerBody;
 
     public ILevel setup(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -30,7 +32,7 @@ public class Setup {
 
         //MockDialogue dialogue = new MockDialogue();
 
-        IBody player = new Body(null, Vector2f.zero, Vector2f.down, 100);
+        playerBody = new Body(null, new Vector2f(0, 0), Vector2f.down, 100);
         IBody enemy0 = new Body(null, new Vector2f(2, 2), Vector2f.down, 100);
         IBody enemy1 = new Body(null, new Vector2f(9, 0), Vector2f.down, 100);
         //IBody enemy2 = new Body(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
@@ -88,13 +90,16 @@ public class Setup {
          *    [ ][e][ ]      [ |[ ]/ ]| ][ ]
          *    [ ][ ][ ]
          * [p][ ][ ]         [ ][x]| ][e]
+         * Note to self (Jesper):
+         * looking right -> is -1 in x
+         * looking up ^ is 1 in z
          */
 
 
         ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.zero);
-        this.player = new Player(player, level);
+        this.player = new Player(playerBody, level);
         this.level = level;
-        this.level.setPlayer(player);
+        this.level.setPlayer(playerBody);
         return level;
     }
 }
