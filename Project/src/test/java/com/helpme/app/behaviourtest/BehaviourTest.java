@@ -96,7 +96,7 @@ public class BehaviourTest {
     @Test
     public void testFollowFollowingFacing() {
         mockMemory.memory = new HashMap<>();
-        mockSurroundings.pathNextPosition = Vector2f.up;
+        mockSurroundings.pathNextPosition = Vector2f.north;
 
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -110,7 +110,7 @@ public class BehaviourTest {
     @Test
     public void testFollowFollowingRightOf() {
         mockMemory.memory = new HashMap<>();
-        mockSurroundings.pathNextPosition = Vector2f.right;
+        mockSurroundings.pathNextPosition = Vector2f.east;
 
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -124,7 +124,7 @@ public class BehaviourTest {
     @Test
     public void testFollowFollowingBehind() {
         mockMemory.memory = new HashMap<>();
-        mockSurroundings.pathNextPosition = Vector2f.down;
+        mockSurroundings.pathNextPosition = Vector2f.south;
 
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -139,7 +139,7 @@ public class BehaviourTest {
     public void testFollowFollowingLeftOf() {
         mockMemory.memory = new HashMap<>();
 
-        mockSurroundings.pathNextPosition = Vector2f.left;
+        mockSurroundings.pathNextPosition = Vector2f.west;
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
 
@@ -165,7 +165,7 @@ public class BehaviourTest {
     public void testReturnReturningFacing() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.up;
+        mockSurroundings.pathNextPosition = Vector2f.north;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -180,7 +180,7 @@ public class BehaviourTest {
     public void testReturnReturningRightOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.right;
+        mockSurroundings.pathNextPosition = Vector2f.east;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -195,7 +195,7 @@ public class BehaviourTest {
     public void testReturnReturningBehind() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.down;
+        mockSurroundings.pathNextPosition = Vector2f.south;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -210,7 +210,7 @@ public class BehaviourTest {
     public void testReturnReturningLeftOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.left;
+        mockSurroundings.pathNextPosition = Vector2f.west;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));

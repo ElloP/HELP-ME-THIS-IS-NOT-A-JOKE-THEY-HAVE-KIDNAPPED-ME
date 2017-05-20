@@ -7,7 +7,7 @@ import com.helpme.app.world.item.effect.IEffect;
 /**
  * Created by kopa on 2017-04-10.
  */
-public final class Selfie implements IItemVisitor {
+public final class Selfie implements IItemVisitor<Boolean> {
     private final ITarget self;
 
     public Selfie(ITarget self){

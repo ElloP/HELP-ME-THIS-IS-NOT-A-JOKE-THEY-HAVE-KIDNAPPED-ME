@@ -26,10 +26,10 @@ public final class TileFactory {
     public static ITile createTile(IItem[] items, IEdge north, IEdge east, IEdge south, IEdge west){
         Map<Vector2f, IEdge> edges = new HashMap<Vector2f, IEdge>(){
             {
-                put(Vector2f.up, north);
-                put(Vector2f.right, east);
-                put(Vector2f.down, south);
-                put(Vector2f.left, west);
+                put(Vector2f.north, north);
+                put(Vector2f.east, east);
+                put(Vector2f.south, south);
+                put(Vector2f.west, west);
             }
         };
 

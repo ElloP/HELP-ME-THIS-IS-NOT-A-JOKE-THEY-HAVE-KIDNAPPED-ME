@@ -73,11 +73,11 @@ public class GameInstance extends Game {
         tiles.add(new Tuple2<>(new Vector2f(2, 5),null));
         tiles.add(new Tuple2<>(new Vector2f(3, 5), null));
 
-        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.east, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.west, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.east, new Door(true, null)));
 
-        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.east, new Door(true, null)));
 
         /**
          *    [ ][ ][ ]   [ ]   [ ][ ]

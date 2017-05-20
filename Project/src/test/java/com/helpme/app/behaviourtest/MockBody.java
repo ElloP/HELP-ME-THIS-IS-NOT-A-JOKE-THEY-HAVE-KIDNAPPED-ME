@@ -1,24 +1,17 @@
 package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.body.inventory.IInventory;
 import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.effect.ITarget;
 import com.helpme.app.world.tile.edge.IEdge;
-
-import java.util.List;
 
 /**
  * Created by kopa on 2017-05-20.
  */
 public class MockBody implements IReadBody {
     public Vector2f position = Vector2f.zero;
-    public Vector2f direction = Vector2f.up;
+    public Vector2f direction = Vector2f.north;
 
     @Override
     public void damage(float amount) {

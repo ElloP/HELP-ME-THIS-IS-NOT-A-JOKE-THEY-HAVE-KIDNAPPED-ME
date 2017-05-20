@@ -5,7 +5,7 @@ import com.helpme.app.world.item.*;
 /**
  * Created by kopa on 2017-04-10.
  */
-public final class Stack implements IItemVisitor {
+public final class Stack implements IItemVisitor<Boolean> {
     private final int amount;
 
     public Stack(int amount){

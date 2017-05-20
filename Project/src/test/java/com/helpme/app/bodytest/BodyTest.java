@@ -18,35 +18,35 @@ public class BodyTest {
 
     @Before
     public void setup() {
-        body0 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.damage(1), t -> t.damage(1)), null), new Vector2f(0, 0), Vector2f.up, 100);
-        body1 = BodyFactory.createBody(new MockInventory(null, new MockItem(t -> t.heal(1), t -> t.heal(1))), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 1));
-        body2 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.heal(101), t -> t.heal(101)), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
-        body3 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.damage(101), t -> t.damage(100)), null), new Vector2f(0, 0), Vector2f.up, new Vector2f(100, 50));
+        body0 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.damage(1), t -> t.damage(1)), null), new Vector2f(0, 0), Vector2f.north, 100);
+        body1 = BodyFactory.createBody(new MockInventory(null, new MockItem(t -> t.heal(1), t -> t.heal(1))), new Vector2f(0, 0), Vector2f.north, new Vector2f(100, 1));
+        body2 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.heal(101), t -> t.heal(101)), null), new Vector2f(0, 0), Vector2f.north, new Vector2f(100, 50));
+        body3 = BodyFactory.createBody(new MockInventory(new MockItem(t -> t.damage(101), t -> t.damage(100)), null), new Vector2f(0, 0), Vector2f.north, new Vector2f(100, 50));
         mockTarget = new MockTarget();
     }
 
     @Test
     public void testRotateRight() {
         body0.rotateRight();
-        assert (body0.readDirection().equals(Vector2f.right));
+        assert (body0.readDirection().equals(Vector2f.east));
         body0.rotateRight();
-        assert (body0.readDirection().equals(Vector2f.down));
+        assert (body0.readDirection().equals(Vector2f.south));
         body0.rotateRight();
-        assert (body0.readDirection().equals(Vector2f.left));
+        assert (body0.readDirection().equals(Vector2f.west));
         body0.rotateRight();
-        assert (body0.readDirection().equals(Vector2f.up));
+        assert (body0.readDirection().equals(Vector2f.north));
     }
 
     @Test
     public void testRotateLeft() {
         body0.rotateLeft();
-        assert (body0.readDirection().equals(Vector2f.left));
+        assert (body0.readDirection().equals(Vector2f.west));
         body0.rotateLeft();
-        assert (body0.readDirection().equals(Vector2f.down));
+        assert (body0.readDirection().equals(Vector2f.south));
         body0.rotateLeft();
-        assert (body0.readDirection().equals(Vector2f.right));
+        assert (body0.readDirection().equals(Vector2f.east));
         body0.rotateLeft();
-        assert (body0.readDirection().equals(Vector2f.up));
+        assert (body0.readDirection().equals(Vector2f.north));
     }
 
     @Test

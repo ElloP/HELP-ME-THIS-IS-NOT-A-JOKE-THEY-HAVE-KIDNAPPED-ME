@@ -29,7 +29,7 @@ public final class BodyFactory {
     public static IBody createBody(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints, IDialogue dialogue) {
         return new Body(inventory == null ? InventoryFactory.createInventory(null, null, null) : inventory,
                 position == null ? Vector2f.zero : position,
-                direction == null ? Vector2f.up : direction,
+                direction == null ? Vector2f.north : direction,
                 hitpoints == null ? new Vector2f(100,100) : hitpoints,
                 dialogue
         );

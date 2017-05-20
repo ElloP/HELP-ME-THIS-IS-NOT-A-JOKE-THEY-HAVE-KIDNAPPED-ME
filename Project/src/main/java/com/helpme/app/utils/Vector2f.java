@@ -74,10 +74,10 @@ public class Vector2f {
 
 
     //NOTE(Olle): normalized direction vectors
-    public static final Vector2f up = new Vector2f(0, 1);
-    public static final Vector2f right = new Vector2f(1, 0);
-    public static final Vector2f down = new Vector2f(0, -1);
-    public static final Vector2f left = new Vector2f(-1, 0);
+    public static final Vector2f north = new Vector2f(0, 1);
+    public static final Vector2f east = new Vector2f(1, 0);
+    public static final Vector2f south = new Vector2f(0, -1);
+    public static final Vector2f west = new Vector2f(-1, 0);
     public static final Vector2f zero = new Vector2f(0, 0);
 
     public static boolean equals(Vector2f vec0, Vector2f vec1) {
@@ -125,7 +125,7 @@ public class Vector2f {
     }
 
     public static Vector2f[] getNeighbors(Vector2f vec0){
-        Vector2f[] vectors = {add(vec0,up), add(vec0, right), add(vec0, down), add(vec0,left)};
+        Vector2f[] vectors = {add(vec0, north), add(vec0, east), add(vec0, south), add(vec0, west)};
         return vectors;
     }
 }

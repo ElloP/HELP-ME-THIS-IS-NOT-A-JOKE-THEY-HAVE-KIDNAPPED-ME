@@ -1,14 +1,11 @@
 package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.ICamera;
-import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.game.visitor.GenerateEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.edge.IEdge;
 
 /**
  * Authored by Olle on 2017-05-02.
@@ -25,7 +22,7 @@ public class TileController extends GameObject {
             addChild(floor);
         });
 
-        Vector2f[] directions = new Vector2f[]{Vector2f.up, Vector2f.left, Vector2f.down, Vector2f.right};
+        Vector2f[] directions = new Vector2f[]{Vector2f.north, Vector2f.west, Vector2f.south, Vector2f.east};
 
         for (int i = 0; i < 4; i++) {
             int rotation = 90 * i;
