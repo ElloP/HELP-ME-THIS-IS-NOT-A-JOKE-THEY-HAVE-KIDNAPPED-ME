@@ -13,4 +13,5 @@ public enum InputKey {
     Attack,
     Selfie,
     Talk,
+    Select
 }
