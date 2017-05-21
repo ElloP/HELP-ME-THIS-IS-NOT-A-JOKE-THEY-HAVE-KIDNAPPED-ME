@@ -100,29 +100,24 @@ public class SaveTest {
 
     @Test
     public void testSaveBody() throws JAXBException {
-        List<Maybe<IItem>> mockItems = new ArrayList<Maybe<IItem>>(){
-            {
-                add(new Just<>(new MockItem("item0")));
-                add(new Just<>(new MockItem("item1")));
-                add(new Just<>(new MockItem("item2")));
-                add(new Nothing<>());
-            }
-        };
-
-        List<Maybe<IItem>> mockKeys = new ArrayList<Maybe<IItem>>(){
-            {
-                add(new Just<>(new MockItem("key0")));
-                add(new Just<>(new MockItem("key1")));
-                add(new Just<>(new MockItem("key2")));
-                add(new Nothing<>());
-            }
-        };
-
+        List<Maybe<IItem>> mockItems = new ArrayList<>();
+        List<Maybe<IItem>> mockKeys = new ArrayList<>();
         IInventory mockInventory = new MockInventory(mockItems, mockKeys);
         IBody mockBody = new MockBody(mockInventory);
-
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
+
+        mockItems.add(new Just<>(new MockItem("item0")));
+        mockItems.add(new Just<>(new MockItem("item1")));
+        mockItems.add(new Just<>(new MockItem("item2")));
+        mockItems.add(new Nothing<>());
+
+        mockKeys.add(new Just<>(new MockItem("key0")));
+        mockKeys.add(new Just<>(new MockItem("key1")));
+        mockKeys.add(new Just<>(new MockItem("key2")));
+        mockKeys.add(new Nothing<>());
+
+
         marshaller.marshal(new BodyWrapper(mockBody), file);
 
         Unmarshaller unmarshaller = this.context.createUnmarshaller();

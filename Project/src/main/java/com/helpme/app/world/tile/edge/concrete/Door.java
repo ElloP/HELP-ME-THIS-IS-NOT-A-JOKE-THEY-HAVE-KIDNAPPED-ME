@@ -1,6 +1,7 @@
 package com.helpme.app.world.tile.edge.concrete;
 
 import com.helpme.app.world.item.*;
+import com.helpme.app.world.item.concrete.ItemFactory;
 import com.helpme.app.world.tile.edge.IDoor;
 import com.helpme.app.world.tile.edge.IEdgeVisitor;
 

@@ -55,9 +55,9 @@ public class Menu extends GameObject{
     private Scene loadScene(){
         Scene scene = new Scene();
         Tuple3<ILevel,IBody,IConsciousness[]> game = gameLoader.loadGame("test.xml");
-        IBody player = game.b;
+       // IBody player = game.b;
 
-        Vector2f playerPos = player.readPosition();
+       // Vector2f playerPos = player.readPosition();
        // activeCamera.setPosition(-6*playerPos.x,0.5f,6*playerPos.y); //TODO set camera at players position
         scene.addChild(new LevelController(game.a));
         for(IConsciousness e : game.c){

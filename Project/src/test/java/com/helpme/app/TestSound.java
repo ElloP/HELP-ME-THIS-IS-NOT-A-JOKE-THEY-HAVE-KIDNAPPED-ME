@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * Created by Jesper on 2017-04-21.
  */
 public class TestSound {
+    /*
     private TestWorld mockWorld;
 
 
@@ -43,5 +44,5 @@ public class TestSound {
 
         AudioHandler.cleanUp();
     }
-
+    */
 }

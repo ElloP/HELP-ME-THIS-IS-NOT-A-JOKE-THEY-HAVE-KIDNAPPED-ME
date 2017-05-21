@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IBody extends IReadBody, ICloneable {
+public interface IBody extends IReadBody, ICloneable<IBody> {
     void rotateRight();
     void rotateLeft();
     void moveForward();

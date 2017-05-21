@@ -11,9 +11,7 @@ public class DialogueNode implements IDialogueNode {
 
     public DialogueNode(String initialFrase, String response, IDialogueNode[] nodes){
         this.dialogue = new Tuple2<>(initialFrase,response);
-        if(nodes == null) return;
-        dialogueAlternatives = new DialogueNode[nodes.length];
-        this.dialogueAlternatives = nodes;
+        this.dialogueAlternatives = nodes == null ? new IDialogueNode[0] : nodes;
 
     }
     @Override
@@ -23,7 +21,7 @@ public class DialogueNode implements IDialogueNode {
 
     @Override
     public String getInitialFrase() {
-        if(dialogue == null) return null;
+        if(dialogue == null) return "";
         return dialogue.a;
     }
 
@@ -47,7 +45,10 @@ public class DialogueNode implements IDialogueNode {
     }
 
     public String[] getAlternatives(){
-        if(dialogueAlternatives == null) return null;
+        if(dialogueAlternatives == null) {
+            return new String[0];
+        }
+
         String[] result = new String[dialogueAlternatives.length];
         for(int i = 0; i < dialogueAlternatives.length; i++){
             result[i] = i + ". " + dialogueAlternatives[i].getInitialFrase();

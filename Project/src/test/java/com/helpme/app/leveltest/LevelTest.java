@@ -27,22 +27,16 @@ public class LevelTest {
 
     @Before
     public void setup() {
+        Map<Vector2f, ITile> tiles = new HashMap<>();
+        List<IBody> bodies = new ArrayList<>();
         mockBody = new MockBody();
         mockPlayer = new MockPlayer();
 
-        Map<Vector2f, ITile> tiles = new HashMap<Vector2f, ITile>() {
-            {
-                put(Vector2f.zero, new MockTile());
-                put(new Vector2f(0, 1), new MockTile());
-            }
-        };
+        tiles.put(Vector2f.zero, new MockTile());
+        tiles.put(new Vector2f(0, 1), new MockTile());
 
-        List<IBody> bodies = new ArrayList<IBody>() {
-            {
-                add(mockPlayer);
-                add(mockBody);
-            }
-        };
+        bodies.add(mockPlayer);
+        bodies.add(mockBody);
 
         level = LevelFactory.createLevel(mockPlayer, Vector2f.zero, tiles, bodies);
     }

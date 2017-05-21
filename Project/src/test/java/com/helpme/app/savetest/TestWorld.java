@@ -26,12 +26,12 @@ import java.util.Map;
  * Created by kopa on 2017-04-14.
  */
 public class TestWorld {
-    public ILevel level;
-    public IConsciousness player;
-    public IConsciousness enemyConsciousness0;
-    public IConsciousness enemyConsciousness1;
-    public IConsciousness enemyConsciousness2;
-    public IConsciousness enemyConsciousness3;
+    ILevel level;
+    IConsciousness player;
+    IConsciousness enemyConsciousness0;
+    IConsciousness enemyConsciousness1;
+    IConsciousness enemyConsciousness2;
+    IConsciousness enemyConsciousness3;
 
     public TestWorld() {
         IBody player = BodyFactory.createBody(null, Vector2f.zero, Vector2f.north, 100);

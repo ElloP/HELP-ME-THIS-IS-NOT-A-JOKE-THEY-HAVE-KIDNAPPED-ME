@@ -51,6 +51,7 @@ public class Vector2f implements Cloneable {
     public Vector2f rotateRightAngle(int times) {
         return Vector2f.rotateI(this, RIGHT_ANGLE * times);
     }
+
     @Override
     public boolean equals(Object o){
         if(o == null || !(o instanceof Vector2f)) {
@@ -58,7 +59,7 @@ public class Vector2f implements Cloneable {
         }
 
         Vector2f vec0 = (Vector2f) o;
-        return vec0.x == x && vec0.y == y;
+        return Math.abs(vec0.x - x) < .0000001 && Math.abs(vec0.y - y) < .0000001;
     }
 
     @Override
@@ -85,7 +86,7 @@ public class Vector2f implements Cloneable {
     public static final Vector2f zero = new Vector2f(0, 0);
 
     public static boolean equals(Vector2f vec0, Vector2f vec1) {
-        return vec0.x == vec1.x && vec0.y == vec1.y;
+        return vec0.equals(vec1);
     }
 
     public static Vector2f add(Vector2f vec0, Vector2f vec1) {
@@ -121,7 +122,7 @@ public class Vector2f implements Cloneable {
     }
 
     public static Vector2f rotateI(Vector2f vec0, float radians) {
-        radians = -radians; // NOTE (Jacob): To make the default rotation clockwise
+        radians = -radians; // N    OTE (Jacob): To make the default rotation clockwise
         Matrix2f rotationMatrix = new Matrix2f(
                 (float) Math.cos(radians), (float) -Math.sin(radians),
                 (float) Math.sin(radians), (float) Math.cos(radians));

@@ -17,7 +17,6 @@ import java.util.List;
  * Created by kopa on 2017-05-15.
  */
 public class MockBody implements IBody {
-
     private IInventory mockInventory;
 
     public MockBody(IInventory inventory){
@@ -115,7 +114,7 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public Body clone() {
+    public IBody clone(){
         return null;
     }
 

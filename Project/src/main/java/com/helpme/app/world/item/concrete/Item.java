@@ -35,7 +35,7 @@ public abstract class Item {
 
     @Override
     public boolean equals(Object o) {
-        return o != null && Objects.equals(name, ((Item) o).name);
+        return o != null && o instanceof Item && Objects.equals(name, ((Item) o).name);
     }
 
     @Override
