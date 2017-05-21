@@ -1,4 +1,4 @@
-package com.helpme.app.pickuptest;
+package com.helpme.app.itemtest.pickuptest;
 
 import com.helpme.app.model.body.concrete.visitor.Pickup;
 import org.junit.Before;

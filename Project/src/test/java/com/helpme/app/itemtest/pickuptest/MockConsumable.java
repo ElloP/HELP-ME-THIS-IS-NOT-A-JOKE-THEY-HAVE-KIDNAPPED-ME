@@ -1,17 +1,39 @@
-package com.helpme.app.selfietest;
+package com.helpme.app.itemtest.pickuptest;
 
+import com.helpme.app.model.item.IConsumable;
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IItemVisitor;
-import com.helpme.app.model.item.ISingle;
 import com.helpme.app.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockSingle implements ISingle {
+public class MockConsumable implements IConsumable {
+    int stacks = 3;
+
     @Override
     public String readName() {
         return null;
+    }
+
+    @Override
+    public void addStack(int amount) {
+
+    }
+
+    @Override
+    public void removeStack() {
+
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public int getStacks() {
+        return stacks;
     }
 
     @Override
@@ -21,7 +43,7 @@ public class MockSingle implements ISingle {
 
     @Override
     public IEffect getSelfieEffect() {
-        return t -> t.heal(0);
+        return null;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.helpme.app.attacktest;
+package com.helpme.app.itemtest.selfietest;
 
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IItemVisitor;

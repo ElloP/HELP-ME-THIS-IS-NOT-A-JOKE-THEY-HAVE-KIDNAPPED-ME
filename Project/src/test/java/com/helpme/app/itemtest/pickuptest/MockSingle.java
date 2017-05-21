@@ -1,4 +1,4 @@
-package com.helpme.app.attacktest;
+package com.helpme.app.itemtest.pickuptest;
 
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IItemVisitor;
@@ -16,7 +16,7 @@ public class MockSingle implements ISingle {
 
     @Override
     public IEffect getAttackEffect() {
-        return t -> t.damage(0);
+        return null;
     }
 
     @Override

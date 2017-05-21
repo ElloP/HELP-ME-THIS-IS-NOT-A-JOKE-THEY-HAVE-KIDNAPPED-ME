@@ -1,4 +1,4 @@
-package com.helpme.app.pickuptest;
+package com.helpme.app.itemtest.pickuptest;
 
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IItemVisitor;

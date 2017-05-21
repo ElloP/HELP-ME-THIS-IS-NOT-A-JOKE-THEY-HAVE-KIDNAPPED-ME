@@ -1,4 +1,4 @@
-package com.helpme.app.traversetest;
+package com.helpme.app.EdgeTest.traversetest;
 
 import com.helpme.app.model.body.concrete.visitor.Traverse;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.helpme.app.pickuptest;
+package com.helpme.app.itemtest.pickuptest;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.model.body.inventory.IInventory;

@@ -1,4 +1,4 @@
-package com.helpme.app.attacktest;
+package com.helpme.app.itemtest.attacktest;
 
 import com.helpme.app.model.body.concrete.visitor.Attack;
 import org.junit.Before;

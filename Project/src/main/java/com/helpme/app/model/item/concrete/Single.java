@@ -25,6 +25,6 @@ public class Single extends Item implements ISingle {
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }

@@ -23,6 +23,8 @@ public final class ItemFactory {
         return new Single("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
     }
 
+    public static IItem potion() { return new Consumable("Potion", 1, IEffectFactory.heal(10), IEffectFactory.heal(10)); }
+
     public static IItem createItem(String item){
         switch (item){
             case "Fists": return fists();

@@ -1,4 +1,4 @@
-package com.helpme.app.selfietest;
+package com.helpme.app.itemtest.selfietest;
 
 
 import com.helpme.app.model.body.concrete.visitor.Selfie;

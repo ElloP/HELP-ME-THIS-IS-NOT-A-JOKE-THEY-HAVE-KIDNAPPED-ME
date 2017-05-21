@@ -1,4 +1,4 @@
-package com.helpme.app.traversetest;
+package com.helpme.app.EdgeTest.traversetest;
 
 import com.helpme.app.model.tile.edge.IEdgeVisitor;
 import com.helpme.app.model.tile.edge.IWall;

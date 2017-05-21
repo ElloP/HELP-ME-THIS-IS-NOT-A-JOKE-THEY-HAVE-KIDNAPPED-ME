@@ -1,4 +1,4 @@
-package com.helpme.app.attacktest;
+package com.helpme.app.itemtest.attacktest;
 
 import com.helpme.app.model.item.IConsumable;
 import com.helpme.app.model.item.IItem;
