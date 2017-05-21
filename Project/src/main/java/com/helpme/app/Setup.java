@@ -32,9 +32,9 @@ public class Setup {
 
         //MockDialogue dialogue = new MockDialogue();
 
-        playerBody = new Body(null, new Vector2f(0, 0), Vector2f.down, 100);
-        IBody enemy0 = new Body(null, new Vector2f(2, 2), Vector2f.down, 100);
-        IBody enemy1 = new Body(null, new Vector2f(9, 0), Vector2f.down, 100);
+        playerBody = new Body(null, new Vector2f(0, 0), Vector2f.south, 100);
+        IBody enemy0 = new Body(null, new Vector2f(2, 2), Vector2f.south, 100);
+        IBody enemy1 = new Body(null, new Vector2f(9, 0), Vector2f.south, 100);
         //IBody enemy2 = new Body(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
 
         bodies.add(enemy0);
@@ -77,8 +77,8 @@ public class Setup {
         //tiles.add(new Tuple2<>(new Vector2f(2, 5), new IItem[]{MockItem.stackingConsumables, MockItem.stackingConsumables, MockItem.stackingConsumables}));
         //tiles.add(new Tuple2<>(new Vector2f(3, 5), new IItem[]{MockItem.stackingConsumables, MockItem.excessiveItem, MockItem.pickupWeapon}));
 
-        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.east, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.west, new Door(false, null)));
         //doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, MockItem.key)));
 
         //doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, MockItem.pickupKey)));

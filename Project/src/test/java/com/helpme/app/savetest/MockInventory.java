@@ -11,8 +11,8 @@ import java.util.List;
  * Created by kopa on 2017-05-15.
  */
 public class MockInventory implements IInventory {
-    List<Maybe<IItem>> mockItems;
-    List<Maybe<IItem>> mockKeys;
+    private List<Maybe<IItem>> mockItems;
+    private List<Maybe<IItem>> mockKeys;
 
     public MockInventory(List<Maybe<IItem>> mockItems, List<Maybe<IItem>> mockKeys){
         this.mockItems = mockItems;

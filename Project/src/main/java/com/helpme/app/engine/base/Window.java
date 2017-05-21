@@ -18,16 +18,24 @@ public class Window {
 
     private static long window;
 
-    public static int width;
-    public static int height;
+    private static int width;
+    private static int height;
 
     public static long getWindow() { return window; }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
+    }
 
     static boolean shouldClose() {
         return glfwWindowShouldClose(window);
     }
 
-    // ----------- Initiation, update and clean up -----------
+    // ----------- Initiation, execute and clean up -----------
 
     public static void initWindow(int width, int height, String title) {
         if(!glfwInit()) {

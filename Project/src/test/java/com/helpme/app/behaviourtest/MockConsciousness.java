@@ -1,0 +1,120 @@
+package com.helpme.app.behaviourtest;
+
+import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.tuple.Tuple2;
+import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.IConsciousness;
+import com.helpme.app.world.item.IItem;
+
+import java.util.Observer;
+
+/**
+ * Created by kopa on 2017-05-20.
+ */
+public class MockConsciousness implements IConsciousness {
+    int attacked;
+    int movedForward;
+    int rotatedLeft;
+    int rotatedRight;
+
+    @Override
+    public void addObserver(Observer o) {
+
+    }
+
+    @Override
+    public void deleteObserver(Observer o) {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void moveForward() {
+        movedForward++;
+    }
+
+    @Override
+    public void moveRight() {
+
+    }
+
+    @Override
+    public void moveBackward() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
+    @Override
+    public void rotateRight() {
+        rotatedRight++;
+    }
+
+    @Override
+    public void rotateLeft() {
+        rotatedLeft++;
+    }
+
+    @Override
+    public void setPosition(Vector2f position) {
+
+    }
+
+    @Override
+    public void useAttack() {
+        attacked++;
+    }
+
+    @Override
+    public void usePickupAll() {
+
+    }
+
+    @Override
+    public void usePickupSingle(int index) {
+
+    }
+
+    @Override
+    public void setItems(IItem[] items) {
+
+    }
+
+    @Override
+    public void dropItem(int index) {
+
+    }
+
+    @Override
+    public void useSelfie() {
+
+    }
+
+    @Override
+    public void changeActiveItem(int index) {
+
+    }
+
+    @Override
+    public IBody readBody() {
+        return null;
+    }
+
+    @Override
+    public Maybe<Tuple2<String, String[]>> useTalk() {
+        return null;
+    }
+
+    @Override
+    public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
+        return null;
+    }
+}

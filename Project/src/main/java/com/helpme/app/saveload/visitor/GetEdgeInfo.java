@@ -7,7 +7,7 @@ import com.helpme.app.world.tile.edge.*;
 /**
  * Created by kopa on 2017-05-15.
  */
-public class GetEdgeInfo implements IEdgeVisitor<Tuple3<String, Boolean, IReadItem>> {
+public final class GetEdgeInfo implements IEdgeVisitor<Tuple3<String, Boolean, IReadItem>> {
 
     @Override
     public Tuple3<String, Boolean, IReadItem> visit(IDoor door) {

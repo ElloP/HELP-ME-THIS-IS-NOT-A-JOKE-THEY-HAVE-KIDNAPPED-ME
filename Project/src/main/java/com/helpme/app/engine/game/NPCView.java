@@ -38,6 +38,10 @@ public class NPCView extends GameObject {
         this.transform.setPosition(-6f * x, 0, 6f * y);
     }
 
+    public NPCView() {
+        this(0, 0);
+    }
+
     private void setModelMatrix(ICamera camera) {
         modelMatrix.billboard(transform.getPosition(),camera.getPosition(), Vector3f.UP);
     }

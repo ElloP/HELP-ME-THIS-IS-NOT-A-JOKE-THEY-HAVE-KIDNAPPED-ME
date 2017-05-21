@@ -18,8 +18,7 @@ public class EngineCore {
     private IRenderCore renderCore;
 
     private Time time;
-
-    private final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
+    private static final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
 
     public EngineCore(IRenderCore renderCore, Game game, Time time) {
         //Note(Olle): set engine variables
@@ -31,10 +30,6 @@ public class EngineCore {
 
 
     // ----------- Engine EngineCore functions including main loop -----------
-
-    private void initiateWindow(int width, int height, String title) {
-        Window.initWindow(width, height, title);
-    }
 
     public void start() {
         if(engineStopped) {

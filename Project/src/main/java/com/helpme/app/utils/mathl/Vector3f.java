@@ -149,9 +149,11 @@ public class Vector3f {
         return this.vector.dot(vec.vector);
     }
 
-    public boolean equals(Vector3f vec) {
-        return this.vector.equals(vec.vector);
+
+    public boolean equals(Object o) {
+        return this.vector.equals(o);
     }
+
 
     public FloatBuffer get(FloatBuffer fb) { //gets the vector values and writes it to the floatbuffer
         fb.put(this.vector.x);

@@ -4,9 +4,11 @@ import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerController;
+
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
+
 import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.item.IItem;
@@ -17,33 +19,48 @@ import com.helpme.app.world.tile.edge.concrete.Door;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.helpme.app.engine.input.Input;
+import com.helpme.app.engine.input.InputKey;
+
 /**
  * Authored by Olle on 2017-04-21.
  */
 public class GameInstance extends Game {
     private ICamera playerCamera; // = new Camera();
     private CameraController cameraController;
+
+    private Menu menu;
+    private boolean loaded = false;
     private UIRenderer health;
+
+    //TODO (Jesper): Just for getting it to work with model
+    private ILevel level;
+    private Vector2f playerPos;
+
     public GameInstance(ILevel level, Time time, Vector2f playerPos) {
 
         this.playerCamera = new Camera(playerPos);
         activeCamera = playerCamera;
-        if(cameraController == null) {
+        if (cameraController == null) {
             cameraController = new PlayerController(activeCamera, time);
         }
 
         scene.addChild(new LevelController(level));
         for (IReadBody body : level.readBodies()) {
-            //if (!(playerCamera.getPosition().x() == body.readPosition().x || playerCamera.getPosition().z() == body.readPosition().y)){
-                scene.addChild(new NPCView(body.readPosition().x, body.readPosition().y));
-
-            //}
+            scene.addChild(new NPCView(body.readPosition().x, body.readPosition().y));
         }
         health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
-
+        this.menu = new Menu();
+        scene.addChild(menu);
+        this.level = level;
+        this.playerPos = playerPos;
     }
 
+    public GameInstance() {
+        this.menu = new Menu();
+        scene.addChild(menu);
+    }
     public CameraController getCameraController() {
         return cameraController;
     }
@@ -118,13 +135,29 @@ public class GameInstance extends Game {
     }
 
     public void input(Time time) {
-        if(cameraController == null) {
-            cameraController = new PlayerController(activeCamera, time);
+        if(!loaded){
+            if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
+                menu.up();
+            }
+            if(Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
+                menu.down();
+            }
+            if(Input.isKeyboardKeyPress(InputKey.Select)){
+                setActiveScene(menu.getSelected(level, playerPos));
+                activeCamera = playerCamera;
+                loaded = true;
+            }
+        } else{
+            if(cameraController == null) {
+                cameraController = new PlayerController(activeCamera, time);
+            }
+            cameraController.update();
         }
-        cameraController.update();
+
     }
 
     public void update(Time time) {
         //TODO(Olle): update game
+
     }
 }

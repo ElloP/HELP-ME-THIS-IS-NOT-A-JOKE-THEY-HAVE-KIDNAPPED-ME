@@ -1,6 +1,7 @@
 package com.helpme.app.saveload;
 
 
+import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.body.inventory.IInventory;
 import com.helpme.app.world.body.inventory.IReadInventory;

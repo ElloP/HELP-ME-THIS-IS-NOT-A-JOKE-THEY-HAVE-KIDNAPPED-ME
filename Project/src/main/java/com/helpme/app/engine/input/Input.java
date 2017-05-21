@@ -87,6 +87,7 @@ public final class Input {
         defaultKeys.put(InputKey.Attack, new Integer[]{GLFW_KEY_LEFT_ALT});
         defaultKeys.put(InputKey.Selfie, new Integer[]{GLFW_KEY_LEFT_CONTROL});
         defaultKeys.put(InputKey.Talk, new Integer[]{GLFW_KEY_LEFT_SHIFT});
+        defaultKeys.put(InputKey.Select, new Integer[]{GLFW_KEY_ENTER});
 
         return defaultKeys;
     }

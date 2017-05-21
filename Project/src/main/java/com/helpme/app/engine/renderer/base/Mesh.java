@@ -16,7 +16,7 @@ public class Mesh {
     public int vao; //NOTE(Olle): Vertex Array Object (saves drawing settings)
     public int vbo; //NOTE(Olle): Vertex Buffer Object (buffer to send vertices to graphics card)
     public int ebo; //NOTE(Olle): Element Buffer Object (buffer to send drawing orders to graphics card)
-    private final int FLOATSIZE = 4;
+    private static final int FLOATSIZE = 4;
 
     private int vertexCount;
 
