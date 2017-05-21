@@ -1,6 +1,6 @@
 package com.helpme.app;
 
-import com.helpme.app.EdgeTest.EdgeTest;
+import com.helpme.app.edgetest.EdgeTest;
 import com.helpme.app.itemtest.ItemTest;
 import com.helpme.app.itemtest.attacktest.AttackTest;
 import com.helpme.app.behaviourtest.*;
@@ -11,7 +11,7 @@ import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
 import com.helpme.app.tiletest.TileTest;
-import com.helpme.app.EdgeTest.traversetest.TraverseTest;
+import com.helpme.app.edgetest.traversetest.TraverseTest;
 import org.junit.runners.Suite;
 import org.junit.runner.RunWith;
 

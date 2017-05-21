@@ -1,4 +1,4 @@
-package com.helpme.app.EdgeTest;
+package com.helpme.app.edgetest;
 
 import com.helpme.app.model.tile.edge.IDoor;
 import com.helpme.app.model.tile.edge.IEdgeVisitor;

@@ -1,12 +1,12 @@
-package com.helpme.app.EdgeTest.traversetest;
+package com.helpme.app.edgetest.traversetest;
 
 import com.helpme.app.model.tile.edge.IEdgeVisitor;
-import com.helpme.app.model.tile.edge.IWall;
+import com.helpme.app.model.tile.edge.IOpening;
 
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockWall implements IWall {
+public class MockOpening implements IOpening {
     @Override
     public void damage(float amount) {
 
