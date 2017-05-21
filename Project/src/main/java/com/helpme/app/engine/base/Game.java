@@ -17,6 +17,10 @@ public abstract class Game {
 
     public abstract void update(Time time);
 
+    public void setActiveScene(Scene newScene){
+        this.scene = newScene;
+    }
+
     public void draw() {
         scene.draw(activeCamera);
     }

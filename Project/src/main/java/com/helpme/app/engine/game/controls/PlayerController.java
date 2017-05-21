@@ -7,6 +7,7 @@ import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.utils.mathl.Vector3f;
+import com.helpme.app.world.consciousness.concrete.Player;
 
 /**
  * Authored by Olle on 2017-05-15.
@@ -17,8 +18,10 @@ public class PlayerController extends CameraController {
     private boolean moving = false;
     private boolean rotating = false;
 
-    private float rotationDuration = 1f;
-    private float movementDuration = 1f;
+    private float rotationDuration = .5f;
+    private float movementDuration = .5f;
+
+    private Player player;
 
     private final float moveLength = 6.0f;
 

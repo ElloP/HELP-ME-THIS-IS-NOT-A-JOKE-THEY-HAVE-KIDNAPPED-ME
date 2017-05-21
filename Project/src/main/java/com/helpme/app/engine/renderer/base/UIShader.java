@@ -1,7 +1,6 @@
 package com.helpme.app.engine.renderer.base;
 
 import com.helpme.app.engine.ICamera;
-import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.Transform;
 import com.helpme.app.engine.base.Window;
 import com.helpme.app.utils.mathl.Matrix4f;

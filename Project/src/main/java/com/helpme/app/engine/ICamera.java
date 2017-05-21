@@ -12,6 +12,8 @@ public interface ICamera {
 
     void setPosition(Vector3f position);
 
+    void setPosition(float x, float y, float z);
+
     Vector3f getRight();
 
     Vector3f getLeft();
