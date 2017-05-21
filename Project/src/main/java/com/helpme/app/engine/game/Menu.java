@@ -8,6 +8,7 @@ import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.ILevel;
@@ -53,13 +54,13 @@ public class Menu extends GameObject{
     }
     private Scene loadScene(){
         Scene scene = new Scene();
-        Tuple3<ILevel,IBody,Enemy[]> game = gameLoader.loadGame("text.xml");
+        Tuple3<ILevel,IBody,IConsciousness[]> game = gameLoader.loadGame("text.xml");
         IBody player = game.b;
 
         Vector2f playerPos = player.readPosition();
        // activeCamera.setPosition(-6*playerPos.x,0.5f,6*playerPos.y); //TODO set camera at players position
         scene.addChild(new LevelController(game.a));
-        for(Enemy e : game.c){
+        for(IConsciousness e : game.c){
             Vector2f enemyPos = e.readBody().readPosition();
             NPCView tmp = new NPCView();
             tmp.transform.setPosition(-6*enemyPos.x,0,6*enemyPos.y);
@@ -125,11 +126,11 @@ public class Menu extends GameObject{
         tiles.add(new Tuple2<>(new Vector2f(2, 5),null));
         tiles.add(new Tuple2<>(new Vector2f(3, 5), null));
 
-        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.right, new Door(true, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.left, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.east, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.west, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.east, new Door(true, null)));
 
-        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.east, new Door(true, null)));
 
         /**
          *    [ ][ ][ ]   [ ]   [ ][ ]

@@ -1,6 +1,7 @@
 package com.helpme.app.saveload;
 
 import com.helpme.app.utils.tuple.Tuple3;
+import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.concrete.Enemy;
 import com.helpme.app.world.level.ILevel;
 import com.helpme.app.world.body.IBody;
@@ -35,7 +36,7 @@ public class GameLoader implements SaveLoad {
         File file = new File(filePath);
         marshaller.marshal(saveRoot, file);
     }
-    public void marshall(ILevel level, IBody player, Enemy[] enemies, String filePath) throws JAXBException {
+    public void marshall(ILevel level, IBody player, IConsciousness[] enemies, String filePath) throws JAXBException {
         marshall(new SaveRoot(level,player,enemies),filePath);
     }
 
@@ -46,7 +47,7 @@ public class GameLoader implements SaveLoad {
     }
 
     @Override
-    public void saveGame(ILevel level, IBody player, Enemy[] enemies, String filePath) {
+    public void saveGame(ILevel level, IBody player, IConsciousness[] enemies, String filePath) {
         try{
             marshall(new SaveRoot(level,player,enemies), filePath);
         } catch (JAXBException e){
@@ -56,11 +57,12 @@ public class GameLoader implements SaveLoad {
 
     }
 
+
     @Override
-    public Tuple3<ILevel, IBody, Enemy[]> loadGame(String filePath) {
+    public Tuple3<ILevel, IBody, IConsciousness[]> loadGame(String filePath) {
         try{
             SaveRoot saveRoot = unmarshall(filePath);
-            return new Tuple3<>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());
+            return new Tuple3<ILevel, IBody, IConsciousness[]>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());
         } catch (JAXBException e){
             System.out.println("Could not load game from that path");
             System.out.println(e);
