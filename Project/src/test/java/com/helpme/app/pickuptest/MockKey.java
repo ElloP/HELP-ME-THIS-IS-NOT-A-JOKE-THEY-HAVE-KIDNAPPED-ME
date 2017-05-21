@@ -20,6 +20,6 @@ public class MockKey implements IKey {
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }

@@ -10,7 +10,10 @@ import java.util.List;
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockInventory implements IInventory{
+public class MockInventory implements IInventory {
+    boolean fullInventory;
+    boolean hasItem;
+
     @Override
     public boolean hasKey(IItem key) {
         return false;
@@ -43,7 +46,7 @@ public class MockInventory implements IInventory{
 
     @Override
     public boolean hasItem(IItem item) {
-        return false;
+        return hasItem;
     }
 
     @Override
@@ -68,7 +71,10 @@ public class MockInventory implements IInventory{
 
     @Override
     public boolean addItem(IItem item) {
-        return false;
+        if (fullInventory) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -83,7 +89,7 @@ public class MockInventory implements IInventory{
 
     @Override
     public boolean addStack(IItem item, int amount) {
-        return false;
+        return hasItem;
     }
 
     @Override

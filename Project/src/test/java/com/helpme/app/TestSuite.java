@@ -6,6 +6,7 @@ import com.helpme.app.bodytest.BodyTest;
 import com.helpme.app.consciousnesstest.ConsciousnessTest;
 import com.helpme.app.inventorytest.InventoryTest;
 import com.helpme.app.leveltest.LevelTest;
+import com.helpme.app.pickuptest.PickupTest;
 import com.helpme.app.selfietest.SelfieTest;
 import com.helpme.app.tiletest.TileTest;
 import com.helpme.app.traversetest.TraverseTest;
@@ -30,6 +31,7 @@ import org.junit.runner.RunWith;
         ReturnBehaviourTest.class,
         TraverseTest.class,
         AttackTest.class,
+        PickupTest.class,
         TileTest.class,
         SelfieTest.class})
 public class TestSuite {

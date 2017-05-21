@@ -15,7 +15,9 @@ public final class Pickup implements IItemVisitor<Boolean> {
 
     @Override
     public Boolean visit(IConsumable consumable) {
-        if(inventory.hasItem(consumable)){
+        if (consumable.getStacks() <= 0) {
+            return false;
+        } else if (inventory.hasItem(consumable)) {
             return inventory.addStack(consumable, consumable.getStacks());
         }
         return inventory.addItem(consumable);

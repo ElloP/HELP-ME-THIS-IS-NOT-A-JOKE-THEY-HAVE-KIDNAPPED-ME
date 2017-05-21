@@ -9,6 +9,8 @@ import com.helpme.app.world.item.effect.IEffect;
  * Created by kopa on 2017-05-20.
  */
 public class MockConsumable implements IConsumable {
+    int stacks = 3;
+
     @Override
     public String readName() {
         return null;
@@ -31,7 +33,7 @@ public class MockConsumable implements IConsumable {
 
     @Override
     public int getStacks() {
-        return 0;
+        return stacks;
     }
 
     @Override
@@ -51,6 +53,6 @@ public class MockConsumable implements IConsumable {
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }
