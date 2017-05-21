@@ -16,17 +16,15 @@ import java.util.Observer;
 public class GameController implements Observer {
     private PlayerController playerController;
     private Player player;
-    private Body body123;
-    private ILevel level;
+    //private ILevel level;
 
     public GameController(PlayerController playerController, Player player, ILevel level) {
         this.playerController = playerController;
         this.player = player;
         playerController.addObserver(this);
-        player.addObserver(this);
-        level.readPlayer().run(t -> this.body123 = (Body) t);
-        body123.addObserver(this);
-        this.level = level;
+        //player.addObserver(this);
+        level.readPlayer().run(b -> ((Body) b).addObserver(this));
+        //this.level = level;
     }
 
     @Override
@@ -56,11 +54,9 @@ public class GameController implements Observer {
             }
         } else if (arg instanceof GameEvent && o instanceof PlayerController) {
             GameEvent gameEvent = (GameEvent) arg;
-            System.out.println(player);
             switch (gameEvent) {
                 case MOV_FORWARD:
                     player.moveForward();
-                    System.out.println(gameEvent);
                     break;
                 case MOV_BACK:
                     player.moveBackward();

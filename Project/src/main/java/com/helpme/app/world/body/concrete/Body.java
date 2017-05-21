@@ -95,13 +95,12 @@ public class Body extends Observable implements IBody {
     private void move(Vector2f direction) {
         position = Vector2f.add(position, direction);
         setChanged();
-        notifyObservers(position);
+        notifyObservers(WorldEvent.Position);
     }
 
     @Override
     public void moveForward() {
         move(direction.forward());
-        System.out.println("SOMEONE WANTS TO MOVE FORWARD");
         setChanged();
         notifyObservers(WorldEvent.MOV_FORWARD);
     }

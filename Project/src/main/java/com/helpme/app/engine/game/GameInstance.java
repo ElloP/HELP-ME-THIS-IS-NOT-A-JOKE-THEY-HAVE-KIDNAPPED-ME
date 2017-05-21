@@ -35,8 +35,6 @@ public class GameInstance extends Game {
         scene.addChild(new LevelController(level));
         for (IReadBody body : level.readBodies()) {
             //if (!(playerCamera.getPosition().x() == body.readPosition().x || playerCamera.getPosition().z() == body.readPosition().y)){
-                System.out.println("Hello");
-                System.out.println(body.readPosition());
                 scene.addChild(new NPCView(body.readPosition().x, body.readPosition().y));
 
             //}
@@ -124,7 +122,6 @@ public class GameInstance extends Game {
             cameraController = new PlayerController(activeCamera, time);
         }
         cameraController.update();
-        //System.out.println(playerCamera.getPosition());
     }
 
     public void update(Time time) {

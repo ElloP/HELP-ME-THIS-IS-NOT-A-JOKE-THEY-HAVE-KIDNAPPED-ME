@@ -19,9 +19,9 @@ import java.util.List;
  * Copy of MockWorld0
  */
 public class Setup {
-    public ILevel level;
-    public Player player;
-    public IBody playerBody;
+    private ILevel level;
+    private Player player;
+    private IBody playerBody;
 
     public ILevel setup(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -101,5 +101,17 @@ public class Setup {
         this.level = level;
         this.level.setPlayer(playerBody);
         return level;
+    }
+
+    public ILevel getLevel() {
+        return level;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public IBody getPlayerBody() {
+        return playerBody;
     }
 }

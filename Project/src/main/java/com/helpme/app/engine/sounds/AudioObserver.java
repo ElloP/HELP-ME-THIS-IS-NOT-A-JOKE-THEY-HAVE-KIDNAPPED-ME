@@ -17,10 +17,13 @@ public class AudioObserver implements Observer {
 
     public AudioObserver(ArrayList<AbstractMonsterSource> monsterSources) {
         this.monsterSources = monsterSources;
+        System.out.println(monsterSources);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("Inside audioObserver");
+        System.out.println(arg);
         WorldEvent worldEvent = (WorldEvent) arg;
         switch (worldEvent) {
             case DEAD:
@@ -29,6 +32,9 @@ public class AudioObserver implements Observer {
                 healthEvent((IReadBody) o);
                 break;
             case Position:
+                posEvent((IReadBody) o);
+                break;
+            case MOV_FORWARD:
                 posEvent((IReadBody) o);
                 break;
             case Direction:

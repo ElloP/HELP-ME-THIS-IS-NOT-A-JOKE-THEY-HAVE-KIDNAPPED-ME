@@ -7,10 +7,18 @@ import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.game.GameInstance;
 import com.helpme.app.engine.game.controls.PlayerController;
 import com.helpme.app.engine.renderer.base.RenderCore;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.engine.sounds.AudioObserver;
+import com.helpme.app.engine.sounds.audio.AudioHandler;
+import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
+import com.helpme.app.engine.sounds.sources.MonsterSource;
+import com.helpme.app.engine.sounds.sources.PlayerSource;
+import com.helpme.app.engine.sounds.sources.Source;
 import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.world.level.ILevel;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * Authored by Olle on 2017-05-18.
@@ -27,14 +35,41 @@ public class Main {
         ILevel level = setup.setup();
 
         Time time = new Time();
-        Game game = new GameInstance(level, time, setup.playerBody.readPosition());
-        GameController gameController = new GameController((PlayerController) ((GameInstance)game).getCameraController(), setup.player, level);
+        Game game = new GameInstance(level, time, setup.getPlayerBody().readPosition());
+        GameController gameController = new GameController((PlayerController) ((GameInstance)game).getCameraController(), setup.getPlayer(), level);
+
+        try {
+            AudioHandler.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        AudioHandler.setListenerPos(setup.getPlayerBody().readPosition().x, setup.getPlayerBody().readPosition().y, 0);
+        int walkBuffer = 0;
+        int groanBuffer = 0;
+        try {
+            walkBuffer = AudioHandler.loadSound("src\\main\\java\\com\\helpme\\app\\engine\\sounds\\files\\Cowboy.wav");
+            groanBuffer = AudioHandler.loadSound("src\\main\\java\\com\\helpme\\app\\engine\\sounds\\files\\Groan.wav");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<AbstractMonsterSource> monsterSources = new ArrayList<>();
+        for (IReadBody body : level.readBodies()) {
+            monsterSources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition().x, body.readPosition().y, 0));
+        }
+        monsterSources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition().x, setup.getPlayerBody().readPosition().y, 0));
+        AudioObserver audioObserver = new AudioObserver(monsterSources);
+
+
 
         for (IReadBody body : level.readBodies()) {
             ((Body)body).addObserver(gameController);
+            ((Body)body).addObserver(audioObserver);
         }
+        ((Body)setup.getPlayerBody()).addObserver(audioObserver);
 
         EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game, time);
         ec.start();
+        AudioHandler.cleanUp();
     }
 }

@@ -69,7 +69,7 @@ public class AudioHandler {
         for (int buffer : buffers){
             AL10.alDeleteBuffers(buffer);
         }
+        ALC10.alcCloseDevice(device);
         ALC.destroy();
-        //ALC10.alcCloseDevice(device);
     }
 }

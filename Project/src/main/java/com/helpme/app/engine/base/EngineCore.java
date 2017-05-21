@@ -76,7 +76,7 @@ public class EngineCore {
 
                 if (frameCounter >= Time.SECOND) {
                     //TODO(Olle): render frames ingame instead of sout
-                    System.out.println(frames);
+                    //System.out.println(frames);
                     frames = 0;
                     frameCounter = 0;
                 }
