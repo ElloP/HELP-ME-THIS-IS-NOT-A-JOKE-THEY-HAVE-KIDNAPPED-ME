@@ -79,7 +79,7 @@ public class SaveTest {
         TestWorld mock = new TestWorld();
        // mock.player.setPlayerPosition(new Vector2f(1,1));
 
-        Enemy[] enemy = {(Enemy) mock.enemyConsciousness0};
+        IConsciousness[] enemy = {mock.enemyConsciousness0,mock.enemyConsciousness1 };
         SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();

@@ -54,7 +54,7 @@ public class Menu extends GameObject{
     }
     private Scene loadScene(){
         Scene scene = new Scene();
-        Tuple3<ILevel,IBody,IConsciousness[]> game = gameLoader.loadGame("text.xml");
+        Tuple3<ILevel,IBody,IConsciousness[]> game = gameLoader.loadGame("test.xml");
         IBody player = game.b;
 
         Vector2f playerPos = player.readPosition();

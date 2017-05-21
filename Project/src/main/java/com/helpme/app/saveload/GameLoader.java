@@ -62,7 +62,7 @@ public class GameLoader implements SaveLoad {
     public Tuple3<ILevel, IBody, IConsciousness[]> loadGame(String filePath) {
         try{
             SaveRoot saveRoot = unmarshall(filePath);
-            return new Tuple3<ILevel, IBody, IConsciousness[]>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());
+            return new Tuple3<>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());
         } catch (JAXBException e){
             System.out.println("Could not load game from that path");
             System.out.println(e);
