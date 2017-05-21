@@ -55,9 +55,9 @@ public class Main {
 
         ArrayList<AbstractMonsterSource> monsterSources = new ArrayList<>();
         for (IReadBody body : level.readBodies()) {
-            monsterSources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition().x, body.readPosition().y, 0));
+            monsterSources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition()));
         }
-        monsterSources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition().x, setup.getPlayerBody().readPosition().y, 0));
+        monsterSources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition()));
         AudioObserver audioObserver = new AudioObserver(monsterSources);
 
 

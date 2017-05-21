@@ -1,5 +1,6 @@
 package com.helpme.app.engine.sounds.sources;
 
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.world.body.IReadBody;
 
 /**
@@ -25,6 +26,9 @@ public abstract class AbstractMonsterSource {
         this.y = y;
         this.z = z;
         source.setPosition(x, y, z);
+    }
+    public AbstractMonsterSource(IReadBody monster, Source source, int walking, int breathing, int hurting, Vector2f position) {
+        this(monster, source, walking, breathing, hurting, position.x, position.y, 0);
     }
 
     public boolean equals(IReadBody otherMonster) {
