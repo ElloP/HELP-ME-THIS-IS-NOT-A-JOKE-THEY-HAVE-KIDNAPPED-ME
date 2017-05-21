@@ -5,7 +5,7 @@ import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.game.visitor.GenerateEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.tile.ITile;
 
 /**
  * Authored by Olle on 2017-05-02.

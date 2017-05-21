@@ -1,9 +1,9 @@
 package com.helpme.app.bodytest;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IReadItem;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IReadItem;
 
 import java.util.List;
 

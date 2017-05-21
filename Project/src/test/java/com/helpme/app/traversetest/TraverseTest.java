@@ -1,9 +1,6 @@
 package com.helpme.app.traversetest;
 
-import com.helpme.app.world.body.concrete.visitor.Traverse;
-import com.helpme.app.world.body.inventory.IKeyChain;
-import com.helpme.app.world.tile.edge.IEdge;
-import com.helpme.app.world.tile.edge.concrete.EdgeFactory;
+import com.helpme.app.model.body.concrete.visitor.Traverse;
 import org.junit.Before;
 import org.junit.Test;
 

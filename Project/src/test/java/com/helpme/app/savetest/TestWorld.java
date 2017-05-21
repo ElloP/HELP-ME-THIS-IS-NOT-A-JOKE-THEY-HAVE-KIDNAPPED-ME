@@ -1,21 +1,21 @@
 package com.helpme.app.savetest;
 
-import com.helpme.app.world.body.concrete.BodyFactory;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
-import com.helpme.app.world.consciousness.*;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.world.consciousness.behaviour.Comparison;
-import com.helpme.app.world.consciousness.behaviour.memories.concrete.MemoryFactory;
-import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.item.IItem;
+import com.helpme.app.model.body.concrete.BodyFactory;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.inventory.concrete.InventoryFactory;
+import com.helpme.app.model.consciousness.*;
+import com.helpme.app.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
+import com.helpme.app.model.consciousness.behaviour.Comparison;
+import com.helpme.app.model.consciousness.behaviour.memories.concrete.MemoryFactory;
+import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
+import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.model.item.IItem;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.item.concrete.ItemFactory;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.concrete.LevelFactory;
+import com.helpme.app.model.item.concrete.ItemFactory;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.level.concrete.LevelFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

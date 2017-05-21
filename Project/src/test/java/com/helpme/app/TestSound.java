@@ -1,16 +1,5 @@
 package com.helpme.app;
 
-import com.helpme.app.savetest.TestWorld;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
-import com.helpme.app.engine.sounds.audio.AudioHandler;
-import com.helpme.app.engine.sounds.AudioObserver;
-import com.helpme.app.engine.sounds.sources.PlayerSource;
-import com.helpme.app.engine.sounds.sources.MonsterSource;
-import com.helpme.app.engine.sounds.sources.Source;
-
-import java.util.ArrayList;
-
 /**
  * Created by Jesper on 2017-04-21.
  */

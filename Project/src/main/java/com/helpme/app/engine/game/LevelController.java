@@ -1,11 +1,10 @@
 package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.ICamera;
-import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.tile.ITile;
 
 import java.util.Map;
 

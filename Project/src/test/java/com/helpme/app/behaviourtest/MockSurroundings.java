@@ -2,13 +2,12 @@ package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.consciousness.IReadSurroundings;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.consciousness.IReadSurroundings;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.tile.ITile;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,12 +3,12 @@ package com.helpme.app.leveltest;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.concrete.LevelFactory;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.level.concrete.LevelFactory;
+import com.helpme.app.model.tile.ITile;
 import org.junit.Before;
 import org.junit.Test;
 

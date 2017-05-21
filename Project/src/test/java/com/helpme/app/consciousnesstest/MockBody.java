@@ -3,13 +3,13 @@ package com.helpme.app.consciousnesstest;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.edge.IEdge;
+import com.helpme.app.model.body.concrete.Body;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.body.inventory.IReadInventory;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.tile.edge.IEdge;
 
 import java.util.List;
 

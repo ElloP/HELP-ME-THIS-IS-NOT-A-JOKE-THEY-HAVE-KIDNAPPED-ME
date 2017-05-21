@@ -2,8 +2,8 @@ package com.helpme.app.consciousnesstest;
 
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
-import com.helpme.app.world.consciousness.IConsciousness;
+import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
+import com.helpme.app.model.consciousness.IConsciousness;
 import org.junit.Before;
 import org.junit.Test;
 

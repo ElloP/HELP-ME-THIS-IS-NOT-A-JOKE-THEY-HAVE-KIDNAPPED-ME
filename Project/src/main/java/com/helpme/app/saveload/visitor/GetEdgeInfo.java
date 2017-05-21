@@ -1,8 +1,8 @@
 package com.helpme.app.saveload.visitor;
 
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.item.IReadItem;
-import com.helpme.app.world.tile.edge.*;
+import com.helpme.app.model.item.IReadItem;
+import com.helpme.app.model.tile.edge.*;
 
 /**
  * Created by kopa on 2017-05-15.

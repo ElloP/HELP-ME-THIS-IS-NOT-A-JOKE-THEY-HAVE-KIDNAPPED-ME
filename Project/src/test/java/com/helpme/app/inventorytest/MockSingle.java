@@ -1,13 +1,9 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.world.item.IItemVisitor;
-import com.helpme.app.world.item.ISingle;
-import com.helpme.app.world.item.concrete.Consumable;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.concrete.Item;
-import com.helpme.app.world.item.concrete.Key;
-import com.helpme.app.world.item.concrete.Single;
-import com.helpme.app.world.item.effect.IEffect;
+import com.helpme.app.model.item.IItemVisitor;
+import com.helpme.app.model.item.ISingle;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-05-12.

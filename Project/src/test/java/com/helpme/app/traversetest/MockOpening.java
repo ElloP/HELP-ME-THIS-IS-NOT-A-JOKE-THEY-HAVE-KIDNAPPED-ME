@@ -1,7 +1,7 @@
 package com.helpme.app.traversetest;
 
-import com.helpme.app.world.tile.edge.IEdgeVisitor;
-import com.helpme.app.world.tile.edge.IOpening;
+import com.helpme.app.model.tile.edge.IEdgeVisitor;
+import com.helpme.app.model.tile.edge.IOpening;
 
 /**
  * Created by kopa on 2017-05-20.

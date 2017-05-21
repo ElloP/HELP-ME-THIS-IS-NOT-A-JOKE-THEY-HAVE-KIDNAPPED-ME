@@ -1,13 +1,12 @@
 package com.helpme.app.engine.game.controls;
 
 import com.helpme.app.engine.ICamera;
-import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.Lerper;
 import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.world.consciousness.concrete.Player;
+import com.helpme.app.model.consciousness.concrete.Player;
 
 /**
  * Authored by Olle on 2017-05-15.

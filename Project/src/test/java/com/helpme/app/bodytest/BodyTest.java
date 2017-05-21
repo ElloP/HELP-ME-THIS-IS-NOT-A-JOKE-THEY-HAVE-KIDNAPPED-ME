@@ -1,8 +1,8 @@
 package com.helpme.app.bodytest;
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.world.body.concrete.BodyFactory;
-import com.helpme.app.world.body.IBody;
+import com.helpme.app.model.body.concrete.BodyFactory;
+import com.helpme.app.model.body.IBody;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package com.helpme.app.engine.sounds.sources;
 
-import com.helpme.app.world.body.IReadBody;
+import com.helpme.app.model.body.IReadBody;
 
 /**
  * Created by Jesper on 2017-04-24.

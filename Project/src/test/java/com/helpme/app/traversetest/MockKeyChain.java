@@ -1,7 +1,7 @@
 package com.helpme.app.traversetest;
 
-import com.helpme.app.world.body.inventory.IKeyChain;
-import com.helpme.app.world.item.IItem;
+import com.helpme.app.model.body.inventory.IKeyChain;
+import com.helpme.app.model.item.IItem;
 
 /**
  * Created by kopa on 2017-05-20.

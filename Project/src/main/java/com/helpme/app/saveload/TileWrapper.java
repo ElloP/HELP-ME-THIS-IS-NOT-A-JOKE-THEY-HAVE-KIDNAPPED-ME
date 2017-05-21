@@ -3,12 +3,12 @@ package com.helpme.app.saveload;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IReadItem;
-import com.helpme.app.world.tile.IReadTile;
-import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.concrete.TileFactory;
-import com.helpme.app.world.tile.edge.IEdge;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IReadItem;
+import com.helpme.app.model.tile.IReadTile;
+import com.helpme.app.model.tile.ITile;
+import com.helpme.app.model.tile.concrete.TileFactory;
+import com.helpme.app.model.tile.edge.IEdge;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

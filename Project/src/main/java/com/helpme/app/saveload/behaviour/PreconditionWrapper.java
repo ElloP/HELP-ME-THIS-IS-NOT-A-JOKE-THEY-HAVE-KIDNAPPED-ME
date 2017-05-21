@@ -2,7 +2,7 @@ package com.helpme.app.saveload.behaviour;
 
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.consciousness.behaviour.Comparison;
+import com.helpme.app.model.consciousness.behaviour.Comparison;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.AbstractMap;

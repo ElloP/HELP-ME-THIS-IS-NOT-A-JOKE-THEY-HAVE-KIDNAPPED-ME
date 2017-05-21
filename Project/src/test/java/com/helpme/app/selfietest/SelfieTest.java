@@ -1,7 +1,7 @@
 package com.helpme.app.selfietest;
 
 
-import com.helpme.app.world.body.concrete.visitor.Selfie;
+import com.helpme.app.model.body.concrete.visitor.Selfie;
 import org.junit.Before;
 import org.junit.Test;
 

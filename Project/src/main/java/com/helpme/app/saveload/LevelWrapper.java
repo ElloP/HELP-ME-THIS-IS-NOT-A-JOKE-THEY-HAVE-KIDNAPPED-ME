@@ -3,14 +3,13 @@ package com.helpme.app.saveload;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.ILoadable;
-import com.helpme.app.world.consciousness.IReadSurroundings;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.concrete.LevelFactory;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.consciousness.IReadSurroundings;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.level.concrete.LevelFactory;
+import com.helpme.app.model.tile.ITile;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

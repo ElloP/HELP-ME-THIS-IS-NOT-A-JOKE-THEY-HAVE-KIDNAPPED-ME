@@ -1,8 +1,8 @@
 package com.helpme.app.traversetest;
 
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.edge.IDoor;
-import com.helpme.app.world.tile.edge.IEdgeVisitor;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.tile.edge.IDoor;
+import com.helpme.app.model.tile.edge.IEdgeVisitor;
 
 /**
  * Created by kopa on 2017-05-20.

@@ -7,13 +7,12 @@ import com.helpme.app.saveload.GameLoader;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.concrete.Enemy;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.concrete.LevelFactory;
-import com.helpme.app.world.tile.edge.concrete.Door;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.level.concrete.LevelFactory;
+import com.helpme.app.model.tile.edge.concrete.Door;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class Menu extends GameObject{
         }
     }
     public Scene getSelected(){
-        if(options[curr] == "menuload") return loadScene();
+        if(options[curr].equals("menuload")) return loadScene();
         else { return loadNewGame();}
     }
     private Scene loadScene(){
