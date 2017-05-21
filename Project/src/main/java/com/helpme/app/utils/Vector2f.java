@@ -5,7 +5,7 @@ import java.nio.FloatBuffer;
 /**
  * Authored by Olle on 2017-03-30.
  */
-public class Vector2f {
+public class Vector2f implements Cloneable {
     private static final float RIGHT_ANGLE = (float) Math.PI / 2;
 
     public float x;
@@ -53,6 +53,10 @@ public class Vector2f {
     }
     @Override
     public boolean equals(Object o){
+        if(o == null || !(o instanceof Vector2f)) {
+            return false;
+        }
+
         Vector2f vec0 = (Vector2f) o;
         return vec0.x == x && vec0.y == y;
     }

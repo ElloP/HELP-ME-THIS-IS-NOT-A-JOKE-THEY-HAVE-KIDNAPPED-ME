@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
  * Authored by Olle on 2017-04-11.
  */
 // ----------- Wrapper for Vector4f -----------
-public class Vector3f {
+public class Vector3f implements Cloneable{
     // ----------- Variables -----------
     protected org.joml.Vector3f vector;
 
@@ -150,8 +150,14 @@ public class Vector3f {
     }
 
 
+    @Override
     public boolean equals(Object o) {
         return this.vector.equals(o);
+    }
+
+    @Override
+    public int hashCode(){
+        return this.vector.hashCode();
     }
 
 

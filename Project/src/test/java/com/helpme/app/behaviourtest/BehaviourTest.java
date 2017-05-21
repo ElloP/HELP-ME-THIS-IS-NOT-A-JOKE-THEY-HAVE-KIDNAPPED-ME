@@ -1,10 +1,6 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.functions.IAction;
-import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.consciousness.behaviour.IBehaviour;
 import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
 import com.helpme.app.world.consciousness.behaviour.Comparison;
@@ -17,13 +13,12 @@ import java.util.Map;
 /**
  * Created by kopa on 2017-05-15.
  */
+
 public class BehaviourTest {
-    private MockPlayer mockPlayer;
     private MockMemory mockMemory;
 
     @Before
     public void setup() {
-        mockPlayer = new MockPlayer();
         mockMemory = new MockMemory();
     }
 

@@ -31,7 +31,8 @@ public class InventoryTest {
     public void testPickupItem() {
         IItem mockPickup = new MockSingle("Pickup");
         inventory.addItem(mockPickup);
-        assert (inventory.getItem(1).equals(mockPickup));
+        Maybe<IItem> maybeItem = inventory.getItem(1);
+        assert (maybeItem.check(item -> item.equals(mockPickup)));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.helpme.app.world.body;
 
+import com.helpme.app.utils.interfaces.ICloneable;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.world.body.inventory.IInventory;
 import com.helpme.app.world.item.effect.ITarget;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IBody extends IReadBody {
+public interface IBody extends IReadBody, ICloneable {
     void rotateRight();
     void rotateLeft();
     void moveForward();
@@ -27,7 +28,6 @@ public interface IBody extends IReadBody {
     List<Maybe<IItem>> dropAllItems();
     IInventory getInventory();
     void setItems(IItem[] items);
-    IBody clone();
 
     void kill();
 }

@@ -53,7 +53,6 @@ public class SaveTest {
     private JAXBContext context;
     private IItem[] items;
     private IInventory inventory;
-    private IBody Body;
     private Vector2f hitpoints;
 
     @Before

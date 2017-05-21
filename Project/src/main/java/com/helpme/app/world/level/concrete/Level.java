@@ -222,7 +222,7 @@ public class Level implements ILevel {
                 }
                 positions.add(pos);
             }
-            notAdded.removeAll(notAdded);
+            notAdded.clear();
             notAdded.addAll(temp);
         }
         positions.addAll(notAdded);

@@ -15,6 +15,11 @@ public class Just<T> extends Maybe<T> {
 
     @Override
     public boolean equals(Object o) {
-        return o.equals(getValue());
+        return o != null && o.equals(getValue());
+    }
+
+    @Override
+    public int hashCode(){
+        return getValue().hashCode();
     }
 }

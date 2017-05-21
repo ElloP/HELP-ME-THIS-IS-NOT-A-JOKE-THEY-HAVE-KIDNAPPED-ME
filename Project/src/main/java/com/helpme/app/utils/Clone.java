@@ -18,7 +18,7 @@ public abstract class Clone {
 
     public static <T extends ICloneable<T>> List<T> toList(T[] array) {
         if (array == null) {
-            return null;
+            return new ArrayList<>();
         }
         List<T> list = new ArrayList<>();
         for (T a : array) {
@@ -33,7 +33,7 @@ public abstract class Clone {
 
     public static <T extends ICloneable<T>> List<Maybe<T>> toMaybeList(T[] array) {
         if (array == null) {
-            return null;
+            return new ArrayList<>();
         }
         List<Maybe<T>> list = new ArrayList<>();
         for (T a : array) {
@@ -48,8 +48,9 @@ public abstract class Clone {
 
     public static <T extends ICloneable<T>> T[] array(T[] array) {
         if (array == null) {
-            return null;
+            return array;
         }
+
         array = array.clone();
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {

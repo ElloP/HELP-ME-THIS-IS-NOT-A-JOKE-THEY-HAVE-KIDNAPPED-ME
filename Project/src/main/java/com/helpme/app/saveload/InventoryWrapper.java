@@ -73,18 +73,20 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     }
 
     public String toString() {
-        String result = "\nInventory: ";
+        StringBuilder result = new StringBuilder();
+        result.append("\nInventory: ");
+
         if(items != null){
             for (ItemWrapper item : items) {
-                if (item != null) result += "\n\tItem:\t" + (item.getName());
+                if (item != null) result.append("\n\tItem:\t" + (item.getName()));
             }
         }
         if(keys != null){
             for (ItemWrapper key : keys) {
-                if (key != null) result += "\n\tKey:\t" + (key.getName());
+                if (key != null) result.append("\n\tKey:\t" + (key.getName()));
             }
         }
-        return result;
+        return result.toString();
     }
 
     @Override

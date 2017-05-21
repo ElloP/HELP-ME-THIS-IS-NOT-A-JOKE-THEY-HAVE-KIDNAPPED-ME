@@ -28,11 +28,9 @@ public class LevelWrapper implements ILoadable<ILevel> {
 
         Map<Vector2f, ITile> levelTiles = level.getTiles();
         this.tiles = new TileWrapper[levelTiles.size()];
-        Iterator<Vector2f> keys = levelTiles.keySet().iterator();
         int i = 0;
-        while(keys.hasNext()){
-            Vector2f tmp = keys.next();
-            this.tiles[i] = new TileWrapper(levelTiles.get(tmp),tmp);
+        for(Map.Entry<Vector2f, ITile> entry: levelTiles.entrySet()){
+            this.tiles[i] = new TileWrapper(entry.getValue(), entry.getKey());
             i++;
         }
     }
@@ -40,11 +38,11 @@ public class LevelWrapper implements ILoadable<ILevel> {
     public TileWrapper[] getTiles() {return this.tiles; }
     public void setTiles(TileWrapper[] tiles){ this.tiles = tiles;}
     public String toString(){
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for(TileWrapper t : tiles){
-            result += "\n" + t;
+            result.append("\n" + t);
         }
-        return result;
+        return result.toString();
     }
     @XmlElement(name="StartingPosition")
     public Vector2Wrapper getStartingPosition(){

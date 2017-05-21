@@ -78,8 +78,9 @@ public final class LevelFactory {
     }
 
     private static Map<Vector2f, ITile> generateEdges(Map<Vector2f, ITile> tiles) {
-        for (Vector2f position : tiles.keySet()) {
-            ITile tile = tiles.get(position);
+        for (Map.Entry<Vector2f, ITile> entry : tiles.entrySet()) {
+            ITile tile = entry.getValue();
+            Vector2f position = entry.getKey();
             tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.north)) == null ? new Wall() : new Opening(), Vector2f.north);
             tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.east)) == null ? new Wall() : new Opening(), Vector2f.east);
             tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.south)) == null ? new Wall() : new Opening(), Vector2f.south);

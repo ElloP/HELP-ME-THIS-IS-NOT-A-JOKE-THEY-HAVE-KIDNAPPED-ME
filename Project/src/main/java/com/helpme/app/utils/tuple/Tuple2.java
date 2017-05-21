@@ -10,4 +10,9 @@ public class Tuple2<A,B> implements Cloneable{
         this.a = a;
         this.b = b;
     }
+
+    @Override
+    public Tuple2<A, B> clone(){
+        return new Tuple2<>(a, b);
+    }
 }

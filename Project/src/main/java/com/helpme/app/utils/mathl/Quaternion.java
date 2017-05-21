@@ -5,7 +5,7 @@ import org.joml.Quaternionf;
 /**
  * Authored by Olle on 2017-04-13.
  */
-public class Quaternion {
+public class Quaternion implements Cloneable {
     protected Quaternionf quaternion;
 
     // ----------- Constructors -----------

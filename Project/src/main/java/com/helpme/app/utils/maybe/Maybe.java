@@ -93,5 +93,7 @@ public abstract class Maybe<T> {
         return list;
     }
 
+    @Override
+    public abstract boolean equals(Object o);
 
 }

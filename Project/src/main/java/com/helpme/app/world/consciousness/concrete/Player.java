@@ -10,7 +10,7 @@ import com.helpme.app.world.consciousness.ISurroundings;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public class Player extends Consciousness implements IConsciousness {
+public class Player extends Consciousness {
 
     public Player(IBody body, ISurroundings level) {
         super(body, level);

@@ -52,6 +52,8 @@ public final class InputHandler {
                 case RELEASE:
                     list[key] = InputState.UP;
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -67,6 +69,8 @@ public final class InputHandler {
                 if (action != GLFW_RELEASE) {
                     list[index] = InputState.PRESS;
                 }
+                break;
+            default:
                 break;
         }
     }
@@ -112,11 +116,11 @@ public final class InputHandler {
         return mouseButtons[mousecode] == InputState.RELEASE;
     }
 
-    static boolean isMouseEntered(){
+    static boolean isMouseEntered() {
         return entered;
     }
 
-    static Vector2f getMousePosition(){
+    static Vector2f getMousePosition() {
         return mousePosition.clone();
     }
 }

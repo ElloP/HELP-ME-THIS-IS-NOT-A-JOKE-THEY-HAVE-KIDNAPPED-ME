@@ -85,20 +85,20 @@ public class TileWrapper implements ILoadable<ITile> {
     }
 
     public String toString() {
-        String result = "";
-        result += "Tile at " + positionWrapper;
+        StringBuilder result = new StringBuilder();
+        result.append("Tile at " + positionWrapper);
         if (itemWrappers != null) {
             for (ItemWrapper item : itemWrappers) {
-                if (item != null) result += "\nItem: " + (item.getName());
+                if (item != null) result.append("\nItem: " + (item.getName()));
             }
         }
 
         if(edgeWrappers != null){
             for(Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()){
-                if(entry != null) result += "\nEdge: " + (entry.getValue().toString()) + " facing " + entry.getKey().toString();
+                if(entry != null) result.append("\nEdge: " + (entry.getValue().toString()) + " facing " + entry.getKey().toString());
             }
         }
-        return result;
+        return result.toString();
     }
 
     @Override

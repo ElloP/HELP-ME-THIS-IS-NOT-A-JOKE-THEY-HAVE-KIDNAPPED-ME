@@ -51,7 +51,7 @@ public class FollowWrapper implements ILoadable<IBehaviour> {
         return followingEvent;
     }
 
-    public void setFollowingEvent() {
+    public void setFollowingEvent(String followingEvent) {
         this.followingEvent = followingEvent;
     }
 
