@@ -9,10 +9,10 @@ import java.util.Map;
  * Created by kopa on 2017-05-17.
  */
 public class Memory implements IMemory {
-    Map<String, Integer> shortTerm;
-    Map<String, Integer> longTerm;
+    private Map<String, Integer> shortTerm;
+    private Map<String, Integer> longTerm;
 
-    public Memory(Map<String, Integer> shortTerm, Map<String, Integer> longTerm){
+    public Memory(Map<String, Integer> shortTerm, Map<String, Integer> longTerm) {
         this.shortTerm = shortTerm;
         this.longTerm = longTerm;
     }
@@ -20,32 +20,22 @@ public class Memory implements IMemory {
     @Override
     public Map<String, Integer> readMemory() {
         Map<String, Integer> combined = new HashMap<>();
-        for(Map.Entry<String, Integer> entry : longTerm.entrySet()){
-            combined.put(entry.getKey(), entry.getValue());
-        }
-
-        for(Map.Entry<String, Integer> entry : shortTerm.entrySet()){
-            combined.put(entry.getKey(), entry.getValue());
-        }
-
+        combined.putAll(longTerm);
+        combined.putAll(shortTerm);
         return combined;
     }
 
     @Override
     public Map<String, Integer> readShortTerm() {
         Map<String, Integer> clone = new HashMap<>();
-        for(Map.Entry<String, Integer> entry : shortTerm.entrySet()){
-            clone.put(entry.getKey(), entry.getValue());
-        }
+        clone.putAll(shortTerm);
         return clone;
     }
 
     @Override
     public Map<String, Integer> readLongTerm() {
         Map<String, Integer> clone = new HashMap<>();
-        for(Map.Entry<String, Integer> entry : longTerm.entrySet()){
-            clone.put(entry.getKey(), entry.getValue());
-        }
+        clone.putAll(longTerm);
         return clone;
     }
 
@@ -67,7 +57,7 @@ public class Memory implements IMemory {
 
     @Override
     public void updateLongTermMemory(String name, int value) {
-
+        longTerm.put(name, value);
     }
 
     @Override
