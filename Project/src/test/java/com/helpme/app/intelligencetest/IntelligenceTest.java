@@ -9,8 +9,8 @@ import org.junit.Test;
  * Created by kopa on 2017-05-22.
  */
 public class IntelligenceTest {
-    MockBody mockBody;
-    MockSurroundings mockSurroundings;
+    private MockBody mockBody;
+    private MockSurroundings mockSurroundings;
 
     @Before
     public void setup(){
