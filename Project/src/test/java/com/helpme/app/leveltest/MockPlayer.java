@@ -17,6 +17,7 @@ import java.util.List;
  * Created by kopa on 2017-05-15.
  */
 public class MockPlayer implements IBody {
+    Vector2f position = Vector2f.ZERO;
     Vector2f direction = new Vector2f(1,0);
     boolean traversable;
 
@@ -67,7 +68,7 @@ public class MockPlayer implements IBody {
 
     @Override
     public void setPosition(Vector2f position) {
-
+        this.position = position;
     }
 
     @Override
@@ -122,7 +123,7 @@ public class MockPlayer implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return Vector2f.ZERO;
+        return position;
     }
 
     @Override

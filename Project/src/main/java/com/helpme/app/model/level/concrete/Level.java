@@ -97,21 +97,23 @@ public class Level implements ILevel {
     }
 
     @Override
-    public void addTileItem(Vector2f position, IItem item) {
+    public boolean addTileItem(Vector2f position, IItem item) {
         ITile tile = tiles.get(position);
         if (tile == null || item == null) {
-            return;
+            return false;
         }
         tile.addItem(item);
+        return true;
     }
 
     @Override
-    public void addTileItems(Vector2f position, List<Maybe<IItem>> items) {
+    public boolean addTileItems(Vector2f position, List<Maybe<IItem>> items) {
         ITile tile = tiles.get(position);
         if (tile == null || items == null) {
-            return;
+            return false;
         }
         tile.addItems(items);
+        return true;
     }
 
     @Override

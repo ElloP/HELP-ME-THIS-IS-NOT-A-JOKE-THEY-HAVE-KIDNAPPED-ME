@@ -117,16 +117,23 @@ public class LevelTest {
     }
 
     @Test
-    public void testReadFacingSuccess() {
+    public void testReadFacing() {
         mockBody.traversable = true;
         Maybe<IReadBody> facing = level.readFacing(mockBody);
         assert (facing.getValue() instanceof MockPlayer);
     }
 
     @Test
-    public void testReadFacingFailure() {
+    public void testReadFacingNoBody() {
         mockPlayer.traversable = true;
         Maybe<IReadBody> facing = level.readFacing(mockPlayer);
+        assert (facing instanceof Nothing);
+    }
+
+    @Test
+    public void testReadFacingDirectionBlocked(){
+        mockPlayer.traversable = false;
+        Maybe<IReadBody> facing = level.readFacing(mockBody);
         assert (facing instanceof Nothing);
     }
 
@@ -169,6 +176,21 @@ public class LevelTest {
     }
 
     @Test
+    public void testAddTileItemsInvalidTile(){
+        List<Maybe<IItem>> mockItems = new ArrayList<>();
+        MockItem mockItem = new MockItem("mockItem");
+        mockItems.add(new Just<>(mockItem));
+
+        assert (!level.addTileItems(new Vector2f(8,8), mockItems));
+    }
+
+    @Test
+    public void testAddTileItemsInvalidItemList(){
+        List<Maybe<IItem>> mockItems = null;
+        assert (!level.addTileItems(Vector2f.ZERO, mockItems));
+    }
+
+    @Test
     public void testAddTileItem() {
         MockItem mockItem = new MockItem("mockItem0");
 
@@ -177,6 +199,18 @@ public class LevelTest {
 
         assert (tileItems.size() == 1 &&
                 tileItems.contains(new Just<>(mockItem)));
+    }
+
+    @Test
+    public void testAddTileItemInvalidTile() {
+        MockItem mockItem = new MockItem("mockItem0");
+        assert (!level.addTileItem(new Vector2f(8, 8), mockItem));
+    }
+
+    @Test
+    public void testAddTileItemInvalidItem() {
+        MockItem mockItem = null;
+        assert (!level.addTileItem(Vector2f.ZERO, mockItem));
     }
 
     @Test
@@ -256,26 +290,26 @@ public class LevelTest {
 
     @Test
     public void testIsWithinRange() {
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(1,0), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-1,0), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0,1), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0,-1), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(1,1), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-1,1), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(1,-1), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-1,-1), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(2,0), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-2,0), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0,2), 2));
-        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0,-2), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(1, 0), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-1, 0), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0, 1), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0, -1), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(1, 1), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-1, 1), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(1, -1), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-1, -1), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(2, 0), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(-2, 0), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0, 2), 2));
+        assert (level.isWithinRange(Vector2f.ZERO, new Vector2f(0, -2), 2));
     }
 
     @Test
     public void testIsNotWithinRange() {
-        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(1,1), 1));
-        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(-1,1), 1));
-        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(1,-1), 1));
-        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(-1,-1), 1));
+        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(1, 1), 1));
+        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(-1, 1), 1));
+        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(1, -1), 1));
+        assert (!level.isWithinRange(Vector2f.ZERO, new Vector2f(-1, -1), 1));
     }
 
 
@@ -289,7 +323,7 @@ public class LevelTest {
     @Test
     public void testAddBodyInvalidTile() {
         MockBody newBody = new MockBody();
-        newBody.position = new Vector2f(8,8);
+        newBody.position = new Vector2f(8, 8);
         assert (!level.addBody(newBody) && !level.readBodies().contains(newBody));
     }
 
@@ -300,5 +334,15 @@ public class LevelTest {
         assert (!level.addBody(newBody) && !level.readBodies().contains(newBody));
     }
 
+    @Test
+    public void testResetPlayer() {
+        mockPlayer.setPosition(new Vector2f(8, 8));
+        level.resetPlayer();
+        assert (mockPlayer.readPosition().equals(Vector2f.ZERO));
+    }
 
+    @Test
+    public void testReadStartingPosition(){
+        assert (level.readStartingPoint().equals(Vector2f.ZERO));
+    }
 }

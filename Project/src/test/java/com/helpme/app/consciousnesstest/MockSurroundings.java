@@ -28,13 +28,14 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public void addTileItem(Vector2f position, IItem item) {
+    public boolean addTileItem(Vector2f position, IItem item) {
         tileItems++;
+        return true;
     }
 
     @Override
-    public void addTileItems(Vector2f position, List<Maybe<IItem>> items) {
-
+    public boolean addTileItems(Vector2f position, List<Maybe<IItem>> items) {
+        return true;
     }
 
     @Override
