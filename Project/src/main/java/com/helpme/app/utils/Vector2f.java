@@ -112,18 +112,24 @@ public class Vector2f implements Cloneable {
         return new Vector2f(vec0.x * scalar, vec0.y * scalar);
     }
 
-    public static Vector2f multiply(Matrix2f mat0, Vector2f vec0) {
+    //Note(Olle): simulates multiplication with a 2x2 matrix
+    public static Vector2f multiply(float[][] mat0, Vector2f vec0) {
         Vector2f result = new Vector2f(0, 0);
-        result.x = mat0.matrix[0][0] * vec0.x + mat0.matrix[1][0] * vec0.y;
-        result.y = mat0.matrix[0][1] * vec0.x + mat0.matrix[1][1] * vec0.y;
+        result.x = mat0[0][0] * vec0.x + mat0[0][1] * vec0.y;
+        result.y = mat0[1][0] * vec0.x + mat0[1][1] * vec0.y;
         return result;
     }
 
     public static Vector2f rotateI(Vector2f vec0, float radians) {
-        radians = -radians; // N    OTE (Jacob): To make the default rotation clockwise
-        Matrix2f rotationMatrix = new Matrix2f(
-                (float) Math.cos(radians), (float) -Math.sin(radians),
-                (float) Math.sin(radians), (float) Math.cos(radians));
+        radians = -radians; // NOTE (Jacob): To make the default rotation clockwise
+        float[][] rotationMatrix = new float[][] {
+                {
+                    (float) Math.cos(radians), (float) -Math.sin(radians)
+                },
+                {
+                    (float) Math.sin(radians), (float) Math.cos(radians)
+                }
+        };
         return Vector2f.multiply(rotationMatrix, vec0).toInt();
     }
 
