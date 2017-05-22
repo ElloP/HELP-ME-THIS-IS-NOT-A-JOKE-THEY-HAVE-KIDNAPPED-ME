@@ -11,7 +11,7 @@ import com.helpme.app.world.consciousness.concrete.Player;
 /**
  * Authored by Olle on 2017-05-15.
  */
-public class PlayerController extends CameraController{
+public class PlayerCamera extends CameraController{
     private Lerper lerper;
 
     private boolean moving = false;
@@ -24,11 +24,11 @@ public class PlayerController extends CameraController{
 
     private final float moveLength = 6.0f;
 
-    public PlayerController(ICamera camera, Time time) {
+    public PlayerCamera(ICamera camera, Time time) {
         super(camera, time);
     }
 
-    public PlayerController(ICamera camera, Time time, float rotationDuration, float movementDuration) {
+    public PlayerCamera(ICamera camera, Time time, float rotationDuration, float movementDuration) {
         this(camera, time);
         this.rotationDuration = rotationDuration;
         this.movementDuration = movementDuration;

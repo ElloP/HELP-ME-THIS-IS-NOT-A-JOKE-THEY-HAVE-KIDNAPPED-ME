@@ -3,21 +3,12 @@ package com.helpme.app.engine.game;
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.controls.CameraController;
-import com.helpme.app.engine.game.controls.PlayerController;
+import com.helpme.app.engine.game.controls.PlayerCamera;
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.utils.tuple.Tuple3;
 
-import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.level.*;
-import com.helpme.app.world.level.concrete.LevelFactory;
-import com.helpme.app.world.tile.edge.concrete.Door;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
@@ -29,8 +20,8 @@ public class GameInstance extends Game {
     private ICamera playerCamera; // = new Camera();
     private CameraController cameraController;
 
-    private Menu menu;
-    private boolean loaded = false;
+    //private Menu menu;
+    //private boolean loaded = false;
     private UIRenderer health;
 
     //TODO (Jesper): Just for getting it to work with model
@@ -42,7 +33,7 @@ public class GameInstance extends Game {
         this.playerCamera = new Camera(playerPos);
         activeCamera = playerCamera;
         if (cameraController == null) {
-            cameraController = new PlayerController(activeCamera, time);
+            cameraController = new PlayerCamera(activeCamera, time);
         }
 
         scene.addChild(new LevelController(level));
@@ -51,19 +42,23 @@ public class GameInstance extends Game {
         }
         health = new UIRenderer("health", new Vector2f(1300, 800), 2);
         scene.addChild(health);
-        this.menu = new Menu();
-        scene.addChild(menu);
+        //this.menu = new Menu();
+        //scene.addChild(menu);
         this.level = level;
         this.playerPos = playerPos;
     }
 
-    public GameInstance() {
+    /*public GameInstance() {
         this.menu = new Menu();
         scene.addChild(menu);
+    }'/
+
+    public GameInstance(Scene scene) {
+        this.scene = scene;
     }
-    public CameraController getCameraController() {
+    /*public CameraController getCameraController() {
         return cameraController;
-    }
+    }*/
 
     private ILevel testLevel(){
         /*List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
@@ -126,16 +121,11 @@ public class GameInstance extends Game {
         return null;
     }
 
-    public void updateHealth(int newHealth) {
-        if (newHealth > 80) {
-            health.setTexture("health");
-        } else if (newHealth <= 80 && newHealth > 60) {
-            health.setTexture("health80");
-        }
-    }
+
 
     public void input(Time time) {
-        if(!loaded){
+        //activeScene.input(time);
+        /*if(!loaded){
             if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
                 menu.up();
             }
@@ -149,12 +139,13 @@ public class GameInstance extends Game {
             }
         } else{
             if(cameraController == null) {
-                cameraController = new PlayerController(activeCamera, time);
+                cameraController = new PlayerCamera(activeCamera, time);
             }
             cameraController.update();
-        }
+        }*/
 
     }
+
 
     public void update(Time time) {
         //TODO(Olle): update game

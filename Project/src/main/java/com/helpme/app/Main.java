@@ -1,11 +1,12 @@
 package com.helpme.app;
 
+import com.helpme.app.controller.PlayerController;
 import com.helpme.app.engine.base.EngineCore;
 import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.game.GameInstance;
-import com.helpme.app.engine.game.controls.PlayerController;
+import com.helpme.app.engine.game.controls.PlayerCamera;
 import com.helpme.app.engine.renderer.base.RenderCore;
 import com.helpme.app.engine.sounds.AudioObserver;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
@@ -36,7 +37,7 @@ public class Main {
 
         Time time = new Time();
         Game game = new GameInstance(level, time, setup.getPlayerBody().readPosition());
-        GameController gameController = new GameController((PlayerController) ((GameInstance)game).getCameraController(), setup.getPlayer(), level);
+        PlayerController playerController = new PlayerController((PlayerCamera) ((GameInstance)game).getCameraController(), setup.getPlayer(), level);
 
         try {
             AudioHandler.init();
@@ -63,7 +64,7 @@ public class Main {
 
 
         for (IReadBody body : level.readBodies()) {
-            ((Body)body).addObserver(gameController);
+            ((Body)body).addObserver(playerController);
             ((Body)body).addObserver(audioObserver);
         }
         ((Body)setup.getPlayerBody()).addObserver(audioObserver);

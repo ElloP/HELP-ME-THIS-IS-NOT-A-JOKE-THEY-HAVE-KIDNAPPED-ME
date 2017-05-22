@@ -1,7 +1,7 @@
-package com.helpme.app;
+package com.helpme.app.controller;
 
 import com.helpme.app.engine.game.controls.GameEvent;
-import com.helpme.app.engine.game.controls.PlayerController;
+import com.helpme.app.engine.game.controls.PlayerCamera;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.world.body.concrete.visitor.WorldEvent;
 import com.helpme.app.world.consciousness.concrete.Player;
@@ -13,15 +13,15 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-05-20.
  */
-public class GameController implements Observer {
-    private PlayerController playerController;
+public class PlayerController implements Observer {
+    private PlayerCamera playerCamera;
     private Player player;
     //private ILevel level;
 
-    public GameController(PlayerController playerController, Player player, ILevel level) {
-        this.playerController = playerController;
+    public PlayerController(PlayerCamera playerCamera, Player player, ILevel level) {
+        this.playerCamera = playerCamera;
         this.player = player;
-        playerController.addObserver(this);
+        playerCamera.addObserver(this);
         //player.addObserver(this);
         level.readPlayer().run(b -> ((Body) b).addObserver(this));
         //this.level = level;
@@ -33,26 +33,26 @@ public class GameController implements Observer {
             WorldEvent worldEvent = (WorldEvent) arg;
             switch (worldEvent) {
                 case MOV_FORWARD:
-                    playerController.moveForward();
+                    playerCamera.moveForward();
                     break;
                 case MOV_BACK:
-                    playerController.moveBack();
+                    playerCamera.moveBack();
                     break;
                 case MOV_LEFT:
-                    playerController.moveLeft();
+                    playerCamera.moveLeft();
                     break;
                 case MOV_RIGHT:
-                    playerController.moveRight();
+                    playerCamera.moveRight();
                     break;
                 case ROT_LEFT:
-                    playerController.rotateLeft();
+                    playerCamera.rotateLeft();
                     break;
                 case ROT_RIGHT:
-                    playerController.rotateRight();
+                    playerCamera.rotateRight();
                     break;
 
             }
-        } else if (arg instanceof GameEvent && o instanceof PlayerController) {
+        } else if (arg instanceof GameEvent && o instanceof PlayerCamera) {
             GameEvent gameEvent = (GameEvent) arg;
             switch (gameEvent) {
                 case MOV_FORWARD:
