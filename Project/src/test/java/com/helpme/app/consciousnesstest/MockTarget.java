@@ -160,7 +160,7 @@ public class MockTarget implements IBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return false;
     }
 

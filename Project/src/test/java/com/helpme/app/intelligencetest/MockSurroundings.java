@@ -39,12 +39,12 @@ public class MockSurroundings implements IReadSurroundings {
     }
 
     @Override
-    public boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance) {
+    public boolean isWithinRange(Vector2f position, Vector2f destination, int range) {
         return false;
     }
 
     @Override
-    public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to) {
+    public Tuple3<List<Vector2f>, Vector2f, Integer> getPath(Vector2f from, Vector2f to) {
         return null;
     }
 
@@ -69,7 +69,7 @@ public class MockSurroundings implements IReadSurroundings {
     }
 
     @Override
-    public IReadBody[] readBodies() {
+    public List<IReadBody> readBodies() {
         return null;
     }
 

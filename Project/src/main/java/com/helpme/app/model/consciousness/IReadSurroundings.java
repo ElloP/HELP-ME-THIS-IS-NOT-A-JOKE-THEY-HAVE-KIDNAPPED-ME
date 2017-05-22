@@ -19,13 +19,13 @@ public interface IReadSurroundings {
     boolean isMovementAllowed(IReadBody body, Vector2f direction);
     boolean isTileOccupied(Vector2f position);
     boolean isTileValid(Vector2f position);
-    boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance);
-    Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to);
+    boolean isWithinRange(Vector2f position, Vector2f destination, int range);
+    Tuple3<List<Vector2f>, Vector2f, Integer> getPath(Vector2f from, Vector2f to);
     Maybe<IReadBody> readPlayer();
     Maybe<IReadBody> readBody(Vector2f position);
     Maybe<ITarget> getTarget(IBody body, Vector2f direction);
     Maybe<IReadBody> readFacing(IReadBody body);
-    IReadBody[] readBodies();
+    List<IReadBody> readBodies();
     Vector2f readStartingPoint();
     Map<Vector2f, ITile> getTiles();
 }

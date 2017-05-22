@@ -18,6 +18,6 @@ public interface IReadBody extends ITarget {
     Vector2f readStartingPosition();
     Tuple2<String,String[]> getResponse(int i); //NOTE (Jacob) : Not sure if this is something that should be in ReadMonster
     Tuple2<String,String[]> getDialogue();
-    boolean isTraversable(IEdge edge);
+    boolean traverse(IEdge edge);
     IReadInventory readInventory();
 }

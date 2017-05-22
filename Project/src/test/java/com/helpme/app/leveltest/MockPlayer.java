@@ -17,7 +17,8 @@ import java.util.List;
  * Created by kopa on 2017-05-15.
  */
 public class MockPlayer implements IBody {
-    public boolean traversable;
+    Vector2f direction = new Vector2f(1,0);
+    boolean traversable;
 
     @Override
     public void damage(float amount) {
@@ -126,7 +127,7 @@ public class MockPlayer implements IBody {
 
     @Override
     public Vector2f readDirection() {
-        return new Vector2f(1,0);
+        return direction;
     }
 
     @Override
@@ -160,7 +161,7 @@ public class MockPlayer implements IBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return traversable;
     }
 

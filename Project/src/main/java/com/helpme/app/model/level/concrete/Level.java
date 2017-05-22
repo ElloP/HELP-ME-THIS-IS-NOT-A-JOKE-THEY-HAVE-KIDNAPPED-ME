@@ -29,13 +29,13 @@ public class Level implements ILevel {
         this.player = player;
         this.startingPosition = startingPosition;
         this.tiles = tiles;
-        this.bodies = bodies == null? new ArrayList<IBody>() : bodies;
+        this.bodies = bodies;
     }
 
 
     public boolean isDirectionBlocked(IReadBody body, Vector2f direction) {
         ITile tile = tiles.get(body.readPosition());
-        return tile.getEdge(direction).check(e -> !body.isTraversable(e));
+        return tile.getEdge(direction).check(e -> !body.traverse(e));
     }
 
     public boolean isTileOccupied(Vector2f position) {
@@ -84,10 +84,16 @@ public class Level implements ILevel {
     }
 
     @Override
-    public void addBody(IBody body) {
-        if (body == null) return;
-        if(bodies.contains(body)) return;
+    public boolean addBody(IBody body) {
+        if (body == null ||
+                bodies.contains(body) ||
+                !isTileValid(body.readPosition()) ||
+                isTileOccupied(body.readPosition()))
+        {
+            return false;
+        }
         bodies.add(body);
+        return true;
     }
 
     @Override
@@ -142,51 +148,71 @@ public class Level implements ILevel {
         CameFrom previous;
         Vector2f position;
 
-        public CameFrom(CameFrom previous, Vector2f position){
+        public CameFrom(CameFrom previous, Vector2f position) {
             this.previous = previous;
             this.position = position;
         }
     }
 
+
+
+    @Override
+    public boolean isWithinRange(Vector2f position, Vector2f destination, int range) {
+        ArrayList<Vector2f> positions = new ArrayList<>();
+        ArrayList<Vector2f> notAdded = new ArrayList<>();
+        notAdded.add(position);
+        for (int i = 1; i <= range; i++) {
+            ArrayList<Vector2f> temp = new ArrayList<>();
+            for (Vector2f pos : notAdded) {
+                temp.addAll(Arrays.asList(Vector2f.getNeighbours(pos)));
+                positions.add(pos);
+            }
+            notAdded.clear();
+            notAdded.addAll(temp);
+        }
+        positions.addAll(notAdded);
+        return positions.contains(destination);
+    }
+
     //TODO (Jesper): Take edges and doors into consideration
-    public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to){
-        Vector2f currentPos;
-        CameFrom current;
+    @Override
+    public Tuple3<List<Vector2f>, Vector2f, Integer> getPath(Vector2f from, Vector2f to) {
+        Level.CameFrom current;
         ArrayList<Vector2f> result = new ArrayList<>();
         ArrayList<Vector2f> visitedNodes = new ArrayList<>();
-        Stack<CameFrom> frontier = new Stack<>();
-        int cost = 0;
-        frontier.push(new CameFrom(null, from));
-        while (!frontier.isEmpty()){
+        Stack<Level.CameFrom> frontier = new Stack<>();
+        int cost;
+        frontier.push(new Level.CameFrom(null, from));
+        while (!frontier.isEmpty()) {
             current = frontier.pop();
-            if (current.position.equals(to)){
+            if (current.position.equals(to)) {
                 result = recreatePath(current);
                 break;
             }
 
-            Vector2f[] neighbors = Vector2f.getNeighbors(current.position);
-            for (Vector2f neighbor : neighbors){
-                if (!visitedNodes.contains(neighbor) && isTileValid(neighbor) && (!isTileOccupied(neighbor) || player.readPosition().equals(neighbor)))
-                    frontier.push(new CameFrom(current, neighbor));
+            Vector2f[] neighbours = Vector2f.getNeighbours(current.position);
+            for (Vector2f neighbour : neighbours) {
+                if (!visitedNodes.contains(neighbour) && isTileValid(neighbour) && (!isTileOccupied(neighbour) || player.readPosition().equals(neighbour)))
+                    frontier.push(new Level.CameFrom(current, neighbour));
             }
             visitedNodes.add(current.position);
         }
         cost = result.size();
         cost--;
         Vector2f nextPos;
-        if (cost > 0){
+        if (cost > 0) {
             nextPos = result.get(1);
-        }
-        else {
+        } else {
             nextPos = from;
         }
         return new Tuple3<>(result, nextPos, cost);
     }
 
-    private ArrayList<Vector2f> recreatePath(CameFrom current){
+
+    private ArrayList<Vector2f> recreatePath(CameFrom current) {
         ArrayList<Vector2f> result = new ArrayList<>();
         result.add(current.position);
-        while (current.previous != null){
+        while (current.previous != null) {
             current = current.previous;
             result.add(current.position);
         }
@@ -198,56 +224,31 @@ public class Level implements ILevel {
         Vector2f position = body.readPosition();
         Vector2f destination = Vector2f.add(position, direction);
 
-        if (isDirectionBlocked(body, direction)) {
-            return false;
-        }
-
-        if (isTileOccupied(destination)) {
-            return false;
-        }
-
-        return true;
+        return !isDirectionBlocked(body, direction) && !isTileOccupied(destination);
     }
 
-    @Override
-    public boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance) {
-        ArrayList<Vector2f> positions = new ArrayList<>();
-        ArrayList<Vector2f> notAdded = new ArrayList<>();
-        notAdded.add(body.readPosition());
-        for (int i = 1; i <= longestDistance; i++) {
-            ArrayList<Vector2f> temp = new ArrayList<>();
-            for (Vector2f pos : notAdded) {
-                for (Vector2f neighbour : Vector2f.getNeighbors(pos)){
-                    temp.add(neighbour);
-                }
-                positions.add(pos);
-            }
-            notAdded.clear();
-            notAdded.addAll(temp);
-        }
-        positions.addAll(notAdded);
-        return positions.contains(destination);
-    }
+
 
     @Override
-    public void updateDeadBody(Vector2f position){
-        for(IBody body : bodies){
-            if(body.readPosition().equals(position)){
-                addTileItems(position,body.getInventory().dropItems());
-                body.dropAllItems();
-                return;
+    public void updateTile(Vector2f position) {
+        List<IBody> remove = new ArrayList<>();
+        for (IBody body : bodies) {
+            if (body.readPosition().equals(position) && body.isDead()) {
+                addTileItems(position, body.getInventory().dropItems());
+                remove.add(body);
             }
         }
+        bodies.removeAll(remove);
     }
 
     @Override
-    public Maybe<IReadBody> readFacing(IReadBody body){
+    public Maybe<IReadBody> readFacing(IReadBody body) {
         Vector2f position = body.readPosition();
         Vector2f direction = body.readDirection();
         Vector2f destination = Vector2f.add(position, direction);
 
         if (isDirectionBlocked(body, direction)) {
-            return new Nothing();
+            return new Nothing<>();
         }
 
         return readBody(destination);
@@ -255,12 +256,8 @@ public class Level implements ILevel {
     }
 
     @Override
-    public IReadBody[] readBodies() {
-        IReadBody[] result = new IReadBody[bodies.size()];
-        for(int i = 0; i < bodies.size(); i++){
-            result[i] = bodies.get(i);
-        }
-        return result;
+    public List<IReadBody> readBodies() {
+        return new ArrayList<>(bodies);
     }
 
     @Override

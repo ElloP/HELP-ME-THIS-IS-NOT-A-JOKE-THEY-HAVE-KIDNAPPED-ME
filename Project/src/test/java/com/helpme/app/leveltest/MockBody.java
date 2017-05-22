@@ -17,8 +17,10 @@ import java.util.List;
  * Created by kopa on 2017-05-15.
  */
 public class MockBody implements IBody {
-    public boolean traversable;
-    public boolean dead;
+    Vector2f position = new Vector2f(0,1);
+    boolean traversable;
+    boolean dead;
+    MockInventory mockInventory;
 
     @Override
     public void damage(float amount) {
@@ -102,7 +104,7 @@ public class MockBody implements IBody {
 
     @Override
     public IInventory getInventory() {
-        return null;
+        return mockInventory;
     }
 
     @Override
@@ -122,7 +124,7 @@ public class MockBody implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return new Vector2f(0,1);
+        return position;
     }
 
     @Override
@@ -161,7 +163,7 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return traversable;
     }
 

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public interface ILevel extends ISurroundings {
-    void addBody(IBody body);
+    boolean addBody(IBody body);
     void setPlayer(IBody player);
     void resetPlayer();
     Map<Vector2f, ITile> getTiles();

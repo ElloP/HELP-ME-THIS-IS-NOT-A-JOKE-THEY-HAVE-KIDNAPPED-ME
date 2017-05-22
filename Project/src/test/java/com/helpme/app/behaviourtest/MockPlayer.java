@@ -68,7 +68,7 @@ public class MockPlayer implements IReadBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return false;
     }
 

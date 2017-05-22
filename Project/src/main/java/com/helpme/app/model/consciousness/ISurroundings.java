@@ -13,6 +13,6 @@ public interface ISurroundings extends IReadSurroundings {
     void addTileItems(Vector2f position, List<Maybe<IItem>> items);
     Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position);
     Maybe<IItem> removeTileItem(Vector2f position, int index);
-    void updateDeadBody(Vector2f position);
+    void updateTile(Vector2f position);
 
 }

@@ -64,7 +64,7 @@ public class Follow extends Behaviour {
         } else {
             memory.updateShortTermMemory(followingEvent, 1);
             return surroundings.readPlayer().chain(p -> {
-                Vector2f nextPosition = surroundings.getShortestPath(body.readPosition(), p.readPosition()).b;
+                Vector2f nextPosition = surroundings.getPath(body.readPosition(), p.readPosition()).b;
                 return moveTowards(body, nextPosition);
             });
         }
@@ -75,13 +75,13 @@ public class Follow extends Behaviour {
     }
 
     private boolean lostPlayer(IReadBody body, IReadSurroundings surroundings) {
-        return !(surroundings.getShortestPath(body.readPosition(), body.readStartingPosition()).c < followingDistance)
+        return !(surroundings.getPath(body.readPosition(), body.readStartingPosition()).c < followingDistance)
                 && !isInRange(body, surroundings);
     }
 
     private boolean isInRange(IReadBody body, IReadSurroundings surroundings) {
         return surroundings.readPlayer().check(player -> {
-            int cost = surroundings.getShortestPath(body.readPosition(), player.readPosition()).c;
+            int cost = surroundings.getPath(body.readPosition(), player.readPosition()).c;
             return cost > 0 && cost <= followingDistance;
         });
     }

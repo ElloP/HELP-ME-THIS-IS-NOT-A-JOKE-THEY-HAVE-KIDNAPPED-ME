@@ -114,9 +114,7 @@ public abstract class Consciousness extends Observable implements IConsciousness
         Vector2f direction = body.readDirection();
         Maybe<ITarget> maybeTarget = surroundings.getTarget(body, direction);
         maybeTarget.run(t -> body.attack(t));
-        if (maybeTarget.check(t -> t.isDead())) {
-            surroundings.updateDeadBody(Vector2f.add(body.readPosition(), body.readDirection()));
-        }
+        surroundings.updateTile(Vector2f.add(body.readPosition(), body.readDirection()));
     }
 
     @Override

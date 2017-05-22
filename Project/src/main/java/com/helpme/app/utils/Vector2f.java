@@ -133,7 +133,7 @@ public class Vector2f implements Cloneable {
         return Vector2f.multiply(rotationMatrix, vec0).toInt();
     }
 
-    public static Vector2f[] getNeighbors(Vector2f vec0){
+    public static Vector2f[] getNeighbours(Vector2f vec0){
         Vector2f[] vectors = {add(vec0, NORTH), add(vec0, EAST), add(vec0, SOUTH), add(vec0, WEST)};
         return vectors;
     }

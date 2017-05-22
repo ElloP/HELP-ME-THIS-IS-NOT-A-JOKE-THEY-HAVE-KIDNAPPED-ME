@@ -49,12 +49,12 @@ public class Return extends Behaviour {
         }
 
         memory.updateShortTermMemory(returningEvent, 1);
-        Vector2f nextPosition = surroundings.getShortestPath(body.readPosition(), body.readStartingPosition()).b;
+        Vector2f nextPosition = surroundings.getPath(body.readPosition(), body.readStartingPosition()).b;
         return new Just<>(moveTowards(body, nextPosition));
     }
 
     private boolean returned(IReadBody body, IReadSurroundings surroundings) {
-        int cost = surroundings.getShortestPath(body.readPosition(), body.readStartingPosition()).c;
+        int cost = surroundings.getPath(body.readPosition(), body.readStartingPosition()).c;
         return cost <= 0;
     }
 }
