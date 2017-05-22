@@ -6,10 +6,16 @@ import java.nio.FloatBuffer;
  * Authored by Olle on 2017-03-30.
  */
 public class Vector2f implements Cloneable {
-    private static final float RIGHT_ANGLE = (float) Math.PI / 2;
+    public static final Vector2f NORTH = new Vector2f(0, 1);
+    public static final Vector2f EAST = new Vector2f(1, 0);
+    public static final Vector2f SOUTH = new Vector2f(0, -1);
+    public static final Vector2f WEST = new Vector2f(-1, 0);
+    public static final Vector2f ZERO = new Vector2f(0, 0);
 
     public float x;
     public float y;
+
+    private static final float RIGHT_ANGLE = (float) Math.PI / 2;
 
     public Vector2f(float x, float y) {
         this.x = x;
@@ -76,14 +82,6 @@ public class Vector2f implements Cloneable {
     public Vector2f clone(){
         return new Vector2f(x, y);
     }
-
-
-    //NOTE(Olle): normalized direction vectors
-    public static final Vector2f NORTH = new Vector2f(0, 1);
-    public static final Vector2f EAST = new Vector2f(1, 0);
-    public static final Vector2f SOUTH = new Vector2f(0, -1);
-    public static final Vector2f WEST = new Vector2f(-1, 0);
-    public static final Vector2f ZERO = new Vector2f(0, 0);
 
     public static boolean equals(Vector2f vec0, Vector2f vec1) {
         return vec0.equals(vec1);
