@@ -12,7 +12,9 @@ import com.helpme.app.itemtest.ItemTest;
 import com.helpme.app.itemtest.attacktest.AttackTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
+import com.helpme.app.leveltest.LevelBodyTest;
 import com.helpme.app.leveltest.LevelTest;
+import com.helpme.app.leveltest.LevelTileTest;
 import com.helpme.app.tiletest.TileTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -32,6 +34,8 @@ import org.junit.runners.Suite;
         EnemyTest.class,
         ConsciousnessTest.class,
         LevelTest.class,
+        LevelBodyTest.class,
+        LevelTileTest.class,
         BehaviourTest.class,
         AttackBehaviourTest.class,
         FollowBehaviourTest.class,
