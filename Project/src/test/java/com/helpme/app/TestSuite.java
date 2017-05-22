@@ -10,6 +10,7 @@ import com.helpme.app.inventorytest.InventoryTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
+import com.helpme.app.model.consciousness.behaviour.concrete.Intelligence;
 import com.helpme.app.tiletest.TileTest;
 import com.helpme.app.edgetest.traversetest.TraverseTest;
 import org.junit.runners.Suite;
@@ -24,6 +25,7 @@ import org.junit.runner.RunWith;
 @Suite.SuiteClasses({BodyTest.class,
         InventoryTest.class,
         TileTest.class,
+        Intelligence.class,
         ItemTest.class,
         EdgeTest.class,
         ConsciousnessTest.class,

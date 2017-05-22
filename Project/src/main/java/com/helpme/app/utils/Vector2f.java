@@ -79,11 +79,11 @@ public class Vector2f implements Cloneable {
 
 
     //NOTE(Olle): normalized direction vectors
-    public static final Vector2f north = new Vector2f(0, 1);
-    public static final Vector2f east = new Vector2f(1, 0);
-    public static final Vector2f south = new Vector2f(0, -1);
-    public static final Vector2f west = new Vector2f(-1, 0);
-    public static final Vector2f zero = new Vector2f(0, 0);
+    public static final Vector2f NORTH = new Vector2f(0, 1);
+    public static final Vector2f EAST = new Vector2f(1, 0);
+    public static final Vector2f SOUTH = new Vector2f(0, -1);
+    public static final Vector2f WEST = new Vector2f(-1, 0);
+    public static final Vector2f ZERO = new Vector2f(0, 0);
 
     public static boolean equals(Vector2f vec0, Vector2f vec1) {
         return vec0.equals(vec1);
@@ -130,7 +130,7 @@ public class Vector2f implements Cloneable {
     }
 
     public static Vector2f[] getNeighbors(Vector2f vec0){
-        Vector2f[] vectors = {add(vec0, north), add(vec0, east), add(vec0, south), add(vec0, west)};
+        Vector2f[] vectors = {add(vec0, NORTH), add(vec0, EAST), add(vec0, SOUTH), add(vec0, WEST)};
         return vectors;
     }
 }

@@ -1,7 +1,10 @@
 package com.helpme.app.edgetest;
 
 import com.helpme.app.model.tile.edge.IEdge;
+import com.helpme.app.model.tile.edge.concrete.Door;
 import com.helpme.app.model.tile.edge.concrete.EdgeFactory;
+import com.helpme.app.model.tile.edge.concrete.Opening;
+import com.helpme.app.model.tile.edge.concrete.Wall;
 import org.junit.Test;
 
 /**
@@ -11,19 +14,19 @@ public class EdgeTest {
 
     @Test
     public void testOpening(){
-        IEdge opening = EdgeFactory.createOpening();
+        IEdge opening = new Opening();
         assert (opening.accept(new MockVisitor()));
     }
 
     @Test
     public void testWall(){
-        IEdge wall = EdgeFactory.createWall();
+        IEdge wall = new Wall();
         assert (wall.accept(new MockVisitor()));
     }
 
     @Test
     public void testDoor(){
-        IEdge door = EdgeFactory.createDoor(false, null);
+        IEdge door = new Door(false, null);
         assert (door.accept(new MockVisitor()));
     }
 }

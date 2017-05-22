@@ -31,7 +31,7 @@ public final class LevelFactory {
     }
 
     public static ILevel createLevel(IBody player, Vector2f startingPosition, Map<Vector2f, ITile> tiles, List<IBody> bodies){
-        return new Level(player, startingPosition == null ? Vector2f.zero : startingPosition, tiles == null ? new HashMap<>() : tiles, bodies == null ? new ArrayList<>() : bodies);
+        return new Level(player, startingPosition == null ? Vector2f.ZERO : startingPosition, tiles == null ? new HashMap<>() : tiles, bodies == null ? new ArrayList<>() : bodies);
     }
     public static ILevel createLevel(Map<Vector2f, ITile> tiles, Vector2f startingPosition){
         List<IBody> bodies = new ArrayList<>();
@@ -81,10 +81,10 @@ public final class LevelFactory {
         for (Map.Entry<Vector2f, ITile> entry : tiles.entrySet()) {
             ITile tile = entry.getValue();
             Vector2f position = entry.getKey();
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.north)) == null ? new Wall() : new Opening(), Vector2f.north);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.east)) == null ? new Wall() : new Opening(), Vector2f.east);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.south)) == null ? new Wall() : new Opening(), Vector2f.south);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.west)) == null ? new Wall() : new Opening(), Vector2f.west);
+            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.NORTH)) == null ? new Wall() : new Opening(), Vector2f.NORTH);
+            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.EAST)) == null ? new Wall() : new Opening(), Vector2f.EAST);
+            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.SOUTH)) == null ? new Wall() : new Opening(), Vector2f.SOUTH);
+            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.WEST)) == null ? new Wall() : new Opening(), Vector2f.WEST);
         }
         return tiles;
     }

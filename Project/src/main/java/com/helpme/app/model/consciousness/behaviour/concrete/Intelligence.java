@@ -1,5 +1,6 @@
 package com.helpme.app.model.consciousness.behaviour.concrete;
 
+import com.helpme.app.model.consciousness.IReadSurroundings;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.Vector2f;
@@ -20,7 +21,7 @@ public abstract class Intelligence implements IBehaviour {
 
     }
 
-    public static boolean isNextTo(IReadBody body, IReadBody potentialNeighbour, ISurroundings surroundings) {
+    public static boolean isNextTo(IReadBody body, IReadBody potentialNeighbour, IReadSurroundings surroundings) {
         for (Maybe<IReadBody> maybeNeighbour : getNeighbours(body, surroundings)) {
             if(maybeNeighbour.check(n -> potentialNeighbour.equals(n))){
                 return true;
@@ -29,7 +30,7 @@ public abstract class Intelligence implements IBehaviour {
         return false;
     }
 
-    public static List<Maybe<IReadBody>> getNeighbours(IReadBody body, ISurroundings surroundings) {
+    public static List<Maybe<IReadBody>> getNeighbours(IReadBody body, IReadSurroundings surroundings) {
         List<Maybe<IReadBody>> neighbours = new ArrayList<>(4);
         neighbours.add(getFrontNeighbour(body, surroundings));
         neighbours.add(getRightNeighbour(body, surroundings));
@@ -38,26 +39,26 @@ public abstract class Intelligence implements IBehaviour {
         return neighbours;
     }
 
-    public static Maybe<IReadBody> getFrontNeighbour(IReadBody body, ISurroundings surroundings) {
+    public static Maybe<IReadBody> getFrontNeighbour(IReadBody body, IReadSurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f frontPosition = Vector2f.add(body.readPosition(), direction);
         return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(frontPosition);
 
     }
 
-    public static Maybe<IReadBody> getRightNeighbour(IReadBody body, ISurroundings surroundings) {
+    public static Maybe<IReadBody> getRightNeighbour(IReadBody body, IReadSurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f rightPosition = Vector2f.add(body.readPosition(), direction.right());
         return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(rightPosition);
     }
 
-    public static Maybe<IReadBody> getBackNeighbour(IReadBody body, ISurroundings surroundings) {
+    public static Maybe<IReadBody> getBackNeighbour(IReadBody body, IReadSurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f backPosition = Vector2f.add(body.readPosition(), direction.backward());
         return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(backPosition);
     }
 
-    public static Maybe<IReadBody> getLeftNeighbour(IReadBody body, ISurroundings surroundings) {
+    public static Maybe<IReadBody> getLeftNeighbour(IReadBody body, IReadSurroundings surroundings) {
         Vector2f direction = body.readDirection().forward();
         Vector2f leftPosition = Vector2f.add(body.readPosition(), direction.left());
         return surroundings.isDirectionBlocked(body, direction) ? new Nothing() : surroundings.readBody(leftPosition);

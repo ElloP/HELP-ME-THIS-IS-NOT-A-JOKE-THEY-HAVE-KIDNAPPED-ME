@@ -1,5 +1,7 @@
 package com.helpme.app.inventorytest;
 
+import com.helpme.app.model.body.inventory.concrete.Inventory;
+import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.model.body.inventory.IInventory;
@@ -8,6 +10,7 @@ import com.helpme.app.model.item.IItem;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +27,16 @@ public class InventoryTest {
         mockSingle0 = new MockSingle("Item");
         mockSingle1 = new MockSingle("Item");
         mockSingle2 = new MockSingle("DefaultItem");
-        inventory = InventoryFactory.createInventory(new IItem[]{mockSingle0, null, mockSingle1, null}, mockSingle2, null);
+
+        List<Maybe<IItem>> items = new ArrayList<>();
+        List<Maybe<IItem>> keychain = new ArrayList<>();
+
+        items.add(new Just<>(mockSingle0));
+        items.add(new Nothing<>());
+        items.add(new Just<>(mockSingle1));
+        items.add(new Nothing<>());
+
+        inventory = new Inventory(items, mockSingle2, keychain);
     }
 
     @Test

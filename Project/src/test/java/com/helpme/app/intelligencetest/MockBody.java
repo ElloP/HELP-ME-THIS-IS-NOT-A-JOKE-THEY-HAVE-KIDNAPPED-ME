@@ -1,16 +1,20 @@
-package com.helpme.app.behaviourtest;
+package com.helpme.app.intelligencetest;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.body.inventory.IReadInventory;
 import com.helpme.app.model.tile.edge.IEdge;
+import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.tuple.Tuple2;
 
 /**
- * Created by kopa on 2017-05-20.
+ * Created by kopa on 2017-05-22.
  */
-public class MockPlayer implements IReadBody {
-    Vector2f position = Vector2f.ZERO;
+public class MockBody implements IReadBody {
+    Vector2f position;
+
+    public MockBody(Vector2f position){
+        this.position = position;
+    }
 
     @Override
     public void damage(float amount) {
@@ -34,7 +38,7 @@ public class MockPlayer implements IReadBody {
 
     @Override
     public Vector2f readDirection() {
-        return null;
+        return Vector2f.NORTH;
     }
 
     @Override

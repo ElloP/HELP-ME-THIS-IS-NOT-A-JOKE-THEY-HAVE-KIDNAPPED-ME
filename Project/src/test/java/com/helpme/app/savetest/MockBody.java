@@ -124,7 +124,7 @@ public class MockBody implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return Vector2f.zero;
+        return Vector2f.ZERO;
     }
 
     @Override

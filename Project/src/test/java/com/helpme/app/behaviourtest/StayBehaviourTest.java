@@ -1,5 +1,6 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.model.consciousness.IConsciousness;
@@ -15,17 +16,15 @@ import java.util.HashMap;
  */
 public class StayBehaviourTest {
     private MockBody mockBody;
-    private MockPlayer mockPlayer;
     private MockMemory mockMemory;
     private IBehaviour stayBehaviour;
 
     @Before
     public void setup(){
         mockBody = new MockBody();
-        mockPlayer = new MockPlayer();
         mockMemory = new MockMemory();
 
-        stayBehaviour = BehaviourFactory.createStay(
+        stayBehaviour = new Stay(
                 0,
                 null);
     }

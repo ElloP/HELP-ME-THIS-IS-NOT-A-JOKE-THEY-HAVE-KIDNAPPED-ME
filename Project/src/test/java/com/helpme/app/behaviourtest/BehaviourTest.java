@@ -1,5 +1,6 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
 import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
@@ -27,7 +28,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        IBehaviour behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 

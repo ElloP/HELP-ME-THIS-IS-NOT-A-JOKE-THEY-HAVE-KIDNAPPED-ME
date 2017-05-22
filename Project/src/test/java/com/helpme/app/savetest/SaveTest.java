@@ -65,7 +65,7 @@ public class SaveTest {
         items = new IItem[]{ItemFactory.club(), ItemFactory.fists(), null, null};
         inventory = InventoryFactory.createInventory(items, ItemFactory.fists(), new IItem[]{ItemFactory.createKey("Red Key")});
         hitpoints = new Vector2f(100,50);
-        IBody Body = BodyFactory.createBody(inventory,Vector2f.east,Vector2f.west,hitpoints);
+        IBody Body = BodyFactory.createBody(inventory,Vector2f.EAST,Vector2f.WEST,hitpoints);
         String fileTest = "test.xml";
         SavePlayer save = new SavePlayer();
         save.marshall(Body,fileTest);
@@ -142,10 +142,10 @@ public class SaveTest {
 
         Map<Vector2f, IEdge> mockEdges = new HashMap<Vector2f, IEdge>(){
             {
-                put(Vector2f.north, new Wall());
-                put(Vector2f.east, new Opening());
-                put(Vector2f.south, new Door(true, new MockItem("key")));
-                put(Vector2f.west, new Wall());
+                put(Vector2f.NORTH, new Wall());
+                put(Vector2f.EAST, new Opening());
+                put(Vector2f.SOUTH, new Door(true, new MockItem("key")));
+                put(Vector2f.WEST, new Wall());
             }
         };
 
@@ -153,7 +153,7 @@ public class SaveTest {
 
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new TileWrapper(mockTile, Vector2f.zero), file);
+        marshaller.marshal(new TileWrapper(mockTile, Vector2f.ZERO), file);
 
         Unmarshaller unmarshaller = this.context.createUnmarshaller();
 
@@ -196,9 +196,9 @@ public class SaveTest {
 
         IMemory memory = MemoryFactory.createMemory(shortTerm, longTerm);
 
-        IBody body = BodyFactory.createBody(null, Vector2f.zero, Vector2f.north,100);
+        IBody body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH,100);
 
-        ILevel level = LevelFactory.createLevel(null, Vector2f.zero, null, null);
+        ILevel level = LevelFactory.createLevel(null, Vector2f.ZERO, null, null);
 
         IConsciousness enemy = ConsciousnessFactory.createEnemy(body, level, memory, behaviours);
 

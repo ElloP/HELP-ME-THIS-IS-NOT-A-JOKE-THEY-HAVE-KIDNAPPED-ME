@@ -1,29 +1,22 @@
-package com.helpme.app.behaviourtest;
+package com.helpme.app.intelligencetest;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.model.body.IBody;
 import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.consciousness.IReadSurroundings;
 import com.helpme.app.model.item.effect.ITarget;
 import com.helpme.app.model.tile.ITile;
+import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.tuple.Tuple3;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by kopa on 2017-05-20.
+ * Created by kopa on 2017-05-22.
  */
 public class MockSurroundings implements IReadSurroundings {
-    Vector2f pathNextPosition = Vector2f.ZERO;
-    int pathCost = 3;
-    boolean facing;
-    IReadBody player;
-
-    public MockSurroundings(IReadBody player){
-        this.player = player;
-    }
+    IReadBody mockBody;
 
     @Override
     public boolean isDirectionBlocked(IReadBody body, Vector2f direction) {
@@ -52,17 +45,17 @@ public class MockSurroundings implements IReadSurroundings {
 
     @Override
     public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to) {
-        return new Tuple3<>(null, pathNextPosition, pathCost);
+        return null;
     }
 
     @Override
     public Maybe<IReadBody> readPlayer() {
-        return Maybe.wrap(player);
+        return null;
     }
 
     @Override
     public Maybe<IReadBody> readBody(Vector2f position) {
-        return null;
+        return Maybe.wrap(mockBody.readPosition().equals(position) ? mockBody : null);
     }
 
     @Override
@@ -72,12 +65,12 @@ public class MockSurroundings implements IReadSurroundings {
 
     @Override
     public Maybe<IReadBody> readFacing(IReadBody body) {
-        return Maybe.wrap(facing ? new MockBody() : null);
+        return null;
     }
 
     @Override
     public IReadBody[] readBodies() {
-        return new IReadBody[0];
+        return null;
     }
 
     @Override

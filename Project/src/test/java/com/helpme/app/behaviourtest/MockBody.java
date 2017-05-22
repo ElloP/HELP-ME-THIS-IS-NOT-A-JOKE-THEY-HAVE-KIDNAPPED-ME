@@ -10,8 +10,8 @@ import com.helpme.app.model.tile.edge.IEdge;
  * Created by kopa on 2017-05-20.
  */
 public class MockBody implements IReadBody {
-    public Vector2f position = Vector2f.zero;
-    public Vector2f direction = Vector2f.north;
+    public Vector2f position = Vector2f.ZERO;
+    public Vector2f direction = Vector2f.NORTH;
 
     @Override
     public void damage(float amount) {

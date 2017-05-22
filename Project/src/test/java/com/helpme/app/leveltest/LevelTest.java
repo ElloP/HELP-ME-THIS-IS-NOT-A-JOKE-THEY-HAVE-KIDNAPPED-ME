@@ -1,5 +1,6 @@
 package com.helpme.app.leveltest;
 
+import com.helpme.app.model.level.concrete.Level;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
@@ -7,7 +8,6 @@ import com.helpme.app.model.body.IBody;
 import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.item.effect.ITarget;
 import com.helpme.app.model.level.ILevel;
-import com.helpme.app.model.level.concrete.LevelFactory;
 import com.helpme.app.model.tile.ITile;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,13 +32,13 @@ public class LevelTest {
         mockBody = new MockBody();
         mockPlayer = new MockPlayer();
 
-        tiles.put(Vector2f.zero, new MockTile());
+        tiles.put(Vector2f.ZERO, new MockTile());
         tiles.put(new Vector2f(0, 1), new MockTile());
 
         bodies.add(mockPlayer);
         bodies.add(mockBody);
 
-        level = LevelFactory.createLevel(mockPlayer, Vector2f.zero, tiles, bodies);
+        level = new Level(mockPlayer, Vector2f.ZERO, tiles, bodies);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class LevelTest {
     @Test
     public void testGetTargetEdge() {
         mockPlayer.traversable = false;
-        Maybe<ITarget> target = level.getTarget(mockPlayer, Vector2f.zero);
+        Maybe<ITarget> target = level.getTarget(mockPlayer, Vector2f.ZERO);
         assert (target.getValue() instanceof MockEdge);
     }
 
@@ -144,24 +144,4 @@ public class LevelTest {
         mockBody.dead = true;
         assert (!level.isTileOccupied(new Vector2f(0, 1)));
     }
-
-
-//    @Test
-//    public void testSearchPath(){
-//        Vector2f playerPos = new Vector2f(0, 0);
-//        Vector2f enemyPos = mockWorld.enemyConsciousness1.readBody().readPosition();
-//        assert enemyPos.equals(new Vector2f(0, 3));
-//        assert mockWorld.player.getPlayer().readPosition().equals(playerPos);
-//        Tuple3 path = mockWorld.level.getShortestPath(enemyPos, playerPos);
-//        assert (int) path.c == 4;
-//        assert path.b.equals(new Vector2f(0, 2));
-//        ArrayList<Vector2f> positions = new ArrayList<>();
-//        positions.updateLongTermMemory(enemyPos);
-//        positions.updateLongTermMemory(new Vector2f(0, 2));
-//        positions.updateLongTermMemory(new Vector2f(0, 1));
-//        positions.updateLongTermMemory(playerPos);
-//        for (int i = 0; i < positions.size(); i++){
-//            assert positions.get(i).equals(((ArrayList<Vector2f>) path.a).get(i));
-//        }
-//    }
 }

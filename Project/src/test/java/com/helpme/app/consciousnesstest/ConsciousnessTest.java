@@ -1,5 +1,6 @@
 package com.helpme.app.consciousnesstest;
 
+import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
@@ -21,7 +22,7 @@ public class ConsciousnessTest {
         mockTarget = new MockTarget();
         mockBody = new MockBody();
         mockSurroundings = new MockSurroundings(mockTarget);
-        player = ConsciousnessFactory.createPlayer(mockBody, mockSurroundings);
+        player = new Player(mockBody, mockSurroundings);
     }
 
     @Test

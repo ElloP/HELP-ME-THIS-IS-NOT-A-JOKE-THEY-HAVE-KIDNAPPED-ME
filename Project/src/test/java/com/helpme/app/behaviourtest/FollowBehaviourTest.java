@@ -1,5 +1,6 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.model.consciousness.behaviour.concrete.Follow;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
@@ -31,7 +32,7 @@ public class FollowBehaviourTest {
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
 
-        followBehaviour = BehaviourFactory.createFollow(
+        followBehaviour = new Follow(
                 0,
                 null,
                 5,
@@ -77,7 +78,7 @@ public class FollowBehaviourTest {
     @Test
     public void testFollowFollowingFacing() {
         mockMemory.memory = new HashMap<>();
-        mockSurroundings.pathNextPosition = Vector2f.north;
+        mockSurroundings.pathNextPosition = Vector2f.NORTH;
 
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -91,7 +92,7 @@ public class FollowBehaviourTest {
     @Test
     public void testFollowFollowingRightOf() {
         mockMemory.memory = new HashMap<>();
-        mockSurroundings.pathNextPosition = Vector2f.east;
+        mockSurroundings.pathNextPosition = Vector2f.EAST;
 
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -105,7 +106,7 @@ public class FollowBehaviourTest {
     @Test
     public void testFollowFollowingBehind() {
         mockMemory.memory = new HashMap<>();
-        mockSurroundings.pathNextPosition = Vector2f.south;
+        mockSurroundings.pathNextPosition = Vector2f.SOUTH;
 
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -120,7 +121,7 @@ public class FollowBehaviourTest {
     public void testFollowFollowingLeftOf() {
         mockMemory.memory = new HashMap<>();
 
-        mockSurroundings.pathNextPosition = Vector2f.west;
+        mockSurroundings.pathNextPosition = Vector2f.WEST;
         Maybe<IAction<IConsciousness>> maybeAction = followBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
 

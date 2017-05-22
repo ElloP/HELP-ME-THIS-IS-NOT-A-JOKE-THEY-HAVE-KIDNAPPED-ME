@@ -125,11 +125,11 @@ public class Menu extends GameObject{
         tiles.add(new Tuple2<>(new Vector2f(2, 5),null));
         tiles.add(new Tuple2<>(new Vector2f(3, 5), null));
 
-        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.east, new Door(true, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.west, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.east, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.EAST, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.WEST, new Door(false, null)));
+        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.EAST, new Door(true, null)));
 
-        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.east, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.EAST, new Door(true, null)));
 
         /**
          *    [ ][ ][ ]   [ ]   [ ][ ]
@@ -141,7 +141,7 @@ public class Menu extends GameObject{
          */
 
 
-        ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.zero);
+        ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.ZERO);
         return level;
     }
 

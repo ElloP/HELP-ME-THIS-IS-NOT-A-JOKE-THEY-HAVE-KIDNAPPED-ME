@@ -32,9 +32,9 @@ public class Body extends Observable implements IBody {
 
     public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints, Vector2f startingPosition, IDialogue dialogue){
         this.inventory = inventory == null ? new Inventory(null, null, null) : inventory;
-        this.position = position == null ? Vector2f.zero : position;
-        this.direction = direction == null ? Vector2f.north : direction;
-        this.hitpoints = hitpoints == null ? Vector2f.zero : hitpoints;
+        this.position = position == null ? Vector2f.ZERO : position;
+        this.direction = direction == null ? Vector2f.NORTH : direction;
+        this.hitpoints = hitpoints == null ? Vector2f.ZERO : hitpoints;
         this.startingPosition = startingPosition;
         this.dialogue = dialogue;
 

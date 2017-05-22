@@ -1,5 +1,6 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.model.consciousness.behaviour.concrete.Attack;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.model.consciousness.IConsciousness;
@@ -28,7 +29,7 @@ public class AttackBehaviourTest {
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
-        attackBehaviour = BehaviourFactory.createAttack(
+        attackBehaviour = new Attack(
                 0,
                 null,
                 "attack");
