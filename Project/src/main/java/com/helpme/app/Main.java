@@ -53,12 +53,12 @@ public class Main {
             e.printStackTrace();
         }
 
-        ArrayList<AbstractMonsterSource> monsterSources = new ArrayList<>();
+        ArrayList<AbstractMonsterSource> bodySources = new ArrayList<>();
         for (IReadBody body : level.readBodies()) {
-            monsterSources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition()));
+            bodySources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition()));
         }
-        monsterSources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition()));
-        AudioObserver audioObserver = new AudioObserver(monsterSources);
+        bodySources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition()));
+        AudioObserver audioObserver = new AudioObserver(bodySources);
 
 
 
