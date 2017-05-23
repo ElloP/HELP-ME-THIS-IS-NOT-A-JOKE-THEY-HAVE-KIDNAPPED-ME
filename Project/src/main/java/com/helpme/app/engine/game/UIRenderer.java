@@ -49,9 +49,7 @@ public class UIRenderer extends GameObject {
         shader.useProgram();
         shader.updateUniforms(transform, camera);
         texture.bind();
-        glBindVertexArray(mesh2D.getVao());
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glBindVertexArray(0);
+        mesh2D.draw();
         texture.unBind();
     }
 }

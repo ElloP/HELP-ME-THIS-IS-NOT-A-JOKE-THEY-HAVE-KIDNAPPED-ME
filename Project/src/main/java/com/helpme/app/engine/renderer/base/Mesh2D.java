@@ -73,7 +73,7 @@ public class Mesh2D implements Mesh {
     public void draw() {
         glBindVertexArray(vao);
 
-        glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 
         glBindVertexArray(0);
     }
