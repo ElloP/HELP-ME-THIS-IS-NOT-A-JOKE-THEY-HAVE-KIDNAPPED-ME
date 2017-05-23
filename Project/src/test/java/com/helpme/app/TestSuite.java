@@ -15,6 +15,7 @@ import com.helpme.app.itemtest.selfietest.SelfieTest;
 import com.helpme.app.leveltest.LevelBodyTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.leveltest.LevelTileTest;
+import com.helpme.app.savetest.SaveTest;
 import com.helpme.app.tiletest.TileTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -45,7 +46,8 @@ import org.junit.runners.Suite;
         AttackTest.class,
         PickupTest.class,
         TileTest.class,
-        SelfieTest.class})
+        SelfieTest.class,
+        SaveTest.class})
 public class TestSuite {
     // Nothing
 }

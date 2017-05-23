@@ -49,7 +49,7 @@ public class EnemyWrapper {
 
     @XmlElementWrapper(name = "behaviours")
     @XmlElement(name = "behaviour")
-    public BehaviourWrapper[] getBehaviours() { return behaviourWrappers; }
+    public BehaviourWrapper[] getBehaviours() { return behaviourWrappers.clone(); }
     public void setBehaviours(BehaviourWrapper[] behaviours){
         this.behaviourWrappers = new BehaviourWrapper[behaviours.length];
         for(int i = 0; i < behaviours.length; i++){

@@ -97,7 +97,7 @@ public class SaveTest {
         assert(player1.readBody().readCurrentHp() == mock.player.readBody().readCurrentHp());
         assert(player1.readBody().readMaxHp() == mock.player.readBody().readMaxHp());
         assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());
-        assert(true == enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
+        assert(enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
 
     }
 
@@ -114,9 +114,9 @@ public class SaveTest {
         IBody loadedBody;
         IReadInventory loadedInventory;
 
-        mockItems.add(new Just<>(new MockItem("item0")));
-        mockItems.add(new Just<>(new MockItem("item1")));
-        mockItems.add(new Just<>(new MockItem("item2")));
+        mockItems.add(new Just<>(ItemFactory.potion()));
+        mockItems.add(new Just<>(ItemFactory.fists()));
+        mockItems.add(new Just<>(ItemFactory.club()));
         mockItems.add(new Nothing<>());
 
         mockKeys.add(new Just<>(new MockItem("key0")));
@@ -133,8 +133,7 @@ public class SaveTest {
         assert(loadedBody.readHitpoints().equals(new Vector2f(100,100)));
 
         loadedInventory = loadedBody.readInventory();
-        System.out.println(loadedInventory.readItems());
-        assert(loadedInventory.readItem(0).getValue().readName().equals("item0"));
+        assert(loadedInventory.readItem(0).getValue().readName().equals("Potion"));
     }
 
     @Test

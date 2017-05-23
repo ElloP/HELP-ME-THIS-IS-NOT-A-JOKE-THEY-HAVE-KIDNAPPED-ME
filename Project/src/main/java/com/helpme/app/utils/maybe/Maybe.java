@@ -83,6 +83,10 @@ public abstract class Maybe<T> {
     }
 
     public static <T extends Y, Y> List<Maybe<Y>> cast(List<Maybe<T>> maybe){
+        if(maybe == null){
+            return new ArrayList<>();
+        }
+
         List<Maybe<Y>> list = new ArrayList<Maybe<Y>>(){
             {
                 for(Maybe<T> element : maybe){
