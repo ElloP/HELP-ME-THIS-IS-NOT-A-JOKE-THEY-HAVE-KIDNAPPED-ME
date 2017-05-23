@@ -21,20 +21,18 @@ public class UIShader extends Shader {
     private UIShader() {
         super("uiVerShader.vs", "fragmentShader.fs");
         addUniform("model");
-        //addUniform("view");
         addUniform("projection");
     }
 
     @Override
     public void updateUniforms(Transform transform, ICamera camera) {
         setUniform("model", transform.getModelMatrix());
-        //setUniform("view", camera.getViewMatrix());
-        setUniform("projection", transform.getOrthoMatrix(0, Window.getWidth(), Window.getHeight(), 0, -1, 1.0f));
+        setUniform("projection", Transform.getOrthoMatrix(0, Window.getWidth(), Window.getHeight(), 0, -1, 1.0f));
     }
 
     @Override
     public void updateUniforms(Matrix4f model, Transform transform, ICamera camera) {
         setUniform("model", model);
-        setUniform("projection", transform.getOrthoMatrix(0, Window.getWidth(), Window.getHeight(), 0, -1, 1.0f));
+        setUniform("projection", Transform.getOrthoMatrix(0, Window.getWidth(), Window.getHeight(), 0, -1, 1.0f));
     }
 }

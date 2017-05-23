@@ -20,8 +20,8 @@ import java.util.List;
 /**
  * Created by Klas on 2017-05-20.
  */
-public class Menu extends GameObject{
-    private UIRenderer menu;
+public class Menu extends GameObject {
+    private UIController menu;
     private String[] options;
     private int curr;
     private GameLoader gameLoader;
@@ -32,7 +32,7 @@ public class Menu extends GameObject{
         options[0] = "menuload";
         options[1] = "menunew";
         curr = 0;
-        this.menu = new UIRenderer(options[curr], new Vector2f(800, 450), 2);
+        this.menu = new UIController(options[curr], new Vector2f(800, 450), 1600, 900);
     }
 
     public void up(){
@@ -81,7 +81,7 @@ public class Menu extends GameObject{
     }
 
     private void addUI(Scene scene){
-        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
+        UIController health = new UIController("health", new Vector2f(1300, 800), 400, 75);
         scene.addChild(health);
     }
 
