@@ -116,7 +116,7 @@ public class Body extends Observable implements IBody {
 
     @Override
     public void changeActiveItem(int itemIndex) {
-        inventory.changeActiveItem(itemIndex);
+        inventory.setActiveItem(itemIndex);
     }
 
     @Override

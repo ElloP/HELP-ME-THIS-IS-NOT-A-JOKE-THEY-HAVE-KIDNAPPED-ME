@@ -15,8 +15,10 @@ public abstract class Item {
 
     public Item(String name) {
         this.name = name;
-        this.attackEffect = stats -> {};
-        this.selfieEffect = stats -> {};
+        this.attackEffect = stats -> {
+        };
+        this.selfieEffect = stats -> {
+        };
     }
 
     public Item(String name, IEffect attackEffect, IEffect selfieEffect) {
@@ -25,26 +27,24 @@ public abstract class Item {
         this.selfieEffect = selfieEffect;
     }
 
-    public IEffect getAttackEffect(){
+    public IEffect getAttackEffect() {
         return attackEffect;
     }
 
-    public IEffect getSelfieEffect(){
+    public IEffect getSelfieEffect() {
         return selfieEffect;
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o != null && o instanceof Item && Objects.equals(name, ((Item) o).name);
-    }
+    public abstract boolean equals(Object o);
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return name.hashCode();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Item: " + name;
     }
 }

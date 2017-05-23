@@ -12,10 +12,12 @@ import com.helpme.app.itemtest.ItemTest;
 import com.helpme.app.itemtest.attacktest.AttackTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
+import com.helpme.app.itemtest.stacktest.StackTest;
 import com.helpme.app.leveltest.LevelBodyTest;
 import com.helpme.app.leveltest.LevelPathTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.leveltest.LevelTileTest;
+import com.helpme.app.maybetest.MaybeTest;
 import com.helpme.app.savetest.SaveTest;
 import com.helpme.app.tiletest.TileTest;
 import org.junit.runner.RunWith;
@@ -34,6 +36,7 @@ import org.junit.runners.Suite;
         ItemTest.class,
         EdgeTest.class,
         EnemyTest.class,
+        MaybeTest.class,
         ConsciousnessTest.class,
         LevelTest.class,
         LevelBodyTest.class,
@@ -47,6 +50,7 @@ import org.junit.runners.Suite;
         TraverseTest.class,
         AttackTest.class,
         PickupTest.class,
+        StackTest.class,
         TileTest.class,
         SelfieTest.class,
         SaveTest.class})

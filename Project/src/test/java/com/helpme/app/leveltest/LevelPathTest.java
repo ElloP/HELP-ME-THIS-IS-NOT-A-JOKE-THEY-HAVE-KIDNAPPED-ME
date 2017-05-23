@@ -82,7 +82,7 @@ public class LevelPathTest {
     }
 
     @Test
-    public void testGetPathFail(){
+    public void testGetPathFailure(){
         mockBody.position = new Vector2f(3,0);
         Tuple3<List<Vector2f>, Vector2f, Integer> path = level.getPath(Vector2f.ZERO, new Vector2f(6, -5));
         System.out.println(path.a.isEmpty() && path.b.equals(Vector2f.ZERO) && path.c == 0);

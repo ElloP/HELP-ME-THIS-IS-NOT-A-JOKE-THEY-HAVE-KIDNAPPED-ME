@@ -20,5 +20,5 @@ public interface IInventory extends IKeyChain, ICopyable<IInventory>, IReadInven
     boolean addStack(IItem item, int amount);
     void addKey(IItem key);
     List<Maybe<IItem>> dropItems();
-    void changeActiveItem(int itemIndex);
+    void setActiveItem(int itemIndex);
 }

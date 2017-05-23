@@ -5,12 +5,21 @@ import com.helpme.app.model.item.IItemVisitor;
 import com.helpme.app.model.item.ISingle;
 import com.helpme.app.model.item.effect.IEffect;
 
+import java.util.Objects;
+
 /**
  * Created by kopa on 2017-05-18.
  */
 public class Single extends Item implements ISingle {
     public Single(String name, IEffect attack, IEffect selfie) {
         super(name, attack, selfie);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o != null &&
+                o instanceof Single &&
+                Objects.equals(name, ((Single) o).name);
     }
 
     @Override

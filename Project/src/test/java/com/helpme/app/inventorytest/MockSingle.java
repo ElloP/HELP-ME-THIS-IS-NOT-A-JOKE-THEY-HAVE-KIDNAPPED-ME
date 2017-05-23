@@ -1,5 +1,6 @@
 package com.helpme.app.inventorytest;
 
+import com.helpme.app.model.item.IConsumable;
 import com.helpme.app.model.item.IItemVisitor;
 import com.helpme.app.model.item.ISingle;
 import com.helpme.app.model.item.IItem;
@@ -39,5 +40,14 @@ public final class MockSingle implements ISingle {
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof ISingle)) {
+            return false;
+        }
+
+        return ((ISingle)o).readName().equals(name);
     }
 }

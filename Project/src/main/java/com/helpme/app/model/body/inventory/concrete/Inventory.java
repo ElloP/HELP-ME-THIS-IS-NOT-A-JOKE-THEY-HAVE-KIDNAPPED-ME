@@ -18,7 +18,7 @@ public class Inventory implements IInventory {
     private IItem defaultItem;
     private List<Maybe<IItem>> keychain;
     private List<Maybe<IItem>> items;
-    private int activeItemIndex = -1;
+    private int activeItemIndex = 0;
 
     public Inventory(List<Maybe<IItem>> items, IItem defaultItem, List<Maybe<IItem>> keychain) {
         this.defaultItem = defaultItem;
@@ -42,7 +42,7 @@ public class Inventory implements IInventory {
     //TODO check using not exception
     @Override
     public Maybe<IItem> getActiveItem() {
-        return activeItemIndex < 0 || activeItemIndex >= items.size() ? new Nothing() : Maybe.wrap(items.get(activeItemIndex));
+        return items.size() == 0 ? new Nothing() : Maybe.wrap(items.get(activeItemIndex));
     }
 
     @Override
@@ -85,14 +85,14 @@ public class Inventory implements IInventory {
     public void setItems(List<Maybe<IItem>> items) {
         if (items == null) return;
         this.items = items;
+        setActiveItem(0);
     }
 
     @Override
     public boolean addStack(IItem item, int amount) {
         for (Maybe<IItem> maybeStack : items) {
             if (maybeStack.check(stack -> stack.equals(item))) {
-                maybeStack.run(stack -> stack.accept(new Stack(amount)));
-                return true;
+                return maybeStack.check(stack -> stack.accept(new Stack(amount)));
             }
         }
         return false;
@@ -100,13 +100,18 @@ public class Inventory implements IInventory {
 
 
     @Override
-    public void changeActiveItem(int itemIndex) {
-        activeItemIndex = Math.floorMod(itemIndex, items.size());
+    public void setActiveItem(int itemIndex) {
+        activeItemIndex = items.size() == 0 ? 0 : Math.floorMod(itemIndex, items.size());
     }
 
     @Override
-    public int getSize() {
+    public int readSize() {
         return items.size();
+    }
+
+    @Override
+    public int readActiveItemIndex() {
+        return activeItemIndex;
     }
 
     @Override

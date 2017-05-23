@@ -8,8 +8,8 @@ import com.helpme.app.model.item.*;
 public final class Stack implements IItemVisitor<Boolean> {
     private final int amount;
 
-    public Stack(int amount){
-        this.amount = amount;
+    public Stack(int amount) {
+        this.amount = Math.max(amount, 0);
     }
 
     @Override

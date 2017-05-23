@@ -31,7 +31,12 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public int getSize() {
+    public int readSize() {
+        return 0;
+    }
+
+    @Override
+    public int readActiveItemIndex() {
         return 0;
     }
 
@@ -106,7 +111,7 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
 
     }
 }

@@ -5,6 +5,8 @@ import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IItemVisitor;
 import com.helpme.app.model.item.effect.IEffect;
 
+import java.util.Objects;
+
 /**
  * Created by kopa on 2017-04-09.
  */
@@ -38,6 +40,13 @@ public class Consumable extends Item implements IConsumable {
     @Override
     public int getStacks() {
         return stacks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o != null &&
+                o instanceof Consumable &&
+                Objects.equals(name, ((Consumable) o).name);
     }
 
     @Override
