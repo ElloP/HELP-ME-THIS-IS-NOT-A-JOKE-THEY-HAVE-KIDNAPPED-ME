@@ -30,7 +30,7 @@ public class Door implements IDoor {
 
     @Override
     public IItem getKey() {
-        return key.clone();
+        return key.copy();
     }
 
     @Override

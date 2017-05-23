@@ -5,8 +5,8 @@ import com.helpme.app.model.body.IReadBody;
 /**
  * Created by Jesper on 2017-04-24.
  */
-public abstract class AbstractMonsterSource {
-    protected IReadBody monster;
+public abstract class AbstractBodySource {
+    protected IReadBody body;
     protected Source source;
     protected int walking;
     protected int breathing;
@@ -15,8 +15,8 @@ public abstract class AbstractMonsterSource {
     protected float y;
     protected float z;
 
-    public AbstractMonsterSource(IReadBody monster, Source source, int walking, int breathing, int hurting, float x, float y, float z) {
-        this.monster = monster;
+    public AbstractBodySource(IReadBody body, Source source, int walking, int breathing, int hurting, float x, float y, float z) {
+        this.body = body;
         this.source = source;
         this.walking = walking;
         this.breathing = breathing;
@@ -27,15 +27,15 @@ public abstract class AbstractMonsterSource {
         source.setPosition(x, y, z);
     }
 
-    public boolean equals(IReadBody otherMonster) {
-        return monster.equals(otherMonster);
+    public boolean equals(IReadBody other) {
+        return body.equals(other);
     }
     public void setPosition(float x, float y, float z) {
         source.setPosition(x, y ,z);
     }
 
     public void playWalking() {
-        source.setPosition(monster.readPosition().x, monster.readPosition().y, 0);
+        source.setPosition(body.readPosition().x, body.readPosition().y, 0);
         source.play(walking);
     }
 

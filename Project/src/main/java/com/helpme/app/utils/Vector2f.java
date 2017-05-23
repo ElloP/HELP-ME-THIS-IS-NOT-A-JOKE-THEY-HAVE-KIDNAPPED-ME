@@ -1,11 +1,13 @@
 package com.helpme.app.utils;
 
+import com.helpme.app.utils.interfaces.ICopyable;
+
 import java.nio.FloatBuffer;
 
 /**
  * Authored by Olle on 2017-03-30.
  */
-public class Vector2f implements Cloneable {
+public class Vector2f implements ICopyable {
     public static final Vector2f NORTH = new Vector2f(0, 1);
     public static final Vector2f EAST = new Vector2f(1, 0);
     public static final Vector2f SOUTH = new Vector2f(0, -1);
@@ -39,7 +41,7 @@ public class Vector2f implements Cloneable {
     }
 
     public Vector2f forward(){
-        return this.clone();
+        return this.copy();
     }
 
     public Vector2f right(){
@@ -79,7 +81,7 @@ public class Vector2f implements Cloneable {
     }
 
     @Override
-    public Vector2f clone(){
+    public Vector2f copy(){
         return new Vector2f(x, y);
     }
 

@@ -6,9 +6,9 @@ import com.helpme.app.engine.sounds.audio.AudioHandler;
 /**
  * Created by Jesper on 2017-04-25.
  */
-public class PlayerSource extends AbstractMonsterSource {
-    public PlayerSource(IReadBody monster, Source source, int walking, int breathing, int hurting, float x, float y, float z) {
-        super(monster, source, walking, breathing, hurting, x, y, z);
+public class PlayerSource extends AbstractBodySource {
+    public PlayerSource(IReadBody body, Source source, int walking, int breathing, int hurting, float x, float y, float z) {
+        super(body, source, walking, breathing, hurting, x, y, z);
     }
 
     @Override

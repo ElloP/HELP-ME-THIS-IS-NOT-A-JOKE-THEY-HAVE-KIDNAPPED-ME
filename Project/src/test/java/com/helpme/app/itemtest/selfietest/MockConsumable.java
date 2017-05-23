@@ -48,7 +48,7 @@ public class MockConsumable implements IConsumable {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return null;
     }
 

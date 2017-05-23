@@ -32,7 +32,7 @@ public final class MockSingle implements ISingle {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return new MockSingle(name);
     }
 

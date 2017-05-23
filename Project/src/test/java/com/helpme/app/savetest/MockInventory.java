@@ -25,7 +25,7 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public IInventory clone() {
+    public IInventory copy() {
         return null;
     }
 

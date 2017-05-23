@@ -19,7 +19,7 @@ public class Single extends Item implements ISingle {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return new Single(name, getAttackEffect(), getSelfieEffect());
     }
 

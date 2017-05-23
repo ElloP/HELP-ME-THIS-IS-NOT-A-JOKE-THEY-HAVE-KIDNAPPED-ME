@@ -6,7 +6,7 @@ import com.helpme.app.model.body.inventory.IInventory;
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IReadItem;
 import com.helpme.app.model.body.concrete.visitor.Stack;
-import com.helpme.app.utils.Clone;
+import com.helpme.app.utils.Copy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +142,7 @@ public class Inventory implements IInventory {
     }
 
     @Override
-    public IInventory clone() {
-        return new Inventory(Clone.maybeList(items), defaultItem.clone(), Clone.maybeList(keychain));
+    public IInventory copy() {
+        return new Inventory(Copy.maybeList(items), defaultItem.copy(), Copy.maybeList(keychain));
     }
 }

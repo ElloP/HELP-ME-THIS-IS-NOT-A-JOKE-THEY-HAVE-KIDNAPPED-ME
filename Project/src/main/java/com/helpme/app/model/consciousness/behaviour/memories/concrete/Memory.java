@@ -27,16 +27,16 @@ public class Memory implements IMemory {
 
     @Override
     public Map<String, Integer> readShortTerm() {
-        Map<String, Integer> clone = new HashMap<>();
-        clone.putAll(shortTerm);
-        return clone;
+        Map<String, Integer> copy = new HashMap<>();
+        copy.putAll(shortTerm);
+        return copy;
     }
 
     @Override
     public Map<String, Integer> readLongTerm() {
-        Map<String, Integer> clone = new HashMap<>();
-        clone.putAll(longTerm);
-        return clone;
+        Map<String, Integer> copy = new HashMap<>();
+        copy.putAll(longTerm);
+        return copy;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Memory implements IMemory {
     }
 
     @Override
-    public IMemory clone() {
+    public IMemory copy() {
         return new Memory(readShortTerm(), readLongTerm());
     }
 }

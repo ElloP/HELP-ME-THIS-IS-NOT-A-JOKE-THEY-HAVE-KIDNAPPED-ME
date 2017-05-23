@@ -1,6 +1,6 @@
 package com.helpme.app.model.body.concrete;
 
-import com.helpme.app.utils.Clone;
+import com.helpme.app.utils.Copy;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.model.body.IBody;
 import com.helpme.app.model.body.concrete.visitor.*;
@@ -121,12 +121,12 @@ public class Body extends Observable implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return position.clone();
+        return position.copy();
     }
 
     @Override
     public Vector2f readDirection() {
-        return direction.clone();
+        return direction.copy();
     }
 
     @Override
@@ -145,8 +145,8 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public Body clone() {
-        return new Body(inventory.clone(), position.clone(), direction.clone(), readHitpoints(), startingPosition.clone(), dialogue.clone());
+    public Body copy() {
+        return new Body(inventory.copy(), position.copy(), direction.copy(), readHitpoints(), startingPosition.copy(), dialogue.copy());
     }
 
     @Override
@@ -171,17 +171,17 @@ public class Body extends Observable implements IBody {
 
     @Override
     public Vector2f readHitpoints() {
-        return hitpoints.clone();
+        return hitpoints.copy();
     }
 
     @Override
     public IInventory getInventory() {
-        return inventory.clone();
+        return inventory.copy();
     }
 
     @Override
     public void setItems(IItem[] items) {
-        inventory.setItems(Clone.toMaybeList(items));
+        inventory.setItems(Copy.toMaybeList(items));
     }
 
     @Override

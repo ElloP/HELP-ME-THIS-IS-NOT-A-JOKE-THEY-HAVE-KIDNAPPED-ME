@@ -1,10 +1,7 @@
 package com.helpme.app.leveltest;
 
-import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.level.concrete.Level;
-import com.helpme.app.model.tile.IReadTile;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.model.body.IBody;
@@ -12,7 +9,6 @@ import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.item.effect.ITarget;
 import com.helpme.app.model.level.ILevel;
 import com.helpme.app.model.tile.ITile;
-import com.sun.corba.se.spi.ior.iiop.IIOPProfileTemplate;
 import org.junit.Before;
 import org.junit.Test;
 

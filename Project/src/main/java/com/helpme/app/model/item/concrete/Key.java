@@ -24,7 +24,7 @@ public class Key extends Item implements IKey {
     }
 
     @Override
-    public IItem clone(){
+    public IItem copy(){
         return new Key(name);
     }
 

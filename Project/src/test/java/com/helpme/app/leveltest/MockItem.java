@@ -7,11 +7,6 @@ import com.helpme.app.model.item.IItemVisitor;
  * Created by kopa on 2017-05-23.
  */
 public class MockItem implements IItem {
-    String name;
-
-    public MockItem(String name){
-        this.name = name;
-    }
 
     @Override
     public String readName() {
@@ -19,7 +14,7 @@ public class MockItem implements IItem {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return null;
     }
 

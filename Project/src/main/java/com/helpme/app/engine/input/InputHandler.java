@@ -121,7 +121,7 @@ public final class InputHandler {
     }
 
     static Vector2f getMousePosition() {
-        return mousePosition.clone();
+        return mousePosition.copy();
     }
 }
 

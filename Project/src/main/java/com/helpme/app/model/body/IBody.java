@@ -1,6 +1,6 @@
 package com.helpme.app.model.body;
 
-import com.helpme.app.utils.interfaces.ICloneable;
+import com.helpme.app.utils.interfaces.ICopyable;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.model.body.inventory.IInventory;
 import com.helpme.app.model.item.effect.ITarget;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IBody extends IReadBody, ICloneable<IBody> {
+public interface IBody extends IReadBody, ICopyable<IBody> {
     void rotateRight();
     void rotateLeft();
     void moveForward();

@@ -51,7 +51,7 @@ public class Consumable extends Item implements IConsumable {
     }
 
     @Override
-    public IItem clone(){
+    public IItem copy(){
         return new Consumable(name, stacks, getAttackEffect(), getSelfieEffect());
     }
 

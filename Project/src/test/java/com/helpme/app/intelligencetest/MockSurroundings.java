@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by kopa on 2017-05-22.
  */
 public class MockSurroundings implements IReadSurroundings {
-    IReadBody mockBody;
+    IReadBody mockBody = null;
 
     @Override
     public boolean isDirectionBlocked(IReadBody body, Vector2f direction) {
@@ -55,7 +55,7 @@ public class MockSurroundings implements IReadSurroundings {
 
     @Override
     public Maybe<IReadBody> readBody(Vector2f position) {
-        return Maybe.wrap(mockBody.readPosition().equals(position) ? mockBody : null);
+        return Maybe.wrap(mockBody != null && mockBody.readPosition().equals(position) ? mockBody : null);
     }
 
     @Override

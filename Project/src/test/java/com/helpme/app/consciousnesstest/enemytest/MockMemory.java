@@ -39,7 +39,7 @@ public class MockMemory implements IMemory {
     }
 
     @Override
-    public IMemory clone() {
+    public IMemory copy() {
         return null;
     }
 

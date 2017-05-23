@@ -63,7 +63,7 @@ public class DialogueNode implements IDialogueNode {
 
 
     @Override
-    public IDialogueNode clone() {
-        return new DialogueNode(dialogue.clone(), dialogueAlternatives.clone());
+    public IDialogueNode copy() {
+        return new DialogueNode(dialogue.copy(), dialogueAlternatives.clone());
     }
 }

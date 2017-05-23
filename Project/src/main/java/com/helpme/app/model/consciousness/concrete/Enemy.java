@@ -27,7 +27,7 @@ public class Enemy extends Consciousness {
     }
 
     public IMemory readMemory() {
-        return memory.clone();
+        return memory.copy();
     }
 
     public List<IBehaviour> getBehaviours() {
@@ -45,10 +45,5 @@ public class Enemy extends Consciousness {
             }
         }
         maybeAction.run(action -> action.apply(this));
-    }
-
-
-    private Maybe<IReadBody> getPlayer() {
-        return surroundings.readPlayer();
     }
 }

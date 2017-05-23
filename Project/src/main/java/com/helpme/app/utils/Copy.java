@@ -1,22 +1,23 @@
 package com.helpme.app.utils;
 
-import com.helpme.app.utils.interfaces.ICloneable;
+import com.helpme.app.utils.interfaces.ICopyable;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by kopa on 2017-04-11.
  */
-public abstract class Clone {
+public abstract class Copy {
 
-    private Clone(){
+    private Copy(){
 
     }
 
-    public static <T extends ICloneable<T>> List<T> toList(T[] array) {
+    public static <T extends ICopyable<T>> List<T> toList(T[] array) {
         if (array == null) {
             return new ArrayList<>();
         }
@@ -26,12 +27,12 @@ public abstract class Clone {
                 list.add(null);
                 continue;
             }
-            list.add(a.clone());
+            list.add(a.copy());
         }
         return list;
     }
 
-    public static <T extends ICloneable<T>> List<Maybe<T>> toMaybeList(T[] array) {
+    public static <T extends ICopyable<T>> List<Maybe<T>> toMaybeList(T[] array) {
         if (array == null) {
             return new ArrayList<>();
         }
@@ -41,12 +42,12 @@ public abstract class Clone {
                 list.add(new Nothing<>());
                 continue;
             }
-            list.add(Maybe.wrap(a.clone()));
+            list.add(Maybe.wrap(a.copy()));
         }
         return list;
     }
 
-    public static <T extends ICloneable<T>> T[] array(T[] array) {
+    public static <T extends ICopyable<T>> T[] array(T[] array) {
         if (array == null) {
             return array;
         }
@@ -56,24 +57,24 @@ public abstract class Clone {
             if (array[i] == null) {
                 continue;
             }
-            array[i] = array[i].clone();
+            array[i] = array[i].copy();
         }
         return array;
     }
 
-    public static <T extends ICloneable<T>> List<T> list(List<T> list){
-        List<T> cloned = new ArrayList<>();
+    public static <T extends ICopyable<T>> List<T> list(List<T> list){
+        List<T> copy = new ArrayList<>();
         for(T element : list){
-            cloned.add(element.clone());
+            copy.add(element.copy());
         }
-        return cloned;
+        return copy;
     }
 
-    public static <T extends ICloneable<T>> List<Maybe<T>> maybeList(List<Maybe<T>> list){
-        List<Maybe<T>> cloned = new ArrayList<>();
+    public static <T extends ICopyable<T>> List<Maybe<T>> maybeList(List<Maybe<T>> list){
+        List<Maybe<T>> copy = new ArrayList<>();
         for(Maybe<T> element : list){
-            element.run(e -> cloned.add(Maybe.wrap(e.clone())));
+            element.run(e -> copy.add(Maybe.wrap(e.copy())));
         }
-        return cloned;
+        return copy;
     }
 }

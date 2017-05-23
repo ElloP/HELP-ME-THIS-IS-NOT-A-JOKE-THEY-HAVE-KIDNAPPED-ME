@@ -2,7 +2,7 @@ package com.helpme.app.engine.sounds;
 
 import com.helpme.app.model.body.concrete.visitor.Event;
 import com.helpme.app.model.body.IReadBody;
-import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
+import com.helpme.app.engine.sounds.sources.AbstractBodySource;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -13,14 +13,17 @@ import java.util.Observer;
  */
 public class AudioObserver implements Observer {
     IReadBody player;
-    ArrayList<AbstractMonsterSource> monsterSources;
+    ArrayList<AbstractBodySource> bodySources;
 
-    public AudioObserver(ArrayList<AbstractMonsterSource> monsterSources) {
-        this.monsterSources = monsterSources;
+    public AudioObserver(ArrayList<AbstractBodySource> bodySources) {
+        this.bodySources = bodySources;
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        if (!(arg instanceof Event) || !(o instanceof IReadBody)) {
+            return;
+        }
         Event event = (Event) arg;
         switch (event) {
             case Dead:
@@ -36,24 +39,24 @@ public class AudioObserver implements Observer {
         }
     }
 
-    private boolean isPlayer(IReadBody monster) {
-        return player.equals(monster);
+    private boolean isPlayer(IReadBody body) {
+        return player.equals(body);
     }
 
-    private AbstractMonsterSource getSource(IReadBody monster) {
-        for (AbstractMonsterSource monsterSource : monsterSources) {
-            if (monsterSource.equals(monster)) {
-                return monsterSource;
+    private AbstractBodySource getSource(IReadBody body) {
+        for (AbstractBodySource bodySource : bodySources) {
+            if (bodySource.equals(body)) {
+                return bodySource;
             }
         }
         return null;
     }
 
-    private void posEvent(IReadBody monster) {
-        getSource(monster).playWalking();
+    private void posEvent(IReadBody body) {
+        getSource(body).playWalking();
     }
 
-    private void healthEvent(IReadBody monster) {
-        getSource(monster).playHurting();
+    private void healthEvent(IReadBody body) {
+        getSource(body).playHurting();
     }
 }

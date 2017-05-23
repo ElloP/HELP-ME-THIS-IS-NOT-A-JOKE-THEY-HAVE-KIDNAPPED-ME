@@ -14,7 +14,7 @@ public class MockKey implements IKey {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return null;
     }
 

@@ -56,7 +56,7 @@ public class Dialogue implements IDialogue{
     }
 
     @Override
-    public IDialogue clone(){
-        return new Dialogue(continuePhrase, greeting.clone());
+    public IDialogue copy(){
+        return new Dialogue(continuePhrase, greeting.copy());
     }
 }

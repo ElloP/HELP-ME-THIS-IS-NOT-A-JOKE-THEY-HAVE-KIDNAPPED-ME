@@ -88,7 +88,7 @@ public class Menu extends GameObject{
     private ILevel testLevel(){
         List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
-        List<IBody> monsters = new ArrayList<>();
+        List<IBody> bodies = new ArrayList<>();
 
         tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
         tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
@@ -141,7 +141,7 @@ public class Menu extends GameObject{
          */
 
 
-        ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.ZERO);
+        ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.ZERO);
         return level;
     }
 

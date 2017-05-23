@@ -120,7 +120,7 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public Body clone() {
+    public Body copy() {
         return null;
     }
 

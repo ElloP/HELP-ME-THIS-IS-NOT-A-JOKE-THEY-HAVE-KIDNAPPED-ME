@@ -19,7 +19,7 @@ public final class MockItem implements IItem{
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return null;
     }
 

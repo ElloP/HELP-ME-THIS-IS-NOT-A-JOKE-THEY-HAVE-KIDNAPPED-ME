@@ -66,8 +66,8 @@ public class LevelTileTest {
     @Test
     public void testAddTileItems() {
         List<Maybe<IItem>> mockItems = new ArrayList<>();
-        MockItem mockItem0 = new MockItem("mockItem0");
-        MockItem mockItem1 = new MockItem("mockItem1");
+        MockItem mockItem0 = new MockItem();
+        MockItem mockItem1 = new MockItem();
         mockItems.add(new Just<>(mockItem0));
         mockItems.add(new Just<>(mockItem1));
 
@@ -82,7 +82,7 @@ public class LevelTileTest {
     @Test
     public void testAddTileItemsInvalidTile(){
         List<Maybe<IItem>> mockItems = new ArrayList<>();
-        MockItem mockItem = new MockItem("mockItem");
+        MockItem mockItem = new MockItem();
         mockItems.add(new Just<>(mockItem));
 
         assert (!level.addTileItems(new Vector2f(8,8), mockItems));
@@ -96,7 +96,7 @@ public class LevelTileTest {
 
     @Test
     public void testAddTileItem() {
-        MockItem mockItem = new MockItem("mockItem0");
+        MockItem mockItem = new MockItem();
 
         level.addTileItem(Vector2f.ZERO, mockItem);
         List<Maybe<IItem>> tileItems = level.getTiles().get(Vector2f.ZERO).removeItems();
@@ -107,7 +107,7 @@ public class LevelTileTest {
 
     @Test
     public void testAddTileItemInvalidTile() {
-        MockItem mockItem = new MockItem("mockItem0");
+        MockItem mockItem = new MockItem();
         assert (!level.addTileItem(new Vector2f(8, 8), mockItem));
     }
 
@@ -120,8 +120,8 @@ public class LevelTileTest {
     @Test
     public void testRemoveTileItems() {
         List<Maybe<IItem>> mockItems = new ArrayList<>();
-        IItem mockItem0 = new MockItem("mockItem0");
-        IItem mockItem1 = new MockItem("mockItem1");
+        IItem mockItem0 = new MockItem();
+        IItem mockItem1 = new MockItem();
         mockItems.add(new Just<>(mockItem0));
         mockItems.add(new Just<>(mockItem1));
         mockTile.items = mockItems;
@@ -132,7 +132,7 @@ public class LevelTileTest {
 
     @Test
     public void testRemoveTileItem() {
-        IItem mockItem = new MockItem("mockItem");
+        IItem mockItem = new MockItem();
         mockTile.item = mockItem;
 
         Maybe<IItem> tileItem = level.removeTileItem(Vector2f.EAST, 0);
@@ -143,8 +143,8 @@ public class LevelTileTest {
     @Test
     public void testUpdateTile() {
         List<Maybe<IItem>> mockItems = new ArrayList<>();
-        MockItem mockItem0 = new MockItem("mockItem0");
-        MockItem mockItem1 = new MockItem("mockItem1");
+        MockItem mockItem0 = new MockItem();
+        MockItem mockItem1 = new MockItem();
         MockInventory mockInventory;
 
         mockItems.add(new Just<>(mockItem0));
