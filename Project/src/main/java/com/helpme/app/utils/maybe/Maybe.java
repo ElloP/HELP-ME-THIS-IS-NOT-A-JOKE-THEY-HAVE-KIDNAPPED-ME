@@ -76,7 +76,7 @@ public abstract class Maybe<T> {
     }
 
     public static <T extends Y, Y> Maybe<Y> wrap(Maybe<T> maybe){
-        if(maybe.isJust()){
+        if(maybe != null && maybe.isJust()){
             return new Just<>(maybe.getValue());
         }
         return new Nothing<>();
