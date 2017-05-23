@@ -1,5 +1,6 @@
 package com.helpme.app.engine.renderer.base;
 
+import com.helpme.app.engine.renderer.Vertex;
 import com.helpme.app.utils.Vector2f;
 
 import java.nio.FloatBuffer;
@@ -7,7 +8,10 @@ import java.nio.FloatBuffer;
 /**
  * Created by Jesper on 2017-05-14.
  */
-public class Vertex2D {
+
+public class Vertex2D implements Vertex {
+    public static final int VERTEXSIZE = 4;
+
     private Vector2f position;
     private Vector2f texCoords;
 

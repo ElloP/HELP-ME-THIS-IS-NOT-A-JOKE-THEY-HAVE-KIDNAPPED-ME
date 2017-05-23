@@ -13,17 +13,17 @@ import com.helpme.app.utils.mathl.Vector3f;
 
 //TODO(Olle):Maybe better name
 public class NPCView extends GameObject {
-    private Mesh mesh;
+    private Mesh3D mesh3D;
     private Shader shader;
     private Matrix4f modelMatrix;
 
     private static Texture texture = TextureLoader.loadTexture("default.png");
 
-    private static Vertex[] vertices = new Vertex[] {
-            new Vertex(-1.5f, -1.0f,  0.0f, 0.0f, 0.0f),
-            new Vertex(1.5f, -1.0f,  0.0f, 1.0f, 0.0f),
-            new Vertex(1.5f,  2.0f,  0.0f, 1.0f, 1.0f),
-            new Vertex(-1.5f,  2.0f,  0.0f, 0.0f,1.0f)
+    private static Vertex3D[] vertices = new Vertex3D[] {
+            new Vertex3D(-1.5f, -1.0f,  0.0f, 0.0f, 0.0f),
+            new Vertex3D(1.5f, -1.0f,  0.0f, 1.0f, 0.0f),
+            new Vertex3D(1.5f,  2.0f,  0.0f, 1.0f, 1.0f),
+            new Vertex3D(-1.5f,  2.0f,  0.0f, 0.0f,1.0f)
     };
 
     private static int[] indices = new int[] {
@@ -33,7 +33,7 @@ public class NPCView extends GameObject {
 
     public NPCView() {
         modelMatrix = new Matrix4f();
-        this.mesh = new Mesh(vertices, indices);
+        this.mesh3D = new Mesh3D(vertices, indices);
         this.shader = DefaultShader.getDefaultShader();
     }
 
@@ -47,6 +47,6 @@ public class NPCView extends GameObject {
         shader.updateUniforms(modelMatrix, transform, camera);
         texture.bind();
         shader.useProgram();
-        mesh.draw();
+        mesh3D.draw();
     }
 }

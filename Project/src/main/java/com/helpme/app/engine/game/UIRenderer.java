@@ -1,14 +1,9 @@
 package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.ICamera;
-import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.GameObject;
-import com.helpme.app.engine.renderer.base.Mesh;
-import com.helpme.app.engine.renderer.base.Shader;
-import com.helpme.app.engine.renderer.base.Texture;
-import com.helpme.app.engine.renderer.base.UIShader;
+import com.helpme.app.engine.renderer.base.*;
 import com.helpme.app.utils.Vector2f;
-import org.lwjgl.opengl.GL13;
 
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL11.glDrawArrays;
@@ -17,10 +12,10 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 /**
  * Created by Jesper on 2017-05-14.
  */
-public class UIRenderer extends GameObject{
+public class UIRenderer extends GameObject {
     private Shader shader;
     private Texture texture;
-    private Mesh mesh;
+    private Mesh2D mesh2D;
     private int width;
     private int height;
     public UIRenderer(String texture, Vector2f position, Vector2f scale) {
@@ -29,7 +24,7 @@ public class UIRenderer extends GameObject{
             this.width = t.getWidth();
             this.height = t.getHeight();
         });
-        this.mesh = new Mesh(Resources.uiVert(width, height));
+        this.mesh2D = new Mesh2D(Resources.uiVert(width, height));
         this.shader = UIShader.getInstance();
         this.transform.scale(scale.x, scale.y, 1);
         this.transform.setPosition(position.x, position.y, 0);
@@ -54,7 +49,7 @@ public class UIRenderer extends GameObject{
         shader.useProgram();
         shader.updateUniforms(transform, camera);
         texture.bind();
-        glBindVertexArray(mesh.vao);
+        glBindVertexArray(mesh2D.getVao());
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
         texture.unBind();
