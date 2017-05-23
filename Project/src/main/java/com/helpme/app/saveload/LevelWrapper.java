@@ -34,15 +34,9 @@ public class LevelWrapper implements ILoadable<ILevel> {
         }
     }
     @XmlElement(name="Tiles")
-    public TileWrapper[] getTiles() {return this.tiles; }
-    public void setTiles(TileWrapper[] tiles){ this.tiles = tiles;}
-    public String toString(){
-        StringBuilder result = new StringBuilder();
-        for(TileWrapper t : tiles){
-            result.append("\n" + t);
-        }
-        return result.toString();
-    }
+    public TileWrapper[] getTiles() {return tiles == null ? null : tiles.clone(); }
+    public void setTiles(TileWrapper[] tiles){ this.tiles = tiles == null ? null : tiles.clone();}
+
     @XmlElement(name="StartingPosition")
     public Vector2Wrapper getStartingPosition(){
         return this.startingPosition;
@@ -51,6 +45,13 @@ public class LevelWrapper implements ILoadable<ILevel> {
         this.startingPosition = pos;
     }
 
+    public String toString(){
+        StringBuilder result = new StringBuilder();
+        for(TileWrapper t : tiles){
+            result.append("\n" + t);
+        }
+        return result.toString();
+    }
 
     @Override
     public ILevel getObject() {

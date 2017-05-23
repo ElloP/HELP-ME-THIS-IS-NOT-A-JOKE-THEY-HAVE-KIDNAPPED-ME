@@ -24,6 +24,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
     private AttackWrapper attackWrapper;
 
     public BehaviourWrapper() {
+
     }
 
     public BehaviourWrapper(IBehaviour behaviour) {
@@ -53,7 +54,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
     @XmlElementWrapper(name = "preconditions")
     @XmlElement(name = "precondition")
     public PreconditionWrapper[] getPreconditions(){
-        return preconditionWrappers;
+        return preconditionWrappers == null ? null :preconditionWrappers.clone();
     }
     public void setPreconditions(PreconditionWrapper[] preconditionWrappers){
         this.preconditionWrappers = new PreconditionWrapper[preconditionWrappers.length];

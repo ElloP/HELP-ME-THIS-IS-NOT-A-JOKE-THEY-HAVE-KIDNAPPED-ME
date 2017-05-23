@@ -45,7 +45,7 @@ public class MemoryWrapper implements ILoadable<IMemory> {
     @XmlElementWrapper(name = "long_term")
     @XmlElement(name = "event")
     public MemoryEntryWrapper[] getLongTerm() {
-        return longTermWrapper;
+        return longTermWrapper == null ? null : longTermWrapper.clone();
     }
 
     public void setLongTerm(MemoryEntryWrapper[] longTermWrapper) {
@@ -57,7 +57,7 @@ public class MemoryWrapper implements ILoadable<IMemory> {
     @XmlElementWrapper(name = "short_term")
     @XmlElement(name = "event")
     public MemoryEntryWrapper[] getShortTerm() {
-        return shortTermWrapper;
+        return shortTermWrapper == null ? null : shortTermWrapper.clone();
     }
 
     public void setShortTerm(MemoryEntryWrapper[] shortTermWrapper) {

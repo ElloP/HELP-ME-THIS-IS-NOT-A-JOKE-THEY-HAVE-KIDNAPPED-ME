@@ -49,11 +49,11 @@ public class TileWrapper implements ILoadable<ITile> {
     }
 
     @XmlElement(name = "position")
-    public Vector2Wrapper getPositionWrapper() {
+    public Vector2Wrapper getPosition() {
         return this.positionWrapper;
     }
 
-    public void setPositionWrapper(Vector2Wrapper pos) {
+    public void setPosition(Vector2Wrapper pos) {
         this.positionWrapper = pos;
 
     }
@@ -62,11 +62,11 @@ public class TileWrapper implements ILoadable<ITile> {
 
     @XmlElementWrapper(name="items")
     @XmlElement(name = "item")
-    public ItemWrapper[] getItemWrappers() {
-        return this.itemWrappers;
+    public ItemWrapper[] getItems() {
+        return this.itemWrappers.clone();
     }
 
-    public void setItemWrappers(ItemWrapper[] itemWrappers) {
+    public void setItems(ItemWrapper[] itemWrappers) {
         this.itemWrappers = new ItemWrapper[itemWrappers.length];
         for (int i = 0; i < itemWrappers.length; i++) {
             this.itemWrappers[i] = new ItemWrapper(itemWrappers[i].getName());

@@ -41,13 +41,16 @@ public class SaveRoot {
     public void setPlayer(BodyWrapper player) {
         this.player = player;
     }
+
+
     @XmlElement(name="Enemies")
     public EnemyWrapper[] getEnemies() {
-        return this.enemies;
+        return enemies == null ? null : enemies.clone();
     }
     public void setEnemies(EnemyWrapper[] enemies) {
-        this.enemies = enemies;
+        this.enemies = enemies == null ? null : enemies.clone();
     }
+
     @XmlElement(name="Level")
     public LevelWrapper getLevel() {
         return level;
@@ -73,7 +76,7 @@ public class SaveRoot {
     }
     public IConsciousness[] loadEnemies(){
         if(loadEnemies == null) loadGame();
-        return this.loadEnemies;
+        return loadEnemies == null ? null : loadEnemies.clone();
     }
     public ILevel loadLevel(){
         if(loadLevel == null) loadGame();

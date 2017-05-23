@@ -51,7 +51,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     @XmlElementWrapper(name="keys")
     @XmlElement(name = "key")
     public ItemWrapper[] getKeys() {
-        return this.keys;
+        return keys == null ? null : keys.clone();
     }
     public void setKeys(ItemWrapper[] keys) {
         this.keys = new ItemWrapper[keys.length];
@@ -63,7 +63,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     @XmlElementWrapper(name="items")
     @XmlElement(name = "item")
     public ItemWrapper[] getItems() {
-        return this.items;
+        return items == null ? null : items.clone();
     }
     public void setItems(ItemWrapper[] items) {
         this.items = new ItemWrapper[items.length];
