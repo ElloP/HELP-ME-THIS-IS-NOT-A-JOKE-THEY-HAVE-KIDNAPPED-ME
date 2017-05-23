@@ -13,6 +13,7 @@ import com.helpme.app.itemtest.attacktest.AttackTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
 import com.helpme.app.leveltest.LevelBodyTest;
+import com.helpme.app.leveltest.LevelPathTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.leveltest.LevelTileTest;
 import com.helpme.app.savetest.SaveTest;
@@ -37,6 +38,7 @@ import org.junit.runners.Suite;
         LevelTest.class,
         LevelBodyTest.class,
         LevelTileTest.class,
+        LevelPathTest.class,
         BehaviourTest.class,
         AttackBehaviourTest.class,
         FollowBehaviourTest.class,
