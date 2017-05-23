@@ -14,6 +14,16 @@ public class Tuple2<A,B> implements ICopyable{
     }
 
     @Override
+    public boolean equals(Object o){
+        return o instanceof Tuple2 && ((Tuple2)o).a.equals(a) && ((Tuple2)o).b.equals(b);
+    }
+
+    @Override
+    public int hashCode(){
+        return ("(" + a.toString() + ", " + b.toString() + ")").hashCode();
+    }
+
+    @Override
     public Tuple2<A, B> copy(){
         return new Tuple2<>(a, b);
     }

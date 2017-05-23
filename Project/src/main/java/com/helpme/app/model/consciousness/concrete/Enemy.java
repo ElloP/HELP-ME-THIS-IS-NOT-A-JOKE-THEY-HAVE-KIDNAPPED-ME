@@ -4,11 +4,10 @@ import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.ISurroundings;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
 import javafx.collections.transformation.SortedList;
 
 import java.util.List;

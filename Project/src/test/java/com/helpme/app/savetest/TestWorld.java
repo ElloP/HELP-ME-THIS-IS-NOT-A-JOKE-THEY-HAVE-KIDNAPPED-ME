@@ -7,7 +7,7 @@ import com.helpme.app.model.consciousness.*;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
 import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
 import com.helpme.app.model.consciousness.behaviour.Comparison;
-import com.helpme.app.model.consciousness.behaviour.memories.concrete.MemoryFactory;
+import com.helpme.app.model.consciousness.behaviour.memory.concrete.MemoryFactory;
 import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.model.item.IItem;
@@ -28,12 +28,10 @@ import java.util.Map;
 public class TestWorld {
     ILevel level;
     IConsciousness player;
-    IConsciousness enemyConsciousness0;
-    IConsciousness enemyConsciousness1;
-    IConsciousness enemyConsciousness2;
-    IConsciousness enemyConsciousness3;
+    List<IConsciousness> enemyConsciousnesses;
 
     public TestWorld() {
+        enemyConsciousnesses = new ArrayList<>();
         IBody player = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, 100);
         IBody enemy0 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(1, 0), Vector2f.WEST, 100);
         IBody enemy1 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(0, 3), Vector2f.SOUTH, 100);
@@ -72,13 +70,13 @@ public class TestWorld {
         behaviours.add(followBehaviour);
         behaviours.add(returnBehaviour);
 
-        enemyConsciousness0 = ConsciousnessFactory.createEnemy(enemy0, level, MemoryFactory.createMemory(), behaviours);
+        enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy0, level, MemoryFactory.createMemory(), behaviours));
         level.addBody(enemy0);
-        enemyConsciousness1 = ConsciousnessFactory.createEnemy(enemy1, level, MemoryFactory.createMemory(), behaviours);
+        enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy1, level, MemoryFactory.createMemory(), behaviours));
         level.addBody(enemy1);
-        enemyConsciousness2 = ConsciousnessFactory.createEnemy(enemy2, level, MemoryFactory.createMemory(), behaviours);
+        enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy2, level, MemoryFactory.createMemory(), behaviours));
         level.addBody(enemy2);
-        enemyConsciousness3 = ConsciousnessFactory.createEnemy(enemy3, level, MemoryFactory.createMemory(), behaviours);
+        enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy3, level, MemoryFactory.createMemory(), behaviours));
         level.addBody(enemy3);
 
         this.level = level;

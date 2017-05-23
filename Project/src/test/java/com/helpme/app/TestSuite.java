@@ -18,6 +18,7 @@ import com.helpme.app.leveltest.LevelPathTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.leveltest.LevelTileTest;
 import com.helpme.app.maybetest.MaybeTest;
+import com.helpme.app.memorytest.MemoryTest;
 import com.helpme.app.savetest.SaveTest;
 import com.helpme.app.tiletest.TileTest;
 import org.junit.runner.RunWith;
@@ -43,6 +44,7 @@ import org.junit.runners.Suite;
         LevelTileTest.class,
         LevelPathTest.class,
         BehaviourTest.class,
+        MemoryTest.class,
         AttackBehaviourTest.class,
         FollowBehaviourTest.class,
         StayBehaviourTest.class,

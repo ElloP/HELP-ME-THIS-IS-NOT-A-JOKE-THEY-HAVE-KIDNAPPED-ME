@@ -24,6 +24,39 @@ public class BehaviourTest {
     }
 
     @Test
+    public void testGetPreconditions() {
+        IBehaviour behaviour;
+        Map<String, Tuple2<Integer, Comparison>> preconditions1;
+        Map<String, Tuple2<Integer, Comparison>> preconditions0 = new HashMap<>();
+        preconditions0.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
+        preconditions0.put("memory1", new Tuple2<>(4, Comparison.LESS_THAN));
+
+        behaviour = new Stay(0, preconditions0);
+        preconditions1 = behaviour.getPreconditions();
+
+        assert (preconditions1.size() == 2 &&
+                preconditions1.get("memory0").equals(new Tuple2<>(5, Comparison.MORE_THAN)) &&
+                preconditions1.get("memory1").equals(new Tuple2<>(4, Comparison.LESS_THAN)));
+    }
+
+    @Test
+    public void testSetPreconditions() {
+        IBehaviour behaviour;
+        Map<String, Tuple2<Integer, Comparison>> preconditions1;
+        Map<String, Tuple2<Integer, Comparison>> preconditions0 = new HashMap<>();
+        preconditions0.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
+        preconditions0.put("memory1", new Tuple2<>(4, Comparison.LESS_THAN));
+
+        behaviour = new Stay(0, new HashMap<>());
+        behaviour.setPreconditions(preconditions0);
+        preconditions1 = behaviour.getPreconditions();
+
+        assert (preconditions1.size() == 2 &&
+                preconditions1.get("memory0").equals(new Tuple2<>(5, Comparison.MORE_THAN)) &&
+                preconditions1.get("memory1").equals(new Tuple2<>(4, Comparison.LESS_THAN)));
+    }
+
+    @Test
     public void testMoreThanValid() {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));

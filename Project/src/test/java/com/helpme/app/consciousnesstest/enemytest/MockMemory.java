@@ -1,6 +1,6 @@
 package com.helpme.app.consciousnesstest.enemytest;
 
-import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
 
 import java.util.Map;
 

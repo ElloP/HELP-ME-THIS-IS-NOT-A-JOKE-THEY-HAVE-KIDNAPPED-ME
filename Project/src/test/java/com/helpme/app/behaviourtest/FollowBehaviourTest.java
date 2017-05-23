@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by kopa on 2017-05-21.
@@ -25,7 +26,7 @@ public class FollowBehaviourTest {
 
 
     @Before
-    public void setup(){
+    public void setup() {
         mockBody = new MockBody();
         mockPlayer = new MockPlayer();
         mockSurroundings = new MockSurroundings(mockPlayer);
@@ -40,6 +41,19 @@ public class FollowBehaviourTest {
                 "following",
                 "lost");
 
+    }
+
+    @Test
+    public void testFollowReset() {
+        Map<String, Integer> memory;
+        mockMemory.memory = new HashMap<>();
+        followBehaviour.reset(mockMemory);
+        memory = mockMemory.readMemory();
+
+        assert (memory.size() == 3 &&
+                memory.get("found") == 0 &&
+                memory.get("following") == 0 &&
+                memory.get("lost") == 0);
     }
 
     @Test

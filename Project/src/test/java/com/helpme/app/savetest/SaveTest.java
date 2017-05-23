@@ -22,15 +22,12 @@ import com.helpme.app.model.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.behaviour.Comparison;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
-import com.helpme.app.model.consciousness.behaviour.memories.concrete.MemoryFactory;
-import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.concrete.MemoryFactory;
 import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.concrete.ItemFactory;
 import com.helpme.app.model.level.ILevel;
-import com.helpme.app.model.level.concrete.LevelFactory;
 import com.helpme.app.model.tile.edge.IEdge;
 import com.helpme.app.model.tile.edge.concrete.Door;
 import com.helpme.app.model.tile.edge.concrete.Opening;
@@ -80,8 +77,7 @@ public class SaveTest {
     public void saveTest2() throws JAXBException {
         TestWorld mock = new TestWorld();
        // mock.player.setPlayerPosition(new Vector2f(1,1));
-
-        IConsciousness[] enemy = {mock.enemyConsciousness0,mock.enemyConsciousness1 };
+        IConsciousness[] enemy = mock.enemyConsciousnesses.toArray(new IConsciousness[mock.enemyConsciousnesses.size()]);
         SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();

@@ -1,11 +1,10 @@
 package com.helpme.app.memorytest;
 
-import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
-import com.helpme.app.model.consciousness.behaviour.memories.concrete.Memory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.concrete.Memory;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

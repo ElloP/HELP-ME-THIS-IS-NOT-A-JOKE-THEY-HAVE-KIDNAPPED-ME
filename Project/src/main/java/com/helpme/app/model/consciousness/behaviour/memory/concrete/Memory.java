@@ -1,6 +1,6 @@
-package com.helpme.app.model.consciousness.behaviour.memories.concrete;
+package com.helpme.app.model.consciousness.behaviour.memory.concrete;
 
-import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
 
 import java.util.HashMap;
 import java.util.Map;

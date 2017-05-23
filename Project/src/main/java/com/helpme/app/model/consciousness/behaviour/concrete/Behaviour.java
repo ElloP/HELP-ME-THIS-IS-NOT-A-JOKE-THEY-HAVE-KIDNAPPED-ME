@@ -7,7 +7,7 @@ import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.behaviour.Comparison;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.memories.IShortTerm;
+import com.helpme.app.model.consciousness.behaviour.memory.IShortTerm;
 
 import java.util.HashMap;
 import java.util.Map;

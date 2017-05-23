@@ -7,7 +7,7 @@ import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.behaviour.Comparison;
-import com.helpme.app.model.consciousness.behaviour.memories.IShortTerm;
+import com.helpme.app.model.consciousness.behaviour.memory.IShortTerm;
 import com.helpme.app.model.consciousness.IReadSurroundings;
 
 import java.util.Map;

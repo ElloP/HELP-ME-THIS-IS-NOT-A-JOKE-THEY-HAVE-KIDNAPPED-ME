@@ -1,4 +1,4 @@
-package com.helpme.app.model.consciousness.behaviour.memories;
+package com.helpme.app.model.consciousness.behaviour.memory;
 
 import com.helpme.app.utils.interfaces.ICopyable;
 

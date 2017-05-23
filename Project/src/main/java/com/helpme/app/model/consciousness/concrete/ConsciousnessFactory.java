@@ -4,7 +4,7 @@ import com.helpme.app.model.body.IBody;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.ISurroundings;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.SortedList;
 
