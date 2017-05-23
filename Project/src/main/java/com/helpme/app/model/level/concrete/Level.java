@@ -146,17 +146,6 @@ public class Level implements ILevel {
         return Maybe.wrap(player);
     }
 
-    class CameFrom {
-        CameFrom previous;
-        Vector2f position;
-
-        public CameFrom(CameFrom previous, Vector2f position) {
-            this.previous = previous;
-            this.position = position;
-        }
-    }
-
-
 
     @Override
     public boolean isWithinRange(Vector2f position, Vector2f destination, int range) {
@@ -176,15 +165,25 @@ public class Level implements ILevel {
         return positions.contains(destination);
     }
 
+    private static class Link {
+        Link previous;
+        Vector2f position;
+
+        public Link(Link previous, Vector2f position) {
+            this.previous = previous;
+            this.position = position;
+        }
+    }
+
     //TODO (Jesper): Take edges and doors into consideration
     @Override
     public Tuple3<List<Vector2f>, Vector2f, Integer> getPath(Vector2f from, Vector2f to) {
-        Level.CameFrom current;
+        Link current;
         ArrayList<Vector2f> result = new ArrayList<>();
         ArrayList<Vector2f> visitedNodes = new ArrayList<>();
-        Stack<Level.CameFrom> frontier = new Stack<>();
+        Stack<Link> frontier = new Stack<>();
         int cost;
-        frontier.push(new Level.CameFrom(null, from));
+        frontier.push(new Link(null, from));
         while (!frontier.isEmpty()) {
             current = frontier.pop();
             if (current.position.equals(to)) {
@@ -195,7 +194,7 @@ public class Level implements ILevel {
             Vector2f[] neighbours = Vector2f.getNeighbours(current.position);
             for (Vector2f neighbour : neighbours) {
                 if (!visitedNodes.contains(neighbour) && isTileValid(neighbour) && (!isTileOccupied(neighbour) || player.readPosition().equals(neighbour)))
-                    frontier.push(new Level.CameFrom(current, neighbour));
+                    frontier.push(new Link(current, neighbour));
             }
             visitedNodes.add(current.position);
         }
@@ -211,7 +210,7 @@ public class Level implements ILevel {
     }
 
 
-    private ArrayList<Vector2f> recreatePath(CameFrom current) {
+    private ArrayList<Vector2f> recreatePath(Link current) {
         ArrayList<Vector2f> result = new ArrayList<>();
         result.add(current.position);
         while (current.previous != null) {
