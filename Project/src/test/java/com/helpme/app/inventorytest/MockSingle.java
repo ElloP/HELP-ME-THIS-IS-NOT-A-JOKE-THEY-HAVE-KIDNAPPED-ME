@@ -50,4 +50,9 @@ public final class MockSingle implements ISingle {
 
         return ((ISingle)o).readName().equals(name);
     }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
+    }
 }

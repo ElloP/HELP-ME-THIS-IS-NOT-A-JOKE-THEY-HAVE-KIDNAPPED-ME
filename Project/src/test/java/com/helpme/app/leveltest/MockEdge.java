@@ -26,4 +26,9 @@ public class MockEdge implements IEdge{
     public <T> T accept(IEdgeVisitor<T> visitor) {
         return null;
     }
+
+    @Override
+    public IEdge copy() {
+        return null;
+    }
 }

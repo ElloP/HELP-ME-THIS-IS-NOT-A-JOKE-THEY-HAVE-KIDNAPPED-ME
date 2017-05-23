@@ -70,4 +70,9 @@ public class MockConsumable implements IConsumable {
 
         return ((IConsumable)o).readName().equals(name);
     }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
+    }
 }

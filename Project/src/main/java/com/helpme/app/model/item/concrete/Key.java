@@ -16,13 +16,6 @@ public class Key extends Item implements IKey {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o != null &&
-                o instanceof Key &&
-                Objects.equals(name, ((Key) o).name);
-    }
-
-    @Override
     public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
     }
@@ -40,5 +33,17 @@ public class Key extends Item implements IKey {
     @Override
     public String readName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o != null &&
+                o instanceof Key &&
+                Objects.equals(name, ((Key) o).name);
+    }
+
+    @Override
+    public int hashCode(){
+        return ("key" + name.hashCode()).hashCode();
     }
 }

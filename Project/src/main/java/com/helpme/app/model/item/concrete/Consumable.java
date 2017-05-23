@@ -43,13 +43,6 @@ public class Consumable extends Item implements IConsumable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o != null &&
-                o instanceof Consumable &&
-                Objects.equals(name, ((Consumable) o).name);
-    }
-
-    @Override
     public String toString() {
         return "Consumable: " + name;
     }
@@ -67,5 +60,17 @@ public class Consumable extends Item implements IConsumable {
     @Override
     public String readName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o != null &&
+                o instanceof Consumable &&
+                Objects.equals(name, ((Consumable) o).name);
+    }
+
+    @Override
+    public int hashCode(){
+        return ("consumable" + name).hashCode();
     }
 }

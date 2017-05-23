@@ -2,6 +2,7 @@ package com.helpme.app.edgetest.traversetest;
 
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.tile.edge.IDoor;
+import com.helpme.app.model.tile.edge.IEdge;
 import com.helpme.app.model.tile.edge.IEdgeVisitor;
 
 /**
@@ -43,5 +44,10 @@ public class MockDoor implements IDoor {
     @Override
     public <T> T accept(IEdgeVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public IEdge copy() {
+        return null;
     }
 }

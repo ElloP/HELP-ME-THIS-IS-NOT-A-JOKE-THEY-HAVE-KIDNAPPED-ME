@@ -53,8 +53,25 @@ public class TileTest {
     }
 
     @Test
-    public void testAddItems() {
-        tile.addItems(new IItem[]{new MockItem("pickup0"), new MockItem("pickup1")});
+    public void testAddItemsArray() {
+        tile.addItems(new IItem[]{new MockItem("pickup0"), null, new MockItem("pickup1")});
+        List<Maybe<IReadItem>> items = tile.readItems();
+        assert (items.size() == 5
+                && items.get(0).getValue().readName().equals("item0")
+                && items.get(1).getValue().readName().equals("item1")
+                && items.get(2).getValue().readName().equals("item2")
+                && items.get(3).getValue().readName().equals("pickup0")
+                && items.get(4).getValue().readName().equals("pickup1")
+        );
+    }
+
+    @Test
+    public void testAddItemsList() {
+        List<Maybe<IItem>> pickups = new ArrayList<>();
+        pickups.add(new Just<>(new MockItem("pickup0")));
+        pickups.add(new Nothing<>());
+        pickups.add(new Just<>(new MockItem("pickup1")));
+        tile.addItems(pickups);
         List<Maybe<IReadItem>> items = tile.readItems();
         assert (items.size() == 5
                 && items.get(0).getValue().readName().equals("item0")

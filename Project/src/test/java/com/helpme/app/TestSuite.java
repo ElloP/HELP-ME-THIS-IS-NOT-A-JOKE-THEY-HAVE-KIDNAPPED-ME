@@ -53,7 +53,6 @@ import org.junit.runners.Suite;
         StackTest.class,
         TileTest.class,
         SelfieTest.class,
-        SaveTest.class,
         MaybeTest.class})
 public class TestSuite {
     // Nothing

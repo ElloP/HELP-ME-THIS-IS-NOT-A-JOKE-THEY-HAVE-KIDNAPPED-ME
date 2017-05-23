@@ -1,5 +1,6 @@
 package com.helpme.app.model.tile.concrete;
 
+import com.helpme.app.utils.Copy;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.model.item.IItem;
@@ -84,12 +85,7 @@ public class Tile implements ITile {
 
     @Override
     public Map<Vector2f, IEdge> readEdges() {
-        return edges;
+        return Copy.map(edges);
     }
-
-    //@Override
-    //public IEdge readEdge(Vector2f direction) {
-    //    return edges.get(direction);
-    //}
 
 }

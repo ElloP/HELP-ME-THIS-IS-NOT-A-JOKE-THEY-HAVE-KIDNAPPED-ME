@@ -4,9 +4,10 @@ import com.helpme.app.utils.interfaces.ICopyable;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kopa on 2017-04-11.
@@ -74,6 +75,14 @@ public abstract class Copy {
         List<Maybe<T>> copy = new ArrayList<>();
         for(Maybe<T> element : list){
             element.run(e -> copy.add(Maybe.wrap(e.copy())));
+        }
+        return copy;
+    }
+
+    public static <K extends ICopyable<K>, V extends ICopyable<V>> Map<K, V> map(Map<K, V> map){
+        Map<K, V> copy = new HashMap<>();
+        for(Map.Entry<K, V> entry : map.entrySet()){
+            copy.put(entry.getKey(), entry.getValue());
         }
         return copy;
     }

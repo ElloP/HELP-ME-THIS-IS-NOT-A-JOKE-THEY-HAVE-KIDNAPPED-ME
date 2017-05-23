@@ -57,14 +57,4 @@ public class ItemTest {
         IItem consumable1 = new Consumable("test", 2, t -> t.damage(2), t -> t.heal(4));
         assert (consumable0.equals(consumable1));
     }
-
-    @Test
-    public void TestNotEqualsOtherClass() {
-        IItem single = new Single("test", IEffect.empty(), IEffect.empty());
-        IItem key = new Key("test");
-        IItem consumable = new Consumable("test", 0, IEffect.empty(), IEffect.empty());
-
-        assert (!single.equals(key) && !single.equals(consumable) && !key.equals(consumable));
-    }
-
 }

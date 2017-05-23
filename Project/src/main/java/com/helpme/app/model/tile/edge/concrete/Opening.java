@@ -1,5 +1,6 @@
 package com.helpme.app.model.tile.edge.concrete;
 
+import com.helpme.app.model.tile.edge.IEdge;
 import com.helpme.app.model.tile.edge.IEdgeVisitor;
 import com.helpme.app.model.tile.edge.IOpening;
 
@@ -24,5 +25,10 @@ public class Opening implements IOpening {
     @Override
     public void heal(float amount) {
         return; //TODO (klas)
+    }
+
+    @Override
+    public IEdge copy() {
+        return new Opening();
     }
 }

@@ -2,6 +2,7 @@ package com.helpme.app.model.tile.edge.concrete;
 
 import com.helpme.app.model.item.*;
 import com.helpme.app.model.tile.edge.IDoor;
+import com.helpme.app.model.tile.edge.IEdge;
 import com.helpme.app.model.tile.edge.IEdgeVisitor;
 
 /**
@@ -46,6 +47,11 @@ public class Door implements IDoor {
     @Override
     public void heal(float amount) {
         return; //TODO (klas)
+    }
+
+    @Override
+    public IEdge copy() {
+        return new Door(locked, key.copy());
     }
 }
 

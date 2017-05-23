@@ -16,13 +16,6 @@ public class Single extends Item implements ISingle {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o != null &&
-                o instanceof Single &&
-                Objects.equals(name, ((Single) o).name);
-    }
-
-    @Override
     public String readName() {
         return name;
     }
@@ -35,5 +28,17 @@ public class Single extends Item implements ISingle {
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o != null &&
+                o instanceof Single &&
+                Objects.equals(name, ((Single) o).name);
+    }
+
+    @Override
+    public int hashCode(){
+        return ("single" + name.hashCode()).hashCode();
     }
 }
