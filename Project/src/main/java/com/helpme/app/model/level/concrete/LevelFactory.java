@@ -71,8 +71,8 @@ public final class LevelFactory {
                 continue;
             }
 
-            defaultTile.setEdge(door, defaultDirection);
-            oppositeTile.setEdge(door, oppositeDirection);
+            defaultTile.setEdge(defaultDirection, door);
+            oppositeTile.setEdge(oppositeDirection, door);
         }
         return tiles;
     }
@@ -81,10 +81,10 @@ public final class LevelFactory {
         for (Map.Entry<Vector2f, ITile> entry : tiles.entrySet()) {
             ITile tile = entry.getValue();
             Vector2f position = entry.getKey();
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.NORTH)) == null ? new Wall() : new Opening(), Vector2f.NORTH);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.EAST)) == null ? new Wall() : new Opening(), Vector2f.EAST);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.SOUTH)) == null ? new Wall() : new Opening(), Vector2f.SOUTH);
-            tile.setEdge(tiles.get(Vector2f.add(position, Vector2f.WEST)) == null ? new Wall() : new Opening(), Vector2f.WEST);
+            tile.setEdge(Vector2f.NORTH, tiles.get(Vector2f.add(position, Vector2f.NORTH)) == null ? new Wall() : new Opening());
+            tile.setEdge(Vector2f.EAST, tiles.get(Vector2f.add(position, Vector2f.EAST)) == null ? new Wall() : new Opening());
+            tile.setEdge(Vector2f.SOUTH, tiles.get(Vector2f.add(position, Vector2f.SOUTH)) == null ? new Wall() : new Opening());
+            tile.setEdge(Vector2f.WEST, tiles.get(Vector2f.add(position, Vector2f.WEST)) == null ? new Wall() : new Opening());
         }
         return tiles;
     }

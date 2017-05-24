@@ -17,15 +17,27 @@ import java.util.Map;
 
 public class BehaviourTest {
     private MockMemory mockMemory;
+    private IBehaviour behaviour;
 
     @Before
     public void setup() {
         mockMemory = new MockMemory();
+        behaviour = new Stay(10, null);
+    }
+
+    @Test
+    public void testGetPriority(){
+        assert (behaviour.getPriority() == 10);
+    }
+
+    @Test
+    public void testSetPriority(){
+        behaviour.setPriority(5);
+        assert (behaviour.getPriority() == 5);
     }
 
     @Test
     public void testGetPreconditions() {
-        IBehaviour behaviour;
         Map<String, Tuple2<Integer, Comparison>> preconditions1;
         Map<String, Tuple2<Integer, Comparison>> preconditions0 = new HashMap<>();
         preconditions0.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
@@ -41,7 +53,6 @@ public class BehaviourTest {
 
     @Test
     public void testSetPreconditions() {
-        IBehaviour behaviour;
         Map<String, Tuple2<Integer, Comparison>> preconditions1;
         Map<String, Tuple2<Integer, Comparison>> preconditions0 = new HashMap<>();
         preconditions0.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
@@ -61,7 +72,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
 
-        IBehaviour behaviour = new Stay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -70,7 +81,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory1", new Tuple2<>(3, Comparison.LESS_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour =new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -79,7 +90,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory2", new Tuple2<>(1, Comparison.EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -88,7 +99,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory3", new Tuple2<>(6, Comparison.NOT_EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -97,7 +108,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory0", new Tuple2<>(1, Comparison.MORE_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -106,7 +117,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory1", new Tuple2<>(5, Comparison.LESS_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -115,7 +126,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory2", new Tuple2<>(2, Comparison.EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
@@ -125,7 +136,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory3", new Tuple2<>(7, Comparison.NOT_EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(new MockMemory().readMemory()));
     }
 
@@ -135,7 +146,7 @@ public class BehaviourTest {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory4", new Tuple2<>(6, Comparison.NOT_EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(new MockMemory().readMemory()));
     }
 }

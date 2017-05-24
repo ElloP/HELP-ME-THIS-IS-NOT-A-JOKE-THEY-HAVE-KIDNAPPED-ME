@@ -22,6 +22,7 @@ import java.util.Map;
  */
 public class TileTest {
     private ITile tile;
+    private MockEdge mockNorth;
 
     @Before
     public void setup() {
@@ -32,12 +33,34 @@ public class TileTest {
         items.add(new Just<>(new MockItem("item1")));
         items.add(new Just<>(new MockItem("item2")));
 
-        edges.put(Vector2f.NORTH, new MockEdge());
+        mockNorth = new MockEdge();
+
+        edges.put(Vector2f.NORTH, mockNorth);
         edges.put(Vector2f.EAST, new MockEdge());
         edges.put(Vector2f.SOUTH, new MockEdge());
         edges.put(Vector2f.WEST, new MockEdge());
 
         tile = new Tile(items, edges);
+    }
+
+    @Test
+    public void testReadItems(){
+        List<Maybe<IReadItem>> items = tile.readItems();
+        assert (items.get(0).getValue().readName().equals("item0") &&
+        items.get(1).getValue().readName().equals("item1") &&
+        items.get(2).getValue().readName().equals("item2"));
+    }
+
+    @Test
+    public void testGetEdge(){
+        assert (tile.getEdge(Vector2f.NORTH).equals(new Just<>(mockNorth)));
+    }
+
+    @Test
+    public void testSetEdge(){
+        MockEdge newEdge = new MockEdge();
+        tile.setEdge(Vector2f.NORTH, newEdge);
+        assert (tile.getEdge(Vector2f.NORTH).equals(new Just<>(newEdge)));
     }
 
     @Test

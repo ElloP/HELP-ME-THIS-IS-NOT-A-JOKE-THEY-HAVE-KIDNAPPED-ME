@@ -1,12 +1,8 @@
 package com.helpme.app.itemtest;
 
 import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.concrete.Consumable;
-import com.helpme.app.model.item.concrete.ItemFactory;
-import com.helpme.app.model.item.concrete.Key;
-import com.helpme.app.model.item.concrete.Single;
+import com.helpme.app.model.item.concrete.*;
 import com.helpme.app.model.item.effect.IEffect;
-import com.helpme.app.utils.functions.IAction;
 import org.junit.Test;
 
 /**
@@ -14,6 +10,25 @@ import org.junit.Test;
  */
 
 public class ItemTest {
+
+    @Test
+    public void testGetAttackEffect(){
+        MockTarget target = new MockTarget();
+        Item item = new Single("item", t -> t.damage(10), t -> t.heal(3));
+        IEffect attackEffect = item.getAttackEffect();
+        attackEffect.apply(target);
+        assert (target.damage == 10);
+    }
+
+    @Test
+    public void testGetSelfieEffect(){
+        MockTarget target = new MockTarget();
+        Item item = new Single("item", t -> t.damage(4), t -> t.heal(7));
+        IEffect selfieEffect = item.getSelfieEffect();
+        selfieEffect.apply(target);
+        assert (target.heal == 7);
+    }
+
 
     @Test
     public void testKey() {

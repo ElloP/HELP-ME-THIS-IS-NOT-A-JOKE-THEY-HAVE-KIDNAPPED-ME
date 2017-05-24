@@ -6,7 +6,6 @@ import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +16,7 @@ import java.util.Map;
  * Created by kopa on 2017-05-21.
  */
 public class FollowBehaviourTest {
+    private Follow followConcrete;
     private IBehaviour followBehaviour;
     private MockBody mockBody;
     private MockPlayer mockPlayer;
@@ -32,8 +32,7 @@ public class FollowBehaviourTest {
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
-
-        followBehaviour = new Follow(
+        followConcrete = new Follow(
                 0,
                 null,
                 5,
@@ -41,10 +40,31 @@ public class FollowBehaviourTest {
                 "following",
                 "lost");
 
+        followBehaviour = followConcrete;
     }
 
     @Test
-    public void testFollowReset() {
+    public void testGetFollowingDistance(){
+        assert (followConcrete.getFollowingDistance() == 5);
+    }
+
+    @Test
+    public void testGetFoundEvent(){
+        assert (followConcrete.getFoundEvent().equals("found"));
+    }
+
+    @Test
+    public void getFollowingEvent(){
+        assert (followConcrete.getFollowingEvent().equals("following"));
+    }
+
+    @Test
+    public void getLostEvent(){
+        assert (followConcrete.getLostEvent().equals("lost"));
+    }
+
+    @Test
+    public void testReset() {
         Map<String, Integer> memory;
         mockMemory.memory = new HashMap<>();
         followBehaviour.reset(mockMemory);
@@ -57,7 +77,7 @@ public class FollowBehaviourTest {
     }
 
     @Test
-    public void testFollowFound() {
+    public void testFound() {
         mockPlayer.position = new Vector2f(0, 2);
         mockBody.position = new Vector2f(0, 1);
         mockBody.direction = new Vector2f(0, 1);
@@ -71,10 +91,10 @@ public class FollowBehaviourTest {
     }
 
     @Test
-    public void testFollowLost() {
+    public void testLost() {
         mockSurroundings.pathCost = 3;
         mockMemory.memory = new HashMap<>();
-        followBehaviour = BehaviourFactory.createFollow(
+        followBehaviour = new Follow(
                 0,
                 null,
                 0,
@@ -90,7 +110,7 @@ public class FollowBehaviourTest {
     }
 
     @Test
-    public void testFollowFollowingFacing() {
+    public void testFollowingFacing() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathNextPosition = Vector2f.NORTH;
 
@@ -104,7 +124,7 @@ public class FollowBehaviourTest {
     }
 
     @Test
-    public void testFollowFollowingRightOf() {
+    public void testFollowingRightOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathNextPosition = Vector2f.EAST;
 
@@ -118,7 +138,7 @@ public class FollowBehaviourTest {
     }
 
     @Test
-    public void testFollowFollowingBehind() {
+    public void testFollowingBehind() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathNextPosition = Vector2f.SOUTH;
 
@@ -132,7 +152,7 @@ public class FollowBehaviourTest {
     }
 
     @Test
-    public void testFollowFollowingLeftOf() {
+    public void testFollowingLeftOf() {
         mockMemory.memory = new HashMap<>();
 
         mockSurroundings.pathNextPosition = Vector2f.WEST;

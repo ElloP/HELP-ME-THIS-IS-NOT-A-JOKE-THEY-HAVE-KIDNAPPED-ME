@@ -23,8 +23,8 @@ public class Consumable extends Item implements IConsumable {
     }
 
     @Override
-    public void addStack(int amount) {
-        stacks += amount;
+    public void addStacks(int amount) {
+        stacks += Math.max(amount, 0);
     }
 
     @Override
@@ -58,15 +58,9 @@ public class Consumable extends Item implements IConsumable {
     }
 
     @Override
-    public String readName() {
-        return name;
-    }
-
-    @Override
     public boolean equals(Object o) {
         return o != null &&
-                o instanceof Consumable &&
-                Objects.equals(name, ((Consumable) o).name);
+                o instanceof Consumable && super.equals(o);
     }
 
     @Override

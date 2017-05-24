@@ -13,8 +13,8 @@ public interface IReadBody extends ITarget {
     Vector2f readPosition();
     Vector2f readDirection();
     Vector2f readHitpoints();
-    float readMaxHp();
-    float readCurrentHp();
+    float readMaxHitpoints();
+    float readCurrentHitpoints();
     Vector2f readStartingPosition();
     Tuple2<String,String[]> getResponse(int i);
     Tuple2<String,String[]> getDialogue();

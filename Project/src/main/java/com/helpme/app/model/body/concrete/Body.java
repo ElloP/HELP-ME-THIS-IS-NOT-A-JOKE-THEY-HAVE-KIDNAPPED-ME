@@ -115,7 +115,7 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
         inventory.setActiveItem(itemIndex);
     }
 
@@ -150,12 +150,12 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return hitpoints.x;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return hitpoints.y;
     }
 
@@ -176,7 +176,7 @@ public class Body extends Observable implements IBody {
 
     @Override
     public IInventory getInventory() {
-        return inventory.copy();
+        return inventory;
     }
 
     @Override
@@ -213,7 +213,7 @@ public class Body extends Observable implements IBody {
 
     @Override
     public IReadInventory readInventory() {
-        return inventory;
+        return inventory.copy();
     }
 
     @Override

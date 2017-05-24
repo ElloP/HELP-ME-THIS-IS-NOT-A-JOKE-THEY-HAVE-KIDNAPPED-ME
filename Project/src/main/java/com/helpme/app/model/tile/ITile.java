@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ITile extends IReadTile{
     Maybe<IEdge> getEdge(Vector2f direction);
-    void setEdge(IEdge edge, Vector2f direction);
+    void setEdge(Vector2f direction, IEdge edge);
     List<Maybe<IItem>> removeItems();
     Maybe<IItem> removeItem(int index);
     void addItem(IItem item);

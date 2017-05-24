@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Key extends Item implements IKey {
 
     public Key(String name) {
-        super(name);
+        super(name, null, null);
     }
 
     @Override
@@ -21,29 +21,23 @@ public class Key extends Item implements IKey {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Key: " + name;
     }
 
     @Override
-    public IItem copy(){
+    public IItem copy() {
         return new Key(name);
-    }
-
-    @Override
-    public String readName() {
-        return name;
     }
 
     @Override
     public boolean equals(Object o) {
         return o != null &&
-                o instanceof Key &&
-                Objects.equals(name, ((Key) o).name);
+                o instanceof Key && super.equals(o);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return ("key" + name.hashCode()).hashCode();
     }
 }
