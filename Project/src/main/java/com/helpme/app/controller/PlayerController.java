@@ -13,7 +13,7 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-05-20.
  */
-public class PlayerController implements Observer {
+public class PlayerController implements IController {
     private PlayerCamera playerCamera;
     private Player player;
     //private ILevel level;
@@ -21,6 +21,7 @@ public class PlayerController implements Observer {
     public PlayerController(PlayerCamera playerCamera, Player player, ILevel level) {
         this.playerCamera = playerCamera;
         this.player = player;
+        //TODO (Jesper): Should not add itself as an observer
         playerCamera.addObserver(this);
         //player.addObserver(this);
         level.readPlayer().run(b -> ((Body) b).addObserver(this));

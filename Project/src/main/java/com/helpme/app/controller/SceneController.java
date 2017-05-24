@@ -1,55 +1,55 @@
 package com.helpme.app.controller;
 
+import com.helpme.app.engine.base.EngineCore;
 import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.game.*;
 import com.helpme.app.saveload.GameLoader;
-import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.body.IBody;
 import com.helpme.app.world.consciousness.IConsciousness;
 import com.helpme.app.world.level.ILevel;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-05-22.
  */
-public class SceneController implements Observer {
+public class SceneController implements IController {
     private GameInstance gameInstance;
     private GameLoader gameLoader;
+    private IController playerController;
+    private EngineCore engineCore;
 
-    public SceneController(GameInstance gameInstance, GameLoader gameLoader) {
+    public SceneController(GameInstance gameInstance, GameLoader gameLoader, IController playerController, EngineCore engineCore) {
         this.gameInstance = gameInstance;
         this.gameLoader = gameLoader;
+        this.playerController = playerController;
+        this.engineCore = engineCore;
     }
 
 
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Menu) {
-            if (((Menu) o).getCurrent() == 0) {
+            if (arg == MenuEvent.NEW) {
                 Tuple3<ILevel,IBody,IConsciousness[]> newGame = gameLoader.loadGame("");
                 //TODO (Jesper): Add all constructor arguments
-                gameInstance.setActiveScene(new LevelScene(newGame.a, newGame.b));
-            } else if (((Menu) o).getCurrent() == 1) {
-                Tuple3<ILevel,IBody,IConsciousness[]> game = gameLoader.loadGame("test.xml");
-                IBody player = game.b;
+                Scene newLevelScene = new LevelScene(newGame.a, newGame.b, engineCore.getTime());
+                gameInstance.setActiveScene(newLevelScene);
+                addObservers(newLevelScene);
+            } else if (arg == MenuEvent.LOAD) {
+                Tuple3<ILevel,IBody,IConsciousness[]> loadGame = gameLoader.loadGame("test.xml");
+                IBody player = loadGame.b;
+                Scene loadLevelScene = new LevelScene(loadGame.a, loadGame.b, engineCore.getTime());
+                addObservers(loadLevelScene);
+            } else if (arg == MenuEvent.ESC) {
 
-
-                Vector2f playerPos = player.readPosition();
-                // activeCamera.setPosition(-6*playerPos.x,0.5f,6*playerPos.y); //TODO set camera at players position
-                scene.addChild(new LevelController(game.a));
-                for(IConsciousness e : game.c){
-                    Vector2f enemyPos = e.readBody().readPosition();
-                    NPCView tmp = new NPCView();
-                    tmp.transform.setPosition(-6*enemyPos.x,0,6*enemyPos.y);
-                    scene.addChild(tmp);
-                }
-                //addUI(scene);
-                return scene;
             }
-            //TODO (Jesper): Should add case for when user presses ESC
         }
+    }
+
+    public void addObservers(Scene scene) {
+        scene.addObserver(this);
+        scene.addObserver(playerController);
     }
 }

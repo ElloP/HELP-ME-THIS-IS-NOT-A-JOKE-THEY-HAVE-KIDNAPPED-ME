@@ -20,34 +20,83 @@ public class Menu extends Scene{
     private String[] options;
 
     private int current;
+
+    private MenuEvent menuEvent;
+
     private final String LOAD = "menuload";
     private final String NEW = "menunew";
-
-    //private GameLoader gameLoader;
-
     public Menu(){
-        //this.gameLoader = new GameLoader();
         this.options = new String[2];
         options[0] = LOAD;
         options[1] = NEW;
         current = 0;
         this.menu = new UIRenderer(options[current], new Vector2f(800, 450), 2);
+        this.menuEvent = MenuEvent.NEW;
     }
 
-    public void up(){
-        if(current > 0){
-            current--;
-            menu.setTexture(options[current]);
+    public void input(Time time) {
+        if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
+            up();
         }
+        if(Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
+            down();
+        }
+        if(Input.isKeyboardKeyPress(InputKey.Select)){
+            setChanged();
+            notifyObservers(menuEvent);
+        }
+    }
+
+
+    public void up(){
+        menuEvent = MenuEvent.NEW;
+        //menuEvent.getPrevious
+        menu.setTexture(options[current]);
     }
 
     public void down(){
-        if(current < options.length-1){
-            current++;
-            menu.setTexture(options[current]);
-        }
+        menuEvent = MenuEvent.LOAD;
+        //menuEvent.getNext
+        menu.setTexture(options[current]);
     }
-    public Scene getSelected(){
+    /*private void addUI(Scene scene){
+        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
+        scene.addChild(health);
+    }*/
+
+    @Override
+    public void draw(ICamera camera) {
+        menu.draw(camera);
+    }
+
+    public MenuEvent getMenuEvent() {
+        return menuEvent;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*public Scene getSelected(){
         if(options[current] == "menuload") return loadScene();
         //else { return loadNewGame();}
         return null;
@@ -86,31 +135,5 @@ public class Menu extends Scene{
         return scene;
 
     }
-    public void input(Time time) {
-        if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
-            up();
-        }
-        if(Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
-            down();
-        }
-        if(Input.isKeyboardKeyPress(InputKey.Select)){
-            setChanged();
-            notifyObservers();
-        }
-    }
-
-    public int getCurrent() {
-        return current;
-    }
-
-    /*private void addUI(Scene scene){
-        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
-        scene.addChild(health);
-    }*/
-
-    @Override
-    public void draw(ICamera camera) {
-        menu.draw(camera);
-    }
-
+    */
 }
