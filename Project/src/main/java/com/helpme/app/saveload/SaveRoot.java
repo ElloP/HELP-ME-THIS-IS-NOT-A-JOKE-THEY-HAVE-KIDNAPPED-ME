@@ -24,7 +24,9 @@ public class SaveRoot {
 
     public SaveRoot(ILevel level, IBody player, IConsciousness[] enemies){
 
-        level.readPlayer().run(p -> this.player = new BodyWrapper(p)); //TODO (klas) maybe check?
+//        level.readPlayer().run(p -> this.player = new BodyWrapper(p)); //TODO (klas) maybe check?
+
+        this.player = new BodyWrapper(player);
 
         this.level = new LevelWrapper(level);
 

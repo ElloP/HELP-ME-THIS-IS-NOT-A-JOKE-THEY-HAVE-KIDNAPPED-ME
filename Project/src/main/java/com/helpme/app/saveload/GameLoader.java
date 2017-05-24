@@ -31,15 +31,15 @@ public class GameLoader implements SaveLoad {
     }
 
 
-    public void marshall(SaveRoot saveRoot, String filePath) throws JAXBException {
+    private void marshall(SaveRoot saveRoot, String filePath) throws JAXBException {
         File file = new File(filePath);
         marshaller.marshal(saveRoot, file);
     }
-    public void marshall(ILevel level, IBody player, IConsciousness[] enemies, String filePath) throws JAXBException {
+    private void marshall(ILevel level, IBody player, IConsciousness[] enemies, String filePath) throws JAXBException {
         marshall(new SaveRoot(level,player,enemies),filePath);
     }
 
-    public SaveRoot unmarshall(String filePath) throws JAXBException {
+    private SaveRoot unmarshall(String filePath) throws JAXBException {
         File file = new File(filePath);
         SaveRoot saveRoot = (SaveRoot) unmarshaller.unmarshal(file);
         return saveRoot;
@@ -48,6 +48,7 @@ public class GameLoader implements SaveLoad {
     @Override
     public void saveGame(ILevel level, IBody player, IConsciousness[] enemies, String filePath) {
         try{
+            System.out.println(player.readPosition());
             marshall(new SaveRoot(level,player,enemies), filePath);
         } catch (JAXBException e){
             System.out.println("Unable to save game");
