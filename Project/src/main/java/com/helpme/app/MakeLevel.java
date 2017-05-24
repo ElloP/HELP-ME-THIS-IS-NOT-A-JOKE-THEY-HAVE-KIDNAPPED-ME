@@ -57,7 +57,6 @@ public class MakeLevel {
     }
     private static IConsciousness[] addEnemies(ILevel level){
         ArrayList<IConsciousness> enemyConsciousnesses = new ArrayList<>();
-        IBody player = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, 100);
         IBody enemy0 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(2, 9), Vector2f.WEST, 100);
         IBody enemy1 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(5, 14), Vector2f.SOUTH, 100);
     //    IBody enemy2 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(1, 2), Vector2f.EAST, 100);
@@ -133,12 +132,14 @@ public class MakeLevel {
         tiles.add(new Tuple2<>(new Vector2f(5, 12), null));
         tiles.add(new Tuple2<>(new Vector2f(5, 13), null));
         tiles.add(new Tuple2<>(new Vector2f(5, 14), null));
+        tiles.add(new Tuple2<>(new Vector2f(1, 12), null));
+        tiles.add(new Tuple2<>(new Vector2f(0, 12), null));
 
 
 
 
 
-       // doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.EAST, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(0, 12), Vector2f.EAST, new Door(true, ItemFactory.createKey("key0"))));
 
 
 
