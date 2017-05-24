@@ -1,4 +1,4 @@
-package com.helpme.app;
+package com.helpme.app.controller;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by Jesper on 2017-05-20.
  * Copy of MockWorld0
+ * Just a quick hack solution until there is a new level to load from xml
  */
 public class Setup {
     private ILevel level;

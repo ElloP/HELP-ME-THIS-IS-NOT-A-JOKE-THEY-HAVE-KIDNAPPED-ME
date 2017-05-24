@@ -11,6 +11,7 @@ import com.helpme.app.engine.game.UIRenderer;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerCamera;
 import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector3f;
 import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.level.ILevel;
 
@@ -29,7 +30,8 @@ public class LevelScene extends Scene {
         for (IReadBody body : level.readBodies()) {
             addChild(new NPCView(body.readPosition().x, body.readPosition().y));
         }
-        this.playerCamera = new Camera(player.readPosition());
+        System.out.println(player.readDirection());
+        this.playerCamera = new Camera(player.readPosition(), player.readDirection());
 
         health = new UIRenderer("", new Vector2f(1300, 800), 2);
 

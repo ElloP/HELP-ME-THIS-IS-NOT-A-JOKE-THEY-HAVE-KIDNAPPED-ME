@@ -1,6 +1,5 @@
 package com.helpme.app.controller;
 
-import com.helpme.app.Setup;
 import com.helpme.app.engine.base.EngineCore;
 import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Scene;

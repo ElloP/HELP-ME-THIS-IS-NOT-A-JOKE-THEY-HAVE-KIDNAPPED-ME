@@ -4,7 +4,7 @@ import com.helpme.app.savetest.TestWorld;
 import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
-import com.helpme.app.engine.sounds.AudioObserver;
+import com.helpme.app.controller.LevelAudioController;
 import com.helpme.app.engine.sounds.sources.PlayerSource;
 import com.helpme.app.engine.sounds.sources.MonsterSource;
 import com.helpme.app.engine.sounds.sources.Source;
@@ -36,9 +36,9 @@ public class TestSound {
         ArrayList<AbstractMonsterSource> monsterSources = new ArrayList<>();
         monsterSources.add(playerSource);
         monsterSources.add(monsterSource1);
-        AudioObserver audioObserver = new AudioObserver(monsterSources);
-        player.addObserver(audioObserver);
-        body0.addObserver(audioObserver);
+        LevelAudioController levelAudioController = new LevelAudioController(monsterSources);
+        player.addObserver(levelAudioController);
+        body0.addObserver(levelAudioController);
 
 
         AudioHandler.cleanUp();

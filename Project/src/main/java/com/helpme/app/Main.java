@@ -1,13 +1,12 @@
 package com.helpme.app;
 
 import com.helpme.app.controller.IController;
-import com.helpme.app.controller.PlayerController;
 import com.helpme.app.controller.SceneController;
+import com.helpme.app.controller.Setup;
 import com.helpme.app.engine.base.*;
 import com.helpme.app.engine.game.GameInstance;
-import com.helpme.app.engine.game.scenes.Menu;
 import com.helpme.app.engine.renderer.base.RenderCore;
-import com.helpme.app.engine.sounds.AudioObserver;
+import com.helpme.app.controller.LevelAudioController;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
 import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
 import com.helpme.app.engine.sounds.sources.MonsterSource;
@@ -59,15 +58,15 @@ public class Main {
             bodySources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition()));
         }
         bodySources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition()));
-        AudioObserver audioObserver = new AudioObserver(bodySources);
+        LevelAudioController levelAudioController = new LevelAudioController(bodySources);
 
 
 
         for (IReadBody body : level.readBodies()) {
             //((Body)body).addObserver(playerController);
-            ((Body)body).addObserver(audioObserver);
+            ((Body)body).addObserver(levelAudioController);
         }
-        ((Body)setup.getPlayerBody()).addObserver(audioObserver);
+        ((Body)setup.getPlayerBody()).addObserver(levelAudioController);
 
         EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game);
         IController sceneController = new SceneController(game, gameLoader, ec);

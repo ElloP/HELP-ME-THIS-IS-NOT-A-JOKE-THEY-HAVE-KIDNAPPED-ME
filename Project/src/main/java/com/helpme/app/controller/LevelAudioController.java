@@ -1,4 +1,4 @@
-package com.helpme.app.engine.sounds;
+package com.helpme.app.controller;
 
 import com.helpme.app.world.body.concrete.visitor.WorldEvent;
 import com.helpme.app.world.body.IReadBody;
@@ -11,11 +11,11 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-04-23.
  */
-public class AudioObserver implements Observer {
+public class LevelAudioController implements IController {
     IReadBody player;
     ArrayList<AbstractMonsterSource> monsterSources;
 
-    public AudioObserver(ArrayList<AbstractMonsterSource> monsterSources) {
+    public LevelAudioController(ArrayList<AbstractMonsterSource> monsterSources) {
         this.monsterSources = monsterSources;
         System.out.println(monsterSources);
     }
