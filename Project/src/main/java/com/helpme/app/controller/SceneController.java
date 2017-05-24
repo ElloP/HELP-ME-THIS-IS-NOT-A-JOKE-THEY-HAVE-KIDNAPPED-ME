@@ -6,7 +6,10 @@ import com.helpme.app.engine.game.*;
 import com.helpme.app.saveload.GameLoader;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.world.body.IBody;
+import com.helpme.app.world.body.IReadBody;
+import com.helpme.app.world.body.concrete.Body;
 import com.helpme.app.world.consciousness.IConsciousness;
+import com.helpme.app.world.consciousness.concrete.Player;
 import com.helpme.app.world.level.ILevel;
 
 import java.util.Observable;
@@ -23,7 +26,6 @@ public class SceneController implements IController {
     public SceneController(GameInstance gameInstance, GameLoader gameLoader, IController playerController, EngineCore engineCore) {
         this.gameInstance = gameInstance;
         this.gameLoader = gameLoader;
-        this.playerController = playerController;
         this.engineCore = engineCore;
     }
 
@@ -32,15 +34,15 @@ public class SceneController implements IController {
     public void update(Observable o, Object arg) {
         if (o instanceof Menu) {
             if (arg == MenuEvent.NEW) {
-                Tuple3<ILevel,IBody,IConsciousness[]> newGame = gameLoader.loadGame("");
+                Tuple3<ILevel,Player,IConsciousness[]> newGame = gameLoader.loadGame("");
                 //TODO (Jesper): Add all constructor arguments
-                Scene newLevelScene = new LevelScene(newGame.a, newGame.b, engineCore.getTime());
+                LevelScene newLevelScene = new LevelScene(newGame.a, newGame.b.readBody(), engineCore.getTime());
                 gameInstance.setActiveScene(newLevelScene);
+                playerController = new PlayerController(newLevelScene.getCameraController(), newGame.b, newGame.a);
                 addObservers(newLevelScene);
             } else if (arg == MenuEvent.LOAD) {
-                Tuple3<ILevel,IBody,IConsciousness[]> loadGame = gameLoader.loadGame("test.xml");
-                IBody player = loadGame.b;
-                Scene loadLevelScene = new LevelScene(loadGame.a, loadGame.b, engineCore.getTime());
+                Tuple3<ILevel,Player,IConsciousness[]> loadGame = gameLoader.loadGame("test.xml");
+                Scene loadLevelScene = new LevelScene(loadGame.a, loadGame.b.readBody(), engineCore.getTime());
                 addObservers(loadLevelScene);
             } else if (arg == MenuEvent.ESC) {
 
@@ -50,6 +52,5 @@ public class SceneController implements IController {
 
     public void addObservers(Scene scene) {
         scene.addObserver(this);
-        scene.addObserver(playerController);
     }
 }

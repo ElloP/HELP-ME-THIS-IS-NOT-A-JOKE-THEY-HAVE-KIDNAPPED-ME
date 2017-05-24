@@ -16,7 +16,9 @@ import com.helpme.app.world.level.ILevel;
 public class LevelScene extends Scene {
     private UIRenderer health;
     private ICamera playerCamera;
-    private CameraController cameraController;
+
+    private PlayerCamera cameraController;
+
     //TODO (Jesper): Should accept a player to read hp?
     public LevelScene(ILevel level, IReadBody player, Time time) {
         addChild(new LevelController(level));
@@ -30,12 +32,15 @@ public class LevelScene extends Scene {
         this.cameraController = new PlayerCamera(playerCamera, time);
 
     }
-
     public void updateHealth(int newHealth) {
         if (newHealth > 80) {
             health.setTexture("health");
         } else if (newHealth <= 80 && newHealth > 60) {
             health.setTexture("health80");
         }
+    }
+
+    public PlayerCamera getCameraController() {
+        return cameraController;
     }
 }

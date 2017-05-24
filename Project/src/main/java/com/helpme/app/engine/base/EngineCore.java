@@ -26,7 +26,7 @@ public class EngineCore {
         engineStopped = false;
         this.renderCore = renderCore;
         //this.time = time;
-        time = new Time();
+        this.time = new Time();
     }
 
     // ----------- Engine EngineCore functions including main loop -----------
