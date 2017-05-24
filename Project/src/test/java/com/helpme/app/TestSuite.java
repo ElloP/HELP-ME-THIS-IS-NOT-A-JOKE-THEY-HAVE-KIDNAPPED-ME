@@ -14,6 +14,7 @@ import com.helpme.app.itemtest.attacktest.AttackTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
 import com.helpme.app.itemtest.stacktest.StackTest;
+import com.helpme.app.levelfactorytest.LevelFactoryTest;
 import com.helpme.app.leveltest.LevelBodyTest;
 import com.helpme.app.leveltest.LevelPathTest;
 import com.helpme.app.leveltest.LevelTest;
@@ -48,6 +49,7 @@ import org.junit.runners.Suite;
         BehaviourTest.class,
         MemoryTest.class,
         ConsumableTest.class,
+        LevelFactoryTest.class,
         AttackBehaviourTest.class,
         FollowBehaviourTest.class,
         StayBehaviourTest.class,

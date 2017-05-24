@@ -14,6 +14,7 @@ import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.concrete.ItemFactory;
 import com.helpme.app.model.level.ILevel;
 import com.helpme.app.model.level.concrete.LevelFactory;
+import com.helpme.app.model.tile.edge.IDoor;
 import com.helpme.app.model.tile.edge.concrete.Door;
 import com.helpme.app.saveload.GameLoader;
 import com.helpme.app.utils.Vector2f;
@@ -99,41 +100,41 @@ public class MakeLevel {
 
     }
     private static ILevel makeLevel(){
-        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
-        List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
+        Map<Vector2f, IItem[]> tiles = new HashMap<>();
+        List<Tuple3<Vector2f, Vector2f, IDoor>> doors = new ArrayList<>();
         List<IBody> bodies = new ArrayList<>();
 
-        tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 1), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 3), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 3), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 4), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 5), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 5), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 6), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 7), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 8), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 9), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 7), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 8), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 9), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 7), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 8), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 9), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 10), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 11), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 12), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 12), null));
-        tiles.add(new Tuple2<>(new Vector2f(4, 12), null));
-        tiles.add(new Tuple2<>(new Vector2f(5, 12), null));
-        tiles.add(new Tuple2<>(new Vector2f(5, 13), null));
-        tiles.add(new Tuple2<>(new Vector2f(5, 14), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 12), null));
-        tiles.add(new Tuple2<>(new Vector2f(0, 12), null));
+        tiles.put(new Vector2f(0, 0), null);
+        tiles.put(new Vector2f(1, 0), null);
+        tiles.put(new Vector2f(2, 0), null);
+        tiles.put(new Vector2f(2, 1), null);
+        tiles.put(new Vector2f(1, 2), null);
+        tiles.put(new Vector2f(2, 2), null);
+        tiles.put(new Vector2f(1, 3), null);
+        tiles.put(new Vector2f(2, 3), null);
+        tiles.put(new Vector2f(1, 4), null);
+        tiles.put(new Vector2f(1, 5), null);
+        tiles.put(new Vector2f(2, 5), null);
+        tiles.put(new Vector2f(2, 6), null);
+        tiles.put(new Vector2f(1, 7), null);
+        tiles.put(new Vector2f(1, 8), null);
+        tiles.put(new Vector2f(1, 9), null);
+        tiles.put(new Vector2f(2, 7), null);
+        tiles.put(new Vector2f(2, 8), null);
+        tiles.put(new Vector2f(2, 9), null);
+        tiles.put(new Vector2f(3, 7), null);
+        tiles.put(new Vector2f(3, 8), null);
+        tiles.put(new Vector2f(3, 9), null);
+        tiles.put(new Vector2f(2, 10), null);
+        tiles.put(new Vector2f(2, 11), null);
+        tiles.put(new Vector2f(2, 12), null);
+        tiles.put(new Vector2f(3, 12), null);
+        tiles.put(new Vector2f(4, 12), null);
+        tiles.put(new Vector2f(5, 12), null);
+        tiles.put(new Vector2f(5, 13), null);
+        tiles.put(new Vector2f(5, 14), null);
+        tiles.put(new Vector2f(1, 12), null);
+        tiles.put(new Vector2f(0, 12), null);
 
 
 

@@ -3,7 +3,6 @@ package com.helpme.app.consciousnesstest;
 import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.model.consciousness.IConsciousness;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +11,10 @@ import org.junit.Test;
  * Created by kopa on 2017-05-11.
  */
 public class ConsciousnessTest {
-    IConsciousness player;
-    MockBody mockBody;
-    MockTarget mockTarget;
-    MockSurroundings mockSurroundings;
+    private IConsciousness player;
+    private MockBody mockBody;
+    private MockTarget mockTarget;
+    private MockSurroundings mockSurroundings;
 
     @Before
     public void setup() {

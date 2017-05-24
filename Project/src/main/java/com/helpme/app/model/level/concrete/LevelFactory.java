@@ -1,5 +1,6 @@
 package com.helpme.app.model.level.concrete;
 
+import com.helpme.app.model.tile.edge.IDoor;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
@@ -25,7 +26,7 @@ public final class LevelFactory {
 
     }
 
-    public static ILevel createLevel(List<Tuple2<Vector2f, IItem[]>> tileInfo, List<Tuple3<Vector2f, Vector2f, Door>> doorInfo, List<IBody> bodies, Vector2f startingPosition){
+    public static ILevel createLevel(Map<Vector2f, IItem[]> tileInfo, List<Tuple3<Vector2f, Vector2f, IDoor>> doorInfo, List<IBody> bodies, Vector2f startingPosition){
         Map<Vector2f, ITile> tiles = generateDoors(doorInfo, generateEdges(generateTiles(tileInfo)));
         return createLevel(null, startingPosition, tiles, bodies);
     }
@@ -38,34 +39,34 @@ public final class LevelFactory {
         return createLevel(null,startingPosition,tiles,bodies);
     }
 
-    private static Map<Vector2f, ITile> generateTiles(List<Tuple2<Vector2f, IItem[]>> info) {
+    private static Map<Vector2f, ITile> generateTiles(Map<Vector2f, IItem[]> info) {
         Map<Vector2f, ITile> tiles = new HashMap<>();
 
         if (info == null) {
             return tiles;
         }
 
-        for (Tuple2<Vector2f, IItem[]> tuple : info) {
-            Vector2f position = tuple.a;
-            tiles.put(position, TileFactory.createTile(tuple.b));
+        for (Map.Entry<Vector2f, IItem[]> entry : info.entrySet()) {
+            Vector2f position = entry.getKey();
+            tiles.put(position, TileFactory.createTile(entry.getValue()));
         }
 
         return tiles;
     }
 
-    private static Map<Vector2f, ITile> generateDoors(List<Tuple3<Vector2f, Vector2f, Door>> doors, Map<Vector2f, ITile> tiles) {
+    private static Map<Vector2f, ITile> generateDoors(List<Tuple3<Vector2f, Vector2f, IDoor>> doors, Map<Vector2f, ITile> tiles) {
         if (doors == null) {
             return tiles;
         }
 
-        for (Tuple3<Vector2f, Vector2f, Door> tuple : doors) {
+        for (Tuple3<Vector2f, Vector2f, IDoor> tuple : doors) {
             Vector2f defaultPosition = tuple.a;
             Vector2f defaultDirection = tuple.b;
             Vector2f oppositeDirection = defaultDirection.rotateRightAngle(2);
             Vector2f oppositePosition = Vector2f.add(defaultPosition, defaultDirection);
             ITile defaultTile = tiles.get(defaultPosition);
             ITile oppositeTile = tiles.get(oppositePosition);
-            Door door = tuple.c;
+            IDoor door = tuple.c;
 
             if (oppositeTile == null || defaultTile == null || door == null) {
                 continue;

@@ -82,12 +82,12 @@ public class TestWorld {
         this.level = level;
     }
 
-    private List<Tuple2<Vector2f, IItem[]>> createEmptyTileSquare(int width, int height) {
-        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
+    private Map<Vector2f, IItem[]> createEmptyTileSquare(int width, int height) {
+        Map<Vector2f, IItem[]> tiles = new HashMap<>();
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                tiles.add(new Tuple2<>(new Vector2f(i, j), null));
+                tiles.put(new Vector2f(i, j), null);
             }
         }
         return tiles;
