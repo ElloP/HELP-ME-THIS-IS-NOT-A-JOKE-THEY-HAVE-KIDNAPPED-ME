@@ -53,12 +53,12 @@ public class UIObject {
 
     private void setVertices() {
         Vertex2D[] vertices = {
-                new Vertex2D(position.x - width/2, position.y + height/2, 0, 1),
-                new Vertex2D(position.x - width/2, position.y - height/2, 0, 0),
-                new Vertex2D(position.x + width/2, position.y - height/2, 1, 0),
-                new Vertex2D(position.x - width/2, position.y + height/2, 0, 1),
-                new Vertex2D(position.x + width/2, position.y - height/2, 1, 0),
-                new Vertex2D(position.x + width/2, position.y + height/2, 1, 1)
+                new Vertex2D(position.x, position.y + height, 0, 1),
+                new Vertex2D(position.x, position.y, 0, 0),
+                new Vertex2D(position.x + width, position.y, 1, 0),
+                new Vertex2D(position.x, position.y + height, 0, 1),
+                new Vertex2D(position.x + width, position.y, 1, 0),
+                new Vertex2D(position.x + width, position.y + height, 1, 1)
         };
         mesh = new Mesh2D(vertices);
     }

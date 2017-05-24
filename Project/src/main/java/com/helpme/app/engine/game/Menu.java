@@ -32,7 +32,7 @@ public class Menu extends GameObject {
         options[0] = "menuload";
         options[1] = "menunew";
         curr = 0;
-        this.menu = new UIController(options[curr], new Vector2f(800, 450), 1600, 900);
+        this.menu = new UIController(options[curr], new Vector2f(0, 0), 1600, 900);
     }
 
     public void up(){
@@ -81,8 +81,11 @@ public class Menu extends GameObject {
     }
 
     private void addUI(Scene scene){
-        UIController health = new UIController("health", new Vector2f(1300, 800), 400, 75);
+        UIController health = new UIController("health", new Vector2f(1100, 800), 350, 60);
+        UIController health2 = new UIController("default", new Vector2f(1100, 800), 50, 60);
+        scene.addChild(health2);
         scene.addChild(health);
+
     }
 
     private ILevel testLevel(){
