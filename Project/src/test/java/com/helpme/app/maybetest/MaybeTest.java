@@ -148,7 +148,9 @@ public class MaybeTest {
 
     @Test
     public void testMaybeEqualsJustNothing() {
-        assert (!new Just<>(5).equals(new Nothing<>()));
+        Maybe<Integer> just = new Just<>(5);
+        Maybe<Integer> nothing = new Nothing<>();
+        assert (!just.equals(nothing));
     }
 
     @Test

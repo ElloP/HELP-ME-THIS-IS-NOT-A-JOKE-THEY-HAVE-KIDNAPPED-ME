@@ -121,7 +121,7 @@ public class BodyTest {
         IItem[] items = new IItem[]{item};
 
         body3.setItems(items);
-        assert (mockInventory.items.size() == 1 && mockInventory.items.get(0).equals(item));
+        assert (mockInventory.items.size() == 1 && mockInventory.items.get(0).equals(new Just<>(item)));
     }
 
     @Test

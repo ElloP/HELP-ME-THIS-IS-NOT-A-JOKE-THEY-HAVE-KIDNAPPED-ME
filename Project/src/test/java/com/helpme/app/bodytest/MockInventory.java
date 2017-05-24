@@ -5,6 +5,7 @@ import com.helpme.app.model.body.inventory.IInventory;
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IReadItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class MockInventory implements IInventory {
     public MockInventory(IItem activeItem, IItem defaultItem){
         this.activeItem = activeItem;
         this.defaultItem = defaultItem;
+        items = new ArrayList<>();
     }
 
 
