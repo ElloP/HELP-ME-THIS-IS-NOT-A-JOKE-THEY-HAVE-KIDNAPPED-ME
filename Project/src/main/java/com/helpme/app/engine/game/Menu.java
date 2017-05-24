@@ -93,11 +93,10 @@ public class Menu extends Scene{
         if(Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
             down();
         }
-        /*if(Input.isKeyboardKeyPress(InputKey.Select)){
-            setActiveScene(menu.getSelected(level, playerPos));
-            activeCamera = playerCamera;
-            loaded = true;
-        }*/
+        if(Input.isKeyboardKeyPress(InputKey.Select)){
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public int getCurrent() {
@@ -114,63 +113,4 @@ public class Menu extends Scene{
         menu.draw(camera);
     }
 
-
-    /*private ILevel testLevel(){
-        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
-        List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
-        List<IBody> monsters = new ArrayList<>();
-
-        tiles.add(new Tuple2<>(new Vector2f(0, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 1), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 1), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 1), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(1, 3), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 3), null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 3), null));
-
-        tiles.add(new Tuple2<>(new Vector2f(5, 5), null));
-
-        tiles.add(new Tuple2<>(new Vector2f(6, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(7, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(8, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(9, 2), null));
-        tiles.add(new Tuple2<>(new Vector2f(10, 2), null));
-
-        tiles.add(new Tuple2<>(new Vector2f(6, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(7, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(8, 0), null));
-        tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
-
-        tiles.add(new Tuple2<>(new Vector2f(9, 0), null));
-
-        tiles.add(new Tuple2<>(new Vector2f(7,5),null));
-        tiles.add(new Tuple2<>(new Vector2f(8,5),null));
-
-        tiles.add(new Tuple2<>(new Vector2f(1, 5), null));
-        tiles.add(new Tuple2<>(new Vector2f(2, 5),null));
-        tiles.add(new Tuple2<>(new Vector2f(3, 5), null));
-
-        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.east, new Door(true, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.west, new Door(false, null)));
-        doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.east, new Door(true, null)));
-
-        doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.east, new Door(true, null)));
-
-        /**
-         *    [ ][ ][ ]   [ ]   [ ][ ]
-         *
-         *    [ ][ ][ ]
-         *    [ ][ ][ ]      [ |[ ]/ ]| ][ ]
-         *    [ ][ ][ ]
-         * [p][ ][ ]         [ ][ ]| ][ ]
-         */
-
-       /* ILevel level = LevelFactory.createLevel(tiles, doors, monsters, Vector2f.zero);
-        return level;
-    }*/
 }
