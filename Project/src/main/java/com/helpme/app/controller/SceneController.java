@@ -6,14 +6,15 @@ import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.game.scenes.LevelScene;
 import com.helpme.app.engine.game.scenes.Menu;
 import com.helpme.app.engine.game.scenes.MenuEvent;
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.model.level.ILevel;
 import com.helpme.app.saveload.SaveLoad;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.level.ILevel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -68,7 +69,7 @@ public class SceneController implements IController {
         addAudioObserver(loadGame.b.readBody(), loadGame.a.readBodies());
     }
 
-    private void addAudioObserver(IReadBody playerBody, IReadBody[] enemies) {
+    private void addAudioObserver(IReadBody playerBody, List<IReadBody> enemies) {
         IController levelAudioController = AudioSetup.setupAudioController(playerBody, enemies);
         for (IReadBody body : enemies) {
             body.addObserver(levelAudioController);

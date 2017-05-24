@@ -3,13 +3,13 @@ package com.helpme.app.leveltest;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.edge.IEdge;
+import com.helpme.app.model.body.concrete.Body;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.body.inventory.IReadInventory;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.tile.edge.IEdge;
 
 import java.util.List;
 import java.util.Observable;
@@ -18,7 +18,9 @@ import java.util.Observable;
  * Created by kopa on 2017-05-15.
  */
 public class MockPlayer extends Observable implements IBody {
-    public boolean traversable;
+    Vector2f position = Vector2f.ZERO;
+    Vector2f direction = new Vector2f(1,0);
+    boolean traversable;
 
     @Override
     public void damage(float amount) {
@@ -67,11 +69,11 @@ public class MockPlayer extends Observable implements IBody {
 
     @Override
     public void setPosition(Vector2f position) {
-
+        this.position = position;
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
 
     }
 
@@ -111,7 +113,7 @@ public class MockPlayer extends Observable implements IBody {
     }
 
     @Override
-    public Body clone() {
+    public Body copy() {
         return null;
     }
 
@@ -122,12 +124,12 @@ public class MockPlayer extends Observable implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return Vector2f.zero;
+        return position;
     }
 
     @Override
     public Vector2f readDirection() {
-        return new Vector2f(1,0);
+        return direction;
     }
 
     @Override
@@ -136,12 +138,12 @@ public class MockPlayer extends Observable implements IBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 
@@ -161,7 +163,7 @@ public class MockPlayer extends Observable implements IBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return traversable;
     }
 

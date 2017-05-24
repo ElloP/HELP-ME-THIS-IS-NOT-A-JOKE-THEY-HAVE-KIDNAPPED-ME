@@ -1,13 +1,10 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.functions.IAction;
-import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.world.consciousness.behaviour.Comparison;
+import com.helpme.app.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
+import com.helpme.app.model.consciousness.behaviour.Comparison;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,123 +14,139 @@ import java.util.Map;
 /**
  * Created by kopa on 2017-05-15.
  */
+
 public class BehaviourTest {
-    private MockPlayer mockPlayer;
     private MockMemory mockMemory;
+    private IBehaviour behaviour;
 
     @Before
     public void setup() {
-        mockPlayer = new MockPlayer();
         mockMemory = new MockMemory();
+        behaviour = new Stay(10, null);
+    }
+
+    @Test
+    public void testGetPriority(){
+        assert (behaviour.getPriority() == 10);
+    }
+
+    @Test
+    public void testSetPriority(){
+        behaviour.setPriority(5);
+        assert (behaviour.getPriority() == 5);
+    }
+
+    @Test
+    public void testGetPreconditions() {
+        Map<String, Tuple2<Integer, Comparison>> preconditions1;
+        Map<String, Tuple2<Integer, Comparison>> preconditions0 = new HashMap<>();
+        preconditions0.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
+        preconditions0.put("memory1", new Tuple2<>(4, Comparison.LESS_THAN));
+
+        behaviour = new Stay(0, preconditions0);
+        preconditions1 = behaviour.getPreconditions();
+
+        assert (preconditions1.size() == 2 &&
+                preconditions1.get("memory0").equals(new Tuple2<>(5, Comparison.MORE_THAN)) &&
+                preconditions1.get("memory1").equals(new Tuple2<>(4, Comparison.LESS_THAN)));
+    }
+
+    @Test
+    public void testSetPreconditions() {
+        Map<String, Tuple2<Integer, Comparison>> preconditions1;
+        Map<String, Tuple2<Integer, Comparison>> preconditions0 = new HashMap<>();
+        preconditions0.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
+        preconditions0.put("memory1", new Tuple2<>(4, Comparison.LESS_THAN));
+
+        behaviour = new Stay(0, new HashMap<>());
+        behaviour.setPreconditions(preconditions0);
+        preconditions1 = behaviour.getPreconditions();
+
+        assert (preconditions1.size() == 2 &&
+                preconditions1.get("memory0").equals(new Tuple2<>(5, Comparison.MORE_THAN)) &&
+                preconditions1.get("memory1").equals(new Tuple2<>(4, Comparison.LESS_THAN)));
     }
 
     @Test
     public void testMoreThanValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
     public void testLessThanValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory1", new Tuple2<>(3, Comparison.LESS_THAN));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory1", new Tuple2<>(3, Comparison.LESS_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour =new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
     public void testEqualValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory2", new Tuple2<>(1, Comparison.EQUAL));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory2", new Tuple2<>(1, Comparison.EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
     public void testNotEqualValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory3", new Tuple2<>(6, Comparison.NOT_EQUAL));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory3", new Tuple2<>(6, Comparison.NOT_EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
     public void testMoreThanNotValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory0", new Tuple2<>(1, Comparison.MORE_THAN));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory0", new Tuple2<>(1, Comparison.MORE_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
     public void testLessThanNotValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory1", new Tuple2<>(5, Comparison.LESS_THAN));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory1", new Tuple2<>(5, Comparison.LESS_THAN));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
     public void testEqualNotValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory2", new Tuple2<>(2, Comparison.EQUAL));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory2", new Tuple2<>(2, Comparison.EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
 
     @Test
     public void testNotEqualNotValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory3", new Tuple2<>(7, Comparison.NOT_EQUAL));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory3", new Tuple2<>(7, Comparison.NOT_EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(new MockMemory().readMemory()));
     }
 
 
     @Test
     public void testNoMatchNotValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("memory4", new Tuple2<>(6, Comparison.NOT_EQUAL));
-            }
-        };
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory4", new Tuple2<>(6, Comparison.NOT_EQUAL));
 
-        IBehaviour behaviour = BehaviourFactory.createStay(0, preconditions);
+        behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(new MockMemory().readMemory()));
     }
 }

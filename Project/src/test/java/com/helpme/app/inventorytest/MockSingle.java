@@ -1,13 +1,10 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.world.item.IItemVisitor;
-import com.helpme.app.world.item.ISingle;
-import com.helpme.app.world.item.concrete.Consumable;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.concrete.Item;
-import com.helpme.app.world.item.concrete.Key;
-import com.helpme.app.world.item.concrete.Single;
-import com.helpme.app.world.item.effect.IEffect;
+import com.helpme.app.model.item.IConsumable;
+import com.helpme.app.model.item.IItemVisitor;
+import com.helpme.app.model.item.ISingle;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-05-12.
@@ -36,12 +33,26 @@ public final class MockSingle implements ISingle {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return new MockSingle(name);
     }
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof ISingle)) {
+            return false;
+        }
+
+        return ((ISingle)o).readName().equals(name);
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

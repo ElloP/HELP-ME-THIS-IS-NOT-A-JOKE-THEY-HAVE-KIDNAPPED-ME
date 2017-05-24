@@ -5,7 +5,7 @@ import com.helpme.app.engine.game.Quad;
 import com.helpme.app.engine.game.Resources;
 import com.helpme.app.engine.renderer.base.Texture;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.tile.edge.*;
+import com.helpme.app.model.tile.edge.*;
 
 /**
  * Created by kopa on 2017-05-10.

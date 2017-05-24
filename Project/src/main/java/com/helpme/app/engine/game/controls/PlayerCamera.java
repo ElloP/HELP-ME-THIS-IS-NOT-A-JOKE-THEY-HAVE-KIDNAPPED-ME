@@ -6,7 +6,7 @@ import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.world.consciousness.concrete.Player;
+import com.helpme.app.model.consciousness.concrete.Player;
 
 /**
  * Authored by Olle on 2017-05-15.

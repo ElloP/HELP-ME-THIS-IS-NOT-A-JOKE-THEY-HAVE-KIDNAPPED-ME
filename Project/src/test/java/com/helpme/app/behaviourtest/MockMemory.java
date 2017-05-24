@@ -1,6 +1,6 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,18 +12,15 @@ public class MockMemory implements IMemory {
     Map<String, Integer> memory;
 
     public MockMemory(){
-        memory = new HashMap<String, Integer>(){
-            {
-                put("memory0", 4);
-                put("memory2", 1);
-                put("memory3", 7);
-                put("memory1", 5);
-            }
-        };
+        memory = new HashMap<>();
+        memory.put("memory0", 4);
+        memory.put("memory2", 1);
+        memory.put("memory3", 7);
+        memory.put("memory1", 5);
     }
 
     @Override
-    public IMemory clone() {
+    public IMemory copy() {
         return null;
     }
 

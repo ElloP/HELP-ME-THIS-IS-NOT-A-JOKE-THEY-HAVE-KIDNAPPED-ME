@@ -2,13 +2,11 @@ package com.helpme.app.controller;
 
 import com.helpme.app.engine.game.controls.GameEvent;
 import com.helpme.app.engine.game.controls.PlayerCamera;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.body.concrete.visitor.WorldEvent;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.level.ILevel;
+import com.helpme.app.model.body.concrete.visitor.WorldEvent;
+import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.model.level.ILevel;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-05-20.

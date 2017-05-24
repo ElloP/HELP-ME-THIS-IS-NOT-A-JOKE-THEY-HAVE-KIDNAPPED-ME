@@ -1,11 +1,12 @@
 package com.helpme.app.utils.mathl;
 
+import com.helpme.app.utils.interfaces.ICopyable;
 import org.joml.Quaternionf;
 
 /**
  * Authored by Olle on 2017-04-13.
  */
-public class Quaternion {
+public class Quaternion implements ICopyable {
     protected Quaternionf quaternion;
 
     // ----------- Constructors -----------
@@ -22,7 +23,7 @@ public class Quaternion {
         quaternion = new Quaternionf(x, y, z, w);
     }
 
-    public Quaternion clone() {
+    public Quaternion copy() {
         return new Quaternion(this);
     }
 

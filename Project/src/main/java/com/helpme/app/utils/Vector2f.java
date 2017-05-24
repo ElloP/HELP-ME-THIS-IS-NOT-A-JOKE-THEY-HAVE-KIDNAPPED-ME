@@ -1,15 +1,23 @@
 package com.helpme.app.utils;
 
+import com.helpme.app.utils.interfaces.ICopyable;
+
 import java.nio.FloatBuffer;
 
 /**
  * Authored by Olle on 2017-03-30.
  */
-public class Vector2f {
-    private static final float RIGHT_ANGLE = (float) Math.PI / 2;
+public class Vector2f implements ICopyable {
+    public static final Vector2f NORTH = new Vector2f(0, 1);
+    public static final Vector2f EAST = new Vector2f(1, 0);
+    public static final Vector2f SOUTH = new Vector2f(0, -1);
+    public static final Vector2f WEST = new Vector2f(-1, 0);
+    public static final Vector2f ZERO = new Vector2f(0, 0);
 
     public float x;
     public float y;
+
+    private static final float RIGHT_ANGLE = (float) Math.PI / 2;
 
     public Vector2f(float x, float y) {
         this.x = x;
@@ -33,7 +41,7 @@ public class Vector2f {
     }
 
     public Vector2f forward(){
-        return this.clone();
+        return this.copy();
     }
 
     public Vector2f right(){
@@ -51,10 +59,15 @@ public class Vector2f {
     public Vector2f rotateRightAngle(int times) {
         return Vector2f.rotateI(this, RIGHT_ANGLE * times);
     }
+
     @Override
     public boolean equals(Object o){
+        if(o == null || !(o instanceof Vector2f)) {
+            return false;
+        }
+
         Vector2f vec0 = (Vector2f) o;
-        return vec0.x == x && vec0.y == y;
+        return Math.abs(vec0.x - x) < .0000001 && Math.abs(vec0.y - y) < .0000001;
     }
 
     @Override
@@ -68,20 +81,12 @@ public class Vector2f {
     }
 
     @Override
-    public Vector2f clone(){
+    public Vector2f copy(){
         return new Vector2f(x, y);
     }
 
-
-    //NOTE(Olle): normalized direction vectors
-    public static final Vector2f north = new Vector2f(0, 1);
-    public static final Vector2f east = new Vector2f(1, 0);
-    public static final Vector2f south = new Vector2f(0, -1);
-    public static final Vector2f west = new Vector2f(-1, 0);
-    public static final Vector2f zero = new Vector2f(0, 0);
-
     public static boolean equals(Vector2f vec0, Vector2f vec1) {
-        return vec0.x == vec1.x && vec0.y == vec1.y;
+        return vec0.equals(vec1);
     }
 
     public static Vector2f add(Vector2f vec0, Vector2f vec1) {
@@ -109,23 +114,29 @@ public class Vector2f {
         return new Vector2f(vec0.x * scalar, vec0.y * scalar);
     }
 
-    public static Vector2f multiply(Matrix2f mat0, Vector2f vec0) {
+    //Note(Olle): simulates multiplication with a 2x2 matrix
+    public static Vector2f multiply(float[][] mat0, Vector2f vec0) {
         Vector2f result = new Vector2f(0, 0);
-        result.x = mat0.matrix[0][0] * vec0.x + mat0.matrix[1][0] * vec0.y;
-        result.y = mat0.matrix[0][1] * vec0.x + mat0.matrix[1][1] * vec0.y;
+        result.x = mat0[0][0] * vec0.x + mat0[0][1] * vec0.y;
+        result.y = mat0[1][0] * vec0.x + mat0[1][1] * vec0.y;
         return result;
     }
 
     public static Vector2f rotateI(Vector2f vec0, float radians) {
         radians = -radians; // NOTE (Jacob): To make the default rotation clockwise
-        Matrix2f rotationMatrix = new Matrix2f(
-                (float) Math.cos(radians), (float) -Math.sin(radians),
-                (float) Math.sin(radians), (float) Math.cos(radians));
+        float[][] rotationMatrix = new float[][] {
+                {
+                    (float) Math.cos(radians), (float) -Math.sin(radians)
+                },
+                {
+                    (float) Math.sin(radians), (float) Math.cos(radians)
+                }
+        };
         return Vector2f.multiply(rotationMatrix, vec0).toInt();
     }
 
-    public static Vector2f[] getNeighbors(Vector2f vec0){
-        Vector2f[] vectors = {add(vec0, north), add(vec0, east), add(vec0, south), add(vec0, west)};
+    public static Vector2f[] getNeighbours(Vector2f vec0){
+        Vector2f[] vectors = {add(vec0, NORTH), add(vec0, EAST), add(vec0, SOUTH), add(vec0, WEST)};
         return vectors;
     }
 }

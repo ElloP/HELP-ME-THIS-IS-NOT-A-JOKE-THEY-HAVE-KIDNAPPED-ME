@@ -7,19 +7,17 @@ import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.game.LevelController;
 import com.helpme.app.engine.game.NPCView;
-import com.helpme.app.engine.game.UIRenderer;
+import com.helpme.app.engine.game.UIController;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerCamera;
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.level.ILevel;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.level.ILevel;
-
 /**
  * Created by Jesper on 2017-05-22.
  */
 public class LevelScene extends Scene {
-    private UIRenderer health;
+    private UIController health;
     private ICamera playerCamera;
 
     private PlayerCamera cameraController;
@@ -32,8 +30,7 @@ public class LevelScene extends Scene {
         }
         System.out.println(player.readDirection());
         this.playerCamera = new Camera(player.readPosition(), player.readDirection());
-
-        health = new UIRenderer("", new Vector2f(1300, 800), 2);
+        health = new UIController("health", new Vector2f(1300, 800), 200, 200);
 
         this.cameraController = new PlayerCamera(playerCamera, time);
 

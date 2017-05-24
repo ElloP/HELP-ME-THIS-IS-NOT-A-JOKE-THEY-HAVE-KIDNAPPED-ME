@@ -1,9 +1,9 @@
 package com.helpme.app.savetest;
 
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IReadItem;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IReadItem;
 
 import java.util.List;
 
@@ -25,12 +25,17 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public IInventory clone() {
+    public IInventory copy() {
         return null;
     }
 
     @Override
-    public int getSize() {
+    public int readSize() {
+        return 0;
+    }
+
+    @Override
+    public int readActiveItemIndex() {
         return 0;
     }
 
@@ -105,7 +110,7 @@ public class MockInventory implements IInventory {
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
 
     }
 }

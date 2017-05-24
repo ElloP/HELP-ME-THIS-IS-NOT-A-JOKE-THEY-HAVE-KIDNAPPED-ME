@@ -1,8 +1,8 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemVisitor;
-import com.helpme.app.world.item.IKey;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IItemVisitor;
+import com.helpme.app.model.item.IKey;
 
 /**
  * Created by kopa on 2017-05-19.
@@ -20,7 +20,7 @@ public class MockKey implements IKey {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return new MockKey(name);
     }
 

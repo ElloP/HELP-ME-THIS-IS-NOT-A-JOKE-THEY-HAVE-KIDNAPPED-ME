@@ -1,7 +1,7 @@
 package com.helpme.app.leveltest;
 
-import com.helpme.app.world.tile.edge.IEdge;
-import com.helpme.app.world.tile.edge.IEdgeVisitor;
+import com.helpme.app.model.tile.edge.IEdge;
+import com.helpme.app.model.tile.edge.IEdgeVisitor;
 
 /**
  * Created by kopa on 2017-05-15.
@@ -24,6 +24,11 @@ public class MockEdge implements IEdge{
 
     @Override
     public <T> T accept(IEdgeVisitor<T> visitor) {
+        return null;
+    }
+
+    @Override
+    public IEdge copy() {
         return null;
     }
 }

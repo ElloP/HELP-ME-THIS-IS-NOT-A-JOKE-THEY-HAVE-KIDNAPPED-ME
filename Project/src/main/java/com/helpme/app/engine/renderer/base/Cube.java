@@ -3,39 +3,39 @@ package com.helpme.app.engine.renderer.base;
 /**
  * Authored by Olle on 2017-04-12.
  */
-public class Cube extends Mesh {
+public class Cube extends Mesh3D {
 
-    private static Vertex[] vertices = new Vertex[] { //NOTE(Olle): Testing cube
+    private static Vertex3D[] vertices = new Vertex3D[] { //NOTE(Olle): Testing cube
 
-            new Vertex(-1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
-            new Vertex(1.0f, -1.0f,  1.0f, 1.0f, 0.0f),
-            new Vertex(1.0f,  1.0f,  1.0f, 1.0f, 1.0f),
-            new Vertex(-1.0f,  1.0f,  1.0f, 0.0f,1.0f),
+            new Vertex3D(-1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
+            new Vertex3D(1.0f, -1.0f,  1.0f, 1.0f, 0.0f),
+            new Vertex3D(1.0f,  1.0f,  1.0f, 1.0f, 1.0f),
+            new Vertex3D(-1.0f,  1.0f,  1.0f, 0.0f,1.0f),
 
-            new Vertex(-1.0f, -1.0f,  -1.0f, 0.0f, 0.0f),
-            new Vertex(1.0f, -1.0f,  -1.0f, 1.0f, 0.0f),
-            new Vertex(1.0f,  1.0f,  -1.0f, 1.0f, 1.0f),
-            new Vertex(-1.0f,  1.0f,  -1.0f, 0.0f,1.0f),
+            new Vertex3D(-1.0f, -1.0f,  -1.0f, 0.0f, 0.0f),
+            new Vertex3D(1.0f, -1.0f,  -1.0f, 1.0f, 0.0f),
+            new Vertex3D(1.0f,  1.0f,  -1.0f, 1.0f, 1.0f),
+            new Vertex3D(-1.0f,  1.0f,  -1.0f, 0.0f,1.0f),
 
-            new Vertex(1.0f,  1.0f,  1.0f, 0.0f, 1.0f),
-            new Vertex(1.0f,  1.0f,  -1.0f, 1.0f, 1.0f),
-            new Vertex(1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
-            new Vertex(1.0f, -1.0f,  -1.0f, 1.0f, 0.0f),
+            new Vertex3D(1.0f,  1.0f,  1.0f, 0.0f, 1.0f),
+            new Vertex3D(1.0f,  1.0f,  -1.0f, 1.0f, 1.0f),
+            new Vertex3D(1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
+            new Vertex3D(1.0f, -1.0f,  -1.0f, 1.0f, 0.0f),
 
-            new Vertex(-1.0f,  1.0f,  1.0f, 0.0f, 1.0f),
-            new Vertex(-1.0f,  1.0f,  -1.0f, 1.0f, 1.0f),
-            new Vertex(-1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
-            new Vertex(-1.0f, -1.0f,  -1.0f, 1.0f, 0.0f),
+            new Vertex3D(-1.0f,  1.0f,  1.0f, 0.0f, 1.0f),
+            new Vertex3D(-1.0f,  1.0f,  -1.0f, 1.0f, 1.0f),
+            new Vertex3D(-1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
+            new Vertex3D(-1.0f, -1.0f,  -1.0f, 1.0f, 0.0f),
 
-            new Vertex(-1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
-            new Vertex(-1.0f, -1.0f,  -1.0f, 0.0f, 1.0f),
-            new Vertex(1.0f, -1.0f,  1.0f, 1.0f, 0.0f),
-            new Vertex(1.0f, -1.0f,  -1.0f, 1.0f, 1.0f),
+            new Vertex3D(-1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
+            new Vertex3D(-1.0f, -1.0f,  -1.0f, 0.0f, 1.0f),
+            new Vertex3D(1.0f, -1.0f,  1.0f, 1.0f, 0.0f),
+            new Vertex3D(1.0f, -1.0f,  -1.0f, 1.0f, 1.0f),
 
-            new Vertex(-1.0f, 1.0f,  1.0f, 0.0f, 0.0f),
-            new Vertex(-1.0f, 1.0f,  -1.0f, 0.0f, 1.0f),
-            new Vertex(1.0f, 1.0f,  1.0f, 1.0f, 0.0f),
-            new Vertex(1.0f, 1.0f,  -1.0f, 1.0f, 1.0f),
+            new Vertex3D(-1.0f, 1.0f,  1.0f, 0.0f, 0.0f),
+            new Vertex3D(-1.0f, 1.0f,  -1.0f, 0.0f, 1.0f),
+            new Vertex3D(1.0f, 1.0f,  1.0f, 1.0f, 0.0f),
+            new Vertex3D(1.0f, 1.0f,  -1.0f, 1.0f, 1.0f),
 
 
     };

@@ -3,7 +3,7 @@ package com.helpme.app.engine.game.scenes;
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.base.Time;
-import com.helpme.app.engine.game.UIRenderer;
+import com.helpme.app.engine.game.UIController;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.utils.Vector2f;
@@ -12,7 +12,8 @@ import com.helpme.app.utils.Vector2f;
  * Created by Klas on 2017-05-20.
  */
 public class Menu extends Scene{
-    private UIRenderer menu;
+    private UIController menu;
+
     private String[] options;
 
     private int current;
@@ -26,7 +27,7 @@ public class Menu extends Scene{
         options[0] = LOAD;
         options[1] = NEW;
         current = 0;
-        this.menu = new UIRenderer(options[current], new Vector2f(800, 450), 2);
+        this.menu = new UIController(options[current], new Vector2f(800, 450), 200, 200);
         this.menuEvent = MenuEvent.NEW;
     }
 
@@ -56,10 +57,6 @@ public class Menu extends Scene{
         //menuEvent.getNext
         menu.setTexture(options[current]);
     }
-    /*private void addUI(Scene scene){
-        UIRenderer health = new UIRenderer("health", new Vector2f(1300, 800), 2);
-        scene.addChild(health);
-    }*/
 
     @Override
     public void draw(ICamera camera) {
@@ -73,64 +70,4 @@ public class Menu extends Scene{
     public int getCurrent() {
         return current;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*public Scene getSelected(){
-        if(options[current] == "menuload") return loadScene();
-        //else { return loadNewGame();}
-        return null;
-    }
-    public Scene getSelected(ILevel level, Vector2f playerPos) {
-        if(options[current] == "menuload") return loadScene();
-        else { return loadNewGame(level, playerPos);}
-    }
-
-    private Scene loadScene(){
-        Scene scene = new Scene();
-        Tuple3<ILevel,IBody,IConsciousness[]> game = gameLoader.loadGame("test.xml");
-        IBody player = game.b;
-
-        Vector2f playerPos = player.readPosition();
-       // activeCamera.setPosition(-6*playerPos.x,0.5f,6*playerPos.y); //TODO set camera at players position
-        scene.addChild(new LevelController(game.a));
-        for(IConsciousness e : game.c){
-            Vector2f enemyPos = e.readBody().readPosition();
-            NPCView tmp = new NPCView();
-            tmp.transform.setPosition(-6*enemyPos.x,0,6*enemyPos.y);
-            scene.addChild(tmp);
-        }
-        //addUI(scene);
-        return scene;
-    }
-    private Scene loadNewGame(ILevel level, Vector2f playerPos){
-        Scene scene = new Scene();
-
-        scene.addChild(new LevelController(level));
-        for (IReadBody body : level.readBodies()) {
-            scene.addChild(new NPCView(body.readPosition().x, body.readPosition().y));
-        }
-        //addUI(scene);
-
-        return scene;
-
-    }
-    */
 }

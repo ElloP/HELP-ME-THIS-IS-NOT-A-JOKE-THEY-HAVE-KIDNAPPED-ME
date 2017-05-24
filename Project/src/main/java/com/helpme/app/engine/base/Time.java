@@ -5,7 +5,7 @@ package com.helpme.app.engine.base;
  */
 public class Time {
     // ----------- Time variables -----------
-    public static final long SECOND = 1000000000;
+    public static final double SECOND = 1000000000;
 
     private long startTime;
     protected double deltaTime; //deltaTime in seconds

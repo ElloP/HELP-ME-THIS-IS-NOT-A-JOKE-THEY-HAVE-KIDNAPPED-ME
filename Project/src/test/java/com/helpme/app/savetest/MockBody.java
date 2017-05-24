@@ -3,13 +3,12 @@ package com.helpme.app.savetest;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.edge.IEdge;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.body.inventory.IReadInventory;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.tile.edge.IEdge;
 
 import java.util.List;
 import java.util.Observable;
@@ -18,7 +17,6 @@ import java.util.Observable;
  * Created by kopa on 2017-05-15.
  */
 public class MockBody extends Observable implements IBody {
-
     private IInventory mockInventory;
 
     public MockBody(IInventory inventory){
@@ -76,7 +74,7 @@ public class MockBody extends Observable implements IBody {
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
 
     }
 
@@ -116,7 +114,7 @@ public class MockBody extends Observable implements IBody {
     }
 
     @Override
-    public Body clone() {
+    public IBody copy(){
         return null;
     }
 
@@ -127,7 +125,7 @@ public class MockBody extends Observable implements IBody {
 
     @Override
     public Vector2f readPosition() {
-        return Vector2f.zero;
+        return Vector2f.ZERO;
     }
 
     @Override
@@ -141,12 +139,12 @@ public class MockBody extends Observable implements IBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 
@@ -166,7 +164,7 @@ public class MockBody extends Observable implements IBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return false;
     }
 

@@ -1,12 +1,9 @@
 package com.helpme.app.bodytest;
 
-import com.helpme.app.savetest.MockTile;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemVisitor;
-import com.helpme.app.world.item.ISingle;
-import com.helpme.app.world.item.concrete.Item;
-import com.helpme.app.world.item.concrete.Single;
-import com.helpme.app.world.item.effect.IEffect;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IItemVisitor;
+import com.helpme.app.model.item.ISingle;
+import com.helpme.app.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-05-11.
@@ -36,7 +33,7 @@ public class MockItem implements ISingle{
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return null;
     }
 

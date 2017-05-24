@@ -5,7 +5,7 @@ import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.game.visitor.GenerateEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.tile.ITile;
 
 /**
  * Authored by Olle on 2017-05-02.
@@ -22,7 +22,7 @@ public class TileController extends GameObject {
             addChild(floor);
         });
 
-        Vector2f[] directions = new Vector2f[]{Vector2f.north, Vector2f.west, Vector2f.south, Vector2f.east};
+        Vector2f[] directions = new Vector2f[]{Vector2f.NORTH, Vector2f.WEST, Vector2f.SOUTH, Vector2f.EAST};
 
         for (int i = 0; i < 4; i++) {
             int rotation = 90 * i;

@@ -1,10 +1,11 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.model.consciousness.behaviour.concrete.Attack;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,7 @@ import java.util.HashMap;
  * Created by kopa on 2017-05-21.
  */
 public class AttackBehaviourTest {
+    private Attack attackConcrete;
     private IBehaviour attackBehaviour;
     private MockBody mockBody;
     private MockPlayer mockPlayer;
@@ -28,10 +30,23 @@ public class AttackBehaviourTest {
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
-        attackBehaviour = BehaviourFactory.createAttack(
+        attackConcrete = new Attack(
                 0,
                 null,
                 "attack");
+        attackBehaviour = attackConcrete;
+    }
+
+    @Test
+    public void testGetAttackEvent(){
+        assert (attackConcrete.getAttackEvent().equals("attack"));
+    }
+
+    @Test
+    public void testReset(){
+        mockMemory.memory = new HashMap<>();
+        attackBehaviour.reset(mockMemory);
+        assert (mockMemory.memory.size() == 1 && mockMemory.memory.get("attack") == 0);
     }
 
     @Test

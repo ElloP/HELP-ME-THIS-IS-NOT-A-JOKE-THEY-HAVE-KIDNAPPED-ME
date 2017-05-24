@@ -1,15 +1,15 @@
 package com.helpme.app.controller;
 
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.concrete.Body;
+import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.level.concrete.LevelFactory;
+import com.helpme.app.model.tile.edge.concrete.Door;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.concrete.Body;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.concrete.LevelFactory;
-import com.helpme.app.world.tile.edge.concrete.Door;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Setup {
     private IBody playerBody;
 
     public ILevel setup(){
-        List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
+        /*List<Tuple2<Vector2f, IItem[]>> tiles = new ArrayList<>();
         List<Tuple3<Vector2f, Vector2f, Door>> doors = new ArrayList<>();
         List<IBody> bodies = new ArrayList<>();
 
@@ -33,9 +33,9 @@ public class Setup {
 
         //MockDialogue dialogue = new MockDialogue();
 
-        playerBody = new Body(null, new Vector2f(0, 0), Vector2f.south, 100);
-        IBody enemy0 = new Body(null, new Vector2f(2, 2), Vector2f.south, 100);
-        IBody enemy1 = new Body(null, new Vector2f(9, 0), Vector2f.south, 100);
+        playerBody = new Body(null, new Vector2f(0, 0), Vector2f.SOUTH, 100);
+        IBody enemy0 = new Body(null, new Vector2f(2, 2), Vector2f.SOUTH, 100);
+        IBody enemy1 = new Body(null, new Vector2f(9, 0), Vector2f.SOUTH, 100, null, null);
         //IBody enemy2 = new Body(new Vector2f(7, 5), Vector2f.right, dialogue.dialogue0);
 
         bodies.add(enemy0);
@@ -78,9 +78,9 @@ public class Setup {
         //tiles.add(new Tuple2<>(new Vector2f(2, 5), new IItem[]{MockItem.stackingConsumables, MockItem.stackingConsumables, MockItem.stackingConsumables}));
         //tiles.add(new Tuple2<>(new Vector2f(3, 5), new IItem[]{MockItem.stackingConsumables, MockItem.excessiveItem, MockItem.pickupWeapon}));
 
-        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.east, new Door(true, null)));
+        doors.add(new Tuple3<>(new Vector2f(6, 2), Vector2f.EAST, new Door(true, null)));
         doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f
-                .west, new Door(false, null)));
+                .WEST, new Door(false, null)));
         //doors.add(new Tuple3<>(new Vector2f(8, 2), Vector2f.right, new Door(true, MockItem.key)));
 
         //doors.add(new Tuple3<>(new Vector2f(7, 0), Vector2f.right, new Door(true, MockItem.pickupKey)));
@@ -96,13 +96,15 @@ public class Setup {
          * looking right -> is -1 in x
          * looking up ^ is 1 in z
          */
+/*
 
-
-        ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.zero);
+        ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.ZERO);
+        ILevel level1 = LevelFactory
         this.player = new Player(playerBody, level);
         this.level = level;
         this.level.setPlayer(playerBody);
-        return level;
+        return level;*/
+return null;
     }
 
     public ILevel getLevel() {

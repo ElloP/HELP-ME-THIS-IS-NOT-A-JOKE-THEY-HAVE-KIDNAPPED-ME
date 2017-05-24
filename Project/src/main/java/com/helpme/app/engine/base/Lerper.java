@@ -29,7 +29,7 @@ public class Lerper {
     }
 
     public boolean finished() {
-        return currentTime == endTime;
+        return Math.abs(currentTime - endTime) < .0000001;
     }
 
     public Vector3f lerp() {

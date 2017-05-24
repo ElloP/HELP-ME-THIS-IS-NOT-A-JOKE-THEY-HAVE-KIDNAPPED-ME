@@ -1,11 +1,11 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.concrete.Enemy;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.body.IBody;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.body.IBody;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -33,15 +33,15 @@ public class GameLoader implements SaveLoad {
     }
 
 
-    public void marshall(SaveRoot saveRoot, String filePath) throws JAXBException {
+    private void marshall(SaveRoot saveRoot, String filePath) throws JAXBException {
         File file = new File(filePath);
         marshaller.marshal(saveRoot, file);
     }
-    public void marshall(ILevel level, IBody player, IConsciousness[] enemies, String filePath) throws JAXBException {
+    private void marshall(ILevel level, IBody player, IConsciousness[] enemies, String filePath) throws JAXBException {
         marshall(new SaveRoot(level,player,enemies),filePath);
     }
 
-    public SaveRoot unmarshall(String filePath) throws JAXBException {
+    private SaveRoot unmarshall(String filePath) throws JAXBException {
         File file = new File(filePath);
         SaveRoot saveRoot = (SaveRoot) unmarshaller.unmarshal(file);
         return saveRoot;

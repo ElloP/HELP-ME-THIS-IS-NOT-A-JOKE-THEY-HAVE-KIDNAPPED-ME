@@ -4,12 +4,12 @@ import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.consciousness.ISurroundings;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.consciousness.ISurroundings;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.tile.ITile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +28,14 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public void addTileItem(Vector2f position, IItem item) {
+    public boolean addTileItem(Vector2f position, IItem item) {
         tileItems++;
+        return true;
     }
 
     @Override
-    public void addTileItems(Vector2f position, List<Maybe<IItem>> items) {
-
+    public boolean addTileItems(Vector2f position, List<Maybe<IItem>> items) {
+        return true;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public void updateDeadBody(Vector2f position) {
+    public void updateTile(Vector2f position) {
 
     }
 
@@ -82,12 +83,12 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance) {
+    public boolean isWithinRange(Vector2f position, Vector2f destination, int range) {
         return false;
     }
 
     @Override
-    public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to) {
+    public Tuple3<List<Vector2f>, Vector2f, Integer> getPath(Vector2f from, Vector2f to) {
         return null;
     }
 
@@ -112,8 +113,8 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
-    public IReadBody[] readBodies() {
-        return new IReadBody[0];
+    public List<IReadBody> readBodies() {
+        return null;
     }
 
     @Override

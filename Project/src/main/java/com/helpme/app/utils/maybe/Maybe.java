@@ -76,13 +76,17 @@ public abstract class Maybe<T> {
     }
 
     public static <T extends Y, Y> Maybe<Y> wrap(Maybe<T> maybe){
-        if(maybe.isJust()){
+        if(maybe != null && maybe.isJust()){
             return new Just<>(maybe.getValue());
         }
         return new Nothing<>();
     }
 
     public static <T extends Y, Y> List<Maybe<Y>> cast(List<Maybe<T>> maybe){
+        if(maybe == null){
+            return new ArrayList<>();
+        }
+
         List<Maybe<Y>> list = new ArrayList<Maybe<Y>>(){
             {
                 for(Maybe<T> element : maybe){
@@ -93,5 +97,7 @@ public abstract class Maybe<T> {
         return list;
     }
 
+    @Override
+    public abstract boolean equals(Object o);
 
 }

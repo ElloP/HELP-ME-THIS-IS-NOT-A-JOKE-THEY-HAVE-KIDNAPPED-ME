@@ -3,11 +3,11 @@ package com.helpme.app.saveload;
 
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IReadItem;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.body.inventory.IReadInventory;
+import com.helpme.app.model.body.inventory.concrete.InventoryFactory;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IReadItem;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,7 +51,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     @XmlElementWrapper(name="keys")
     @XmlElement(name = "key")
     public ItemWrapper[] getKeys() {
-        return this.keys;
+        return keys == null ? null : keys.clone();
     }
     public void setKeys(ItemWrapper[] keys) {
         this.keys = new ItemWrapper[keys.length];
@@ -63,7 +63,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     @XmlElementWrapper(name="items")
     @XmlElement(name = "item")
     public ItemWrapper[] getItems() {
-        return this.items;
+        return items == null ? null : items.clone();
     }
     public void setItems(ItemWrapper[] items) {
         this.items = new ItemWrapper[items.length];
@@ -73,18 +73,20 @@ public class InventoryWrapper implements ILoadable<IInventory> {
     }
 
     public String toString() {
-        String result = "\nInventory: ";
+        StringBuilder result = new StringBuilder();
+        result.append("\nInventory: ");
+
         if(items != null){
             for (ItemWrapper item : items) {
-                if (item != null) result += "\n\tItem:\t" + (item.getName());
+                if (item != null) result.append("\n\tItem:\t" + (item.getName()));
             }
         }
         if(keys != null){
             for (ItemWrapper key : keys) {
-                if (key != null) result += "\n\tKey:\t" + (key.getName());
+                if (key != null) result.append("\n\tKey:\t" + (key.getName()));
             }
         }
-        return result;
+        return result.toString();
     }
 
     @Override

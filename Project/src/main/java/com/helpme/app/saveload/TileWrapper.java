@@ -3,12 +3,12 @@ package com.helpme.app.saveload;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IReadItem;
-import com.helpme.app.world.tile.IReadTile;
-import com.helpme.app.world.tile.ITile;
-import com.helpme.app.world.tile.concrete.TileFactory;
-import com.helpme.app.world.tile.edge.IEdge;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IReadItem;
+import com.helpme.app.model.tile.IReadTile;
+import com.helpme.app.model.tile.ITile;
+import com.helpme.app.model.tile.concrete.TileFactory;
+import com.helpme.app.model.tile.edge.IEdge;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -49,11 +49,11 @@ public class TileWrapper implements ILoadable<ITile> {
     }
 
     @XmlElement(name = "position")
-    public Vector2Wrapper getPositionWrapper() {
+    public Vector2Wrapper getPosition() {
         return this.positionWrapper;
     }
 
-    public void setPositionWrapper(Vector2Wrapper pos) {
+    public void setPosition(Vector2Wrapper pos) {
         this.positionWrapper = pos;
 
     }
@@ -62,11 +62,11 @@ public class TileWrapper implements ILoadable<ITile> {
 
     @XmlElementWrapper(name="items")
     @XmlElement(name = "item")
-    public ItemWrapper[] getItemWrappers() {
-        return this.itemWrappers;
+    public ItemWrapper[] getItems() {
+        return this.itemWrappers.clone();
     }
 
-    public void setItemWrappers(ItemWrapper[] itemWrappers) {
+    public void setItems(ItemWrapper[] itemWrappers) {
         this.itemWrappers = new ItemWrapper[itemWrappers.length];
         for (int i = 0; i < itemWrappers.length; i++) {
             this.itemWrappers[i] = new ItemWrapper(itemWrappers[i].getName());
@@ -85,20 +85,20 @@ public class TileWrapper implements ILoadable<ITile> {
     }
 
     public String toString() {
-        String result = "";
-        result += "Tile at " + positionWrapper;
+        StringBuilder result = new StringBuilder();
+        result.append("Tile at " + positionWrapper);
         if (itemWrappers != null) {
             for (ItemWrapper item : itemWrappers) {
-                if (item != null) result += "\nItem: " + (item.getName());
+                if (item != null) result.append("\nItem: " + (item.getName()));
             }
         }
 
         if(edgeWrappers != null){
             for(Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()){
-                if(entry != null) result += "\nEdge: " + (entry.getValue().toString()) + " facing " + entry.getKey().toString();
+                if(entry != null) result.append("\nEdge: " + (entry.getValue().toString()) + " facing " + entry.getKey().toString());
             }
         }
-        return result;
+        return result.toString();
     }
 
     @Override

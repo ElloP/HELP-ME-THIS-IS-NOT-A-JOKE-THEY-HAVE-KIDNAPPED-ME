@@ -1,10 +1,10 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.concrete.Enemy;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.level.ILevel;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.consciousness.concrete.Enemy;
+import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.model.level.ILevel;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,7 +25,9 @@ public class SaveRoot {
 
     public SaveRoot(ILevel level, IBody player, IConsciousness[] enemies){
 
-        level.readPlayer().run(p -> this.player = new BodyWrapper(p)); //TODO (klas) maybe check?
+//        level.readPlayer().run(p -> this.player = new BodyWrapper(p)); //TODO (klas) maybe check?
+
+        this.player = new BodyWrapper(player);
 
         this.level = new LevelWrapper(level);
 
@@ -42,13 +44,16 @@ public class SaveRoot {
     public void setPlayer(BodyWrapper player) {
         this.player = player;
     }
+
+
     @XmlElement(name="Enemies")
     public EnemyWrapper[] getEnemies() {
-        return this.enemies;
+        return enemies == null ? null : enemies.clone();
     }
     public void setEnemies(EnemyWrapper[] enemies) {
-        this.enemies = enemies;
+        this.enemies = enemies == null ? null : enemies.clone();
     }
+
     @XmlElement(name="Level")
     public LevelWrapper getLevel() {
         return level;
@@ -75,7 +80,7 @@ public class SaveRoot {
     }
     public IConsciousness[] loadEnemies(){
         if(loadEnemies == null) loadGame();
-        return this.loadEnemies;
+        return loadEnemies == null ? null : loadEnemies.clone();
     }
     public ILevel loadLevel(){
         if(loadLevel == null) loadGame();

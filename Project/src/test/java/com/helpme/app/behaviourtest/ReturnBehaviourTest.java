@@ -1,11 +1,11 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.model.consciousness.behaviour.concrete.Return;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.consciousness.behaviour.IBehaviour;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +15,7 @@ import java.util.HashMap;
  * Created by kopa on 2017-05-21.
  */
 public class ReturnBehaviourTest {
+    private Return returnConcrete;
     private IBehaviour returnBehaviour;
     private MockBody mockBody;
     private MockPlayer mockPlayer;
@@ -23,21 +24,41 @@ public class ReturnBehaviourTest {
     private MockConsciousness mockConsciousness;
 
     @Before
-    public void setup(){
+    public void setup() {
         mockBody = new MockBody();
         mockPlayer = new MockPlayer();
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
-        returnBehaviour = BehaviourFactory.createReturn(
+        returnConcrete = new Return(
                 0,
                 null,
                 "returning",
                 "returned");
+        returnBehaviour = returnConcrete;
     }
 
     @Test
-    public void testReturnReturned() {
+    public void testGetReturnedEvent() {
+        assert (returnConcrete.getReturnedEvent().equals("returned"));
+    }
+
+    @Test
+    public void testGetReturningEvent() {
+        assert (returnConcrete.getReturningEvent().equals("returning"));
+    }
+
+    @Test
+    public void testReset() {
+        mockMemory.memory = new HashMap<>();
+        returnBehaviour.reset(mockMemory);
+        assert (mockMemory.memory.size() == 2 &&
+                mockMemory.memory.get("returning") == 0 &&
+                mockMemory.memory.get("returned") == 0);
+    }
+
+    @Test
+    public void testReturned() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 0;
 
@@ -49,10 +70,10 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningFacing() {
+    public void testReturningFacing() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.north;
+        mockSurroundings.pathNextPosition = Vector2f.NORTH;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -64,10 +85,10 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningRightOf() {
+    public void testReturningRightOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.east;
+        mockSurroundings.pathNextPosition = Vector2f.EAST;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -79,10 +100,10 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningBehind() {
+    public void testReturningBehind() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.south;
+        mockSurroundings.pathNextPosition = Vector2f.SOUTH;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));
@@ -94,10 +115,10 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningLeftOf() {
+    public void testReturningLeftOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
-        mockSurroundings.pathNextPosition = Vector2f.west;
+        mockSurroundings.pathNextPosition = Vector2f.WEST;
 
         Maybe<IAction<IConsciousness>> maybeAction = returnBehaviour.execute(mockBody, mockSurroundings, mockMemory);
         maybeAction.run(action -> action.apply(mockConsciousness));

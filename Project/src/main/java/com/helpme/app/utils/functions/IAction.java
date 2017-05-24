@@ -5,8 +5,4 @@ package com.helpme.app.utils.functions;
  */
 public interface IAction<T> {
     void apply(T arg);
-
-    static <T> IAction<T> empty(){
-        return t -> {};
-    }
 }

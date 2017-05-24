@@ -1,20 +1,22 @@
 package com.helpme.app.controller;
 
 import com.helpme.app.engine.sounds.audio.AudioHandler;
-import com.helpme.app.engine.sounds.sources.AbstractMonsterSource;
-import com.helpme.app.engine.sounds.sources.MonsterSource;
+import com.helpme.app.engine.sounds.sources.AbstractBodySource;
+import com.helpme.app.engine.sounds.sources.BodySource;
 import com.helpme.app.engine.sounds.sources.PlayerSource;
 import com.helpme.app.engine.sounds.sources.Source;
-import com.helpme.app.world.body.IReadBody;
+
+import com.helpme.app.model.body.IReadBody;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jesper on 2017-05-24.
  */
 public class AudioSetup {
-    public static IController setupAudioController(IReadBody playerBody, IReadBody[] enemies) {
+    public static IController setupAudioController(IReadBody playerBody, List<IReadBody> enemies) {
 
 
         try {
@@ -32,9 +34,9 @@ public class AudioSetup {
             e.printStackTrace();
         }
 
-        ArrayList<AbstractMonsterSource> bodySources = new ArrayList<>();
+        ArrayList<AbstractBodySource> bodySources = new ArrayList<>();
         for (IReadBody body : enemies) {
-            bodySources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition()));
+            bodySources.add(new BodySource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition().x, body.readPosition().y, 0));
         }
         bodySources.add(new PlayerSource(playerBody, new Source(), walkBuffer, -1, groanBuffer, playerBody.readPosition()));
         LevelAudioController levelAudioController = new LevelAudioController(bodySources);

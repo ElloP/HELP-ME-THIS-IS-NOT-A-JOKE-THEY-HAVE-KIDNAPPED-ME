@@ -2,9 +2,9 @@ package com.helpme.app.saveload.behaviour;
 
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.consciousness.behaviour.Comparison;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.*;
+import com.helpme.app.model.consciousness.behaviour.Comparison;
+import com.helpme.app.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.model.consciousness.behaviour.concrete.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -24,6 +24,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
     private AttackWrapper attackWrapper;
 
     public BehaviourWrapper() {
+
     }
 
     public BehaviourWrapper(IBehaviour behaviour) {
@@ -53,7 +54,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
     @XmlElementWrapper(name = "preconditions")
     @XmlElement(name = "precondition")
     public PreconditionWrapper[] getPreconditions(){
-        return preconditionWrappers;
+        return preconditionWrappers == null ? null :preconditionWrappers.clone();
     }
     public void setPreconditions(PreconditionWrapper[] preconditionWrappers){
         this.preconditionWrappers = new PreconditionWrapper[preconditionWrappers.length];

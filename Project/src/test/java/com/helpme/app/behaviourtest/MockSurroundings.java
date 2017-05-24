@@ -2,13 +2,12 @@ package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.consciousness.IReadSurroundings;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.tile.ITile;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.consciousness.IReadSurroundings;
+import com.helpme.app.model.item.effect.ITarget;
+import com.helpme.app.model.tile.ITile;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import java.util.Map;
  * Created by kopa on 2017-05-20.
  */
 public class MockSurroundings implements IReadSurroundings {
-    Vector2f pathNextPosition = Vector2f.zero;
+    Vector2f pathNextPosition = Vector2f.ZERO;
     int pathCost = 3;
     boolean facing;
     IReadBody player;
@@ -47,12 +46,12 @@ public class MockSurroundings implements IReadSurroundings {
     }
 
     @Override
-    public boolean isDistanceFrom(IReadBody body, Vector2f destination, int longestDistance) {
+    public boolean isWithinRange(Vector2f position, Vector2f destination, int range) {
         return false;
     }
 
     @Override
-    public Tuple3<List<Vector2f>, Vector2f, Integer> getShortestPath(Vector2f from, Vector2f to) {
+    public Tuple3<List<Vector2f>, Vector2f, Integer> getPath(Vector2f from, Vector2f to) {
         return new Tuple3<>(null, pathNextPosition, pathCost);
     }
 
@@ -77,8 +76,8 @@ public class MockSurroundings implements IReadSurroundings {
     }
 
     @Override
-    public IReadBody[] readBodies() {
-        return new IReadBody[0];
+    public List<IReadBody> readBodies() {
+        return null;
     }
 
     @Override

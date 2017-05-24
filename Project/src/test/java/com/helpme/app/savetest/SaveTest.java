@@ -1,5 +1,10 @@
 package com.helpme.app.savetest;
 
+import com.helpme.app.model.body.concrete.Body;
+import com.helpme.app.model.consciousness.behaviour.concrete.Attack;
+import com.helpme.app.model.consciousness.behaviour.concrete.Stay;
+import com.helpme.app.model.consciousness.concrete.Enemy;
+import com.helpme.app.model.level.concrete.Level;
 import com.helpme.app.saveload.TileWrapper;
 import com.helpme.app.saveload.BodyWrapper;
 import com.helpme.app.saveload.SavePlayer;
@@ -9,28 +14,26 @@ import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.concrete.BodyFactory;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.body.inventory.concrete.InventoryFactory;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.consciousness.behaviour.Comparison;
-import com.helpme.app.world.consciousness.behaviour.IBehaviour;
-import com.helpme.app.world.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.world.consciousness.behaviour.memories.IMemory;
-import com.helpme.app.world.consciousness.behaviour.memories.concrete.MemoryFactory;
-import com.helpme.app.world.consciousness.concrete.ConsciousnessFactory;
-import com.helpme.app.world.consciousness.concrete.Enemy;
-import com.helpme.app.world.consciousness.concrete.Player;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.concrete.ItemFactory;
-import com.helpme.app.world.level.ILevel;
-import com.helpme.app.world.level.concrete.LevelFactory;
-import com.helpme.app.world.tile.edge.IEdge;
-import com.helpme.app.world.tile.edge.concrete.Door;
-import com.helpme.app.world.tile.edge.concrete.Opening;
-import com.helpme.app.world.tile.edge.concrete.Wall;
+import com.helpme.app.model.body.IBody;
+import com.helpme.app.model.body.concrete.BodyFactory;
+import com.helpme.app.model.body.inventory.IInventory;
+import com.helpme.app.model.body.inventory.IReadInventory;
+import com.helpme.app.model.body.inventory.concrete.InventoryFactory;
+import com.helpme.app.model.consciousness.IConsciousness;
+import com.helpme.app.model.consciousness.behaviour.Comparison;
+import com.helpme.app.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.model.consciousness.behaviour.memory.concrete.MemoryFactory;
+import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.concrete.ItemFactory;
+import com.helpme.app.model.level.ILevel;
+import com.helpme.app.model.tile.edge.IEdge;
+import com.helpme.app.model.tile.edge.concrete.Door;
+import com.helpme.app.model.tile.edge.concrete.Opening;
+import com.helpme.app.model.tile.edge.concrete.Wall;
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.SortedList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,10 +42,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Klas on 2017-04-29.
@@ -53,7 +53,6 @@ public class SaveTest {
     private JAXBContext context;
     private IItem[] items;
     private IInventory inventory;
-    private IBody Body;
     private Vector2f hitpoints;
 
     @Before
@@ -67,7 +66,7 @@ public class SaveTest {
         items = new IItem[]{ItemFactory.club(), ItemFactory.fists(), null, null};
         inventory = InventoryFactory.createInventory(items, ItemFactory.fists(), new IItem[]{ItemFactory.createKey("Red Key")});
         hitpoints = new Vector2f(100,50);
-        IBody Body = BodyFactory.createBody(inventory,Vector2f.east,Vector2f.west,hitpoints);
+        IBody Body = BodyFactory.createBody(inventory,Vector2f.EAST,Vector2f.WEST,hitpoints);
         String fileTest = "test.xml";
         SavePlayer save = new SavePlayer();
         save.marshall(Body,fileTest);
@@ -78,8 +77,7 @@ public class SaveTest {
     public void saveTest2() throws JAXBException {
         TestWorld mock = new TestWorld();
        // mock.player.setPlayerPosition(new Vector2f(1,1));
-
-        IConsciousness[] enemy = {mock.enemyConsciousness0,mock.enemyConsciousness1 };
+        IConsciousness[] enemy = mock.enemyConsciousnesses.toArray(new IConsciousness[mock.enemyConsciousnesses.size()]);
         SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
@@ -92,123 +90,115 @@ public class SaveTest {
         ILevel level = loadroot.loadLevel();
         IConsciousness[] enemy1 = loadroot.loadEnemies();
 
-        Player player1 = new Player(playerBody,level);
-        assert(player1.readBody().readCurrentHp() == mock.player.readBody().readCurrentHp());
-        assert(player1.readBody().readMaxHp() == mock.player.readBody().readMaxHp());
+        Player player1 = new Player(player.readBody(),level);
+        assert(player1.readBody().readCurrentHitpoints() == mock.player.readBody().readCurrentHitpoints());
+        assert(player1.readBody().readMaxHitpoints() == mock.player.readBody().readMaxHitpoints());
         assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());
-        assert(true == enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
+        assert(enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
 
     }
 
     @Test
     public void testSaveBody() throws JAXBException {
-        List<Maybe<IItem>> mockItems = new ArrayList<Maybe<IItem>>(){
-            {
-                add(new Just<>(new MockItem("item0")));
-                add(new Just<>(new MockItem("item1")));
-                add(new Just<>(new MockItem("item2")));
-                add(new Nothing<>());
-            }
-        };
-
-        List<Maybe<IItem>> mockKeys = new ArrayList<Maybe<IItem>>(){
-            {
-                add(new Just<>(new MockItem("key0")));
-                add(new Just<>(new MockItem("key1")));
-                add(new Just<>(new MockItem("key2")));
-                add(new Nothing<>());
-            }
-        };
-
+        List<Maybe<IItem>> mockItems = new ArrayList<>();
+        List<Maybe<IItem>> mockKeys = new ArrayList<>();
         IInventory mockInventory = new MockInventory(mockItems, mockKeys);
         IBody mockBody = new MockBody(mockInventory);
-
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
+        Unmarshaller unmarshaller;
+        BodyWrapper bodyWrapper;
+        IBody loadedBody;
+        IReadInventory loadedInventory;
+
+        mockItems.add(new Just<>(ItemFactory.potion()));
+        mockItems.add(new Just<>(ItemFactory.fists()));
+        mockItems.add(new Just<>(ItemFactory.club()));
+        mockItems.add(new Nothing<>());
+
+        mockKeys.add(new Just<>(new MockItem("key0")));
+        mockKeys.add(new Just<>(new MockItem("key1")));
+        mockKeys.add(new Just<>(new MockItem("key2")));
+        mockKeys.add(new Nothing<>());
+
         marshaller.marshal(new BodyWrapper(mockBody), file);
 
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();
+        unmarshaller = this.context.createUnmarshaller();
 
-        BodyWrapper bodyWrapper = (BodyWrapper) unmarshaller.unmarshal(file);
-        IBody loadedBody = bodyWrapper.getObject();
+        bodyWrapper = (BodyWrapper) unmarshaller.unmarshal(file);
+        loadedBody = bodyWrapper.getObject();
         assert(loadedBody.readHitpoints().equals(new Vector2f(100,100)));
-        IReadInventory loadedInventory = loadedBody.readInventory();
-        System.out.println(loadedInventory.readItems());
-        assert(loadedInventory.readItem(0).getValue().readName().equals("item0"));
+
+        loadedInventory = loadedBody.readInventory();
+        assert(loadedInventory.readItem(0).getValue().readName().equals("Potion"));
     }
 
     @Test
     public void testSaveTile() throws JAXBException {
 
-        List<Maybe<IItem>> mockItems = new ArrayList<Maybe<IItem>>(){
-            {
-                add(new Just<>(new MockItem("item0")));
-                add(new Just<>(new MockItem("item1")));
-                add(new Just<>(new MockItem("item2")));
-            }
-        };
+        List<Maybe<IItem>> mockItems = new ArrayList<>();
+        Map<Vector2f, IEdge> mockEdges = new HashMap<>();
+        MockTile mockTile;
+        File file;
+        Marshaller marshaller;
+        Unmarshaller unmarshaller;
+        TileWrapper tileWrapper;
 
-        Map<Vector2f, IEdge> mockEdges = new HashMap<Vector2f, IEdge>(){
-            {
-                put(Vector2f.north, new Wall());
-                put(Vector2f.east, new Opening());
-                put(Vector2f.south, new Door(true, new MockItem("key")));
-                put(Vector2f.west, new Wall());
-            }
-        };
+        mockItems.add(new Just<>(new MockItem("item0")));
+        mockItems.add(new Just<>(new MockItem("item1")));
+        mockItems.add(new Just<>(new MockItem("item2")));
 
-        MockTile mockTile = new MockTile(mockItems, mockEdges);
+        mockEdges.put(Vector2f.NORTH, new Wall());
+        mockEdges.put(Vector2f.EAST, new Opening());
+        mockEdges.put(Vector2f.SOUTH, new Door(true, new MockItem("key")));
+        mockEdges.put(Vector2f.WEST, new Wall());
 
-        File file = new File("test.xml");
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new TileWrapper(mockTile, Vector2f.zero), file);
+        mockTile = new MockTile(mockItems, mockEdges);
 
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();
+        file = new File("test.xml");
+        marshaller = this.context.createMarshaller();
+        marshaller.marshal(new TileWrapper(mockTile, Vector2f.ZERO), file);
 
-        TileWrapper tileWrapper = (TileWrapper) unmarshaller.unmarshal(file);
+        unmarshaller = this.context.createUnmarshaller();
+
+        tileWrapper = (TileWrapper) unmarshaller.unmarshal(file);
 
         System.out.println(tileWrapper);
     }
 
     @Test
     public void testSaveEnemy() throws JAXBException {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<String, Tuple2<Integer, Comparison>>() {
-            {
-                put("name0", new Tuple2<>(1, Comparison.EQUAL));
-                put("name1", new Tuple2<>(4, Comparison.LESS_THAN));
-            }
-        };
-        IBehaviour attack = BehaviourFactory.createAttack(2, preconditions, "test");
-        IBehaviour stay = BehaviourFactory.createStay(1, null);
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        IBehaviour attack = new Attack(2, preconditions, "test");
+        IBehaviour stay = new Stay(1, null);
+        List<IBehaviour> behaviours = new ArrayList<>();
+        Map<String, Integer> longTerm = new HashMap<>();
+        Map<String, Integer> shortTerm = new HashMap<>();
+        IBody body;
+        ILevel level;
+        IConsciousness enemy;
 
-        List<IBehaviour> behaviours = new ArrayList<IBehaviour>(){
-            {
-                add(attack);
-                add(stay);
-            }
-        };
+        behaviours.add(attack);
+        behaviours.add(stay);
 
-        Map<String, Integer> longTerm = new HashMap<String, Integer>(){
-            {
-                put("longterm0", 1);
-                put("longterm1", 5);
-            }
-        };
+        preconditions.put("name0", new Tuple2<>(1, Comparison.EQUAL));
+        preconditions.put("name1", new Tuple2<>(4, Comparison.LESS_THAN));
 
-        Map<String, Integer> shortTerm = new HashMap<String, Integer>(){
-            {
-                put("shortterm0", 3);
-                put("shortterm1", 0);
-            }
-        };
+
+        longTerm.put("longterm0", 1);
+        longTerm.put("longterm1", 5);
+
+
+        shortTerm.put("shortterm0", 3);
+        shortTerm.put("shortterm1", 0);
 
         IMemory memory = MemoryFactory.createMemory(shortTerm, longTerm);
 
-        IBody body = BodyFactory.createBody(null, Vector2f.zero, Vector2f.north,100);
+        body = new Body(null, Vector2f.ZERO, Vector2f.NORTH, new Vector2f(100,100), Vector2f.ZERO, null);
 
-        ILevel level = LevelFactory.createLevel(null, Vector2f.zero, null, null);
+        level = new Level(null, Vector2f.ZERO, new HashMap<>(), new ArrayList<>());
 
-        IConsciousness enemy = ConsciousnessFactory.createEnemy(body, level, memory, behaviours);
+        enemy = new Enemy(body, level, memory, new SortedList<>(FXCollections.observableList(behaviours), Comparator.comparingInt(IBehaviour::getPriority)));
 
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();

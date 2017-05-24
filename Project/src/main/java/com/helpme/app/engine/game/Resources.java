@@ -1,7 +1,7 @@
 package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.renderer.base.Texture;
-import com.helpme.app.engine.renderer.base.Vertex;
+import com.helpme.app.engine.renderer.base.Vertex3D;
 import com.helpme.app.engine.renderer.base.Vertex2D;
 import com.helpme.app.engine.renderer.base.TextureLoader;
 import com.helpme.app.utils.maybe.Maybe;
@@ -21,8 +21,8 @@ public final class Resources {
             put("floor", TextureLoader.loadTexture("floor.jpg"));
             put("wall", TextureLoader.loadTexture("brick.jpg"));
             put("door", TextureLoader.loadTexture("door.jpg"));
-            put("health", TextureLoader.loadTexture("health.png"));
-            put("health80", TextureLoader.loadTexture("health80.png"));
+            put("healthframe", TextureLoader.loadTexture("healthframe.png"));
+            put("healthbar", TextureLoader.loadTexture("healthbar.png"));
             put("default", TextureLoader.loadTexture("default.png"));
             put("menuload", TextureLoader.loadTexture("menuload.png"));
             put("menunew", TextureLoader.loadTexture("menunew.png"));
@@ -63,21 +63,21 @@ public final class Resources {
     }
 
 
-    public static Vertex[] floorVert() {
-        return new Vertex[]{
-                new Vertex(-3, -1.0f, 3, 0.0f, 0.0f),
-                new Vertex(-3, -1.0f, -3, 0.0f, 1.0f),
-                new Vertex(3, -1.0f, 3, 1.0f, 0.0f),
-                new Vertex(3, -1.0f, -3, 1.0f, 1.0f)
+    public static Vertex3D[] floorVert() {
+        return new Vertex3D[]{
+                new Vertex3D(-3, -1.0f, 3, 0.0f, 0.0f),
+                new Vertex3D(-3, -1.0f, -3, 0.0f, 1.0f),
+                new Vertex3D(3, -1.0f, 3, 1.0f, 0.0f),
+                new Vertex3D(3, -1.0f, -3, 1.0f, 1.0f)
         };
     }
 
-    public static Vertex[] wallVert() {
-        return new Vertex[]{
-                new Vertex(-3.0f, -1.0f, 3.0f, 0.0f, 0.0f),
-                new Vertex(3.0f, -1.0f, 3.0f, 1.0f, 0.0f),
-                new Vertex(3.0f, 3.0f, 3.0f, 1.0f, 1.0f),
-                new Vertex(-3.0f, 3.0f, 3.0f, 0.0f, 1.0f)
+    public static Vertex3D[] wallVert() {
+        return new Vertex3D[]{
+                new Vertex3D(-3.0f, -1.0f, 3.0f, 0.0f, 0.0f),
+                new Vertex3D(3.0f, -1.0f, 3.0f, 1.0f, 0.0f),
+                new Vertex3D(3.0f, 3.0f, 3.0f, 1.0f, 1.0f),
+                new Vertex3D(-3.0f, 3.0f, 3.0f, 0.0f, 1.0f)
         };
     }
 }

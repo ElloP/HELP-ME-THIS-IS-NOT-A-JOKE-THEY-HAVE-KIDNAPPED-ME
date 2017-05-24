@@ -1,15 +1,17 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.world.item.IConsumable;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.IItemVisitor;
-import com.helpme.app.world.item.effect.IEffect;
+import com.helpme.app.model.item.IConsumable;
+import com.helpme.app.model.item.IItem;
+import com.helpme.app.model.item.IItemVisitor;
+import com.helpme.app.model.item.concrete.Consumable;
+import com.helpme.app.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-05-19.
  */
 public class MockConsumable implements IConsumable {
-    private String name;
+    String name;
+    int stacks;
 
     public MockConsumable(String name){
         this.name = name;
@@ -21,8 +23,8 @@ public class MockConsumable implements IConsumable {
     }
 
     @Override
-    public void addStack(int amount) {
-
+    public void addStacks(int amount) {
+        stacks += amount;
     }
 
     @Override
@@ -51,12 +53,26 @@ public class MockConsumable implements IConsumable {
     }
 
     @Override
-    public IItem clone() {
+    public IItem copy() {
         return new MockConsumable(name);
     }
 
     @Override
     public <T> T accept(IItemVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof IConsumable)) {
+            return false;
+        }
+
+        return ((IConsumable)o).readName().equals(name);
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

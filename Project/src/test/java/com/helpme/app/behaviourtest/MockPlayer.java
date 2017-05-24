@@ -1,24 +1,18 @@
 package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.body.inventory.IInventory;
-import com.helpme.app.world.body.inventory.IReadInventory;
-import com.helpme.app.world.item.IItem;
-import com.helpme.app.world.item.effect.ITarget;
-import com.helpme.app.world.tile.edge.IEdge;
-
-import java.util.List;
 import java.util.Observable;
+
+import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.model.body.inventory.IReadInventory;
+import com.helpme.app.model.tile.edge.IEdge;
 
 /**
  * Created by kopa on 2017-05-20.
  */
 public class MockPlayer extends Observable implements IReadBody {
-    Vector2f position = Vector2f.zero;
+    Vector2f position = Vector2f.ZERO;
 
     @Override
     public void damage(float amount) {
@@ -51,12 +45,12 @@ public class MockPlayer extends Observable implements IReadBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 
@@ -76,7 +70,7 @@ public class MockPlayer extends Observable implements IReadBody {
     }
 
     @Override
-    public boolean isTraversable(IEdge edge) {
+    public boolean traverse(IEdge edge) {
         return false;
     }
 
