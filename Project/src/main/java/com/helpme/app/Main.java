@@ -36,14 +36,8 @@ public class Main {
         Setup setup = new Setup();
         ILevel level = setup.setup();
 
-        Time time = new Time();
-        Scene menu = new Menu();
         Game game = new GameInstance();
         SaveLoad gameLoader = new GameLoader();
-        //IController playerController = new PlayerController()
-
-        //IController sceneController = new SceneController(game, )
-        //PlayerController playerController = new PlayerController((PlayerCamera) ((GameInstance)game).getCameraController(), setup.getPlayer(), level);
 
         try {
             AudioHandler.init();
@@ -75,7 +69,7 @@ public class Main {
         }
         ((Body)setup.getPlayerBody()).addObserver(audioObserver);
 
-        EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game, time);
+        EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game);
         IController sceneController = new SceneController(game, gameLoader, ec);
         ec.start();
         AudioHandler.cleanUp();

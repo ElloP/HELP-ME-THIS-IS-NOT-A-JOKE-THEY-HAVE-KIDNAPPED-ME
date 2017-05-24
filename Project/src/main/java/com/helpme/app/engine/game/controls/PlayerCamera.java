@@ -93,32 +93,26 @@ public class PlayerCamera extends CameraController{
             if (Input.isKeyboardKeyPress(InputKey.MoveForward)) {
                 setChanged();
                 notifyObservers(GameEvent.MOV_FORWARD);
-                //moveForward();
             }
             if (Input.isKeyboardKeyPress(InputKey.MoveLeft)) {
                 setChanged();
                 notifyObservers(GameEvent.MOV_LEFT);
-                //moveLeft();
             }
             if (Input.isKeyboardKeyPress(InputKey.MoveRight)) {
                 setChanged();
                 notifyObservers(GameEvent.MOV_RIGHT);
-                //moveRight();
             }
             if (Input.isKeyboardKeyPress(InputKey.MoveBackward)) {
                 setChanged();
                 notifyObservers(GameEvent.MOV_BACK);
-                //moveBack();
             }
             if (Input.isKeyboardKeyPress(InputKey.RotateLeft)) {
                 setChanged();
                 notifyObservers(GameEvent.ROT_LEFT);
-                //rotateLeft();
             }
             if (Input.isKeyboardKeyPress(InputKey.RotateRight)) {
                 setChanged();
                 notifyObservers(GameEvent.ROT_RIGHT);
-                //rotateRight();
             }
         }
     }

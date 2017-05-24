@@ -20,12 +20,11 @@ public class EngineCore {
     private Time time;
 
     private static final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
-    public EngineCore(IRenderCore renderCore, Game game, Time time) {
+    public EngineCore(IRenderCore renderCore, Game game) {
         //Note(Olle): set engine variables
         this.game = game;
         engineStopped = false;
         this.renderCore = renderCore;
-        //this.time = time;
         this.time = new Time();
     }
 

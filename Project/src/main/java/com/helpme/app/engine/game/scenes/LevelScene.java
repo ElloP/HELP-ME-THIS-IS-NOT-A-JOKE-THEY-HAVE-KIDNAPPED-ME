@@ -51,6 +51,11 @@ public class LevelScene extends Scene {
         }
     }
 
+    @Override
+    public void input(Time time) {
+        cameraController.update();
+    }
+
     public PlayerCamera getCameraController() {
         return cameraController;
     }
