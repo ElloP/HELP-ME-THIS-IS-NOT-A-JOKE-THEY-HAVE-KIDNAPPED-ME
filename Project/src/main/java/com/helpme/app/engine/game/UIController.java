@@ -2,7 +2,6 @@ package com.helpme.app.engine.game;
 
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.GameObject;
-import com.helpme.app.engine.renderer.base.Texture;
 import com.helpme.app.engine.renderer.base.UIObject;
 import com.helpme.app.utils.Vector2f;
 
@@ -25,7 +24,7 @@ public class UIController extends GameObject {
         });
     }
 
-    public void setWidth(int i) {
+    public void setWidth(float i) {
         ui.setWidth(i);
     }
 
