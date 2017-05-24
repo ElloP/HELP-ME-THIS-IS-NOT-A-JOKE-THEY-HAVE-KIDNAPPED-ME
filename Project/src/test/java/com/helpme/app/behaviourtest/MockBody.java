@@ -6,10 +6,12 @@ import com.helpme.app.world.body.IReadBody;
 import com.helpme.app.world.body.inventory.IReadInventory;
 import com.helpme.app.world.tile.edge.IEdge;
 
+import java.util.Observable;
+
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockBody implements IReadBody {
+public class MockBody extends Observable implements IReadBody {
     public Vector2f position = Vector2f.zero;
     public Vector2f direction = Vector2f.north;
 

@@ -32,41 +32,9 @@ public class Main {
     public static void main(String[] args) {
         Window.initWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
         Window.disableVSync();
-        Setup setup = new Setup();
-        ILevel level = setup.setup();
 
         Game game = new GameInstance();
         SaveLoad gameLoader = new GameLoader();
-
-        try {
-            AudioHandler.init();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        AudioHandler.setListenerPos(setup.getPlayerBody().readPosition().x, setup.getPlayerBody().readPosition().y, 0);
-        int walkBuffer = 0;
-        int groanBuffer = 0;
-        try {
-            walkBuffer = AudioHandler.loadSound("src\\main\\java\\com\\helpme\\app\\engine\\sounds\\files\\Cowboy.wav");
-            groanBuffer = AudioHandler.loadSound("src\\main\\java\\com\\helpme\\app\\engine\\sounds\\files\\Groan.wav");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<AbstractMonsterSource> bodySources = new ArrayList<>();
-        for (IReadBody body : level.readBodies()) {
-            bodySources.add(new MonsterSource(body, new Source(), walkBuffer, -1, groanBuffer, body.readPosition()));
-        }
-        bodySources.add(new PlayerSource(setup.getPlayerBody(), new Source(), walkBuffer, -1, groanBuffer, setup.getPlayerBody().readPosition()));
-        LevelAudioController levelAudioController = new LevelAudioController(bodySources);
-
-
-
-        for (IReadBody body : level.readBodies()) {
-            //((Body)body).addObserver(playerController);
-            ((Body)body).addObserver(levelAudioController);
-        }
-        ((Body)setup.getPlayerBody()).addObserver(levelAudioController);
 
         EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game);
         IController sceneController = new SceneController(game, gameLoader, ec);

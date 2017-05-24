@@ -12,11 +12,12 @@ import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by kopa on 2017-05-15.
  */
-public class MockPlayer implements IBody {
+public class MockPlayer extends Observable implements IBody {
     public boolean traversable;
 
     @Override

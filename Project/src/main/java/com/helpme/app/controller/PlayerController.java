@@ -21,10 +21,6 @@ public class PlayerController implements IController {
     public PlayerController(PlayerCamera playerCamera, Player player, ILevel level) {
         this.playerCamera = playerCamera;
         this.player = player;
-        //TODO (Jesper): Should not add itself as an observer
-        //playerCamera.addObserver(this);
-        //level.readPlayer().run(b -> ((Body) b).addObserver(this));
-        //this.level = level;
     }
 
     @Override

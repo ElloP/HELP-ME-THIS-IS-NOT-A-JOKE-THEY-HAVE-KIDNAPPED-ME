@@ -12,11 +12,12 @@ import com.helpme.app.world.item.IItem;
 import com.helpme.app.world.tile.edge.IEdge;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by kopa on 2017-05-14.
  */
-public class MockTarget implements IBody {
+public class MockTarget extends Observable implements IBody {
     public int attacked;
 
     @Override

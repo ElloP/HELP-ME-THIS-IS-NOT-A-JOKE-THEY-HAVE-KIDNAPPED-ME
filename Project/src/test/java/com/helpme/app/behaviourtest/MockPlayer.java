@@ -12,11 +12,12 @@ import com.helpme.app.world.item.effect.ITarget;
 import com.helpme.app.world.tile.edge.IEdge;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockPlayer implements IReadBody {
+public class MockPlayer extends Observable implements IReadBody {
     Vector2f position = Vector2f.zero;
 
     @Override
