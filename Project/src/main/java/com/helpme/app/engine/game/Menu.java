@@ -74,18 +74,15 @@ public class Menu extends GameObject {
         scene.addChild(new LevelController(testLevel()));
         scene.addChild(new NPCView());
         addUI(scene);
-        //health.setTexture("health80");
 
         return scene;
 
     }
 
     private void addUI(Scene scene){
-        UIController health = new UIController("health", new Vector2f(1100, 800), 350, 60);
-        UIController health2 = new UIController("default", new Vector2f(1100, 800), 50, 60);
-        scene.addChild(health2);
+        HealthBarController health = new HealthBarController(new Vector2f(1100, 750));
         scene.addChild(health);
-
+        health.setHealth(100);
     }
 
     private ILevel testLevel(){

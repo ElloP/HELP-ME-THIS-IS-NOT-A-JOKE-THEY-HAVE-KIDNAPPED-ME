@@ -9,8 +9,8 @@ public class UIObject {
     private Shader shader;
     private Mesh2D mesh;
     private Texture texture;
-    private int width;
-    private int height;
+    private float width;
+    private float height;
 
     Vector2f position;
 
@@ -18,7 +18,7 @@ public class UIObject {
         return shader;
     }
 
-    public UIObject(Texture texture, Vector2f position,  int width, int height)
+    public UIObject(Texture texture, Vector2f position, float width, float height)
     {
         this.texture = texture;
         shader = UIShader.getInstance();
@@ -33,20 +33,20 @@ public class UIObject {
         this.texture = texture;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(float width) {
         this.width = width;
         setVertices();
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
         setVertices();
     }
