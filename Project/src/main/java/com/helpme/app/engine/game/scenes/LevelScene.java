@@ -1,9 +1,13 @@
-package com.helpme.app.engine.game;
+package com.helpme.app.engine.game.scenes;
 
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Camera;
+import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.base.Time;
+import com.helpme.app.engine.game.LevelController;
+import com.helpme.app.engine.game.NPCView;
+import com.helpme.app.engine.game.UIRenderer;
 import com.helpme.app.engine.game.controls.CameraController;
 import com.helpme.app.engine.game.controls.PlayerCamera;
 import com.helpme.app.utils.Vector2f;
@@ -37,6 +41,13 @@ public class LevelScene extends Scene {
             health.setTexture("health");
         } else if (newHealth <= 80 && newHealth > 60) {
             health.setTexture("health80");
+        }
+    }
+
+    @Override
+    public void draw(ICamera camera) {
+        for (GameObject child : children) {
+            child.drawAll(playerCamera);
         }
     }
 

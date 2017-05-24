@@ -87,11 +87,12 @@ public class SaveTest {
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
         SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
-        IBody player = loadroot.loadPlayer();
+        Player player = loadroot.loadPlayer();
+        IBody playerBody = player.readBody();
         ILevel level = loadroot.loadLevel();
         IConsciousness[] enemy1 = loadroot.loadEnemies();
 
-        Player player1 = new Player(player,level);
+        Player player1 = new Player(playerBody,level);
         assert(player1.readBody().readCurrentHp() == mock.player.readBody().readCurrentHp());
         assert(player1.readBody().readMaxHp() == mock.player.readBody().readMaxHp());
         assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());

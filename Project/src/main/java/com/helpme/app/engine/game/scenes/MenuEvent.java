@@ -1,4 +1,4 @@
-package com.helpme.app.engine.game;
+package com.helpme.app.engine.game.scenes;
 
 /**
  * Created by Jesper on 2017-05-24.

@@ -1,16 +1,12 @@
-package com.helpme.app.engine.game;
+package com.helpme.app.engine.game.scenes;
 
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.base.Time;
+import com.helpme.app.engine.game.UIRenderer;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.utils.Vector2f;
-import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.world.body.IBody;
-import com.helpme.app.world.body.IReadBody;
-import com.helpme.app.world.consciousness.IConsciousness;
-import com.helpme.app.world.level.ILevel;
 
 /**
  * Created by Klas on 2017-05-20.
@@ -34,6 +30,7 @@ public class Menu extends Scene{
         this.menuEvent = MenuEvent.NEW;
     }
 
+    @Override
     public void input(Time time) {
         if(Input.isKeyboardKeyPress(InputKey.MoveForward)){
             up();
@@ -49,13 +46,13 @@ public class Menu extends Scene{
 
 
     public void up(){
-        menuEvent = MenuEvent.NEW;
+        current = 0;
         //menuEvent.getPrevious
         menu.setTexture(options[current]);
     }
 
     public void down(){
-        menuEvent = MenuEvent.LOAD;
+        current = 1;
         //menuEvent.getNext
         menu.setTexture(options[current]);
     }
