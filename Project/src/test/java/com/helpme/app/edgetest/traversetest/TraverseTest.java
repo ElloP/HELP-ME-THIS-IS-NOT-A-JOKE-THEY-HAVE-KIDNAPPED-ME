@@ -41,7 +41,7 @@ public class TraverseTest {
     public void testTraverseLockedDoorHasKey(){
         mockDoor.locked = true;
         mockKeyChain.hasKey = true;
-        assert (!mockDoor.accept(new Traverse()) && !mockDoor.locked);
+        assert (!mockDoor.accept(new Traverse()));
     }
 
     @Test

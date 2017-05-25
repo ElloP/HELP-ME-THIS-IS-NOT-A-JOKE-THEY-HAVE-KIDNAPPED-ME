@@ -13,7 +13,7 @@ public final class Traverse implements IEdgeVisitor<Boolean> {
 
     @Override
     public Boolean visit(IDoor door) {
-        return door.isLocked();
+        return !door.isLocked();
     }
 
     @Override
