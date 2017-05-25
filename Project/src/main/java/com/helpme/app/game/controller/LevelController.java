@@ -30,7 +30,7 @@ public class LevelController extends Scene {
         addChild(new LevelView(level));
         for (IReadBody body : level.readBodies()) {
 
-            Maybe<Texture> maybeTexture = Resources.getTexture("default.png");
+            Maybe<Texture> maybeTexture = Resources.getTexture("klas");
             BodyView bodyView = new BodyView(body.readPosition().x, body.readPosition().y, maybeTexture.isJust() ? maybeTexture.getValue() : null);
             addChild(bodyView);
             Observer enemyController = ControllerFactory.createEnemyController(bodyView);

@@ -42,7 +42,7 @@ public class Texture {
         this.height = height;
 
         bind();
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, maxFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);

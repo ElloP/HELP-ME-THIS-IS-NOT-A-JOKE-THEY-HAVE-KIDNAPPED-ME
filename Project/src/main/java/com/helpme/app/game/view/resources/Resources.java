@@ -34,6 +34,8 @@ public final class Resources {
                 put("default", TextureLoader.loadTexture(RESOURCES_PATH + "textures/default.png"));
                 put("menuload", TextureLoader.loadTexture(RESOURCES_PATH + "textures/menuload.png"));
                 put("menunew", TextureLoader.loadTexture(RESOURCES_PATH + "textures/menunew.png"));
+                put("klas", TextureLoader.loadTexture(RESOURCES_PATH + "textures/klas.png"));
+
             }
         };
 
