@@ -28,7 +28,7 @@ public class Main {
         SaveLoad gameLoader = new GameLoader();
 
         EngineCore engineCore = new EngineCore(RenderCore.getRenderCore(), game);
-        Observer sceneController = new SceneController(game, gameLoader, engineCore.getTime());
+        new SceneController(game, gameLoader, engineCore.getTime());
         engineCore.start();
 
         AudioHandler.cleanUp();
