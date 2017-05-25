@@ -3,6 +3,7 @@ package com.helpme.app.game.view;
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.view.resources.Resources;
 import com.helpme.app.game.view.visitor.GenerateEdge;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;

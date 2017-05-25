@@ -27,7 +27,7 @@ public class EnemyTest {
         mockBehaviours.add(new MockBehaviour(0, true));
         mockBehaviours.add(new MockBehaviour(2, true));
         mockMemory = new MockMemory();
-        enemy = new Enemy(null, null, mockMemory, new SortedList<>(FXCollections.observableList(mockBehaviours), Comparator.comparingInt(IBehaviour::getPriority)));
+        enemy = new Enemy(new MockBody(), null, mockMemory, new SortedList<>(FXCollections.observableList(mockBehaviours), Comparator.comparingInt(IBehaviour::getPriority)));
     }
 
     @Test

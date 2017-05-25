@@ -7,7 +7,7 @@ import com.helpme.app.game.model.tile.edge.IEdgeVisitor;
 import com.helpme.app.game.model.tile.edge.IOpening;
 import com.helpme.app.game.model.tile.edge.IWall;
 import com.helpme.app.game.view.QuadView;
-import com.helpme.app.game.view.Resources;
+import com.helpme.app.game.view.resources.Resources;
 import com.helpme.app.utils.maybe.Maybe;
 
 /**

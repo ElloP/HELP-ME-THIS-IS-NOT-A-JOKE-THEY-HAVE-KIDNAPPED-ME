@@ -11,13 +11,12 @@ import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryF
 import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.item.IItem;
-import com.helpme.app.game.model.item.concrete.Item;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.LevelFactory;
 import com.helpme.app.game.model.tile.edge.IDoor;
 import com.helpme.app.game.model.tile.edge.concrete.Door;
-import com.helpme.app.saveload.GameLoader;
+import com.helpme.app.game.saveload.GameLoader;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;

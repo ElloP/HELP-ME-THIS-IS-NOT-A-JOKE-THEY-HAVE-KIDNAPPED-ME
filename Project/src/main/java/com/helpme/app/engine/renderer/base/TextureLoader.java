@@ -1,6 +1,5 @@
 package com.helpme.app.engine.renderer.base;
 
-import com.helpme.app.engine.renderer.base.Texture;
 import org.lwjgl.system.MemoryUtil;
 
 import javax.imageio.ImageIO;
@@ -12,12 +11,12 @@ import java.nio.ByteBuffer;
  * Authored by Olle on 2017-04-19.
  */
 public class TextureLoader {
-    private static final String TEXTUREPATH = new File("").getAbsolutePath() + "/src/main/java/com/helpme/app/engine/renderer/textures/";
+    private static final String PATH = new File("").getAbsolutePath();
 
     public static Texture loadTexture(String fileName) {
         Texture texture = new Texture();
         try {
-            BufferedImage imageBuffer = ImageIO.read(new File(TEXTUREPATH + fileName));
+            BufferedImage imageBuffer = ImageIO.read(new File(PATH + fileName));
             int[] pixels = new int[imageBuffer.getHeight() * imageBuffer.getWidth()];
             imageBuffer.getRGB(0,0,
                                imageBuffer.getWidth(),

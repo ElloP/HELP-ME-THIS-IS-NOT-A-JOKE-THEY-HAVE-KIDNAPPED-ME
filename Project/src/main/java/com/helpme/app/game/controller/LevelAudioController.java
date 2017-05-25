@@ -1,8 +1,8 @@
 package com.helpme.app.game.controller;
 
-import com.helpme.app.engine.sounds.sources.AbstractBodySource;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.body.concrete.BodyEvent;
+import com.helpme.app.game.view.sources.AbstractBodySource;
 
 import java.util.ArrayList;
 import java.util.Observable;

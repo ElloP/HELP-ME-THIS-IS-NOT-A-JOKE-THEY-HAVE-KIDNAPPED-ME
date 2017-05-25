@@ -16,8 +16,7 @@ public class BodyView extends GameObject {
     private Mesh3D mesh3D;
     private Shader shader;
     private Matrix4f modelMatrix;
-
-    private static Texture texture = TextureLoader.loadTexture("default.png");
+    private Texture texture;
 
     private static Vertex3D[] vertices = new Vertex3D[] {
             new Vertex3D(-1.5f, -1.0f,  0.0f, 0.0f, 0.0f),
@@ -31,15 +30,16 @@ public class BodyView extends GameObject {
             0, 3, 2
     };
 
-    public BodyView(float x, float y) {
+    public BodyView(float x, float y, Texture texture) {
         modelMatrix = new Matrix4f();
         this.mesh3D = new Mesh3D(vertices, indices);
         this.shader = DefaultShader.getDefaultShader();
         this.transform.setPosition(-6f * x, 0, 6f * y);
+        this.texture = texture;
     }
 
-    public BodyView() {
-        this(0, 0);
+    public BodyView(Texture texture) {
+        this(0, 0, texture);
     }
 
     public void setPosition(Vector2f position) {

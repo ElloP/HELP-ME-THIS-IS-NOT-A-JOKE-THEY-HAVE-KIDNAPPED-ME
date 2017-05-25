@@ -19,6 +19,7 @@ import com.helpme.app.leveltest.LevelBodyTest;
 import com.helpme.app.leveltest.LevelPathTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.leveltest.LevelTileTest;
+import com.helpme.app.mathtest.Vector2fTest;
 import com.helpme.app.maybetest.MaybeTest;
 import com.helpme.app.memorytest.MemoryTest;
 import com.helpme.app.tiletest.TileTest;
@@ -58,7 +59,8 @@ import org.junit.runners.Suite;
         StackTest.class,
         TileTest.class,
         SelfieTest.class,
-        MaybeTest.class})
+        MaybeTest.class,
+        Vector2fTest.class})
 public class TestSuite {
     // Nothing
 }
