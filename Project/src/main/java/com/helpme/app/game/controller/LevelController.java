@@ -41,13 +41,7 @@ public class LevelController extends Scene {
         addChild(this.healthView);
 
     }
-    /*public void updateHealth(int newHealth) {
-        if (newHealth > 80) {
-            healthView.setTexture("healthView");
-        } else if (newHealth <= 80 && newHealth > 60) {
-            healthView.setTexture("health80");
-        }
-    }*/
+
 
     @Override
     public void draw(ICamera camera) {

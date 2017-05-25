@@ -26,7 +26,7 @@ public abstract class AbstractBodySource {
         this.x = x;
         this.y = y;
         this.z = z;
-        source.setPosition(x, y, z);
+        source.setPosition(this.x, this.y, this.z);
     }
     public AbstractBodySource(IReadBody body, Source source, int walking, int breathing, int hurting, Vector2f position) {
         this(body, source, walking, breathing, hurting, position.x, position.y, 0);

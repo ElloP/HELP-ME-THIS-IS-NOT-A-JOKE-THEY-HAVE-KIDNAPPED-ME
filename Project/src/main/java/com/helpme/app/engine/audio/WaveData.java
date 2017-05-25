@@ -63,24 +63,25 @@ public class WaveData {
 
 
     public static WaveData create(BufferedInputStream stream){
-        //System.out.println(file);
-        //InputStream stream = Class.class.getResourceAsStream("/"+file);
-        //System.out.println(stream);
         if(stream==null){
             System.err.println("Couldn't find file: "+stream);
             return null;
         }
         InputStream bufferedInput = new BufferedInputStream(stream);
-        AudioInputStream audioStream = null;
+        AudioInputStream audioStream;
         try {
             audioStream = AudioSystem.getAudioInputStream(bufferedInput);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+
         WaveData wavStream = new WaveData(audioStream);
         return wavStream;
+
     }
 
 

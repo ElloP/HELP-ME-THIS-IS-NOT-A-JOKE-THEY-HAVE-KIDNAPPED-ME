@@ -46,6 +46,8 @@ public class PlayerController implements Observer {
                 case ROTATE_RIGHT:
                     playerCamera.rotateRight();
                     break;
+                default:
+                    break;
 
             }
         } else if (arg instanceof InputKey && o instanceof PlayerCameraView) {
@@ -75,6 +77,8 @@ public class PlayerController implements Observer {
                 case SELECT:
                     System.out.println("Trying to pick up");
                     player.usePickupAll();
+                    break;
+                default:
                     break;
             }
         }

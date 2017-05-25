@@ -22,7 +22,9 @@ public class EnemyController implements Observer{
             BodyEvent event = (BodyEvent) arg;
             switch (event) {
                 case POSITION:
-                    enemyBody.setPosition(((IReadBody) o).readPosition());
+                    if(o instanceof IReadBody){
+                        enemyBody.setPosition(((IReadBody) o).readPosition());
+                    }
                     break;
                 case DEAD:
                     System.out.println("--------------------------------------------------------------------------------");
@@ -30,6 +32,8 @@ public class EnemyController implements Observer{
                     break;
                 case HEALTH:
                     System.out.println("aaaaaaaaaaaaaaaaaa");
+                    break;
+                default:
                     break;
             }
         }

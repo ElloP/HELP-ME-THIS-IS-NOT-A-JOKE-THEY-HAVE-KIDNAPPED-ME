@@ -21,8 +21,8 @@ public class MenuController extends Scene{
 
     private MenuEvent menuEvent;
 
-    private final String LOAD = "menuload";
-    private final String NEW = "menunew";
+    private static final String LOAD = "menuload";
+    private static final String NEW = "menunew";
     public MenuController(){
         this.options = new String[2];
         options[0] = LOAD;

@@ -29,7 +29,7 @@ public class Main {
 
         EngineCore engineCore = new EngineCore(RenderCore.getRenderCore(), game);
         Resources.init();
-        Observer sceneController = new SceneController(game, gameLoader, engineCore.getTime());
+        new SceneController(game, gameLoader, engineCore.getTime());
         engineCore.start();
     }
 }

@@ -74,13 +74,13 @@ public abstract class Shader {
     public abstract void updateUniforms(Matrix4f model, Transform transform, ICamera camera);
 
     private String readShader(String fileName) {
-        String shaderCode;
+        String shaderCode = "";
         try {
             shaderCode = ShaderLoader.readShader(SHADERPATH + fileName);
         } catch (ShaderLoadingException e) {
             System.err.println("ShaderLoadingException in Shader.readShader::" + e.getMessage());
         }
-        return ShaderLoader.readShader(SHADERPATH + fileName);
+        return shaderCode;
     }
 
     private void createVertexShader(String fileName) {

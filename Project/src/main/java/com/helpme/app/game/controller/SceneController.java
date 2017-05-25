@@ -23,7 +23,6 @@ import java.util.Observer;
 public class SceneController implements Observer {
     private Game game;
     private SaveLoad gameLoader;
-    private Observer playerController;
     private Time time;
 
     public SceneController(Game game, SaveLoad gameLoader, Time time) {
@@ -43,8 +42,6 @@ public class SceneController implements Observer {
                 startGame(loadState("level1.xml"));
             } else if (((MenuController) o).getCurrent() == 0) {
                 startGame(loadState("test.xml"));
-            } else if (arg == MenuEvent.ESC) {
-
             }
         }
     }
@@ -59,7 +56,7 @@ public class SceneController implements Observer {
         PlayerCameraView playerCameraView = CameraViewFactory.createPlayerCameraView(player.readBody(), time);
         Scene levelScene = ControllerFactory.createLevelController(level, playerCameraView);
 
-        playerController = ControllerFactory.createPlayerController(playerCameraView, player);
+        ControllerFactory.createPlayerController(playerCameraView, player);
         playerCameraView.addObserver(this);
         addAudioObserver(player.readBody(), level.readBodies());
         game.setActiveScene(levelScene);

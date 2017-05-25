@@ -12,7 +12,6 @@ import java.util.Observer;
  * Created by Jesper on 2017-04-23.
  */
 public class LevelAudioController implements Observer {
-    IReadBody player;
     ArrayList<AbstractBodySource> bodySources;
     public LevelAudioController(ArrayList<AbstractBodySource> bodySources) {
         this.bodySources = bodySources;
@@ -39,9 +38,6 @@ public class LevelAudioController implements Observer {
         }
     }
 
-    private boolean isPlayer(IReadBody body) {
-        return player.equals(body);
-    }
 
     private AbstractBodySource getSource(IReadBody body) {
         for (AbstractBodySource bodySource : bodySources) {

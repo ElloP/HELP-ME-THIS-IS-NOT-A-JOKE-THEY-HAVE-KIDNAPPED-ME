@@ -90,8 +90,7 @@ public class LevelTileTest {
 
     @Test
     public void testAddTileItemsInvalidItemList(){
-        List<Maybe<IItem>> mockItems = null;
-        assert (!level.addTileItems(Vector2f.ZERO, mockItems));
+        assert (!level.addTileItems(Vector2f.ZERO, null));
     }
 
     @Test
@@ -113,8 +112,7 @@ public class LevelTileTest {
 
     @Test
     public void testAddTileItemInvalidItem() {
-        MockItem mockItem = null;
-        assert (!level.addTileItem(Vector2f.ZERO, mockItem));
+        assert (!level.addTileItem(Vector2f.ZERO, null));
     }
 
     @Test

@@ -19,7 +19,7 @@ public class PlayerCameraView extends CameraView {
     private float rotationDuration = .5f;
     private float movementDuration = .5f;
 
-    private final float MOVE_LENGTH = 6.0f;
+    private static final float MOVE_LENGTH = 6.0f;
 
     public PlayerCameraView(ICamera camera, Time time) {
         super(camera, time);

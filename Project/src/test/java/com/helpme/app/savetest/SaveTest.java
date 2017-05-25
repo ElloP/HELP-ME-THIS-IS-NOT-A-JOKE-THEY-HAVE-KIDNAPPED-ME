@@ -86,13 +86,12 @@ public class SaveTest {
         Unmarshaller unmarshaller = context.createUnmarshaller();
         SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
         Player player = loadroot.loadPlayer();
-        IBody playerBody = player.getBody();
         ILevel level = loadroot.loadLevel();
         IConsciousness[] enemy1 = loadroot.loadEnemies();
 
         Player player1 = new Player(player.getBody(),level);
-        assert(player1.readBody().readCurrentHitpoints() == mock.player.readBody().readCurrentHitpoints());
-        assert(player1.readBody().readMaxHitpoints() == mock.player.readBody().readMaxHitpoints());
+        assert(Math.round(player1.readBody().readCurrentHitpoints()) == Math.round(mock.player.readBody().readCurrentHitpoints()));
+        assert(Math.round(player1.readBody().readMaxHitpoints()) == Math.round(mock.player.readBody().readMaxHitpoints()));
         assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());
         assert(enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
 

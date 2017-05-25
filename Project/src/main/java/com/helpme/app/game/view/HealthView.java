@@ -11,19 +11,19 @@ public class HealthView extends GameObject {
     private UIObjectView frame;
     private UIObjectView health;
 
-    private final int WIDTH = 350;
-    private final int HEIGHT = 60;
+    private static final int WIDTH = 350;
+    private static final int HEIGHT = 60;
 
     private Vector2f position;
 
-    private final int FRAME_PADDING_X = 9;
-    private final int FRAME_PADDING_Y = 11;
+    private static final int FRAME_PADDING_X = 9;
+    private static final int FRAME_PADDING_Y = 11;
 
     public HealthView(Vector2f position) {
         this.position = position;
 
         frame = new UIObjectView("healthframe", position, WIDTH, HEIGHT);
-        Vector2f barPos = new Vector2f(position.x + FRAME_PADDING_X, position.y + FRAME_PADDING_Y);
+        Vector2f barPos = new Vector2f(this.position.x + FRAME_PADDING_X, this.position.y + FRAME_PADDING_Y);
         health = new UIObjectView("healthbar", barPos, WIDTH - FRAME_PADDING_X * 2, HEIGHT - FRAME_PADDING_Y * 2);
 
         addChild(health);

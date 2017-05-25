@@ -37,9 +37,6 @@ public class GameLoader implements SaveLoad {
         File file = new File(filePath);
         marshaller.marshal(saveRoot, file);
     }
-    private void marshall(ILevel level, IBody player, IConsciousness[] enemies, String filePath) throws JAXBException {
-        marshall(new SaveRoot(level,player,enemies),filePath);
-    }
 
     private SaveRoot unmarshall(String filePath) throws JAXBException {
         File file = new File(filePath);
