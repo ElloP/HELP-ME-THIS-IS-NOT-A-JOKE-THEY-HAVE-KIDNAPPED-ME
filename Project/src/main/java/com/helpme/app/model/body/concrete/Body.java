@@ -65,48 +65,48 @@ public class Body extends Observable implements IBody {
     public void rotateRight() {
         direction = direction.rotateRightAngle(1);
         setChanged();
-        notifyObservers(Event.Direction);
+        notifyObservers(WorldEvent.ROT_RIGHT);
     }
 
     @Override
     public void rotateLeft() {
         direction = direction.rotateRightAngle(-1);
         setChanged();
-        notifyObservers(Event.Direction);
+        notifyObservers(WorldEvent.ROT_LEFT);
     }
 
     private void move(Vector2f direction) {
         position = Vector2f.add(position, direction);
         setChanged();
-        notifyObservers(position);
+        notifyObservers(WorldEvent.Position);
     }
 
     @Override
     public void moveForward() {
         move(direction.forward());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_FORWARD);
     }
 
     @Override
     public void moveRight() {
         move(direction.right());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_RIGHT);
     }
 
     @Override
     public void moveBackward() {
         move(direction.backward());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_BACK);
     }
 
     @Override
     public void moveLeft() {
         move(direction.left());
         setChanged();
-        notifyObservers(Event.Position);
+        notifyObservers(WorldEvent.MOV_LEFT);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
         inventory.setActiveItem(itemIndex);
     }
 
@@ -150,12 +150,12 @@ public class Body extends Observable implements IBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return hitpoints.x;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return hitpoints.y;
     }
 
@@ -176,7 +176,7 @@ public class Body extends Observable implements IBody {
 
     @Override
     public IInventory getInventory() {
-        return inventory.copy();
+        return inventory;
     }
 
     @Override
@@ -203,7 +203,7 @@ public class Body extends Observable implements IBody {
         amount = Math.abs(amount);
         hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
         setChanged();
-        notifyObservers(Event.Health);
+        notifyObservers(WorldEvent.Health);
     }
 
     @Override
@@ -213,14 +213,14 @@ public class Body extends Observable implements IBody {
 
     @Override
     public IReadInventory readInventory() {
-        return inventory;
+        return inventory.copy();
     }
 
     @Override
     public void kill() {
         dead = true;
         setChanged();
-        notifyObservers(Event.Dead);
+        notifyObservers(WorldEvent.DEAD);
     }
 
     public Vector2f readStartingPosition() {

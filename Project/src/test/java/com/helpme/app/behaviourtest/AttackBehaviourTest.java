@@ -15,6 +15,7 @@ import java.util.HashMap;
  * Created by kopa on 2017-05-21.
  */
 public class AttackBehaviourTest {
+    private Attack attackConcrete;
     private IBehaviour attackBehaviour;
     private MockBody mockBody;
     private MockPlayer mockPlayer;
@@ -29,10 +30,23 @@ public class AttackBehaviourTest {
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
-        attackBehaviour = new Attack(
+        attackConcrete = new Attack(
                 0,
                 null,
                 "attack");
+        attackBehaviour = attackConcrete;
+    }
+
+    @Test
+    public void testGetAttackEvent(){
+        assert (attackConcrete.getAttackEvent().equals("attack"));
+    }
+
+    @Test
+    public void testReset(){
+        mockMemory.memory = new HashMap<>();
+        attackBehaviour.reset(mockMemory);
+        assert (mockMemory.memory.size() == 1 && mockMemory.memory.get("attack") == 0);
     }
 
     @Test

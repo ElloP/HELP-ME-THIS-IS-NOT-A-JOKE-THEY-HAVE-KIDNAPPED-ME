@@ -13,14 +13,6 @@ public abstract class Item {
 
     protected String name;
 
-    public Item(String name) {
-        this.name = name;
-        this.attackEffect = stats -> {
-        };
-        this.selfieEffect = stats -> {
-        };
-    }
-
     public Item(String name, IEffect attackEffect, IEffect selfieEffect) {
         this.name = name;
         this.attackEffect = attackEffect;
@@ -35,8 +27,14 @@ public abstract class Item {
         return selfieEffect;
     }
 
+    public String readName() {
+        return name;
+    }
+
     @Override
-    public abstract boolean equals(Object o);
+    public boolean equals(Object o){
+        return o != null && o instanceof Item && Objects.equals(name, ((Item) o).name);
+    }
 
     @Override
     public int hashCode() {

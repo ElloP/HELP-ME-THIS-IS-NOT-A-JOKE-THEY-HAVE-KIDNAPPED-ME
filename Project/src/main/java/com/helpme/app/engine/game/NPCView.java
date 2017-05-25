@@ -31,10 +31,15 @@ public class NPCView extends GameObject {
             0, 3, 2
     };
 
-    public NPCView() {
+    public NPCView(float x, float y) {
         modelMatrix = new Matrix4f();
         this.mesh3D = new Mesh3D(vertices, indices);
         this.shader = DefaultShader.getDefaultShader();
+        this.transform.setPosition(-6f * x, 0, 6f * y);
+    }
+
+    public NPCView() {
+        this(0, 0);
     }
 
     private void setModelMatrix(ICamera camera) {
@@ -43,10 +48,10 @@ public class NPCView extends GameObject {
     //TODO(Olle): decide how to represent model rotation in npcs
     @Override
     public void draw(ICamera camera) {
+        shader.useProgram();
         setModelMatrix(camera);
         shader.updateUniforms(modelMatrix, transform, camera);
         texture.bind();
-        shader.useProgram();
         mesh3D.draw();
     }
 }

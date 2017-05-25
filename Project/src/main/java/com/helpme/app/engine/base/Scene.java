@@ -16,4 +16,8 @@ public class Scene extends GameObject {
             child.drawAll(camera);
         }
     }
+
+    public void input(Time time) {
+
+    }
 }

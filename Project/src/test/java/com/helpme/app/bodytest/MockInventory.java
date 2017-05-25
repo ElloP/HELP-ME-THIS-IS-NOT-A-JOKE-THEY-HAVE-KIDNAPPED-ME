@@ -5,6 +5,7 @@ import com.helpme.app.model.body.inventory.IInventory;
 import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.item.IReadItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,10 +14,16 @@ import java.util.List;
 public class MockInventory implements IInventory {
     private IItem activeItem;
     private IItem defaultItem;
+    List<Maybe<IItem>> items;
+
+    boolean itemAdded;
+    int copy;
+    int setActiveItem;
 
     public MockInventory(IItem activeItem, IItem defaultItem){
         this.activeItem = activeItem;
         this.defaultItem = defaultItem;
+        items = new ArrayList<>();
     }
 
 
@@ -27,7 +34,8 @@ public class MockInventory implements IInventory {
 
     @Override
     public IInventory copy() {
-        return null;
+        copy++;
+        return this;
     }
 
     @Override
@@ -77,12 +85,12 @@ public class MockInventory implements IInventory {
 
     @Override
     public void setItems(List<Maybe<IItem>> items) {
-
+        this.items = items;
     }
 
     @Override
     public boolean addItem(IItem item) {
-        return false;
+        return itemAdded;
     }
 
     @Override
@@ -92,7 +100,7 @@ public class MockInventory implements IInventory {
 
     @Override
     public Maybe<IItem> dropItem(int index) {
-        return null;
+        return items.get(index);
     }
 
     @Override
@@ -107,11 +115,11 @@ public class MockInventory implements IInventory {
 
     @Override
     public List<Maybe<IItem>> dropItems() {
-        return null;
+        return items;
     }
 
     @Override
     public void setActiveItem(int itemIndex) {
-
+        setActiveItem = itemIndex;
     }
 }

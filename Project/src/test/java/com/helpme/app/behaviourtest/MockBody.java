@@ -6,10 +6,12 @@ import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.body.inventory.IReadInventory;
 import com.helpme.app.model.tile.edge.IEdge;
 
+import java.util.Observable;
+
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockBody implements IReadBody {
+public class MockBody extends Observable implements IReadBody {
     public Vector2f position = Vector2f.ZERO;
     public Vector2f direction = Vector2f.NORTH;
 
@@ -44,12 +46,12 @@ public class MockBody implements IReadBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 

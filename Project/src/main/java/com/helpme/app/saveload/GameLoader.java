@@ -1,9 +1,11 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.utils.tuple.Tuple3;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.level.ILevel;
 import com.helpme.app.model.body.IBody;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -46,10 +48,9 @@ public class GameLoader implements SaveLoad {
     }
 
     @Override
-    public void saveGame(ILevel level, IBody player, IConsciousness[] enemies, String filePath) {
+    public void saveGame(ILevel level, Player player, IConsciousness[] enemies, String filePath) {
         try{
-            System.out.println(player.readPosition());
-            marshall(new SaveRoot(level,player,enemies), filePath);
+            marshall(new SaveRoot(level,player.readBody(),enemies), filePath);
         } catch (JAXBException e){
             System.out.println("Unable to save game");
             System.out.println(e);
@@ -59,7 +60,7 @@ public class GameLoader implements SaveLoad {
 
 
     @Override
-    public Tuple3<ILevel, IBody, IConsciousness[]> loadGame(String filePath) {
+    public Tuple3<ILevel, Player, IConsciousness[]> loadGame(String filePath) {
         try{
             SaveRoot saveRoot = unmarshall(filePath);
             return new Tuple3<>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());

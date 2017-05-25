@@ -16,11 +16,6 @@ public class Single extends Item implements ISingle {
     }
 
     @Override
-    public String readName() {
-        return name;
-    }
-
-    @Override
     public IItem copy() {
         return new Single(name, getAttackEffect(), getSelfieEffect());
     }
@@ -33,8 +28,7 @@ public class Single extends Item implements ISingle {
     @Override
     public boolean equals(Object o) {
         return o != null &&
-                o instanceof Single &&
-                Objects.equals(name, ((Single) o).name);
+                o instanceof Single && super.equals(o);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.helpme.app.saveload;
 import com.helpme.app.model.body.IBody;
 import com.helpme.app.model.consciousness.IConsciousness;
 import com.helpme.app.model.consciousness.concrete.Enemy;
+import com.helpme.app.model.consciousness.concrete.Player;
 import com.helpme.app.model.level.ILevel;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -75,9 +76,10 @@ public class SaveRoot {
         }
         this.loadLevel.setPlayer(this.loadPlayer);
     }
-    public IBody loadPlayer(){
+    public Player loadPlayer(){
         if(loadPlayer == null) loadGame();
-        return this.loadPlayer;
+        Player player = new Player(loadPlayer, loadLevel);
+        return player;
     }
     public IConsciousness[] loadEnemies(){
         if(loadEnemies == null) loadGame();

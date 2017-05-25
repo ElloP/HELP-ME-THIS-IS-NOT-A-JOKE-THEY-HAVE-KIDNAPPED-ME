@@ -1,41 +1,42 @@
-package com.helpme.app.engine.sounds;
-
-import com.helpme.app.model.body.concrete.visitor.Event;
+package com.helpme.app.controller;
 import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.engine.sounds.sources.AbstractBodySource;
+import com.helpme.app.model.body.concrete.visitor.WorldEvent;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-04-23.
  */
-public class AudioObserver implements Observer {
+public class LevelAudioController implements IController {
     IReadBody player;
     ArrayList<AbstractBodySource> bodySources;
-
-    public AudioObserver(ArrayList<AbstractBodySource> bodySources) {
+    public LevelAudioController(ArrayList<AbstractBodySource> bodySources) {
         this.bodySources = bodySources;
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if (!(arg instanceof Event) || !(o instanceof IReadBody)) {
-            return;
-        }
-        Event event = (Event) arg;
-        switch (event) {
-            case Dead:
-                break;
-            case Health:
-                healthEvent((IReadBody) o);
-                break;
-            case Position:
-                posEvent((IReadBody) o);
-                break;
-            case Direction:
-                break;
+        WorldEvent worldEvent = (WorldEvent) arg;
+        switch (worldEvent) {
+            case DEAD:
+                if (!(arg instanceof WorldEvent) || !(o instanceof IReadBody)) {
+                    return;
+                }
+                WorldEvent event = (WorldEvent) arg;
+                switch (event) {
+                    case DEAD:
+                        break;
+                    case Health:
+                        healthEvent((IReadBody) o);
+                        break;
+                    case Position:
+                        posEvent((IReadBody) o);
+                        break;
+                    case Direction:
+                        break;
+                }
         }
     }
 

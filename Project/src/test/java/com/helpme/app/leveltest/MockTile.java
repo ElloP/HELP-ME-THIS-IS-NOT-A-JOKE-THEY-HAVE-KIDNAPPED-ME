@@ -25,7 +25,7 @@ public class MockTile implements ITile {
     }
 
     @Override
-    public void setEdge(IEdge edge, Vector2f direction) {
+    public void setEdge(Vector2f direction, IEdge edge) {
 
     }
 

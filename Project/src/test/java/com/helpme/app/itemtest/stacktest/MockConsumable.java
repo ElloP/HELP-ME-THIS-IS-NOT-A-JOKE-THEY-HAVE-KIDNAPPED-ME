@@ -22,7 +22,7 @@ public class MockConsumable implements IConsumable {
     }
 
     @Override
-    public void addStack(int amount) {
+    public void addStacks(int amount) {
         stacks+=amount;
     }
 

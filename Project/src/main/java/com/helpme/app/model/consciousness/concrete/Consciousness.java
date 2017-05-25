@@ -93,7 +93,7 @@ public abstract class Consciousness extends Observable implements IConsciousness
 
     @Override
     public void changeActiveItem(int index) {
-        body.changeActiveItem(index);
+        body.setActiveItem(index);
     }
 
     @Override

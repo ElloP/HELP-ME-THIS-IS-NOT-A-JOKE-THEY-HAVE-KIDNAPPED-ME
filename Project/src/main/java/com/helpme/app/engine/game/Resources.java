@@ -21,8 +21,8 @@ public final class Resources {
             put("floor", TextureLoader.loadTexture("floor.jpg"));
             put("wall", TextureLoader.loadTexture("brick.jpg"));
             put("door", TextureLoader.loadTexture("door.jpg"));
-            put("health", TextureLoader.loadTexture("health.png"));
-            put("health80", TextureLoader.loadTexture("health80.png"));
+            put("healthframe", TextureLoader.loadTexture("healthframe.png"));
+            put("healthbar", TextureLoader.loadTexture("healthbar.png"));
             put("default", TextureLoader.loadTexture("default.png"));
             put("menuload", TextureLoader.loadTexture("menuload.png"));
             put("menunew", TextureLoader.loadTexture("menunew.png"));

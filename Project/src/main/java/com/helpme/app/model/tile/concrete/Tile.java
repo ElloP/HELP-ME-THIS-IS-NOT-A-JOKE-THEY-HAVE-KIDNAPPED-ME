@@ -31,7 +31,7 @@ public class Tile implements ITile {
 
 
     @Override
-    public void setEdge(IEdge edge, Vector2f direction) {
+    public void setEdge(Vector2f direction, IEdge edge) {
         edges.put(direction, edge);
     }
 

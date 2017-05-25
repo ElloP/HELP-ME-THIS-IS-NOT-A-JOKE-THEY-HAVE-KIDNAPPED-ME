@@ -8,17 +8,20 @@ import com.helpme.app.edgetest.EdgeTest;
 import com.helpme.app.edgetest.traversetest.TraverseTest;
 import com.helpme.app.intelligencetest.IntelligenceTest;
 import com.helpme.app.inventorytest.InventoryTest;
+import com.helpme.app.itemtest.ConsumableTest;
 import com.helpme.app.itemtest.ItemTest;
 import com.helpme.app.itemtest.attacktest.AttackTest;
 import com.helpme.app.itemtest.pickuptest.PickupTest;
 import com.helpme.app.itemtest.selfietest.SelfieTest;
 import com.helpme.app.itemtest.stacktest.StackTest;
+import com.helpme.app.levelfactorytest.LevelFactoryTest;
 import com.helpme.app.leveltest.LevelBodyTest;
 import com.helpme.app.leveltest.LevelPathTest;
 import com.helpme.app.leveltest.LevelTest;
 import com.helpme.app.leveltest.LevelTileTest;
 import com.helpme.app.maybetest.MaybeTest;
 import com.helpme.app.memorytest.MemoryTest;
+import com.helpme.app.model.item.concrete.Consumable;
 import com.helpme.app.savetest.SaveTest;
 import com.helpme.app.tiletest.TileTest;
 import org.junit.runner.RunWith;
@@ -45,6 +48,8 @@ import org.junit.runners.Suite;
         LevelPathTest.class,
         BehaviourTest.class,
         MemoryTest.class,
+        ConsumableTest.class,
+        LevelFactoryTest.class,
         AttackBehaviourTest.class,
         FollowBehaviourTest.class,
         StayBehaviourTest.class,

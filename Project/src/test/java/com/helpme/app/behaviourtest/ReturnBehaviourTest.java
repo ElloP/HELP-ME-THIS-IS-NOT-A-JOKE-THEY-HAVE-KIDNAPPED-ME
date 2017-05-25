@@ -15,6 +15,7 @@ import java.util.HashMap;
  * Created by kopa on 2017-05-21.
  */
 public class ReturnBehaviourTest {
+    private Return returnConcrete;
     private IBehaviour returnBehaviour;
     private MockBody mockBody;
     private MockPlayer mockPlayer;
@@ -23,21 +24,41 @@ public class ReturnBehaviourTest {
     private MockConsciousness mockConsciousness;
 
     @Before
-    public void setup(){
+    public void setup() {
         mockBody = new MockBody();
         mockPlayer = new MockPlayer();
         mockSurroundings = new MockSurroundings(mockPlayer);
         mockMemory = new MockMemory();
         mockConsciousness = new MockConsciousness();
-        returnBehaviour = new Return(
+        returnConcrete = new Return(
                 0,
                 null,
                 "returning",
                 "returned");
+        returnBehaviour = returnConcrete;
     }
 
     @Test
-    public void testReturnReturned() {
+    public void testGetReturnedEvent() {
+        assert (returnConcrete.getReturnedEvent().equals("returned"));
+    }
+
+    @Test
+    public void testGetReturningEvent() {
+        assert (returnConcrete.getReturningEvent().equals("returning"));
+    }
+
+    @Test
+    public void testReset() {
+        mockMemory.memory = new HashMap<>();
+        returnBehaviour.reset(mockMemory);
+        assert (mockMemory.memory.size() == 2 &&
+                mockMemory.memory.get("returning") == 0 &&
+                mockMemory.memory.get("returned") == 0);
+    }
+
+    @Test
+    public void testReturned() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 0;
 
@@ -49,7 +70,7 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningFacing() {
+    public void testReturningFacing() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
         mockSurroundings.pathNextPosition = Vector2f.NORTH;
@@ -64,7 +85,7 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningRightOf() {
+    public void testReturningRightOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
         mockSurroundings.pathNextPosition = Vector2f.EAST;
@@ -79,7 +100,7 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningBehind() {
+    public void testReturningBehind() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
         mockSurroundings.pathNextPosition = Vector2f.SOUTH;
@@ -94,7 +115,7 @@ public class ReturnBehaviourTest {
     }
 
     @Test
-    public void testReturnReturningLeftOf() {
+    public void testReturningLeftOf() {
         mockMemory.memory = new HashMap<>();
         mockSurroundings.pathCost = 2;
         mockSurroundings.pathNextPosition = Vector2f.WEST;

@@ -6,10 +6,12 @@ import com.helpme.app.model.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 
+import java.util.Observable;
+
 /**
  * Created by kopa on 2017-05-22.
  */
-public class MockBody implements IReadBody {
+public class MockBody extends Observable implements IReadBody {
     Vector2f position;
 
     public MockBody(Vector2f position){
@@ -47,12 +49,12 @@ public class MockBody implements IReadBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 

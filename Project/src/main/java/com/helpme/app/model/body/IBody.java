@@ -20,7 +20,7 @@ public interface IBody extends IReadBody, ICopyable<IBody> {
     void moveBackward();
     void moveLeft();
     void setPosition(Vector2f position);
-    void changeActiveItem(int itemIndex);
+    void setActiveItem(int itemIndex);
     void attack(ITarget target);
     void selfie();
     boolean pickupItem(IItem item);

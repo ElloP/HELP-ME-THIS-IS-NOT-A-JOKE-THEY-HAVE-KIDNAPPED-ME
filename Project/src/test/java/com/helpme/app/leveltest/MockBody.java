@@ -12,11 +12,12 @@ import com.helpme.app.model.item.IItem;
 import com.helpme.app.model.tile.edge.IEdge;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by kopa on 2017-05-15.
  */
-public class MockBody implements IBody {
+public class MockBody extends Observable implements IBody {
     Vector2f position = new Vector2f(0,1);
     boolean traversable;
     boolean dead;
@@ -73,7 +74,7 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public void changeActiveItem(int itemIndex) {
+    public void setActiveItem(int itemIndex) {
 
     }
 
@@ -138,12 +139,12 @@ public class MockBody implements IBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 

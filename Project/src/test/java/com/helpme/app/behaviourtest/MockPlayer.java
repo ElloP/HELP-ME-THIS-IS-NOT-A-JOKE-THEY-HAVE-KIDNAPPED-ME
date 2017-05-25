@@ -2,6 +2,8 @@ package com.helpme.app.behaviourtest;
 
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
+import java.util.Observable;
+
 import com.helpme.app.model.body.IReadBody;
 import com.helpme.app.model.body.inventory.IReadInventory;
 import com.helpme.app.model.tile.edge.IEdge;
@@ -9,7 +11,7 @@ import com.helpme.app.model.tile.edge.IEdge;
 /**
  * Created by kopa on 2017-05-20.
  */
-public class MockPlayer implements IReadBody {
+public class MockPlayer extends Observable implements IReadBody {
     Vector2f position = Vector2f.ZERO;
 
     @Override
@@ -43,12 +45,12 @@ public class MockPlayer implements IReadBody {
     }
 
     @Override
-    public float readMaxHp() {
+    public float readMaxHitpoints() {
         return 0;
     }
 
     @Override
-    public float readCurrentHp() {
+    public float readCurrentHitpoints() {
         return 0;
     }
 

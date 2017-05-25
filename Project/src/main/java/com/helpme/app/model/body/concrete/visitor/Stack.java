@@ -14,7 +14,7 @@ public final class Stack implements IItemVisitor<Boolean> {
 
     @Override
     public Boolean visit(IConsumable consumable) {
-        consumable.addStack(amount);
+        consumable.addStacks(amount);
         return true;
     }
 

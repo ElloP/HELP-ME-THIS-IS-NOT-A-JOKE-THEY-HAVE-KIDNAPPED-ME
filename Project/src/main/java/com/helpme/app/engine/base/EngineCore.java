@@ -17,17 +17,19 @@ public class EngineCore {
 
     private IRenderCore renderCore;
 
-    private static final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
+    private Time time;
 
+    private static final double OPTIMAL_FRAMERATE = Time.SECOND / 60.0; //NOTE(Olle): sets optimal update rate (minimal) to 60 hz (or one frame per 16 ms)
     public EngineCore(IRenderCore renderCore, Game game) {
         //Note(Olle): set engine variables
         this.game = game;
         engineStopped = false;
         this.renderCore = renderCore;
+        this.time = new Time();
     }
 
-
     // ----------- Engine EngineCore functions including main loop -----------
+
 
     public void start() {
         if(engineStopped) {
@@ -38,7 +40,7 @@ public class EngineCore {
     }
 
     private void run() {
-        Time time = new Time();
+        //Time time = new Time();
         int frames = 0;
         long frameCounter = 0;
 
@@ -69,7 +71,7 @@ public class EngineCore {
 
                 if (frameCounter >= Time.SECOND) {
                     //TODO(Olle): render frames ingame instead of sout
-                    System.out.println(frames);
+                    //System.out.println(frames);
                     frames = 0;
                     frameCounter = 0;
                 }
@@ -96,5 +98,9 @@ public class EngineCore {
 
     private void cleanUp() {
         Window.destroy();
+    }
+
+    public Time getTime() {
+        return time;
     }
 }
