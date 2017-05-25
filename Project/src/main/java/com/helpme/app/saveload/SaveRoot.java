@@ -1,10 +1,10 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.consciousness.IConsciousness;
-import com.helpme.app.model.consciousness.concrete.Enemy;
-import com.helpme.app.model.consciousness.concrete.Player;
-import com.helpme.app.model.level.ILevel;
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.consciousness.concrete.Enemy;
+import com.helpme.app.game.model.consciousness.concrete.Player;
+import com.helpme.app.game.model.level.ILevel;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

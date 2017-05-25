@@ -1,10 +1,10 @@
 package com.helpme.app.tiletest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IReadItem;
-import com.helpme.app.model.tile.ITile;
-import com.helpme.app.model.tile.concrete.Tile;
-import com.helpme.app.model.tile.edge.IEdge;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.model.tile.concrete.Tile;
+import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;

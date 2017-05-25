@@ -1,13 +1,14 @@
 package com.helpme.app.saveload;
 
 
+import com.helpme.app.game.model.body.inventory.IInventory;
+import com.helpme.app.game.model.body.inventory.IReadInventory;
+import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IReadItem;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.model.body.inventory.IInventory;
-import com.helpme.app.model.body.inventory.IReadInventory;
-import com.helpme.app.model.body.inventory.concrete.InventoryFactory;
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IReadItem;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;

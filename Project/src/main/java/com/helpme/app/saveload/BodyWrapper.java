@@ -1,10 +1,10 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.model.body.concrete.BodyFactory;
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.body.IReadBody;
+import com.helpme.app.game.model.body.concrete.BodyFactory;
 import com.helpme.app.utils.interfaces.ILoadable;
-import com.helpme.app.model.body.concrete.Body;
-import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.body.IReadBody;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 

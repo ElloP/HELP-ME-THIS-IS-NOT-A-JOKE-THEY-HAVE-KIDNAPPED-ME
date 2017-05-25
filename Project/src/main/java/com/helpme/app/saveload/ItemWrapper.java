@@ -1,9 +1,9 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.utils.interfaces.ILoadable;
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.concrete.ItemFactory;
-import com.helpme.app.model.item.IReadItem;
 
 import javax.xml.bind.annotation.XmlElement;
 

@@ -1,6 +1,6 @@
 package com.helpme.app.itemtest.pickuptest;
 
-import com.helpme.app.model.body.concrete.visitor.Pickup;
+import com.helpme.app.game.model.body.concrete.visitor.Pickup;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package com.helpme.app.memorytest;
 
-import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
-import com.helpme.app.model.consciousness.behaviour.memory.concrete.Memory;
+import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.Memory;
 import org.junit.Before;
 import org.junit.Test;
 

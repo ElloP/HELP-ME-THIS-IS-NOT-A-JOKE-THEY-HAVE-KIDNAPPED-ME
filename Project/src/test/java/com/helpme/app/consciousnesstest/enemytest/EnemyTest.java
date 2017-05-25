@@ -1,8 +1,8 @@
 package com.helpme.app.consciousnesstest.enemytest;
 
-import com.helpme.app.model.consciousness.IConsciousness;
-import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.concrete.Enemy;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.game.model.consciousness.concrete.Enemy;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.SortedList;
 import org.junit.Before;

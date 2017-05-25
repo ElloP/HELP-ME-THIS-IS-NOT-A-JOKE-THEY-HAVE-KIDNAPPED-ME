@@ -1,9 +1,9 @@
 package com.helpme.app.itemtest.attacktest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IItemVisitor;
-import com.helpme.app.model.item.ISingle;
-import com.helpme.app.model.item.effect.IEffect;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IItemVisitor;
+import com.helpme.app.game.model.item.ISingle;
+import com.helpme.app.game.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-05-20.

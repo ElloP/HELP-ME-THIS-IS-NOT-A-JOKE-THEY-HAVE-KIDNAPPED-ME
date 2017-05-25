@@ -1,6 +1,6 @@
 package com.helpme.app.intelligencetest;
 
-import com.helpme.app.model.consciousness.behaviour.concrete.Intelligence;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Intelligence;
 import com.helpme.app.utils.Vector2f;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.helpme.app.engine.sounds.sources;
 
-import com.helpme.app.model.body.IReadBody;
+import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.utils.Vector2f;
 
 
@@ -28,8 +28,8 @@ public abstract class AbstractBodySource {
         this.z = z;
         source.setPosition(x, y, z);
     }
-    public AbstractBodySource(IReadBody monster, Source source, int walking, int breathing, int hurting, Vector2f position) {
-        this(monster, source, walking, breathing, hurting, position.x, position.y, 0);
+    public AbstractBodySource(IReadBody body, Source source, int walking, int breathing, int hurting, Vector2f position) {
+        this(body, source, walking, breathing, hurting, position.x, position.y, 0);
     }
 
     public boolean equals(IReadBody other) {

@@ -1,6 +1,6 @@
 package com.helpme.app.itemtest;
 
-import com.helpme.app.model.item.concrete.Consumable;
+import com.helpme.app.game.model.item.concrete.Consumable;
 import org.junit.Before;
 import org.junit.Test;
 

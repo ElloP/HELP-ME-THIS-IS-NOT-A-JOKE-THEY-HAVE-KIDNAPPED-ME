@@ -1,13 +1,16 @@
 package com.helpme.app;
 
-import com.helpme.app.controller.IController;
-import com.helpme.app.controller.SceneController;
-import com.helpme.app.engine.base.*;
-import com.helpme.app.engine.game.GameInstance;
+import com.helpme.app.engine.base.EngineCore;
+import com.helpme.app.engine.base.Game;
+import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.renderer.base.RenderCore;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
+import com.helpme.app.game.controller.GameInstance;
+import com.helpme.app.game.controller.SceneController;
 import com.helpme.app.saveload.GameLoader;
 import com.helpme.app.saveload.SaveLoad;
+
+import java.util.Observer;
 
 /**
  * Authored by Olle on 2017-05-18.
@@ -25,7 +28,7 @@ public class Main {
         SaveLoad gameLoader = new GameLoader();
 
         EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game);
-        IController sceneController = new SceneController(game, gameLoader, ec);
+        Observer sceneController = new SceneController(game, gameLoader, ec);
         ec.start();
         AudioHandler.cleanUp();
     }

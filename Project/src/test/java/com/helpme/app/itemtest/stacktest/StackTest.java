@@ -1,6 +1,6 @@
 package com.helpme.app.itemtest.stacktest;
 
-import com.helpme.app.model.body.concrete.visitor.Stack;
+import com.helpme.app.game.model.body.concrete.visitor.Stack;
 import org.junit.Before;
 import org.junit.Test;
 

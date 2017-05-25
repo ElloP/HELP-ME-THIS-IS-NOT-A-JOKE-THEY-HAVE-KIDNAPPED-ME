@@ -1,9 +1,9 @@
 package com.helpme.app.leveltest;
 
-import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.level.ILevel;
-import com.helpme.app.model.level.concrete.Level;
-import com.helpme.app.model.tile.ITile;
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.level.ILevel;
+import com.helpme.app.game.model.level.concrete.Level;
+import com.helpme.app.game.model.tile.ITile;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple3;
 import org.junit.Before;

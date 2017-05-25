@@ -1,10 +1,10 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.model.consciousness.concrete.Player;
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.consciousness.concrete.Player;
+import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.model.consciousness.IConsciousness;
-import com.helpme.app.model.level.ILevel;
-import com.helpme.app.model.body.IBody;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

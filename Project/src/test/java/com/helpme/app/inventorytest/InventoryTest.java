@@ -1,11 +1,11 @@
 package com.helpme.app.inventorytest;
 
-import com.helpme.app.model.body.inventory.concrete.Inventory;
+import com.helpme.app.game.model.body.inventory.IInventory;
+import com.helpme.app.game.model.body.inventory.concrete.Inventory;
+import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
-import com.helpme.app.model.body.inventory.IInventory;
-import com.helpme.app.model.item.IItem;
 import org.junit.Before;
 import org.junit.Test;
 

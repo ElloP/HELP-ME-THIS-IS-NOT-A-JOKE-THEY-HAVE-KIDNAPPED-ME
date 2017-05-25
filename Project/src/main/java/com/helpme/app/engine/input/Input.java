@@ -78,16 +78,16 @@ public final class Input {
 
     public static Map<InputKey, Integer[]> getDefaultKeys() {
         Map<InputKey, Integer[]> defaultKeys = new HashMap<>();
-        defaultKeys.put(InputKey.MoveForward, new Integer[]{GLFW_KEY_W});
-        defaultKeys.put(InputKey.MoveBackward, new Integer[]{GLFW_KEY_S});
-        defaultKeys.put(InputKey.MoveLeft, new Integer[]{GLFW_KEY_A});
-        defaultKeys.put(InputKey.MoveRight, new Integer[]{GLFW_KEY_D});
-        defaultKeys.put(InputKey.RotateLeft, new Integer[]{GLFW_KEY_Q});
-        defaultKeys.put(InputKey.RotateRight, new Integer[]{GLFW_KEY_E});
-        defaultKeys.put(InputKey.Attack, new Integer[]{GLFW_KEY_LEFT_ALT});
-        defaultKeys.put(InputKey.Selfie, new Integer[]{GLFW_KEY_LEFT_CONTROL});
-        defaultKeys.put(InputKey.Talk, new Integer[]{GLFW_KEY_LEFT_SHIFT});
-        defaultKeys.put(InputKey.Select, new Integer[]{GLFW_KEY_ENTER});
+        defaultKeys.put(InputKey.MOVE_FORWARD, new Integer[]{GLFW_KEY_W});
+        defaultKeys.put(InputKey.MOVE_BACKWARD, new Integer[]{GLFW_KEY_S});
+        defaultKeys.put(InputKey.MOVE_LEFT, new Integer[]{GLFW_KEY_A});
+        defaultKeys.put(InputKey.MOVE_RIGHT, new Integer[]{GLFW_KEY_D});
+        defaultKeys.put(InputKey.ROTATE_LEFT, new Integer[]{GLFW_KEY_Q});
+        defaultKeys.put(InputKey.ROTATE_RIGHT, new Integer[]{GLFW_KEY_E});
+        defaultKeys.put(InputKey.ATTACK, new Integer[]{GLFW_KEY_LEFT_ALT});
+        defaultKeys.put(InputKey.SELFIE, new Integer[]{GLFW_KEY_LEFT_CONTROL});
+        defaultKeys.put(InputKey.TALK, new Integer[]{GLFW_KEY_LEFT_SHIFT});
+        defaultKeys.put(InputKey.SELECT, new Integer[]{GLFW_KEY_ENTER});
 
         return defaultKeys;
     }

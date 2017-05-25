@@ -1,11 +1,11 @@
 package com.helpme.app.savetest;
 
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IReadItem;
-import com.helpme.app.model.tile.ITile;
-import com.helpme.app.model.tile.edge.IEdge;
 
 import java.util.List;
 import java.util.Map;

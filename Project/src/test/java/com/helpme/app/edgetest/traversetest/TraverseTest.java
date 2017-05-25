@@ -1,6 +1,6 @@
 package com.helpme.app.edgetest.traversetest;
 
-import com.helpme.app.model.body.concrete.visitor.Traverse;
+import com.helpme.app.game.model.body.concrete.visitor.Traverse;
 import org.junit.Before;
 import org.junit.Test;
 
