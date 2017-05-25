@@ -12,17 +12,17 @@ public abstract class CameraView extends Observable {
     private ICamera camera;
     private Time time;
 
+    public CameraView(ICamera camera, Time time) {
+        this.time = time;
+        this.camera = camera;
+    }
+
     public ICamera getCamera() {
         return camera;
     }
 
     public Time getTime() {
         return time;
-    }
-
-    public CameraView(ICamera camera, Time time) {
-        this.time = time;
-        this.camera = camera;
     }
 
     public abstract void update();

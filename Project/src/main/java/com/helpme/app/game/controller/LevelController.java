@@ -20,11 +20,9 @@ import java.util.Observer;
  * Created by Jesper on 2017-05-22.
  */
 public class LevelController extends Scene {
-    private HealthView healthView;
     private PlayerCameraView playerCameraView;
 
     public LevelController(ILevel level, PlayerCameraView playerCameraView, PlayerController playerController) {
-        this.healthView = healthView;
         this.playerCameraView = playerCameraView;
 
         addChild(new LevelView(level));

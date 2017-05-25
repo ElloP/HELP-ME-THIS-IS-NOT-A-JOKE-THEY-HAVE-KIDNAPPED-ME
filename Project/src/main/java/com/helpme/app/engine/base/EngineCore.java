@@ -27,12 +27,6 @@ public class EngineCore {
         engineStopped = false;
         this.renderCore = renderCore;
         this.time = new Time();
-
-        try {
-            AudioHandler.init();
-        } catch(ExceptionInInitializerError e){
-            System.err.println("Error while instantiating AudioHandler in EngineCore Constructor::" + e.getMessage());
-        }
     }
 
     // ----------- Engine EngineCore functions including main loop -----------

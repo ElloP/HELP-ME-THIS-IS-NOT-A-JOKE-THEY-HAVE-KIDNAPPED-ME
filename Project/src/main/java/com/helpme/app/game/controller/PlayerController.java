@@ -15,12 +15,12 @@ import java.util.Observer;
  * Created by Jesper on 2017-05-20.
  */
 public class PlayerController extends GameObject implements Observer {
-    private PlayerCameraView playerCamera;
+    private PlayerCameraView playerCameraView;
     private IConsciousness player;
     private HealthView healthView;
 
     public PlayerController(PlayerCameraView playerCameraView, IConsciousness player, HealthView healthView) {
-        this.playerCamera = playerCameraView;
+        this.playerCameraView = playerCameraView;
         this.player = player;
         this.healthView = healthView;
         addChild(healthView);
@@ -35,31 +35,27 @@ public class PlayerController extends GameObject implements Observer {
             BodyEvent bodyEvent = (BodyEvent) arg;
             switch (bodyEvent) {
                 case MOVE_FORWARD:
-                    playerCamera.moveForward();
+                    playerCameraView.moveForward();
                     break;
                 case MOVE_BACKWARD:
-                    playerCamera.moveBack();
+                    playerCameraView.moveBack();
                     break;
                 case MOVE_LEFT:
-                    playerCamera.moveLeft();
+                    playerCameraView.moveLeft();
                     break;
                 case MOVE_RIGHT:
-                    playerCamera.moveRight();
+                    playerCameraView.moveRight();
                     break;
                 case ROTATE_LEFT:
-                    playerCamera.rotateLeft();
+                    playerCameraView.rotateLeft();
                     break;
                 case ROTATE_RIGHT:
-                    playerCamera.rotateRight();
+                    playerCameraView.rotateRight();
                     break;
                 case HEALTH:
                     healthView.setHealth(player.readBody().readCurrentHitpoints());
                 default:
                     break;
-
-
-
-
             }
         } else if (arg instanceof InputKey && o instanceof PlayerCameraView) {
             InputKey gameEvent = (InputKey) arg;
@@ -90,8 +86,8 @@ public class PlayerController extends GameObject implements Observer {
                     break;
                 case SELFIE:
                     player.useSelfie();
+                    break;
                 default:
-
                     break;
             }
         }

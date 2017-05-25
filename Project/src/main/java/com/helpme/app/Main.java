@@ -1,11 +1,11 @@
 package com.helpme.app;
 
+import com.helpme.app.engine.audio.AudioHandler;
 import com.helpme.app.engine.base.EngineCore;
 import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.renderer.base.RenderCore;
-import com.helpme.app.game.GameInstance;
-import com.helpme.app.game.controller.SceneController;
+import com.helpme.app.game.controller.GameController;
 import com.helpme.app.game.saveload.GameLoader;
 import com.helpme.app.game.saveload.SaveLoad;
 import com.helpme.app.game.view.resources.Resources;
@@ -21,16 +21,17 @@ public class Main {
     public static void main(String[] args) {
         Window.initWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
         Window.disableVSync();
+        try {
+            AudioHandler.init();
+        } catch(ExceptionInInitializerError e){
+            System.err.println("Error while instantiating AudioHandler in EngineCore Constructor::" + e.getMessage());
+        }
 
-        Game game = new GameInstance();
         SaveLoad gameLoader = new GameLoader();
 
+        Game game = new GameController(gameLoader);
         EngineCore engineCore = new EngineCore(RenderCore.getRenderCore(), game);
-        Resources.init();
-
-        SceneController sceneController = new SceneController(game, gameLoader, engineCore.getTime());
 
         engineCore.start();
-        sceneController.stop();
     }
 }

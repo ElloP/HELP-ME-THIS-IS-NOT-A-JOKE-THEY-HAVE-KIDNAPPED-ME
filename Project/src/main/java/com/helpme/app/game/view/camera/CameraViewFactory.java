@@ -13,8 +13,7 @@ public final class CameraViewFactory {
 
     }
 
-    public static PlayerCameraView createPlayerCameraView(IReadBody player, Time time){
-        ICamera camera = new Camera(player.readPosition(), player.readDirection());
+    public static PlayerCameraView createPlayerCameraView(ICamera camera, Time time){
         return new PlayerCameraView(camera, time);
     }
 }
