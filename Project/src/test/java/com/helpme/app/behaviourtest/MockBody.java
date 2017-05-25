@@ -3,7 +3,7 @@ package com.helpme.app.behaviourtest;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.body.inventory.IReadInventory;
 import com.helpme.app.game.model.tile.edge.IEdge;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 
 import java.util.Observable;

@@ -3,7 +3,7 @@ package com.helpme.app.game.model.consciousness.behaviour.concrete;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IReadSurroundings;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 

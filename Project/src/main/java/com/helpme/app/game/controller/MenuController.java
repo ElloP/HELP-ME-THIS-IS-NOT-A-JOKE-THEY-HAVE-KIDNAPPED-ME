@@ -3,10 +3,11 @@ package com.helpme.app.game.controller;
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.base.Time;
+import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.game.view.UIObjectView;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 /**
  * Created by Klas on 2017-05-20.
@@ -27,7 +28,7 @@ public class MenuController extends Scene{
         options[0] = LOAD;
         options[1] = NEW;
         current = 0;
-        this.menu = new UIObjectView(options[current], new Vector2f(800, 450), 200, 200);
+        this.menu = new UIObjectView(options[current], new Vector2f(0, 0), Window.getWidth(), Window.getHeight());
         this.menuEvent = MenuEvent.NEW;
     }
 

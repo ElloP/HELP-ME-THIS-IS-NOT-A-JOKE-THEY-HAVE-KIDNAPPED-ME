@@ -2,7 +2,7 @@ package com.helpme.app.game.model.tile;
 
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.tile.edge.IEdge;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 
 import java.util.List;

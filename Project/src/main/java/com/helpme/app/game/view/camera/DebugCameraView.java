@@ -1,5 +1,6 @@
 package com.helpme.app.game.view.camera;
 
+import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
@@ -7,8 +8,8 @@ import com.helpme.app.engine.input.InputKey;
 /**
  * Authored by Olle on 2017-05-15.
  */
-public class DebugCamera extends Camera {
-    public DebugCamera(com.helpme.app.engine.base.Camera camera, Time time) {
+public class DebugCameraView extends CameraView {
+    public DebugCameraView(ICamera camera, Time time) {
         super(camera, time);
     }
 

@@ -14,7 +14,7 @@ import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.LevelFactory;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 
 import java.util.ArrayList;

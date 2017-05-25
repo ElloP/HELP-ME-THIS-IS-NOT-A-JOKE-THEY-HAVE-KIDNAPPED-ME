@@ -2,7 +2,7 @@ package com.helpme.app.game.view;
 
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.GameObject;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 /**
  * Created by Olle on 2017-05-24.

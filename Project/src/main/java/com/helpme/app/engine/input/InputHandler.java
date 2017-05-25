@@ -1,6 +1,6 @@
 package com.helpme.app.engine.input;
 
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 import java.util.Arrays;
 
@@ -59,6 +59,10 @@ public final class InputHandler {
     }
 
     private static void setState(InputState[] list, int index, int action) {
+        if(index < 0 || index > list.length) {
+            return;
+        }
+
         switch (list[index]) {
             case DOWN:
                 if (action == GLFW_RELEASE) {

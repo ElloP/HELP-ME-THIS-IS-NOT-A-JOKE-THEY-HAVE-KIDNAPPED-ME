@@ -3,7 +3,7 @@ package com.helpme.app.bodytest;
 import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.concrete.Body;
 import com.helpme.app.game.model.item.IItem;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import org.junit.Before;

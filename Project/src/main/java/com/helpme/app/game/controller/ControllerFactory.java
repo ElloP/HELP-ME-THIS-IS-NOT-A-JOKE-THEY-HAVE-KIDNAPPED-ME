@@ -1,11 +1,17 @@
 package com.helpme.app.game.controller;
 
+import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
 import com.helpme.app.engine.sounds.sources.AbstractBodySource;
 import com.helpme.app.engine.sounds.sources.BodySource;
 import com.helpme.app.engine.sounds.sources.PlayerSource;
 import com.helpme.app.engine.sounds.sources.Source;
 import com.helpme.app.game.model.body.IReadBody;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.level.ILevel;
+import com.helpme.app.game.view.UIObjectView;
+import com.helpme.app.game.view.camera.PlayerCameraView;
+import com.helpme.app.utils.mathl.Vector2f;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,10 +21,12 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-05-24.
  */
-public class AudioSetup {
-    public static Observer setupAudioController(IReadBody playerBody, List<IReadBody> enemies) {
+public final class ControllerFactory {
+    private ControllerFactory(){
 
+    }
 
+    public static Observer createLevelAudioController(IReadBody playerBody, List<IReadBody> enemies) {
         try {
             AudioHandler.init();
         } catch (Exception e) {
@@ -41,5 +49,14 @@ public class AudioSetup {
         bodySources.add(new PlayerSource(playerBody, new Source(), walkBuffer, -1, groanBuffer, playerBody.readPosition()));
         LevelAudioController levelAudioController = new LevelAudioController(bodySources);
         return levelAudioController;
+    }
+
+    public static Scene createLevelController(ILevel level, PlayerCameraView playerCameraView){
+        UIObjectView healthView = new UIObjectView("health", new Vector2f(1300, 800), 200, 200);
+        return new LevelController(level, healthView, playerCameraView);
+    }
+
+    public static Observer createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
+        return new PlayerController(playerCameraView, player);
     }
 }

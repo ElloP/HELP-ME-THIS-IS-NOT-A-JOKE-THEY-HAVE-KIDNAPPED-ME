@@ -3,8 +3,8 @@ package com.helpme.app.game.model.body;
 import com.helpme.app.game.model.body.inventory.IReadInventory;
 import com.helpme.app.game.model.item.effect.ITarget;
 import com.helpme.app.game.model.tile.edge.IEdge;
-import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.IObservable;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 
 /**

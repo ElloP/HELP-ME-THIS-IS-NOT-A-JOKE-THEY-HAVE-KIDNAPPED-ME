@@ -8,7 +8,7 @@ import java.util.Observable;
 /**
  * Authored by Olle on 2017-05-15.
  */
-public abstract class Camera extends Observable {
+public abstract class CameraView extends Observable {
     private ICamera camera;
     private Time time;
 
@@ -20,9 +20,9 @@ public abstract class Camera extends Observable {
         return time;
     }
 
-    public Camera(ICamera camera, Time time) {
-        this.camera = camera;
+    public CameraView(ICamera camera, Time time) {
         this.time = time;
+        this.camera = camera;
     }
 
     public abstract void update();

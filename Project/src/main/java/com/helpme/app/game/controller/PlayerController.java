@@ -2,9 +2,8 @@ package com.helpme.app.game.controller;
 
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.game.model.body.concrete.BodyEvent;
-import com.helpme.app.game.model.consciousness.concrete.Player;
-import com.helpme.app.game.model.level.ILevel;
-import com.helpme.app.game.view.camera.PlayerCamera;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.view.camera.PlayerCameraView;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -13,13 +12,15 @@ import java.util.Observer;
  * Created by Jesper on 2017-05-20.
  */
 public class PlayerController implements Observer {
-    private PlayerCamera playerCamera;
-    private Player player;
-    //private ILevel level;
+    private PlayerCameraView playerCamera;
+    private IConsciousness player;
 
-    public PlayerController(PlayerCamera playerCamera, Player player, ILevel level) {
-        this.playerCamera = playerCamera;
+    public PlayerController(PlayerCameraView playerCameraView, IConsciousness player) {
+        this.playerCamera = playerCameraView;
         this.player = player;
+
+        player.addObserver(this);
+        playerCameraView.addObserver(this);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class PlayerController implements Observer {
                     break;
 
             }
-        } else if (arg instanceof InputKey && o instanceof PlayerCamera) {
+        } else if (arg instanceof InputKey && o instanceof PlayerCameraView) {
             InputKey gameEvent = (InputKey) arg;
             switch (gameEvent) {
                 case MOVE_FORWARD:

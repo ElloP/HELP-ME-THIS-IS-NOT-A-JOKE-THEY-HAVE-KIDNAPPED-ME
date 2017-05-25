@@ -1,11 +1,12 @@
 package com.helpme.app.game.model.consciousness.concrete;
 
 import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.ISurroundings;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.effect.ITarget;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -27,11 +28,17 @@ public abstract class Consciousness extends Observable implements IConsciousness
     public Consciousness(IBody body, ISurroundings surroundings) {
         this.body = body;
         this.surroundings = surroundings;
+        body.addObserver(this);
     }
 
 
     @Override
-    public IBody readBody() {
+    public IReadBody readBody() {
+        return body;
+    }
+
+    @Override
+    public IBody getBody() {
         return body;
     }
 
@@ -155,5 +162,11 @@ public abstract class Consciousness extends Observable implements IConsciousness
     @Override
     public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
         return new Nothing<>();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers(arg);
     }
 }

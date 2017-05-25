@@ -50,7 +50,7 @@ public class GameLoader implements SaveLoad {
     @Override
     public void saveGame(ILevel level, Player player, IConsciousness[] enemies, String filePath) {
         try{
-            marshall(new SaveRoot(level,player.readBody(),enemies), filePath);
+            marshall(new SaveRoot(level,player.getBody(),enemies), filePath);
         } catch (JAXBException e){
             System.out.println("Unable to save game");
             System.out.println(e);

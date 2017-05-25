@@ -17,7 +17,7 @@ import com.helpme.app.game.model.level.concrete.LevelFactory;
 import com.helpme.app.game.model.tile.edge.IDoor;
 import com.helpme.app.game.model.tile.edge.concrete.Door;
 import com.helpme.app.saveload.GameLoader;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 import com.helpme.app.utils.tuple.Tuple3;
 

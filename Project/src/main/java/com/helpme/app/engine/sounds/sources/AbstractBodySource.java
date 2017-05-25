@@ -1,7 +1,7 @@
 package com.helpme.app.engine.sounds.sources;
 
 import com.helpme.app.game.model.body.IReadBody;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 
 /**

@@ -27,7 +27,7 @@ import com.helpme.app.saveload.BodyWrapper;
 import com.helpme.app.saveload.SavePlayer;
 import com.helpme.app.saveload.SaveRoot;
 import com.helpme.app.saveload.TileWrapper;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;
@@ -78,7 +78,7 @@ public class SaveTest {
         TestWorld mock = new TestWorld();
        // mock.player.setPlayerPosition(new Vector2f(1,1));
         IConsciousness[] enemy = mock.enemyConsciousnesses.toArray(new IConsciousness[mock.enemyConsciousnesses.size()]);
-        SaveRoot saveroot = new SaveRoot(mock.level,mock.player.readBody(), enemy);
+        SaveRoot saveroot = new SaveRoot(mock.level,mock.player.getBody(), enemy);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
         marshaller.marshal(saveroot, file);
@@ -86,11 +86,11 @@ public class SaveTest {
         Unmarshaller unmarshaller = context.createUnmarshaller();
         SaveRoot loadroot = (SaveRoot) unmarshaller.unmarshal(file);
         Player player = loadroot.loadPlayer();
-        IBody playerBody = player.readBody();
+        IBody playerBody = player.getBody();
         ILevel level = loadroot.loadLevel();
         IConsciousness[] enemy1 = loadroot.loadEnemies();
 
-        Player player1 = new Player(player.readBody(),level);
+        Player player1 = new Player(player.getBody(),level);
         assert(player1.readBody().readCurrentHitpoints() == mock.player.readBody().readCurrentHitpoints());
         assert(player1.readBody().readMaxHitpoints() == mock.player.readBody().readMaxHitpoints());
         assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());

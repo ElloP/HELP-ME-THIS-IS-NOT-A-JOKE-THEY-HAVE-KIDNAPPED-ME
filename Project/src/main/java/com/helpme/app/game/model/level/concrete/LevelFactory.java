@@ -8,7 +8,7 @@ import com.helpme.app.game.model.tile.concrete.TileFactory;
 import com.helpme.app.game.model.tile.edge.IDoor;
 import com.helpme.app.game.model.tile.edge.concrete.Opening;
 import com.helpme.app.game.model.tile.edge.concrete.Wall;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple3;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.helpme.app.mathtest;
 
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import org.junit.Before;
 import org.junit.Test;
 

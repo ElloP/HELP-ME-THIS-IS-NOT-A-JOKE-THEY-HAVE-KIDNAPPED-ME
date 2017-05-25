@@ -8,7 +8,7 @@ import com.helpme.app.game.model.tile.ITile;
 import com.helpme.app.game.model.tile.edge.IDoor;
 import com.helpme.app.game.model.tile.edge.IOpening;
 import com.helpme.app.game.model.tile.edge.IWall;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple3;

@@ -6,7 +6,7 @@ import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.Level;
 import com.helpme.app.game.model.tile.ITile;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import org.junit.Before;

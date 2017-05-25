@@ -4,7 +4,7 @@ import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.dialogue.IDialogue;
 import com.helpme.app.game.model.body.inventory.IInventory;
 import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 /**
  * Created by kopa on 2017-05-12.

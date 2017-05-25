@@ -11,7 +11,7 @@ import com.helpme.app.utils.mathl.Vector3f;
 /**
  * Authored by Olle on 2017-05-15.
  */
-public class PlayerCamera extends Camera {
+public class PlayerCameraView extends CameraView {
     private Lerper lerper;
 
     private boolean moving = false;
@@ -22,13 +22,13 @@ public class PlayerCamera extends Camera {
 
     private Player player;
 
-    private final float moveLength = 6.0f;
+    private final float MOVE_LENGTH = 6.0f;
 
-    public PlayerCamera(ICamera camera, Time time) {
+    public PlayerCameraView(ICamera camera, Time time) {
         super(camera, time);
     }
 
-    public PlayerCamera(ICamera camera, Time time, float rotationDuration, float movementDuration) {
+    public PlayerCameraView(ICamera camera, Time time, float rotationDuration, float movementDuration) {
         this(camera, time);
         this.rotationDuration = rotationDuration;
         this.movementDuration = movementDuration;
@@ -36,7 +36,7 @@ public class PlayerCamera extends Camera {
 
     private void lerpMove(Vector3f direction) {
         Vector3f startPos = getCamera().getPosition();
-        Vector3f endPos = getCamera().getPosition().add(direction.multiply(moveLength)); //Note(Olle): move camera 6 units forward
+        Vector3f endPos = getCamera().getPosition().add(direction.multiply(MOVE_LENGTH)); //Note(Olle): move camera 6 units forward
 
         lerper = new Lerper(startPos, endPos, getTime(), movementDuration);
         moving = true;

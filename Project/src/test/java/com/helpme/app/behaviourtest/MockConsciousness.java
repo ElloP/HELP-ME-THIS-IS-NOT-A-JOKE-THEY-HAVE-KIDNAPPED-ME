@@ -1,12 +1,14 @@
 package com.helpme.app.behaviourtest;
 
 import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.item.IItem;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
 
+import java.util.Observable;
 import java.util.Observer;
 
 /**
@@ -104,7 +106,12 @@ public class MockConsciousness implements IConsciousness {
     }
 
     @Override
-    public IBody readBody() {
+    public IBody getBody() {
+        return null;
+    }
+
+    @Override
+    public IReadBody readBody() {
         return null;
     }
 
@@ -116,5 +123,10 @@ public class MockConsciousness implements IConsciousness {
     @Override
     public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
         return null;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

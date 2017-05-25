@@ -1,4 +1,4 @@
-package com.helpme.app.game.controller;
+package com.helpme.app.game;
 
 import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Time;

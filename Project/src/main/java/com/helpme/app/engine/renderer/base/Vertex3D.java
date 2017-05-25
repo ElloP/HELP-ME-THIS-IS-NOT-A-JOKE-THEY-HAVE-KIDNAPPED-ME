@@ -1,7 +1,7 @@
 package com.helpme.app.engine.renderer.base;
 
 import com.helpme.app.engine.renderer.Vertex;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.mathl.Vector3f;
 
 import java.nio.FloatBuffer;

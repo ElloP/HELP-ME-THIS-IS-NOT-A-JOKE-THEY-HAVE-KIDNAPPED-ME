@@ -5,8 +5,8 @@ import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
 import com.helpme.app.game.model.consciousness.behaviour.memory.IShortTerm;
-import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.functions.IAction;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 
 import java.util.HashMap;

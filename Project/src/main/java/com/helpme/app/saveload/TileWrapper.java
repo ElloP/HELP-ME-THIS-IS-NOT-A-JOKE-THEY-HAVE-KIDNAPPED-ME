@@ -6,8 +6,8 @@ import com.helpme.app.game.model.tile.IReadTile;
 import com.helpme.app.game.model.tile.ITile;
 import com.helpme.app.game.model.tile.concrete.TileFactory;
 import com.helpme.app.game.model.tile.edge.IEdge;
-import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.ILoadable;
+import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 
 import javax.xml.bind.annotation.XmlElement;

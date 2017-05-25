@@ -1,7 +1,7 @@
 package com.helpme.app.saveload;
 
-import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.interfaces.ILoadable;
+import com.helpme.app.utils.mathl.Vector2f;
 
 import javax.xml.bind.annotation.XmlElement;
 

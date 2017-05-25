@@ -3,7 +3,7 @@ package com.helpme.app.game.model.level;
 import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.consciousness.ISurroundings;
 import com.helpme.app.game.model.tile.ITile;
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 import java.util.Map;
 

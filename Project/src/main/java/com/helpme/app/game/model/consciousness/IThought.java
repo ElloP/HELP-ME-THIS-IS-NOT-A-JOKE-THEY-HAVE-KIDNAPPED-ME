@@ -1,10 +1,8 @@
 package com.helpme.app.game.model.consciousness;
 
-import com.helpme.app.utils.interfaces.IObservable;
-
 /**
  * Created by Jacob on 2017-04-08.
  */
-public interface IThought extends IObservable {
+public interface IThought {
     void update();
 }

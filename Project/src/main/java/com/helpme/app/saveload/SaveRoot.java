@@ -72,7 +72,7 @@ public class SaveRoot {
         this.loadEnemies = new IConsciousness[enemies.length];
         for(int i = 0; i < enemies.length; i++){
             this.loadEnemies[i] = enemies[i].getObject(this.loadLevel);
-            this.loadLevel.addBody(this.loadEnemies[i].readBody());
+            this.loadLevel.addBody(this.loadEnemies[i].getBody());
         }
         this.loadLevel.setPlayer(this.loadPlayer);
     }

@@ -4,8 +4,8 @@ package com.helpme.app.engine.input;
  * Created by Jacob on 2017-04-02.
  */
 
-import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.functions.IFunction;
+import com.helpme.app.utils.mathl.Vector2f;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.helpme.app.utils;
+package com.helpme.app.utils.mathl;
 
 import com.helpme.app.utils.interfaces.ICopyable;
 

@@ -1,6 +1,6 @@
 package com.helpme.app.engine.renderer.base;
 
-import com.helpme.app.utils.Vector2f;
+import com.helpme.app.utils.mathl.Vector2f;
 
 /**
  * Authored by Olle on 2017-05-23.

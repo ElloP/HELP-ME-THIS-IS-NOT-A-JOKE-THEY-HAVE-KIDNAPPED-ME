@@ -5,7 +5,7 @@ import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Window;
 import com.helpme.app.engine.renderer.base.RenderCore;
 import com.helpme.app.engine.sounds.audio.AudioHandler;
-import com.helpme.app.game.controller.GameInstance;
+import com.helpme.app.game.GameInstance;
 import com.helpme.app.game.controller.SceneController;
 import com.helpme.app.saveload.GameLoader;
 import com.helpme.app.saveload.SaveLoad;
@@ -27,9 +27,10 @@ public class Main {
         Game game = new GameInstance();
         SaveLoad gameLoader = new GameLoader();
 
-        EngineCore ec = new EngineCore(RenderCore.getRenderCore(), game);
-        Observer sceneController = new SceneController(game, gameLoader, ec);
-        ec.start();
+        EngineCore engineCore = new EngineCore(RenderCore.getRenderCore(), game);
+        Observer sceneController = new SceneController(game, gameLoader, engineCore.getTime());
+        engineCore.start();
+
         AudioHandler.cleanUp();
     }
 }

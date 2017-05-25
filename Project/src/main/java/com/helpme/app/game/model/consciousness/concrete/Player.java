@@ -34,5 +34,4 @@ public class Player extends Consciousness {
         return maybeBody.chain(m -> m.getResponse(dialogueSelect));
 
     }
-
 }

@@ -1,12 +1,14 @@
 package com.helpme.app.game.controller;
 
-import com.helpme.app.engine.base.EngineCore;
 import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Scene;
+import com.helpme.app.engine.base.Time;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.level.ILevel;
+import com.helpme.app.game.view.camera.CameraViewFactory;
+import com.helpme.app.game.view.camera.PlayerCameraView;
 import com.helpme.app.saveload.SaveLoad;
 import com.helpme.app.utils.tuple.Tuple3;
 
@@ -17,16 +19,17 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-05-22.
  */
+
 public class SceneController implements Observer {
     private Game game;
     private SaveLoad gameLoader;
     private Observer playerController;
-    private EngineCore engineCore;
+    private Time time;
 
-    public SceneController(Game game, SaveLoad gameLoader, EngineCore engineCore) {
+    public SceneController(Game game, SaveLoad gameLoader, Time time) {
         this.game = game;
         this.gameLoader = gameLoader;
-        this.engineCore = engineCore;
+        this.time = time;
         Scene menu = new MenuController();
         this.game.setActiveScene(menu);
         menu.addObserver(this);
@@ -46,26 +49,26 @@ public class SceneController implements Observer {
         }
     }
 
-    private Tuple3<ILevel,Player,IConsciousness[]> loadState(String filepath){
+    private Tuple3<ILevel, Player, IConsciousness[]> loadState(String filepath) {
         return gameLoader.loadGame(filepath);
     }
 
-    private void startGame(Tuple3<ILevel,Player,IConsciousness[]> loadedState) {
-        LevelController levelScene = new LevelController(loadedState.a, loadedState.b.readBody(), engineCore.getTime());
+    private void startGame(Tuple3<ILevel, Player, IConsciousness[]> loadedState) {
+        IConsciousness player = loadedState.b;
+        ILevel level = loadedState.a;
+        PlayerCameraView playerCameraView = CameraViewFactory.createPlayerCameraView(player.readBody(), time);
+        Scene levelScene = ControllerFactory.createLevelController(level, playerCameraView);
+
+        playerController = ControllerFactory.createPlayerController(playerCameraView, player);
+        playerCameraView.addObserver(this);
+        addAudioObserver(player.readBody(), level.readBodies());
         game.setActiveScene(levelScene);
-        playerController = new PlayerController(levelScene.getCameraController(), loadedState.b, loadedState.a);
-        levelScene.getCameraController().addObserver(this);
-        loadedState.a.readPlayer().run(b ->  b.addObserver(playerController));
-        levelScene.getCameraController().addObserver(playerController);
-        addAudioObserver(loadedState.b.readBody(), loadedState.a.readBodies());
     }
 
-    private void addAudioObserver(IReadBody playerBody, List<IReadBody> enemies) {
-        Observer levelAudioController = AudioSetup.setupAudioController(playerBody, enemies);
-        for (IReadBody body : enemies) {
+    private void addAudioObserver(IReadBody playerBody, List<IReadBody> bodies) {
+        Observer levelAudioController = ControllerFactory.createLevelAudioController(playerBody, bodies);
+        for (IReadBody body : bodies) {
             body.addObserver(levelAudioController);
         }
-        playerBody.addObserver(levelAudioController);
-
     }
 }
