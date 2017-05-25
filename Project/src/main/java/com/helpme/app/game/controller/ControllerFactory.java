@@ -44,9 +44,8 @@ final class ControllerFactory {
     }
 
     static Scene createLevelController(ILevel level, PlayerCameraView playerCameraView){
-        HealthView healthView1 = new HealthView(new Vector2f(1200, 800));
-        UIObjectView healthView = new UIObjectView("health", new Vector2f(1300, 800), 200, 200);
-        return new LevelController(level, healthView1, playerCameraView);
+        HealthView healthView = new HealthView(new Vector2f(1200, 800));
+        return new LevelController(level, healthView, playerCameraView);
     }
 
     static Observer createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
