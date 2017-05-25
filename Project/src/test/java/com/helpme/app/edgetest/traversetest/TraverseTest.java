@@ -11,11 +11,9 @@ public class TraverseTest {
     private MockOpening mockOpening;
     private MockDoor mockDoor;
     private MockWall mockWall;
-    private MockKeyChain mockKeyChain;
 
     @Before
     public void setup(){
-        mockKeyChain = new MockKeyChain();
         mockDoor = new MockDoor();
         mockOpening = new MockOpening();
         mockWall = new MockWall();
@@ -40,7 +38,6 @@ public class TraverseTest {
     @Test
     public void testTraverseLockedDoorHasKey(){
         mockDoor.locked = true;
-        mockKeyChain.hasKey = true;
         assert (!mockDoor.accept(new Traverse()));
     }
 

@@ -5,6 +5,8 @@ import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.utils.tuple.Tuple3;
 
+import java.io.FileNotFoundException;
+
 /**
  * Created by Klas on 2017-05-19.
  *
@@ -12,5 +14,5 @@ import com.helpme.app.utils.tuple.Tuple3;
  */
 public interface SaveLoad {
     void saveGame(ILevel level, Player player, IConsciousness[] enemies, String filePath);
-    Tuple3<ILevel, Player, IConsciousness[]> loadGame(String filePath);
+    Tuple3<ILevel, Player, IConsciousness[]> loadGame(String filePath) throws FileNotFoundException;
 }

@@ -6,6 +6,7 @@ import com.helpme.app.consciousnesstest.ConsciousnessTest;
 import com.helpme.app.consciousnesstest.enemytest.EnemyTest;
 import com.helpme.app.edgetest.EdgeTest;
 import com.helpme.app.edgetest.traversetest.TraverseTest;
+import com.helpme.app.edgetest.unlocktest.UnlockTest;
 import com.helpme.app.intelligencetest.IntelligenceTest;
 import com.helpme.app.inventorytest.InventoryTest;
 import com.helpme.app.itemtest.ConsumableTest;
@@ -22,6 +23,7 @@ import com.helpme.app.leveltest.LevelTileTest;
 import com.helpme.app.mathtest.Vector2fTest;
 import com.helpme.app.maybetest.MaybeTest;
 import com.helpme.app.memorytest.MemoryTest;
+import com.helpme.app.savetest.SaveTest;
 import com.helpme.app.tiletest.TileTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -59,6 +61,8 @@ import org.junit.runners.Suite;
         StackTest.class,
         TileTest.class,
         SelfieTest.class,
+        UnlockTest.class,
+        SaveTest.class,
         MaybeTest.class,
         Vector2fTest.class})
 public class TestSuite {

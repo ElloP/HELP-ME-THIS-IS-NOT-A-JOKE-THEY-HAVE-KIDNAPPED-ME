@@ -1,4 +1,4 @@
-package com.helpme.app.edgetest.traversetest;
+package com.helpme.app.edgetest.unlocktest;
 
 import com.helpme.app.game.model.body.inventory.IKeyChain;
 import com.helpme.app.game.model.item.IItem;

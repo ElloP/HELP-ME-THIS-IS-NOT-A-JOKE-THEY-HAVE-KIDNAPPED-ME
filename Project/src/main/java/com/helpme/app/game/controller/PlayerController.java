@@ -1,6 +1,7 @@
 package com.helpme.app.game.controller;
 
-import com.helpme.app.engine.base.Scene;
+import com.helpme.app.engine.ICamera;
+import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.input.InputKey;
 import com.helpme.app.game.model.body.concrete.BodyEvent;
 import com.helpme.app.game.model.consciousness.IConsciousness;
@@ -13,7 +14,7 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-05-20.
  */
-public class PlayerController extends Scene implements Observer {
+public class PlayerController extends GameObject implements Observer {
     private PlayerCameraView playerCamera;
     private IConsciousness player;
     private HealthView healthView;
@@ -87,5 +88,10 @@ public class PlayerController extends Scene implements Observer {
                     break;
             }
         }
+    }
+
+    @Override
+    public void draw(ICamera camera) {
+
     }
 }

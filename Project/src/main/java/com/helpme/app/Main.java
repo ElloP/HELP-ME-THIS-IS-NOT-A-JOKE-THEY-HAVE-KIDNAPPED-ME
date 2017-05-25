@@ -10,8 +10,6 @@ import com.helpme.app.game.saveload.GameLoader;
 import com.helpme.app.game.saveload.SaveLoad;
 import com.helpme.app.game.view.resources.Resources;
 
-import java.util.Observer;
-
 /**
  * Authored by Olle on 2017-05-18.
  */
@@ -29,7 +27,8 @@ public class Main {
 
         EngineCore engineCore = new EngineCore(RenderCore.getRenderCore(), game);
         Resources.init();
-        Observer sceneController = new SceneController(game, gameLoader, engineCore.getTime());
+        SceneController sceneController = new SceneController(game, gameLoader, engineCore.getTime());
         engineCore.start();
+        sceneController.stop();
     }
 }
