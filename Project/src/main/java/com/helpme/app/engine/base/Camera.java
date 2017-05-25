@@ -39,7 +39,7 @@ public class Camera implements ICamera {
 
     public Camera(Vector2f position, Vector2f direction) {
         this.position = new Vector3f(-position.x * 6, 1, position.y * 6);
-        this.forward = new Vector3f(direction.x, 0, direction.y);
+        this.forward = new Vector3f(-direction.x, 0, direction.y);
         this.up = new Vector3f(Vector3f.UP);
         setRight();
         normalizeVectors();
