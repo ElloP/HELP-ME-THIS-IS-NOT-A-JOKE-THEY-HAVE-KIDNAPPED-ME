@@ -2,6 +2,7 @@ package com.helpme.app.game.model.consciousness.concrete;
 
 import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.IReadBody;
+import com.helpme.app.game.model.body.concrete.BodyEvent;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.ISurroundings;
 import com.helpme.app.game.model.item.IItem;
@@ -40,6 +41,18 @@ public abstract class Consciousness extends Observable implements IConsciousness
     @Override
     public IBody getBody() {
         return body;
+    }
+
+    private boolean traverse(Vector2f direction){
+        if(!surroundings.isMovementAllowed(body, direction)){
+            if(surroundings.unlockDoor(body, direction)){
+                notifyEvent(BodyEvent.UNLOCK);
+            }else{
+                notifyEvent(BodyEvent.BLOCKED);
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -162,6 +175,11 @@ public abstract class Consciousness extends Observable implements IConsciousness
     @Override
     public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
         return new Nothing<>();
+    }
+
+    public void notifyEvent(BodyEvent event){
+        setChanged();
+        notifyObservers(event);
     }
 
     @Override

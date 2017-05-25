@@ -24,14 +24,14 @@ public class Player extends Consciousness {
 
         Maybe<IReadBody> maybeBody = surroundings.readFacing(body);
 
-        return maybeBody.chain(m -> m.getDialogue());
+        return maybeBody.chain(m -> Maybe.wrap(m.getDialogue()));
     }
 
     @Override
     public Maybe<Tuple2<String, String[]>> useTalk(int dialogueSelect) throws IllegalArgumentException {
         Maybe<IReadBody> maybeBody = surroundings.readFacing(body);
 
-        return maybeBody.chain(m -> m.getResponse(dialogueSelect));
+        return maybeBody.chain(m -> Maybe.wrap(m.getResponse(dialogueSelect)));
 
     }
 }

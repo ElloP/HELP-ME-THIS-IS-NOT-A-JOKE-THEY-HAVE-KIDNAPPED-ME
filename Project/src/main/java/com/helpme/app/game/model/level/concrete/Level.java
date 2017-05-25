@@ -52,7 +52,7 @@ public class Level implements ILevel {
         Vector2f destination = Vector2f.add(body.readPosition(), direction);
 
         if (isDirectionBlocked(body, direction)) {
-            return Maybe.wrap(tiles.get(position).getEdge(direction));
+            return Maybe.wrap(tiles.get(position)).chain(tile -> Maybe.wrap(tile.getEdge(direction)));
         }
 
         return Maybe.wrap(accessBody(destination));
@@ -71,16 +71,13 @@ public class Level implements ILevel {
     @Override
     public Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position) {
         Maybe<ITile> maybeTile = Maybe.wrap(tiles.get(position));
-        return maybeTile.chain(ITile::removeItems);
+        return maybeTile.chain(tile -> Maybe.wrap(tile.removeItems()));
     }
 
     @Override
     public Maybe<IItem> removeTileItem(Vector2f position, int index) {
         Maybe<ITile> maybeTile = Maybe.wrap(tiles.get(position));
-        return maybeTile.chain(t -> {
-            Maybe<IItem> maybeItem = t.removeItem(index);
-            return maybeItem.isJust() ? maybeItem.getValue() : null;
-        });
+        return maybeTile.chain(t -> t.removeItem(index));
     }
 
     @Override
@@ -88,8 +85,7 @@ public class Level implements ILevel {
         if (body == null ||
                 bodies.contains(body) ||
                 !isTileValid(body.readPosition()) ||
-                isTileOccupied(body.readPosition()))
-        {
+                isTileOccupied(body.readPosition())) {
             return false;
         }
         bodies.add(body);
@@ -228,7 +224,11 @@ public class Level implements ILevel {
         return !isDirectionBlocked(body, direction) && !isTileOccupied(destination);
     }
 
-
+    public boolean unlockDoor(IBody body, Vector2f direction) {
+        Vector2f position = body.readPosition();
+        Maybe<ITile> maybeTile = Maybe.wrap(tiles.get(position));
+        return maybeTile.check(tile -> tile.getEdge(direction).check(edge -> body.unlock(edge)));
+    }
 
     @Override
     public void updateTile(Vector2f position) {

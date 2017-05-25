@@ -14,6 +14,8 @@ public enum BodyEvent {
     MOVE_RIGHT,
     ROTATE_LEFT,
     ROTATE_RIGHT,
+    UNLOCK,
+    BLOCKED,
     SELFIE,
     ATTACK
 }

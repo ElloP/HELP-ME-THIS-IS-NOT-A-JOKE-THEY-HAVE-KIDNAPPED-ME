@@ -23,30 +23,30 @@ public class TraverseTest {
 
     @Test
     public void testTraverseOpening(){
-        assert (mockOpening.accept(new Traverse(mockKeyChain)));
+        assert (mockOpening.accept(new Traverse()));
     }
 
     @Test
     public void testTraverseWall(){
-        assert (!mockWall.accept(new Traverse(mockKeyChain)));
+        assert (!mockWall.accept(new Traverse()));
     }
 
     @Test
     public void testTraverseLockedDoorNoKey(){
         mockDoor.locked = true;
-        assert (!mockDoor.accept(new Traverse(mockKeyChain)));
+        assert (!mockDoor.accept(new Traverse()));
     }
 
     @Test
     public void testTraverseLockedDoorHasKey(){
         mockDoor.locked = true;
         mockKeyChain.hasKey = true;
-        assert (!mockDoor.accept(new Traverse(mockKeyChain)) && !mockDoor.locked);
+        assert (!mockDoor.accept(new Traverse()) && !mockDoor.locked);
     }
 
     @Test
     public void testTraverseUnlockedDoor(){
         mockDoor.locked = false;
-        assert (mockDoor.accept(new Traverse(mockKeyChain)));
+        assert (mockDoor.accept(new Traverse()));
     }
 }

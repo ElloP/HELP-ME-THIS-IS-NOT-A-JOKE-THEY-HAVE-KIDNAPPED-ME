@@ -65,7 +65,7 @@ public class Follow extends Behaviour {
             memory.updateShortTermMemory(followingEvent, 1);
             return surroundings.readPlayer().chain(p -> {
                 Vector2f nextPosition = surroundings.getPath(body.readPosition(), p.readPosition()).b;
-                return moveTowards(body, nextPosition);
+                return Maybe.wrap(moveTowards(body, nextPosition));
             });
         }
     }

@@ -94,6 +94,11 @@ public class MockBody extends Observable implements IBody {
     }
 
     @Override
+    public boolean unlock(IEdge edge) {
+        return false;
+    }
+
+    @Override
     public Maybe<IItem> dropItem(int index) {
         return null;
     }

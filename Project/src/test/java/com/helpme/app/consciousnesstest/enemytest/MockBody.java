@@ -153,6 +153,11 @@ public class MockBody implements IBody {
     }
 
     @Override
+    public boolean unlock(IEdge edge) {
+        return false;
+    }
+
+    @Override
     public Maybe<IItem> dropItem(int index) {
         return null;
     }

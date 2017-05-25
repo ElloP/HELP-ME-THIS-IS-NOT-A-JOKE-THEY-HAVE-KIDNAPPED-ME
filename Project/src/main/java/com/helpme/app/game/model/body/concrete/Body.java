@@ -1,10 +1,7 @@
 package com.helpme.app.game.model.body.concrete;
 
 import com.helpme.app.game.model.body.IBody;
-import com.helpme.app.game.model.body.concrete.visitor.Attack;
-import com.helpme.app.game.model.body.concrete.visitor.Pickup;
-import com.helpme.app.game.model.body.concrete.visitor.Selfie;
-import com.helpme.app.game.model.body.concrete.visitor.Traverse;
+import com.helpme.app.game.model.body.concrete.visitor.*;
 import com.helpme.app.game.model.body.dialogue.IDialogue;
 import com.helpme.app.game.model.body.inventory.IInventory;
 import com.helpme.app.game.model.body.inventory.IReadInventory;
@@ -67,49 +64,42 @@ public class Body extends Observable implements IBody {
     @Override
     public void rotateRight() {
         direction = direction.rotateRightAngle(1);
-        setChanged();
-        notifyObservers(BodyEvent.ROTATE_RIGHT);
+        notifyEvent(BodyEvent.ROTATE_RIGHT);
     }
 
     @Override
     public void rotateLeft() {
         direction = direction.rotateRightAngle(-1);
-        setChanged();
-        notifyObservers(BodyEvent.ROTATE_LEFT);
+        notifyEvent(BodyEvent.ROTATE_LEFT);
     }
 
     private void move(Vector2f direction) {
         position = Vector2f.add(position, direction);
-        setChanged();
-        notifyObservers(BodyEvent.POSITION);
+        notifyEvent(BodyEvent.POSITION);
     }
 
     @Override
     public void moveForward() {
         move(direction.forward());
-        setChanged();
-        notifyObservers(BodyEvent.MOVE_FORWARD);
+        notifyEvent(BodyEvent.MOVE_FORWARD);
     }
 
     @Override
     public void moveRight() {
         move(direction.right());
-        setChanged();
-        notifyObservers(BodyEvent.MOVE_RIGHT);
+        notifyEvent(BodyEvent.MOVE_RIGHT);
     }
 
     @Override
     public void moveBackward() {
         move(direction.backward());
-        setChanged();
-        notifyObservers(BodyEvent.MOVE_BACKWARD);
+        notifyEvent(BodyEvent.MOVE_BACKWARD);
     }
 
     @Override
     public void moveLeft() {
         move(direction.left());
-        setChanged();
-        notifyObservers(BodyEvent.MOVE_LEFT);
+        notifyEvent(BodyEvent.MOVE_LEFT);
     }
 
     @Override
@@ -134,7 +124,12 @@ public class Body extends Observable implements IBody {
 
     @Override
     public boolean traverse(IEdge edge) {
-        return edge.accept(new Traverse(this.inventory));
+        return edge.accept(new Traverse());
+    }
+
+    @Override
+    public boolean unlock(IEdge edge) {
+        return edge.accept(new Unlock(this.inventory));
     }
 
     @Override
@@ -192,8 +187,7 @@ public class Body extends Observable implements IBody {
         System.out.println("OWWW I AM BEING HURT");
         amount = Math.abs(amount);
         hitpoints.y -= amount;
-        setChanged();
-        notifyObservers(BodyEvent.HEALTH);
+        notifyEvent(BodyEvent.HEALTH);
         if (hitpoints.y <= 0) {
             kill();
         }
@@ -208,8 +202,7 @@ public class Body extends Observable implements IBody {
     public void heal(float amount) {
         amount = Math.abs(amount);
         hitpoints.y = hitpoints.y + amount > hitpoints.x ? hitpoints.x : hitpoints.y + amount;
-        setChanged();
-        notifyObservers(BodyEvent.HEALTH);
+        notifyEvent(BodyEvent.HEALTH);
     }
 
     @Override
@@ -225,8 +218,12 @@ public class Body extends Observable implements IBody {
     @Override
     public void kill() {
         dead = true;
+        notifyEvent(BodyEvent.DEAD);
+    }
+
+    private void notifyEvent(BodyEvent event){
         setChanged();
-        notifyObservers(BodyEvent.DEAD);
+        notifyObservers(event);
     }
 
     public Vector2f readStartingPosition() {

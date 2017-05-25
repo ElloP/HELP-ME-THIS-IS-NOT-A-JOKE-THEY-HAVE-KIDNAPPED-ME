@@ -1,5 +1,6 @@
 package com.helpme.app.game.model.consciousness;
 
+import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
@@ -15,5 +16,6 @@ public interface ISurroundings extends IReadSurroundings {
     Maybe<List<Maybe<IItem>>> removeTileItems(Vector2f position);
     Maybe<IItem> removeTileItem(Vector2f position, int index);
     void updateTile(Vector2f position);
+    boolean unlockDoor(IBody body, Vector2f direction);
 
 }

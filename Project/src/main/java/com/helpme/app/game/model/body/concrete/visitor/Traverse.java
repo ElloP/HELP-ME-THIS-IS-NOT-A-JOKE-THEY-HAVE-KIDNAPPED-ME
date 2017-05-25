@@ -1,31 +1,19 @@
 package com.helpme.app.game.model.body.concrete.visitor;
 
-import com.helpme.app.game.model.body.inventory.IKeyChain;
 import com.helpme.app.game.model.tile.edge.IDoor;
 import com.helpme.app.game.model.tile.edge.IEdgeVisitor;
 import com.helpme.app.game.model.tile.edge.IOpening;
 import com.helpme.app.game.model.tile.edge.IWall;
-import com.helpme.app.utils.maybe.Maybe;
 
 /**
  * Created by Jacob on 2017-04-08.
  */
 public final class Traverse implements IEdgeVisitor<Boolean> {
-    private final Maybe<IKeyChain> keychain;
 
-    public Traverse(IKeyChain keychain){
-        this.keychain = Maybe.wrap(keychain);
-    }
 
     @Override
     public Boolean visit(IDoor door) {
-        if(door.isLocked()){
-            if(keychain.check(k -> k.hasKey(door.getKey()))){
-                door.unlock();
-            }
-            return false;
-        }
-        return true;
+        return door.isLocked();
     }
 
     @Override

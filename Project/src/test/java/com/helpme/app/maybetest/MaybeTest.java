@@ -74,14 +74,14 @@ public class MaybeTest {
     @Test
     public void testMaybeChainJust() {
         Maybe<Boolean> maybe0 = new Just<>(true);
-        Maybe<Integer> maybe1 = maybe0.chain(t -> t ? 1 : 4);
+        Maybe<Integer> maybe1 = maybe0.chain(t -> t ? new Just<>(1) : new Just<>(4));
         assert (maybe1.isJust() && maybe1.getValue() == 1);
     }
 
     @Test
     public void testMaybeChainNothing() {
         Maybe<Boolean> maybe = new Nothing<>();
-        assert (maybe.chain(t -> true).isNothing());
+        assert (maybe.chain(t -> new Just<>(true)).isNothing());
     }
 
     @Test

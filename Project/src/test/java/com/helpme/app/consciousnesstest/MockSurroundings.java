@@ -63,6 +63,11 @@ public class MockSurroundings implements ISurroundings {
     }
 
     @Override
+    public boolean unlockDoor(IBody body, Vector2f direction) {
+        return false;
+    }
+
+    @Override
     public boolean isDirectionBlocked(IReadBody body, Vector2f direction) {
         return false;
     }

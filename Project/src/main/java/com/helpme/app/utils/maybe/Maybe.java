@@ -44,9 +44,9 @@ public abstract class Maybe<T> {
         }
     }
 
-    public <R> Maybe<R> chain(IFunction<T, R> function){
+    public <R> Maybe<R> chain(IFunction<T, Maybe<R>> function){
         if(isJust()){
-            return Maybe.wrap(function.apply(value));
+            return function.apply(value);
         }
         return new Nothing<>();
     }
