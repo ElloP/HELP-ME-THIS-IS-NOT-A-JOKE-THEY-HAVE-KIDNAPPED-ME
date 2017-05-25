@@ -5,7 +5,7 @@ import com.helpme.app.engine.ICamera;
 /**
  * Authored by Olle on 2017-05-02.
  */
-public class Scene extends GameObject {
+public abstract class Scene extends GameObject {
     @Override
     public void draw(ICamera camera) {
         drawScene(camera);

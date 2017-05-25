@@ -43,13 +43,13 @@ final class ControllerFactory {
         return levelAudioController;
     }
 
-    static Scene createLevelController(ILevel level, PlayerCameraView playerCameraView){
-        HealthView healthView = new HealthView(new Vector2f(1200, 800));
-        return new LevelController(level, healthView, playerCameraView);
+    static Scene createLevelController(ILevel level, PlayerCameraView playerCameraView, PlayerController playerController){
+        return new LevelController(level, playerCameraView, playerController);
     }
 
-    static Observer createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
-        return new PlayerController(playerCameraView, player);
+    static PlayerController createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
+        HealthView healthView = new HealthView(new Vector2f(1200, 800));
+        return new PlayerController(playerCameraView, player, healthView);
     }
 
     static Observer createEnemyController(BodyView bodyView) {

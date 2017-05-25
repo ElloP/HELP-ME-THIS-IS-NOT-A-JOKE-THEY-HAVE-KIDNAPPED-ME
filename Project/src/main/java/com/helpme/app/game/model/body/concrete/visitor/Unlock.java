@@ -19,7 +19,7 @@ public final class Unlock implements IEdgeVisitor<Boolean> {
 
     @Override
     public Boolean visit(IDoor door) {
-        if(keychain.check(k -> k.hasKey(door.getKey()))){
+        if(door.isLocked() && keychain.check(k -> k.hasKey(door.getKey()))){
             door.unlock();
             return true;
         }

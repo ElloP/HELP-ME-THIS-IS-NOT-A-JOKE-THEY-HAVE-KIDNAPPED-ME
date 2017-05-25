@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by og on 2017-05-16.
@@ -57,14 +58,12 @@ public class GameLoader implements SaveLoad {
 
 
     @Override
-    public Tuple3<ILevel, Player, IConsciousness[]> loadGame(String filePath) {
+    public Tuple3<ILevel, Player, IConsciousness[]> loadGame(String filePath) throws FileNotFoundException {
         try{
             SaveRoot saveRoot = unmarshall(filePath);
             return new Tuple3<>(saveRoot.loadLevel(),saveRoot.loadPlayer(),saveRoot.loadEnemies());
         } catch (JAXBException e){
-            System.out.println("Could not load game from that path");
-            System.out.println(e);
-            return null;
+            throw new FileNotFoundException ("Could not load game from path in GameLoader.loadGame::" + e);
         }
     }
 }

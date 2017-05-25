@@ -10,7 +10,7 @@ public abstract class Game {
     public Scene scene; //Note(Olle): Every gameobject in the scene will have this as a root object
 
     public Game() {
-        scene = new Scene();
+
     }
 
     public abstract void input(Time time);

@@ -60,6 +60,6 @@ public class BodyView extends GameObject {
     }
 
     public void kill() {
-        this.mesh3D.destroy();
+        this.active = false;
     }
 }
