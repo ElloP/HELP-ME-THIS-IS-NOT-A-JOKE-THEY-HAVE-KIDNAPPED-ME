@@ -20,25 +20,22 @@ public class LevelAudioController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        BodyEvent worldEvent = (BodyEvent) arg;
-        switch (worldEvent) {
+
+        if (!(arg instanceof BodyEvent) || !(o instanceof IReadBody)) {
+            return;
+        }
+        BodyEvent event = (BodyEvent) arg;
+        switch (event) {
             case DEAD:
-                if (!(arg instanceof BodyEvent) || !(o instanceof IReadBody)) {
-                    return;
-                }
-                BodyEvent event = (BodyEvent) arg;
-                switch (event) {
-                    case DEAD:
-                        break;
-                    case HEALTH:
-                        healthEvent((IReadBody) o);
-                        break;
-                    case POSITION:
-                        posEvent((IReadBody) o);
-                        break;
-                    case DIRECTION:
-                        break;
-                }
+                break;
+            case HEALTH:
+                healthEvent((IReadBody) o);
+                break;
+            case POSITION:
+                posEvent((IReadBody) o);
+                break;
+            case DIRECTION:
+                break;
         }
     }
 
