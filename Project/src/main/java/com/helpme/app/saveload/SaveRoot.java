@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by og on 2017-05-09.
+ * Created by Klas on 2017-05-09.
  *
  * The "root" of the save graph.
  */

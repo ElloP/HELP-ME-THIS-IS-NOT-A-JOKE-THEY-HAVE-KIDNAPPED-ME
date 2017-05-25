@@ -51,7 +51,7 @@ public class SceneController implements IController {
                 level.readPlayer().run(b ->  b.addObserver(playerController));
                 addAudioObserver(setup.getPlayerBody(), level.readBodies());
             } else if (((Menu) o).getCurrent() == 0) {
-                switchToLevelScene("test.xml");
+                switchToLevelScene("level1.xml");
             } else if (arg == MenuEvent.ESC) {
 
             }

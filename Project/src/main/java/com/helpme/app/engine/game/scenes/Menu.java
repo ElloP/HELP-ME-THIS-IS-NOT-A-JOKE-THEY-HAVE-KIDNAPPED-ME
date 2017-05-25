@@ -27,7 +27,7 @@ public class Menu extends Scene{
         options[0] = LOAD;
         options[1] = NEW;
         current = 0;
-        this.menu = new UIController(options[current], new Vector2f(800, 450), 200, 200);
+        this.menu = new UIController(options[current], new Vector2f(0, 0), 1600, 900);
         this.menuEvent = MenuEvent.NEW;
     }
 
