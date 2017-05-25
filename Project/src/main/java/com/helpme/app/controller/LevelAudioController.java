@@ -6,6 +6,8 @@ import com.helpme.app.model.body.concrete.visitor.WorldEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import static com.helpme.app.model.body.concrete.visitor.WorldEvent.DEAD;
+
 /**
  * Created by Jesper on 2017-04-23.
  */
@@ -18,26 +20,24 @@ public class LevelAudioController implements IController {
 
     @Override
     public void update(Observable o, Object arg) {
-        WorldEvent worldEvent = (WorldEvent) arg;
-        switch (worldEvent) {
-            case DEAD:
-                if (!(arg instanceof WorldEvent) || !(o instanceof IReadBody)) {
-                    return;
-                }
-                WorldEvent event = (WorldEvent) arg;
-                switch (event) {
-                    case DEAD:
-                        break;
-                    case Health:
-                        healthEvent((IReadBody) o);
-                        break;
-                    case Position:
-                        posEvent((IReadBody) o);
-                        break;
-                    case Direction:
-                        break;
-                }
+        System.out.println(arg);
+        if (!(arg instanceof WorldEvent) || !(o instanceof IReadBody)) {
+            return;
         }
+        WorldEvent event = (WorldEvent) arg;
+            switch (event) {
+                case DEAD:
+                    break;
+                case Health:
+                    healthEvent((IReadBody) o);
+                    break;
+                case Position:
+                    System.out.println("fafasda");
+                    posEvent((IReadBody) o);
+                    break;
+                case Direction:
+                    break;
+            }
     }
 
     private boolean isPlayer(IReadBody body) {
