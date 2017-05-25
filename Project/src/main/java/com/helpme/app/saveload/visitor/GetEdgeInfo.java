@@ -1,8 +1,11 @@
 package com.helpme.app.saveload.visitor;
 
+import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.tile.edge.IDoor;
+import com.helpme.app.game.model.tile.edge.IEdgeVisitor;
+import com.helpme.app.game.model.tile.edge.IOpening;
+import com.helpme.app.game.model.tile.edge.IWall;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.model.item.IReadItem;
-import com.helpme.app.model.tile.edge.*;
 
 /**
  * Created by kopa on 2017-05-15.

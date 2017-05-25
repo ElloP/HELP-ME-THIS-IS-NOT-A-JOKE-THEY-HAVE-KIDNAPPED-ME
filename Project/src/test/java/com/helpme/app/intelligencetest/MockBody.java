@@ -1,8 +1,8 @@
 package com.helpme.app.intelligencetest;
 
-import com.helpme.app.model.body.IReadBody;
-import com.helpme.app.model.body.inventory.IReadInventory;
-import com.helpme.app.model.tile.edge.IEdge;
+import com.helpme.app.game.model.body.IReadBody;
+import com.helpme.app.game.model.body.inventory.IReadInventory;
+import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
 

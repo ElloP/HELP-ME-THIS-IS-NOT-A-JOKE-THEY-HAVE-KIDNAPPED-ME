@@ -1,14 +1,14 @@
 package com.helpme.app.savetest;
 
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.body.inventory.IInventory;
+import com.helpme.app.game.model.body.inventory.IReadInventory;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.effect.ITarget;
+import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.body.inventory.IInventory;
-import com.helpme.app.model.body.inventory.IReadInventory;
-import com.helpme.app.model.item.effect.ITarget;
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.tile.edge.IEdge;
 
 import java.util.List;
 import java.util.Observable;

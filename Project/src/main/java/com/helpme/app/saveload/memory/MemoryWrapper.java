@@ -1,8 +1,8 @@
 package com.helpme.app.saveload.memory;
 
+import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryFactory;
 import com.helpme.app.utils.interfaces.ILoadable;
-import com.helpme.app.model.consciousness.behaviour.memory.IMemory;
-import com.helpme.app.model.consciousness.behaviour.memory.concrete.MemoryFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

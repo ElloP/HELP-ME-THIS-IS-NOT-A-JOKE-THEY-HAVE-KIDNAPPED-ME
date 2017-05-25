@@ -1,8 +1,11 @@
 package com.helpme.app.itemtest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.concrete.*;
-import com.helpme.app.model.item.effect.IEffect;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.concrete.Consumable;
+import com.helpme.app.game.model.item.concrete.Item;
+import com.helpme.app.game.model.item.concrete.Key;
+import com.helpme.app.game.model.item.concrete.Single;
+import com.helpme.app.game.model.item.effect.IEffect;
 import org.junit.Test;
 
 /**

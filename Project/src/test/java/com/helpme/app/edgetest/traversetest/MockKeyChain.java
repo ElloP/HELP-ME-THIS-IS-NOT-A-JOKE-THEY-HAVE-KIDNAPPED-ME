@@ -1,7 +1,7 @@
 package com.helpme.app.edgetest.traversetest;
 
-import com.helpme.app.model.body.inventory.IKeyChain;
-import com.helpme.app.model.item.IItem;
+import com.helpme.app.game.model.body.inventory.IKeyChain;
+import com.helpme.app.game.model.item.IItem;
 
 /**
  * Created by kopa on 2017-05-20.

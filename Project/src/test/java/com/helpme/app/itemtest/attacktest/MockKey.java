@@ -1,8 +1,8 @@
 package com.helpme.app.itemtest.attacktest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IItemVisitor;
-import com.helpme.app.model.item.IKey;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IItemVisitor;
+import com.helpme.app.game.model.item.IKey;
 
 /**
  * Created by kopa on 2017-05-20.

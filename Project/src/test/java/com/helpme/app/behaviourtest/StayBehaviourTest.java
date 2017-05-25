@@ -1,11 +1,10 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.model.consciousness.behaviour.concrete.Stay;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
-import com.helpme.app.model.consciousness.IConsciousness;
-import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
 import org.junit.Before;
 import org.junit.Test;
 

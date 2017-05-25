@@ -1,7 +1,7 @@
 package com.helpme.app.consciousnesstest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IItemVisitor;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IItemVisitor;
 
 /**
  * Created by kopa on 2017-05-14.

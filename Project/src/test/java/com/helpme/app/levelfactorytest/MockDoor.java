@@ -1,9 +1,9 @@
 package com.helpme.app.levelfactorytest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.tile.edge.IDoor;
-import com.helpme.app.model.tile.edge.IEdge;
-import com.helpme.app.model.tile.edge.IEdgeVisitor;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.tile.edge.IDoor;
+import com.helpme.app.game.model.tile.edge.IEdge;
+import com.helpme.app.game.model.tile.edge.IEdgeVisitor;
 
 /**
  * Created by kopa on 2017-05-24.

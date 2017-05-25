@@ -1,10 +1,9 @@
 package com.helpme.app.behaviourtest;
 
-import com.helpme.app.model.consciousness.behaviour.concrete.Stay;
+import com.helpme.app.game.model.consciousness.behaviour.Comparison;
+import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.model.consciousness.behaviour.Comparison;
 import org.junit.Before;
 import org.junit.Test;
 

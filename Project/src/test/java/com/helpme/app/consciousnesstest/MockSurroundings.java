@@ -1,15 +1,15 @@
 package com.helpme.app.consciousnesstest;
 
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.body.IReadBody;
+import com.helpme.app.game.model.consciousness.ISurroundings;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.effect.ITarget;
+import com.helpme.app.game.model.tile.ITile;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple3;
-import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.body.IReadBody;
-import com.helpme.app.model.item.effect.ITarget;
-import com.helpme.app.model.consciousness.ISurroundings;
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.tile.ITile;
 
 import java.util.ArrayList;
 import java.util.List;

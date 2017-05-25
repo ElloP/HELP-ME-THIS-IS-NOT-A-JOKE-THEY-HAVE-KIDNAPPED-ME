@@ -1,10 +1,13 @@
 package com.helpme.app.saveload.behaviour;
 
+import com.helpme.app.game.model.consciousness.behaviour.Comparison;
+import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Attack;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Follow;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Return;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.model.consciousness.behaviour.Comparison;
-import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.behaviour.concrete.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

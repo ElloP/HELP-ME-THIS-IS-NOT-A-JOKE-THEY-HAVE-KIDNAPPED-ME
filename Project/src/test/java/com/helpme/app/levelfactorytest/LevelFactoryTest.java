@@ -1,13 +1,13 @@
 package com.helpme.app.levelfactorytest;
 
-import com.helpme.app.model.item.IItem;
-import com.helpme.app.model.item.IReadItem;
-import com.helpme.app.model.level.ILevel;
-import com.helpme.app.model.level.concrete.LevelFactory;
-import com.helpme.app.model.tile.ITile;
-import com.helpme.app.model.tile.edge.IDoor;
-import com.helpme.app.model.tile.edge.IOpening;
-import com.helpme.app.model.tile.edge.IWall;
+import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.level.ILevel;
+import com.helpme.app.game.model.level.concrete.LevelFactory;
+import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.model.tile.edge.IDoor;
+import com.helpme.app.game.model.tile.edge.IOpening;
+import com.helpme.app.game.model.tile.edge.IWall;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;

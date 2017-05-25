@@ -1,10 +1,9 @@
 package com.helpme.app.edgetest;
 
-import com.helpme.app.model.tile.edge.IEdge;
-import com.helpme.app.model.tile.edge.concrete.Door;
-import com.helpme.app.model.tile.edge.concrete.EdgeFactory;
-import com.helpme.app.model.tile.edge.concrete.Opening;
-import com.helpme.app.model.tile.edge.concrete.Wall;
+import com.helpme.app.game.model.tile.edge.IEdge;
+import com.helpme.app.game.model.tile.edge.concrete.Door;
+import com.helpme.app.game.model.tile.edge.concrete.Opening;
+import com.helpme.app.game.model.tile.edge.concrete.Wall;
 import org.junit.Test;
 
 /**

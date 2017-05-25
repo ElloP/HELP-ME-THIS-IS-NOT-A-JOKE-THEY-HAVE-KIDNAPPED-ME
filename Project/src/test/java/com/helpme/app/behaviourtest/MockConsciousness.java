@@ -1,11 +1,11 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.game.model.body.IBody;
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;
-import com.helpme.app.model.body.IBody;
-import com.helpme.app.model.consciousness.IConsciousness;
-import com.helpme.app.model.item.IItem;
 
 import java.util.Observer;
 

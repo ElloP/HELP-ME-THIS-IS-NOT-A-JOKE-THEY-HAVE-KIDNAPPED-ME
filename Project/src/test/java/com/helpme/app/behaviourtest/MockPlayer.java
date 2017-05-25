@@ -1,12 +1,12 @@
 package com.helpme.app.behaviourtest;
 
+import com.helpme.app.game.model.body.IReadBody;
+import com.helpme.app.game.model.body.inventory.IReadInventory;
+import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
-import java.util.Observable;
 
-import com.helpme.app.model.body.IReadBody;
-import com.helpme.app.model.body.inventory.IReadInventory;
-import com.helpme.app.model.tile.edge.IEdge;
+import java.util.Observable;
 
 /**
  * Created by kopa on 2017-05-20.

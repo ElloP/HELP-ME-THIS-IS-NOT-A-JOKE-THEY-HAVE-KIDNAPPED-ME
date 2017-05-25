@@ -1,12 +1,12 @@
 package com.helpme.app.saveload;
 
+import com.helpme.app.game.model.consciousness.IConsciousness;
+import com.helpme.app.game.model.consciousness.ISurroundings;
+import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
+import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
+import com.helpme.app.game.model.consciousness.concrete.Enemy;
 import com.helpme.app.saveload.behaviour.BehaviourWrapper;
 import com.helpme.app.saveload.memory.MemoryWrapper;
-import com.helpme.app.model.consciousness.IConsciousness;
-import com.helpme.app.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.model.consciousness.concrete.ConsciousnessFactory;
-import com.helpme.app.model.consciousness.concrete.Enemy;
-import com.helpme.app.model.consciousness.ISurroundings;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
