@@ -10,32 +10,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by og on 2017-05-09.
+ *
+ * The "root" of the save graph.
  */
 @XmlRootElement(name="Root")
 public class SaveRoot {
-    private BodyWrapper player;
-    private EnemyWrapper[] enemies;
-    private LevelWrapper level;
-    private ILevel loadLevel;
-    private IBody loadPlayer;
-    private IConsciousness[] loadEnemies;
+    private BodyWrapper player;             //Wrapper for saving a players body
+    private EnemyWrapper[] enemies;         //Array to save all enemies
+    private LevelWrapper level;             //Wrapper to save level
+    private ILevel loadLevel;               //The complete level after loading the game
+    private IBody loadPlayer;               //The complete body of the player after loading the game
+    private IConsciousness[] loadEnemies;   //The complete list of enemies after loading the game
 
     public SaveRoot(){}
 
     public SaveRoot(ILevel level, IBody player, IConsciousness[] enemies){
 
 //        level.readPlayer().run(p -> this.player = new BodyWrapper(p)); //TODO (klas) maybe check?
-
+        // Wrap body of player
         this.player = new BodyWrapper(player);
-
+        // Wrap the level
         this.level = new LevelWrapper(level);
-
+        // Wrap enemies
         this.enemies = new EnemyWrapper[enemies.length];
         for(int i = 0; i < enemies.length; i++){
             this.enemies[i] = new EnemyWrapper((Enemy)enemies[i]);
         }
     }
-
+    // Create a tag for player in the xml-document
     @XmlElement(name="Player")
     public BodyWrapper getPlayer(){
         return this.player;
@@ -44,8 +46,8 @@ public class SaveRoot {
         this.player = player;
     }
 
-
-    @XmlElement(name="Enemies")
+    // Create a tag for each enemy in the game
+    @XmlElement(name="Enemy")
     public EnemyWrapper[] getEnemies() {
         return enemies == null ? null : enemies.clone();
     }
@@ -53,6 +55,7 @@ public class SaveRoot {
         this.enemies = enemies == null ? null : enemies.clone();
     }
 
+    // Create tag for the level
     @XmlElement(name="Level")
     public LevelWrapper getLevel() {
         return level;
@@ -61,7 +64,7 @@ public class SaveRoot {
         this.level = level;
     }
 
-
+    // Loads game from xml
     public void loadGame(){
         this.loadLevel = level.getObject();
         this.loadPlayer = player.getObject();
