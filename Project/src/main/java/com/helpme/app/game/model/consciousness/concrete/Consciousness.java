@@ -43,13 +43,22 @@ public abstract class Consciousness extends Observable implements IConsciousness
         return body;
     }
 
-    private boolean traverse(Vector2f direction){
-        if(!surroundings.isMovementAllowed(body, direction)){
-            if(surroundings.unlockDoor(body, direction)){
-                notifyEvent(BodyEvent.UNLOCK);
-            }else{
-                notifyEvent(BodyEvent.BLOCKED);
-            }
+    private boolean traverse(Vector2f direction) {
+        return surroundings.isMovementAllowed(body, direction);
+    }
+
+    private boolean unlock(Vector2f direction) {
+        if (surroundings.unlockDoor(body, direction)) {
+            notifyEvent(BodyEvent.UNLOCK);
+            return true;
+        }
+        notifyEvent(BodyEvent.BLOCKED);
+        return false;
+    }
+
+    private boolean move(Vector2f direction){
+        if (!traverse(direction)) {
+            unlock(direction);
             return false;
         }
         return true;
@@ -57,34 +66,30 @@ public abstract class Consciousness extends Observable implements IConsciousness
 
     @Override
     public void moveForward() {
-        if (!surroundings.isMovementAllowed(body, body.readDirection())) {
-            return;
+        if(move(body.readDirection())){
+            body.moveForward();
         }
-        body.moveForward();
     }
 
     @Override
     public void moveRight() {
-        if (!surroundings.isMovementAllowed(body, body.readDirection().right())) {
-            return;
+        if(move(body.readDirection().right())) {
+            body.moveRight();
         }
-        body.moveRight();
     }
 
     @Override
     public void moveBackward() {
-        if (!surroundings.isMovementAllowed(body, body.readDirection().backward())) {
-            return;
+        if(move(body.readDirection().backward())) {
+            body.moveBackward();
         }
-        body.moveBackward();
     }
 
     @Override
     public void moveLeft() {
-        if (!surroundings.isMovementAllowed(body, body.readDirection().left())) {
-            return;
+        if(move(body.readDirection().left())) {
+            body.moveLeft();
         }
-        body.moveLeft();
     }
 
     @Override
@@ -177,7 +182,7 @@ public abstract class Consciousness extends Observable implements IConsciousness
         return new Nothing<>();
     }
 
-    public void notifyEvent(BodyEvent event){
+    public void notifyEvent(BodyEvent event) {
         setChanged();
         notifyObservers(event);
     }

@@ -5,7 +5,6 @@ import com.helpme.app.engine.base.Lerper;
 import com.helpme.app.engine.base.Time;
 import com.helpme.app.engine.input.Input;
 import com.helpme.app.engine.input.InputKey;
-import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.utils.mathl.Vector3f;
 
 /**
@@ -19,8 +18,6 @@ public class PlayerCameraView extends CameraView {
 
     private float rotationDuration = .5f;
     private float movementDuration = .5f;
-
-    private Player player;
 
     private final float MOVE_LENGTH = 6.0f;
 
