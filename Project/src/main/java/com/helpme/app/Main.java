@@ -29,6 +29,7 @@ public class Main {
 
         SaveLoad gameLoader = new GameLoader();
 
+        Resources.init();
         Game game = new GameController(gameLoader);
         EngineCore engineCore = new EngineCore(RenderCore.getRenderCore(), game);
 

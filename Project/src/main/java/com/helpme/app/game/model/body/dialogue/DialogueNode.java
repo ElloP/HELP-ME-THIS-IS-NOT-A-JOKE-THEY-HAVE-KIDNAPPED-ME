@@ -11,12 +11,12 @@ public class DialogueNode implements IDialogueNode {
 
     public DialogueNode(String initialFrase, String response, IDialogueNode[] nodes){
         this.dialogue = new Tuple2<>(initialFrase,response);
-        this.dialogueAlternatives = nodes == null ? new IDialogueNode[0] : nodes;
+        this.dialogueAlternatives = nodes == null ? new IDialogueNode[0] : nodes.clone();
     }
 
     public DialogueNode(Tuple2<String,String> dialogue, IDialogueNode[] dialogueAlternatives){
         this.dialogue = dialogue;
-        this.dialogueAlternatives = dialogueAlternatives;
+        this.dialogueAlternatives = dialogueAlternatives.clone();
     }
 
     @Override

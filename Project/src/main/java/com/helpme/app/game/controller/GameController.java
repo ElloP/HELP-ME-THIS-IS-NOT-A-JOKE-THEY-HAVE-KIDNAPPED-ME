@@ -34,11 +34,9 @@ public class GameController extends Game implements Observer {
     private Tuple3<ILevel, Player, IConsciousness[]> currentState;
 
     public GameController(SaveLoad gameLoader) {
-        Resources.init();
+        super(new MenuController(), new Camera());
         this.gameLoader = gameLoader;
-        this.setActiveScene(new MenuController());
         scene.addObserver(this);
-        activeCamera = new Camera();
     }
 
     public void stop() {

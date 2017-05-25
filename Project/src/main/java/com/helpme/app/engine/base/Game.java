@@ -9,8 +9,9 @@ public abstract class Game {
     protected ICamera activeCamera;
     protected Scene scene; //Note(Olle): Every gameobject in the scene will have this as a root object
 
-    public Game() {
-
+    public Game(Scene scene, ICamera camera) {
+        this.scene = scene;
+        this.activeCamera = camera;
     }
 
     public abstract void input(Time time);

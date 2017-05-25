@@ -54,6 +54,7 @@ public class PlayerController extends GameObject implements Observer {
                     break;
                 case HEALTH:
                     healthView.setHealth(player.readBody().readCurrentHitpoints());
+                    break;
                 default:
                     break;
             }

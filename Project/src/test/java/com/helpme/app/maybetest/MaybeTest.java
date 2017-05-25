@@ -146,12 +146,6 @@ public class MaybeTest {
         assert (new Just<>("test").hashCode() == "test".hashCode());
     }
 
-    @Test
-    public void testMaybeEqualsJustNothing() {
-        Maybe<Integer> just = new Just<>(5);
-        Maybe<Integer> nothing = new Nothing<>();
-        assert (!just.equals(nothing));
-    }
 
     @Test
     public void testMaybeCast() {
