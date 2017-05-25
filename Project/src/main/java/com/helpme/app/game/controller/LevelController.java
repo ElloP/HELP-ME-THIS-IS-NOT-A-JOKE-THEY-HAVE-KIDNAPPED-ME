@@ -24,7 +24,11 @@ public class LevelController extends Scene {
 
         addChild(new LevelView(level));
         for (IReadBody body : level.readBodies()) {
-            addChild(new BodyView(body.readPosition().x, body.readPosition().y));
+            BodyView bodyView = new BodyView(body.readPosition().x, body.readPosition().y);
+            addChild(bodyView);
+            EnemyController enemyController = new EnemyController(bodyView);
+            bodyView.addObserver(enemyController);
+
         }
 
     }

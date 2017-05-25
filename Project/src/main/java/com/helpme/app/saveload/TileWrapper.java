@@ -60,7 +60,7 @@ public class TileWrapper implements ILoadable<ITile> {
 
 
 
-    @XmlElementWrapper(name="items")
+    @XmlElementWrapper(name="itemWrappers")
     @XmlElement(name = "item")
     public ItemWrapper[] getItems() {
         return this.itemWrappers.clone();

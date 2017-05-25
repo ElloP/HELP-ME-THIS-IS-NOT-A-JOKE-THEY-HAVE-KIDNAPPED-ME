@@ -3,6 +3,7 @@ package com.helpme.app.game.view;
 import com.helpme.app.engine.ICamera;
 import com.helpme.app.engine.base.GameObject;
 import com.helpme.app.engine.renderer.base.*;
+import com.helpme.app.utils.Vector2f;
 import com.helpme.app.utils.mathl.Matrix4f;
 import com.helpme.app.utils.mathl.Vector3f;
 
@@ -39,6 +40,10 @@ public class BodyView extends GameObject {
 
     public BodyView() {
         this(0, 0);
+    }
+
+    public void setPosition(Vector2f position) {
+        this.transform.setPosition(-position.x * 6, 0, 6 * position.y);
     }
 
     private void setModelMatrix(ICamera camera) {

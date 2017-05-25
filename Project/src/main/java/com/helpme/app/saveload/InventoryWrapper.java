@@ -20,56 +20,62 @@ import java.util.List;
 @XmlRootElement(name="inventory")
 public class InventoryWrapper implements ILoadable<IInventory> {
 
-    ItemWrapper[] items;
-    ItemWrapper[] keys;
+    ItemWrapper defaultItemWrapper;
+    ItemWrapper[] itemWrappers;
+    ItemWrapper[] keyWrappers;
 
     public InventoryWrapper() {}
 
     public InventoryWrapper(IReadInventory inventory) {
         List<Maybe<IReadItem>> inventoryItems = inventory.readItems();
         List<Maybe<IReadItem>> inventoryKeys = inventory.readKeychain();
-        this.items = new ItemWrapper[inventoryItems.size()];
-        this.keys = new ItemWrapper[inventoryKeys.size()];
+        this.itemWrappers = new ItemWrapper[inventoryItems.size()];
+        this.keyWrappers = new ItemWrapper[inventoryKeys.size()];
+        inventory.readDefaultItem().run(item -> this.defaultItemWrapper = new ItemWrapper(item));
 
         for(int i = 0; i < inventoryItems.size(); i++){
             int index = i;
             if(inventoryItems.get(i).isJust()){
-                this.items[index] = new ItemWrapper(inventoryItems.get(i).getValue());
+                this.itemWrappers[index] = new ItemWrapper(inventoryItems.get(i).getValue());
             }
             else{
-                this.items[index] = new ItemWrapper("empty");
+                this.itemWrappers[index] = new ItemWrapper("empty");
             }
 
         }
 
         for(int i = 0; i < inventoryKeys.size(); i++){
             int index = i;
-            inventoryKeys.get(i).run(item -> this.keys[index] = new ItemWrapper(item));
+            inventoryKeys.get(i).run(item -> this.keyWrappers[index] = new ItemWrapper(item));
         }
     }
 
-
+    @XmlElement(name = "default_weapon")
+    public ItemWrapper getDefaultItem() { return defaultItemWrapper; }
+    public void setDefaultItem(ItemWrapper itemWrapper){
+        this.defaultItemWrapper = itemWrapper;
+    }
     @XmlElementWrapper(name="keys")
     @XmlElement(name = "key")
     public ItemWrapper[] getKeys() {
-        return keys == null ? null : keys.clone();
+        return keyWrappers == null ? null : keyWrappers.clone();
     }
     public void setKeys(ItemWrapper[] keys) {
-        this.keys = new ItemWrapper[keys.length];
+        this.keyWrappers = new ItemWrapper[keys.length];
         for (int i = 0; i < keys.length; i++) {
-            this.keys[i] = new ItemWrapper(keys[i].getName());
+            this.keyWrappers[i] = new ItemWrapper(keys[i].getName());
         }
     }
 
     @XmlElementWrapper(name="items")
     @XmlElement(name = "item")
     public ItemWrapper[] getItems() {
-        return items == null ? null : items.clone();
+        return itemWrappers == null ? null : itemWrappers.clone();
     }
     public void setItems(ItemWrapper[] items) {
-        this.items = new ItemWrapper[items.length];
+        this.itemWrappers = new ItemWrapper[items.length];
         for (int i = 0; i < items.length; i++) {
-            this.items[i] = new ItemWrapper(items[i].getName());
+            this.itemWrappers[i] = new ItemWrapper(items[i].getName());
         }
     }
 
@@ -77,13 +83,13 @@ public class InventoryWrapper implements ILoadable<IInventory> {
         StringBuilder result = new StringBuilder();
         result.append("\nInventory: ");
 
-        if(items != null){
-            for (ItemWrapper item : items) {
+        if(itemWrappers != null){
+            for (ItemWrapper item : itemWrappers) {
                 if (item != null) result.append("\n\tItem:\t" + (item.getName()));
             }
         }
-        if(keys != null){
-            for (ItemWrapper key : keys) {
+        if(keyWrappers != null){
+            for (ItemWrapper key : keyWrappers) {
                 if (key != null) result.append("\n\tKey:\t" + (key.getName()));
             }
         }
@@ -92,7 +98,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
     @Override
     public IInventory getObject() {
-        return InventoryFactory.createInventory(fixItems(items),null,fixItems(keys));
+        return InventoryFactory.createInventory(fixItems(itemWrappers),defaultItemWrapper.getObject(),fixItems(keyWrappers));
     }
 
     private IItem[] fixItems(ItemWrapper[] items){

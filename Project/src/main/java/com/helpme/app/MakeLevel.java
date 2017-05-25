@@ -49,7 +49,7 @@ public class MakeLevel {
      */
     public static void main(String args[]){
         GameLoader gameLoader = new GameLoader();
-        IBody playerBody = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.WEST, 100);
+        IBody playerBody = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[]{null,null,null}, ItemFactory.fists(), null), Vector2f.ZERO, Vector2f.WEST, 100);
         ILevel level = makeLevel();
         Player player = new Player(playerBody, level);
         IConsciousness[] enemies = addEnemies(level);

@@ -23,7 +23,6 @@ public class RenderCore implements IRenderCore {
         setClearColor();
         enableFaceCulling();
         enableDepthTest();
-        enableGammaCorrection();
     }
 
     public void setClearColor() {
@@ -49,7 +48,7 @@ public class RenderCore implements IRenderCore {
     }
 
     public void enableGammaCorrection() {
-        //glEnable(GL_FRAMEBUFFER_SRGB);
+        glEnable(GL_FRAMEBUFFER_SRGB);
     }
 
     public void disableGammaCorrection() {

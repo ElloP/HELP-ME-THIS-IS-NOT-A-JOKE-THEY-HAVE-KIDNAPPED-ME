@@ -15,5 +15,6 @@ public interface IReadInventory {
     List<Maybe<IReadItem>> readItems();
     List<Maybe<IReadItem>> readKeychain();
     Maybe<IReadItem> readItem(int index);
+    Maybe<IReadItem> readDefaultItem();
     boolean hasItem(IItem item);
 }

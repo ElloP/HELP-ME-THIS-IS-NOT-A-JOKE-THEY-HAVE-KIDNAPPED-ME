@@ -137,6 +137,11 @@ public class Inventory implements IInventory {
     }
 
     @Override
+    public Maybe<IReadItem> readDefaultItem() {
+        return Maybe.wrap(defaultItem);
+    }
+
+    @Override
     public boolean hasKey(IItem key) {
         for(Maybe<IItem> maybeKey : keychain){
             if(maybeKey.equals(Maybe.wrap(key))) {

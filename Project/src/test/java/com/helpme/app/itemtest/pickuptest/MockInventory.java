@@ -50,6 +50,11 @@ public class MockInventory implements IInventory {
     }
 
     @Override
+    public Maybe<IReadItem> readDefaultItem() {
+        return null;
+    }
+
+    @Override
     public boolean hasItem(IItem item) {
         return hasItem;
     }

@@ -69,6 +69,10 @@ public class PlayerController implements Observer {
                 case ROTATE_RIGHT:
                     player.rotateRight();
                     break;
+                case ATTACK:
+                    player.useAttack();
+                    System.out.println("HEFjapojfiajfojfpj");
+                    break;
             }
         }
     }
