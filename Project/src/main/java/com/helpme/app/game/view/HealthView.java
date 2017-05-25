@@ -30,7 +30,7 @@ public class HealthView extends GameObject {
         addChild(frame);
     }
 
-    public void setHealth(int healthAmt) {
+    public void setHealth(float healthAmt) {
         if(healthAmt > 100) {
             healthAmt = 100;
         } else if (healthAmt < 0) {

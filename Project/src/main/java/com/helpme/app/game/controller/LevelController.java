@@ -23,7 +23,7 @@ public class LevelController extends Scene {
     private HealthView healthView;
     private PlayerCameraView playerCameraView;
 
-    public LevelController(ILevel level, HealthView healthView, PlayerCameraView playerCameraView) {
+    public LevelController(ILevel level, PlayerCameraView playerCameraView, PlayerController playerController) {
         this.healthView = healthView;
         this.playerCameraView = playerCameraView;
 
@@ -37,22 +37,16 @@ public class LevelController extends Scene {
             body.addObserver(enemyController);
 
         }
-        this.healthView.setHealth(50);
-        addChild(this.healthView);
+        addChild(playerController);
 
     }
-    /*public void updateHealth(int newHealth) {
-        if (newHealth > 80) {
-            healthView.setTexture("healthView");
-        } else if (newHealth <= 80 && newHealth > 60) {
-            healthView.setTexture("health80");
-        }
-    }*/
 
     @Override
     public void draw(ICamera camera) {
         for (GameObject child : children) {
-            child.drawAll(playerCameraView.getCamera());
+            if (child.isActive()) {
+                child.drawAll(playerCameraView.getCamera());
+            }
         }
     }
 

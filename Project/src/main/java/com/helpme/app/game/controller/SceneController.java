@@ -23,7 +23,7 @@ import java.util.Observer;
 public class SceneController implements Observer {
     private Game game;
     private SaveLoad gameLoader;
-    private Observer playerController;
+    private PlayerController playerController;
     private Time time;
 
     public SceneController(Game game, SaveLoad gameLoader, Time time) {
@@ -57,9 +57,9 @@ public class SceneController implements Observer {
         IConsciousness player = loadedState.b;
         ILevel level = loadedState.a;
         PlayerCameraView playerCameraView = CameraViewFactory.createPlayerCameraView(player.readBody(), time);
-        Scene levelScene = ControllerFactory.createLevelController(level, playerCameraView);
-
         playerController = ControllerFactory.createPlayerController(playerCameraView, player);
+        Scene levelScene = ControllerFactory.createLevelController(level, playerCameraView, playerController);
+
         playerCameraView.addObserver(this);
         addAudioObserver(player.readBody(), level.readBodies());
         game.setActiveScene(levelScene);

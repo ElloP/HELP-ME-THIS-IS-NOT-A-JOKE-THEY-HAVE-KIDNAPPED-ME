@@ -18,7 +18,6 @@ public class PlayerCameraView extends CameraView {
 
     private float rotationDuration = .5f;
     private float movementDuration = .5f;
-
     private final float MOVE_LENGTH = 6.0f;
 
     public PlayerCameraView(ICamera camera, Time time) {
@@ -118,6 +117,10 @@ public class PlayerCameraView extends CameraView {
             if (Input.isKeyboardKeyPress(InputKey.SELECT)) {
                 setChanged();
                 notifyObservers(InputKey.SELECT);
+            }
+            if (Input.isKeyboardKeyPress(InputKey.SELFIE)) {
+                setChanged();
+                notifyObservers(InputKey.SELFIE);
             }
         }
     }

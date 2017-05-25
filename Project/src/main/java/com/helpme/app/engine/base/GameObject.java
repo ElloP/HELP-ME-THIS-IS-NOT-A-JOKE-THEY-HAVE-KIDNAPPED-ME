@@ -12,7 +12,9 @@ import java.util.Observable;
 public abstract class GameObject extends Observable {
     public Transform transform;
 
-    public List<GameObject> children;
+    protected List<GameObject> children;
+
+    protected boolean active = true;
 
     public GameObject() {
         transform = new Transform();
@@ -38,5 +40,9 @@ public abstract class GameObject extends Observable {
         for(GameObject child : children) {
             child.drawAll(camera);
         }
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }
