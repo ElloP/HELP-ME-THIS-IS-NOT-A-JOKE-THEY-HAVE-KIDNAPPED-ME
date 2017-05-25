@@ -9,6 +9,8 @@ import com.helpme.app.engine.sounds.sources.Source;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.level.ILevel;
+import com.helpme.app.game.view.BodyView;
+import com.helpme.app.game.view.HealthView;
 import com.helpme.app.game.view.UIObjectView;
 import com.helpme.app.game.view.camera.PlayerCameraView;
 import com.helpme.app.utils.mathl.Vector2f;
@@ -21,12 +23,12 @@ import java.util.Observer;
 /**
  * Created by Jesper on 2017-05-24.
  */
-public final class ControllerFactory {
+final class ControllerFactory {
     private ControllerFactory(){
 
     }
 
-    public static Observer createLevelAudioController(IReadBody playerBody, List<IReadBody> enemies) {
+    static Observer createLevelAudioController(IReadBody playerBody, List<IReadBody> enemies) {
         try {
             AudioHandler.init();
         } catch (Exception e) {
@@ -51,12 +53,18 @@ public final class ControllerFactory {
         return levelAudioController;
     }
 
-    public static Scene createLevelController(ILevel level, PlayerCameraView playerCameraView){
+    static Scene createLevelController(ILevel level, PlayerCameraView playerCameraView){
+        HealthView healthView1 = new HealthView(new Vector2f(1200, 800));
         UIObjectView healthView = new UIObjectView("health", new Vector2f(1300, 800), 200, 200);
-        return new LevelController(level, healthView, playerCameraView);
+        return new LevelController(level, healthView1, playerCameraView);
     }
 
-    public static Observer createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
+    static Observer createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
         return new PlayerController(playerCameraView, player);
     }
+
+    static Observer createEnemyController(BodyView bodyView) {
+        return new EnemyController(bodyView);
+    }
+
 }

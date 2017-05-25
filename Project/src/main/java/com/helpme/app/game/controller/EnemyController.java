@@ -25,7 +25,7 @@ public class EnemyController implements Observer{
                     enemyBody.setPosition(((IReadBody) o).readPosition());
                     break;
                 case DEAD:
-                    System.out.println("ffafa");
+                    System.out.println("--------------------------------------------------------------------------------");
                     break;
                 case HEALTH:
                     System.out.println("aaaaaaaaaaaaaaaaaa");

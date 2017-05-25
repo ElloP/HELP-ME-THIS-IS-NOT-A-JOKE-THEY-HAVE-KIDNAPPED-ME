@@ -118,6 +118,10 @@ public class PlayerCameraView extends CameraView {
                 setChanged();
                 notifyObservers(InputKey.ATTACK);
             }
+            if (Input.isKeyboardKeyPress(InputKey.SELECT)) {
+                setChanged();
+                notifyObservers(InputKey.SELECT);
+            }
         }
     }
 }

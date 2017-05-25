@@ -71,7 +71,10 @@ public class PlayerController implements Observer {
                     break;
                 case ATTACK:
                     player.useAttack();
-                    System.out.println("HEFjapojfiajfojfpj");
+                    break;
+                case SELECT:
+                    System.out.println("Trying to pick up");
+                    player.usePickupAll();
                     break;
             }
         }

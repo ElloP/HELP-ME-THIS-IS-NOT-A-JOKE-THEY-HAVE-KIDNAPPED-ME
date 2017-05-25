@@ -11,6 +11,7 @@ import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryF
 import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.concrete.Item;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.LevelFactory;
@@ -59,8 +60,8 @@ public class MakeLevel {
     }
     private static IConsciousness[] addEnemies(ILevel level){
         ArrayList<IConsciousness> enemyConsciousnesses = new ArrayList<>();
-        IBody enemy0 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(2, 9), Vector2f.WEST, 100);
-        IBody enemy1 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(5, 14), Vector2f.SOUTH, 100);
+        IBody enemy0 = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[]{ItemFactory.createKey("key0")}, ItemFactory.club(), null), new Vector2f(2, 9), Vector2f.WEST, 5);
+        IBody enemy1 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(5, 14), Vector2f.SOUTH, 5);
     //    IBody enemy2 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(1, 2), Vector2f.EAST, 100);
     //    IBody enemy3 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(3, 3), Vector2f.EAST, 100);
 

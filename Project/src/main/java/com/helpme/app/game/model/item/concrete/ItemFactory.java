@@ -30,7 +30,7 @@ public final class ItemFactory {
             case "Fists": return fists();
             case "Club": return club();
             case "Potion": return potion();
-            default: return nothing();
+            default: return new Key(item);
         }
     }
 
