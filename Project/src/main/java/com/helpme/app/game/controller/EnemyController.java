@@ -26,6 +26,7 @@ public class EnemyController implements Observer{
                     break;
                 case DEAD:
                     System.out.println("--------------------------------------------------------------------------------");
+                    enemyBody.kill();
                     break;
                 case HEALTH:
                     System.out.println("aaaaaaaaaaaaaaaaaa");

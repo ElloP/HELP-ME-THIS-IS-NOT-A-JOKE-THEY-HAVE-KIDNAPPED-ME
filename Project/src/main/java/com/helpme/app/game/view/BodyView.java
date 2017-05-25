@@ -58,4 +58,8 @@ public class BodyView extends GameObject {
         texture.bind();
         mesh3D.draw();
     }
+
+    public void kill() {
+        this.mesh3D.destroy();
+    }
 }
