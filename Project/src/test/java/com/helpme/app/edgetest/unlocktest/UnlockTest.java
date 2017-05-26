@@ -61,6 +61,6 @@ public class UnlockTest {
 
     @Test
     public void testUnlockUnlockedDoorWithoutKey(){
-        assert (new MockDoor().accept(new Unlock(mockKeyChain)));
+        assert (!new MockDoor().accept(new Unlock(mockKeyChain)));
     }
 }
