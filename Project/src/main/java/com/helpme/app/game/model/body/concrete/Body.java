@@ -39,6 +39,10 @@ public class Body extends Observable implements IBody {
         this.dialogue = dialogue;
 
     }
+    public Body(IInventory inventory, Vector2f position, Vector2f direction, Vector2f hitpoints, Vector2f startingPosition, IDialogue dialogue, boolean isDead){
+        this(inventory,position,direction,hitpoints,startingPosition,dialogue);
+        this.dead = isDead;
+    }
 
     @Override
     public void attack(ITarget target) {
@@ -144,7 +148,7 @@ public class Body extends Observable implements IBody {
 
     @Override
     public Body copy() {
-        return new Body(inventory.copy(), position.copy(), direction.copy(), readHitpoints(), startingPosition.copy(), dialogue.copy());
+        return new Body(inventory.copy(), position.copy(), direction.copy(), readHitpoints(), startingPosition.copy(), dialogue.copy(), dead);
     }
 
     @Override

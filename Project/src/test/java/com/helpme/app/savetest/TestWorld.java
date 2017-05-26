@@ -33,10 +33,10 @@ public class TestWorld {
     public TestWorld() {
         enemyConsciousnesses = new ArrayList<>();
         IBody player = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, 100);
-        IBody enemy0 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(1, 0), Vector2f.WEST, 100);
-        IBody enemy1 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(0, 3), Vector2f.SOUTH, 100);
-        IBody enemy2 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(1, 2), Vector2f.EAST, 100);
-        IBody enemy3 = BodyFactory.createBody(InventoryFactory.createInventory(null, ItemFactory.club(), null), new Vector2f(3, 3), Vector2f.EAST, 100);
+        IBody enemy0 = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[0], ItemFactory.club(), null), new Vector2f(1, 0), Vector2f.WEST, 100);
+        IBody enemy1 = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[0], ItemFactory.club(), null), new Vector2f(0, 3), Vector2f.SOUTH, 100);
+        IBody enemy2 = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[0], ItemFactory.club(), null), new Vector2f(1, 2), Vector2f.EAST, 100);
+        IBody enemy3 = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[0], ItemFactory.club(), null), new Vector2f(3, 3), Vector2f.EAST, 100);
 
         ILevel level = LevelFactory.createLevel(createEmptyTileSquare(4, 4), null, null, new Vector2f(0, 0));
 

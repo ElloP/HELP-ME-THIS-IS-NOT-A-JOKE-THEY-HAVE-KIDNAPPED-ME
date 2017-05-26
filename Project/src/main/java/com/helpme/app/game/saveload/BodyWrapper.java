@@ -35,7 +35,6 @@ public class BodyWrapper implements ILoadable<IBody> {
     }
 
     @XmlElement(name="dead")
-
     public boolean getDead() {
         return dead;
     }
@@ -85,6 +84,6 @@ public class BodyWrapper implements ILoadable<IBody> {
 
     @Override
     public IBody getObject() {
-        return BodyFactory.createBody(inventoryWrapper.getObject(), positionWrapper.getObject(), directionWrapper.getObject(), hitpointsWrapper.getObject());
+        return BodyFactory.createBody(inventoryWrapper.getObject(), positionWrapper.getObject(), directionWrapper.getObject(), hitpointsWrapper.getObject(), dead);
     }
 }

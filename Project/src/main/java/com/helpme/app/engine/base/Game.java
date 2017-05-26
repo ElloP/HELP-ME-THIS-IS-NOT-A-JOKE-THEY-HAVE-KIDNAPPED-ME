@@ -14,6 +14,8 @@ public abstract class Game {
         this.activeCamera = camera;
     }
 
+    public abstract void stop();
+
     public abstract void input(Time time);
 
     public abstract void update(Time time);

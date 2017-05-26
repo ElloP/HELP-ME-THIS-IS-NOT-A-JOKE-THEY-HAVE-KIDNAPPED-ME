@@ -153,6 +153,6 @@ public class Inventory implements IInventory {
 
     @Override
     public IInventory copy() {
-        return new Inventory(Copy.maybeList(items), defaultItem.copy(), Copy.maybeList(keychain));
+        return InventoryFactory.createInventory(items == null ? new ArrayList<>() : Copy.maybeList(items), defaultItem == null ? null : defaultItem.copy(), keychain == null ? new ArrayList<>() : Copy.maybeList(keychain));
     }
 }

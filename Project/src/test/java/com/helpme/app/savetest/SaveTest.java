@@ -193,7 +193,7 @@ public class SaveTest {
 
         IMemory memory = MemoryFactory.createMemory(shortTerm, longTerm);
 
-        body = new Body(null, Vector2f.ZERO, Vector2f.NORTH, new Vector2f(100,100), Vector2f.ZERO, null);
+        body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, new Vector2f(100,100), Vector2f.ZERO, null,false);
 
         level = new Level(null, Vector2f.ZERO, new HashMap<>(), new ArrayList<>());
 

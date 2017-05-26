@@ -56,7 +56,7 @@ public class MockInventory implements IInventory {
 
     @Override
     public Maybe<IReadItem> readDefaultItem() {
-        return null;
+        return Maybe.wrap(null);
     }
 
     @Override

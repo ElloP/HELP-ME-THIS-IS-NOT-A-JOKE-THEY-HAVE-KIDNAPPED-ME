@@ -98,6 +98,7 @@ public class EngineCore {
     }
 
     private void cleanUp() {
+        game.stop();
         Window.destroy();
         AudioHandler.cleanUp();
     }
