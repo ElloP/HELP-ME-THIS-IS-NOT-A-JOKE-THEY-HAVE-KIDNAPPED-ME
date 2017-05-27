@@ -18,10 +18,12 @@ public final class InventoryFactory {
     }
 
     public static IInventory createInventory(IItem[] items, IItem defaultItem, IItem[] keychain){
-        return new Inventory(items == null ? new ArrayList<>() : Copy.toMaybeList(items), defaultItem == null ? ItemFactory.nothing() : defaultItem, keychain == null ? new ArrayList<>() : Copy.toMaybeList(keychain));
+        return createInventory(items == null ? new ArrayList<>() : Copy.toMaybeList(items), defaultItem, keychain == null ? new ArrayList<>() : Copy.toMaybeList(keychain));
     }
 
     public static IInventory createInventory(List<Maybe<IItem>> items, IItem defaultItem, List<Maybe<IItem>> keychain){
-        return new Inventory(items, defaultItem, keychain);
+        return new Inventory(items == null ? new ArrayList<>() : items,
+                defaultItem == null ? ItemFactory.nothing() : defaultItem,
+                keychain == null ? new ArrayList<>() : keychain);
     }
 }

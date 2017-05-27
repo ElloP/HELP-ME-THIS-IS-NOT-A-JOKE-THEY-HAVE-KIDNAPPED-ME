@@ -13,6 +13,7 @@ import com.helpme.app.utils.maybe.Maybe;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,7 @@ public class TileWrapper implements ILoadable<ITile> {
         this.itemWrappers = new ItemWrapper[tileItems.size()];
         this.edgeWrappers = new HashMap<>();
         for (int i = 0; i < itemWrappers.length; i++) {
-            int index = i;
-            tileItems.get(index).run(item -> this.itemWrappers[index] = new ItemWrapper(item));
+            this.itemWrappers[i] = new ItemWrapper(tileItems.get(i));
         }
 
         for (Map.Entry<Vector2f, IEdge> entry : tile.readEdges().entrySet()) {
@@ -103,12 +103,10 @@ public class TileWrapper implements ILoadable<ITile> {
 
     @Override
     public ITile getObject() {
-        IItem[] tmp = null;
-        if (itemWrappers != null) {
-            tmp = new IItem[itemWrappers.length];
-            for (int i = 0; i < itemWrappers.length; i++) {
-                tmp[i] = itemWrappers[i].getObject();
-            }
+        List<Maybe<IItem>> items = new ArrayList<>();
+
+        for (int i = 0; i < itemWrappers.length; i++) {
+            items.add(itemWrappers[i].getObject());
         }
 
         Map<Vector2f, IEdge> edges = new HashMap<>();
@@ -116,7 +114,7 @@ public class TileWrapper implements ILoadable<ITile> {
             edges.put(entry.getKey().getObject(), entry.getValue().getObject());
         }
 
-        return TileFactory.createTile(tmp, edges);
+        return TileFactory.createTile(items, edges);
 
 
     }

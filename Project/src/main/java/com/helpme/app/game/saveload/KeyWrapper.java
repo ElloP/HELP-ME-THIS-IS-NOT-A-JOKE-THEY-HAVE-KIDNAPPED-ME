@@ -11,20 +11,19 @@ import com.helpme.app.utils.maybe.Nothing;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Created by Klas on 2017-04-29.
+ * Created by kopa on 2017-05-27.
  */
-public class ItemWrapper implements ILoadable<Maybe<IItem>> {
-
-    private String name = null;
-
+public class KeyWrapper implements ILoadable<Maybe<IItem>> {
+    private String name;
 
 
-    public ItemWrapper(){}
 
-    public ItemWrapper(Maybe<IReadItem> maybeItem){
-        maybeItem.run(item -> name = item.readName());
+    public KeyWrapper(){}
+
+    public KeyWrapper(IReadItem item){
+        name = item == null ? "Nothing" : item.readName();
     }
-    public ItemWrapper(String name){
+    public KeyWrapper(String name){
         this.name = name;
     }
 
@@ -43,6 +42,6 @@ public class ItemWrapper implements ILoadable<Maybe<IItem>> {
 
     @Override
     public Maybe<IItem> getObject() {
-        return name == null ? new Nothing<>() : new Just<>(ItemFactory.createItem(name)); //(TODO) klas. Create item from name
+        return name == "Nothing" ? new Nothing<>() : new Just<>(ItemFactory.createKey(name)); //(TODO) klas. Create item from name
     }
 }

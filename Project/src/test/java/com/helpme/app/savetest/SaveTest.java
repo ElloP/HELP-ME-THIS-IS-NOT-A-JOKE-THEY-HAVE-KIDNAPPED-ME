@@ -5,6 +5,7 @@ import com.helpme.app.game.model.body.concrete.Body;
 import com.helpme.app.game.model.body.concrete.BodyFactory;
 import com.helpme.app.game.model.body.inventory.IInventory;
 import com.helpme.app.game.model.body.inventory.IReadInventory;
+import com.helpme.app.game.model.body.inventory.concrete.Inventory;
 import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
@@ -16,17 +17,17 @@ import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryF
 import com.helpme.app.game.model.consciousness.concrete.Enemy;
 import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.item.IItem;
+import com.helpme.app.game.model.item.IReadItem;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.Level;
+import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.model.tile.concrete.TileFactory;
 import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.game.model.tile.edge.concrete.Door;
 import com.helpme.app.game.model.tile.edge.concrete.Opening;
 import com.helpme.app.game.model.tile.edge.concrete.Wall;
-import com.helpme.app.game.saveload.BodyWrapper;
-import com.helpme.app.game.saveload.SavePlayer;
-import com.helpme.app.game.saveload.SaveRoot;
-import com.helpme.app.game.saveload.TileWrapper;
+import com.helpme.app.game.saveload.*;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
@@ -57,28 +58,28 @@ public class SaveTest {
 
     @Before
     public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(SaveRoot.class,BodyWrapper.class);
-       // this.context = JAXBContext.newInstance(BodyWrapper.class);
+        this.context = JAXBContext.newInstance(SaveRoot.class, BodyWrapper.class);
+        // this.context = JAXBContext.newInstance(BodyWrapper.class);
     }
 
     @Test
     public void testMarshaller() throws JAXBException {
         items = new IItem[]{ItemFactory.club(), ItemFactory.fists(), null, null};
         inventory = InventoryFactory.createInventory(items, ItemFactory.fists(), new IItem[]{ItemFactory.createKey("Red Key")});
-        hitpoints = new Vector2f(100,50);
-        IBody Body = BodyFactory.createBody(inventory,Vector2f.EAST,Vector2f.WEST,hitpoints);
+        hitpoints = new Vector2f(100, 50);
+        IBody Body = BodyFactory.createBody(inventory, Vector2f.EAST, Vector2f.WEST, hitpoints);
         String fileTest = "test.xml";
         SavePlayer save = new SavePlayer();
-        save.marshall(Body,fileTest);
+        save.marshall(Body, fileTest);
 
     }
 
     @Test
     public void saveTest2() throws JAXBException {
         TestWorld mock = new TestWorld();
-       // mock.player.setPlayerPosition(new Vector2f(1,1));
+        // mock.player.setPlayerPosition(new Vector2f(1,1));
         IConsciousness[] enemy = mock.enemyConsciousnesses.toArray(new IConsciousness[mock.enemyConsciousnesses.size()]);
-        SaveRoot saveroot = new SaveRoot(mock.level,mock.player.getBody(), enemy);
+        SaveRoot saveroot = new SaveRoot(mock.level, mock.player.getBody(), enemy);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
         marshaller.marshal(saveroot, file);
@@ -89,74 +90,107 @@ public class SaveTest {
         ILevel level = loadroot.loadLevel();
         IConsciousness[] enemy1 = loadroot.loadEnemies();
 
-        Player player1 = new Player(player.getBody(),level);
-        assert(Math.round(player1.readBody().readCurrentHitpoints()) == Math.round(mock.player.readBody().readCurrentHitpoints()));
-        assert(Math.round(player1.readBody().readMaxHitpoints()) == Math.round(mock.player.readBody().readMaxHitpoints()));
+        Player player1 = new Player(player.getBody(), level);
+        assert (Math.round(player1.readBody().readCurrentHitpoints()) == Math.round(mock.player.readBody().readCurrentHitpoints()));
+        assert (Math.round(player1.readBody().readMaxHitpoints()) == Math.round(mock.player.readBody().readMaxHitpoints()));
         assert (level.getTiles().keySet().size() == mock.level.getTiles().keySet().size());
-        assert(enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
+        assert (enemy[0].readBody().readPosition().equals(enemy1[0].readBody().readPosition()));
 
     }
 
     @Test
+    public void testSaveInventory() throws JAXBException {
+        List<Maybe<IItem>> items = new ArrayList<>();
+        List<Maybe<IItem>> keys = new ArrayList<>();
+        File file = new File("test.xml");
+        List<Maybe<IReadItem>> loadedKeyChain;
+        Marshaller marshaller = this.context.createMarshaller();
+        Unmarshaller unmarshaller;
+        IInventory inventory;
+        InventoryWrapper inventoryWrapper;
+        IInventory loadedInventory;
+
+        items.add(new Just<>(ItemFactory.potion()));
+        items.add(new Just<>(ItemFactory.fists()));
+        items.add(new Just<>(ItemFactory.club()));
+        items.add(new Nothing<>());
+
+        keys.add(new Just<>(ItemFactory.createKey("key0")));
+        keys.add(new Just<>(ItemFactory.createKey("key1")));
+        keys.add(new Just<>(ItemFactory.createKey("key2")));
+        keys.add(new Nothing<>());
+
+        inventory = InventoryFactory.createInventory(items, ItemFactory.fists(), keys);
+
+        marshaller.marshal(new InventoryWrapper(inventory), file);
+
+        unmarshaller = this.context.createUnmarshaller();
+
+
+        inventoryWrapper = (InventoryWrapper) unmarshaller.unmarshal(file);
+        loadedInventory = inventoryWrapper.getObject();
+        loadedKeyChain = loadedInventory.readKeychain();
+
+        assert (loadedInventory.readItem(0).check(item -> item.equals(ItemFactory.potion())) &&
+                loadedInventory.readItem(1).check(item -> item.equals(ItemFactory.fists())) &&
+                loadedInventory.readItem(2).check(item -> item.equals(ItemFactory.club())) &&
+                loadedInventory.readItem(3).isNothing() &&
+                loadedInventory.readDefaultItem().check(item -> item.equals(ItemFactory.fists())) &&
+                loadedKeyChain.contains(new Just<>((IReadItem) ItemFactory.createKey("key0"))) &&
+                loadedKeyChain.contains(new Just<>((IReadItem) ItemFactory.createKey("key1"))) &&
+                loadedKeyChain.contains(new Just<>((IReadItem) ItemFactory.createKey("key0"))));
+    }
+
+    @Test
     public void testSaveBody() throws JAXBException {
-        List<Maybe<IItem>> mockItems = new ArrayList<>();
-        List<Maybe<IItem>> mockKeys = new ArrayList<>();
-        IInventory mockInventory = new MockInventory(mockItems, mockKeys);
-        IBody mockBody = new MockBody(mockInventory);
+        IBody body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, 100);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
         Unmarshaller unmarshaller;
         BodyWrapper bodyWrapper;
         IBody loadedBody;
-        IReadInventory loadedInventory;
 
-        mockItems.add(new Just<>(ItemFactory.potion()));
-        mockItems.add(new Just<>(ItemFactory.fists()));
-        mockItems.add(new Just<>(ItemFactory.club()));
-        mockItems.add(new Nothing<>());
-
-        mockKeys.add(new Just<>(new MockItem("key0")));
-        mockKeys.add(new Just<>(new MockItem("key1")));
-        mockKeys.add(new Just<>(new MockItem("key2")));
-        mockKeys.add(new Nothing<>());
-
-        marshaller.marshal(new BodyWrapper(mockBody), file);
+        marshaller.marshal(new BodyWrapper(body), file);
 
         unmarshaller = this.context.createUnmarshaller();
 
         bodyWrapper = (BodyWrapper) unmarshaller.unmarshal(file);
         loadedBody = bodyWrapper.getObject();
-        assert(loadedBody.readHitpoints().equals(new Vector2f(100,100)));
 
-        loadedInventory = loadedBody.readInventory();
-        assert(loadedInventory.readItem(0).getValue().readName().equals("Potion"));
+
+        assert (loadedBody.readHitpoints().equals(new Vector2f(100, 100)) &&
+                loadedBody.readPosition().equals(Vector2f.ZERO) &&
+                loadedBody.readDirection().equals(Vector2f.NORTH) &&
+                loadedBody.isDead() == false);
+
     }
 
     @Test
     public void testSaveTile() throws JAXBException {
 
-        List<Maybe<IItem>> mockItems = new ArrayList<>();
-        Map<Vector2f, IEdge> mockEdges = new HashMap<>();
-        MockTile mockTile;
+        List<Maybe<IItem>> items = new ArrayList<>();
+        Map<Vector2f, IEdge> edges = new HashMap<>();
+        ITile tile;
         File file;
         Marshaller marshaller;
         Unmarshaller unmarshaller;
         TileWrapper tileWrapper;
+        ITile loadedTile;
 
-        mockItems.add(new Just<>(new MockItem("item0")));
-        mockItems.add(new Just<>(new MockItem("item1")));
-        mockItems.add(new Just<>(new MockItem("item2")));
+        items.add(new Just<>(ItemFactory.club()));
+        items.add(new Just<>(ItemFactory.potion()));
+        items.add(new Just<>(ItemFactory.club()));
 
-        mockEdges.put(Vector2f.NORTH, new Wall());
-        mockEdges.put(Vector2f.EAST, new Opening());
-        mockEdges.put(Vector2f.SOUTH, new Door(true, new MockItem("key")));
-        mockEdges.put(Vector2f.WEST, new Wall());
+        edges.put(Vector2f.NORTH, new Wall());
+        edges.put(Vector2f.EAST, new Opening());
+        edges.put(Vector2f.SOUTH, new Door(true, ItemFactory.createKey("key")));
+        edges.put(Vector2f.WEST, new Wall());
 
-        mockTile = new MockTile(mockItems, mockEdges);
+        tile = TileFactory.createTile(items, edges);
 
         file = new File("test.xml");
         marshaller = this.context.createMarshaller();
-        marshaller.marshal(new TileWrapper(mockTile, Vector2f.ZERO), file);
+        marshaller.marshal(new TileWrapper(tile, Vector2f.ZERO), file);
 
         unmarshaller = this.context.createUnmarshaller();
 
@@ -193,7 +227,7 @@ public class SaveTest {
 
         IMemory memory = MemoryFactory.createMemory(shortTerm, longTerm);
 
-        body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, new Vector2f(100,100), Vector2f.ZERO, null,false);
+        body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, new Vector2f(100, 100), Vector2f.ZERO, null, false);
 
         level = new Level(null, Vector2f.ZERO, new HashMap<>(), new ArrayList<>());
 

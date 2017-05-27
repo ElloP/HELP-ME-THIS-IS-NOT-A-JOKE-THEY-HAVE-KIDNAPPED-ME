@@ -42,6 +42,10 @@ public final class TileFactory {
             }
         }
 
-        return new Tile(itemList, edges == null ? new HashMap<>() : edges);
+        return createTile(itemList, edges);
+    }
+
+    public static ITile createTile(List<Maybe<IItem>> items, Map<Vector2f, IEdge> edges) {
+        return new Tile(items == null ? new ArrayList<>() : items, edges == null ? new HashMap<>() : edges);
     }
 }

@@ -6,6 +6,7 @@ import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.game.model.tile.edge.concrete.EdgeFactory;
 import com.helpme.app.game.saveload.visitor.GetEdgeInfo;
 import com.helpme.app.utils.interfaces.ILoadable;
+import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple3;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class EdgeWrapper implements ILoadable<IEdge> {
     protected String type;
     private Boolean locked;
-    private ItemWrapper key;
+    private KeyWrapper key;
 
 
     public EdgeWrapper() {
@@ -27,7 +28,7 @@ public class EdgeWrapper implements ILoadable<IEdge> {
         Tuple3<String, Boolean, IReadItem> edgeInfo = edge.accept(new GetEdgeInfo());
         type = edgeInfo.a;
         locked = edgeInfo.b;
-        key = new ItemWrapper(edgeInfo.c);
+        key = new KeyWrapper(edgeInfo.c);
     }
 
     @XmlElement(name = "type")
@@ -59,11 +60,11 @@ public class EdgeWrapper implements ILoadable<IEdge> {
     }
 
     @XmlElement(name = "key")
-    public ItemWrapper getKey() {
+    public KeyWrapper getKey() {
         return key;
     }
 
-    public void setKey(ItemWrapper key) {
+    public void setKey(KeyWrapper key) {
         this.key = key;
     }
 
@@ -71,7 +72,7 @@ public class EdgeWrapper implements ILoadable<IEdge> {
     public IEdge getObject() {
         switch (type) {
             case "door":
-                return EdgeFactory.createDoor(locked, key.getObject());
+                return EdgeFactory.createDoor(locked, key.getObject().getValue());
             case "opening":
                 return EdgeFactory.createOpening();
             case "wall":
