@@ -10,14 +10,16 @@ import static org.lwjgl.openal.AL10.AL_PITCH;
  */
 public class Source {
     private int sourceId;
+    private int buffer;
 
-    public Source(){
+    public Source(int buffer){
         sourceId = AL10.alGenSources();
         setVolume(1);
         setPitch(1);
+        this.buffer = buffer;
     }
 
-    public void play(int buffer) {
+    public void play() {
         AL10.alSourcei(sourceId, AL10.AL_BUFFER, buffer);
         AL10.alSourcePlay(sourceId);
     }

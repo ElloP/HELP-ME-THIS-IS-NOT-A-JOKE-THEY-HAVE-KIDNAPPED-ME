@@ -4,7 +4,6 @@ import com.helpme.app.engine.base.Camera;
 import com.helpme.app.engine.base.Game;
 import com.helpme.app.engine.base.Scene;
 import com.helpme.app.engine.base.Time;
-import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.concrete.Player;
@@ -85,6 +84,7 @@ public class GameController extends Game implements Observer {
     private void initGame(Tuple3<ILevel, Player, IConsciousness[]> loadedState) {
         IConsciousness player = loadedState.b;
         ILevel level = loadedState.a;
+        IConsciousness[] enemies = loadedState.c;
         IReadBody playerBody = player.readBody();
         activeCamera = new Camera(playerBody.readPosition(), playerBody.readDirection());
         PlayerCameraView playerCameraView = CameraViewFactory.createPlayerCameraView(activeCamera, time);
@@ -94,17 +94,18 @@ public class GameController extends Game implements Observer {
         Scene levelScene = ControllerFactory.createLevelController(level, playerCameraView, playerController);
 
         playerCameraView.addObserver(this);
-        addAudioObserver(player.readBody(), level.readBodies());
+        addAudioObserver(player, enemies);
 
         this.setActiveScene(levelScene);
         currentState = loadedState;
     }
 
-    private void addAudioObserver(IReadBody playerBody, List<IReadBody> bodies) {
-        Observer levelAudioController = ControllerFactory.createLevelAudioController(playerBody, bodies);
-        for (IReadBody body : bodies) {
-            body.addObserver(levelAudioController);
+    private void addAudioObserver(IConsciousness player, IConsciousness[] enemies) {
+        Observer levelAudioController = ControllerFactory.createLevelAudioController(player, enemies);
+        for (IConsciousness enemy : enemies) {
+            enemy.addObserver(levelAudioController);
         }
+        player.addObserver(levelAudioController);
     }
 
     @Override

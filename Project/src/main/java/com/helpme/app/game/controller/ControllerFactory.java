@@ -7,17 +7,17 @@ import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.view.BodyView;
 import com.helpme.app.game.view.HealthView;
-import com.helpme.app.game.view.UIObjectView;
 import com.helpme.app.game.view.camera.PlayerCameraView;
 import com.helpme.app.game.view.resources.Resources;
 import com.helpme.app.game.view.sources.AbstractBodySource;
 import com.helpme.app.game.view.sources.BodySource;
-import com.helpme.app.game.view.sources.PlayerSource;
+import com.helpme.app.game.view.sources.PlayerBodySource;
 import com.helpme.app.game.view.sources.Source;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observer;
 
@@ -29,16 +29,28 @@ final class ControllerFactory {
 
     }
 
-    public static Observer createLevelAudioController(IReadBody playerBody, List<IReadBody> enemies) {
-        AudioHandler.setListenerPos(playerBody.readPosition().x, playerBody.readPosition().y, 0);
-        Maybe<Integer> walkBuffer = Resources.getSound("footstep");
-        Maybe<Integer> groanBuffer = Resources.getSound("groan");
+    public static Observer createLevelAudioController(IConsciousness player, IConsciousness[] enemies) {
+        AudioHandler.setListenerPos(player.readBody().readPosition().x, player.readBody().readPosition().y, 0);
+        final Source[] walkSource = new Source[1];
+        Resources.getSound("footstep").run(b -> walkSource[0] = new Source(b));
+        final Source[] groanSource = new Source[1];
+        Resources.getSound("groan").run(b -> groanSource[0] = new Source(b));
+        final Source[] defaultSource = new Source[1];
+        Resources.getSound("default").run(b -> defaultSource[0] = new Source(b));
+        final Source[] blockedSource = new Source[1];
+        Resources.getSound("wallMove").run(b -> blockedSource[0] = new Source(b));
+
+        HashMap<String, Source> sourceMap = new HashMap<>();
+        sourceMap.put(AbstractBodySource.WALKING, walkSource[0]);
+        sourceMap.put(AbstractBodySource.BREATHING, groanSource[0]);
+        sourceMap.put(AbstractBodySource.BLOCKED, blockedSource[0]);
+
 
         ArrayList<AbstractBodySource> bodySources = new ArrayList<>();
-        for (IReadBody body : enemies) {
-            bodySources.add(new BodySource(body, new Source(), walkBuffer.isJust() ? walkBuffer.getValue() : 0, -1, groanBuffer.isJust() ? walkBuffer.getValue() : 0, body.readPosition().x, body.readPosition().y, 0));
+        for (IConsciousness enemy : enemies) {
+            bodySources.add(new BodySource(enemy.readBody(), enemy.readBody().readPosition().x, enemy.readBody().readPosition().y, 0, sourceMap, defaultSource[0]));
         }
-        bodySources.add(new PlayerSource(playerBody, new Source(), walkBuffer.isJust() ? walkBuffer.getValue() : 0, -1, groanBuffer.isJust() ? groanBuffer.getValue() : 0, playerBody.readPosition()));
+        bodySources.add(new PlayerBodySource(player.readBody(), player.readBody().readPosition().x, player.readBody().readPosition().y, 0, sourceMap, defaultSource[0]));
         LevelAudioController levelAudioController = new LevelAudioController(bodySources);
         return levelAudioController;
     }

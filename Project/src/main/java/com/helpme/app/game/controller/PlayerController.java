@@ -55,6 +55,9 @@ public class PlayerController extends GameObject implements Observer {
                 case HEALTH:
                     healthView.setHealth(player.readBody().readCurrentHitpoints());
                     break;
+                case BLOCKED:
+                    System.out.println("I am being blocked");
+                    break;
                 default:
                     break;
             }

@@ -43,6 +43,8 @@ public final class Resources {
             {
                 put("footstep", AudioHandler.loadSound(RESOURCES_PATH + "sounds/Cowboy.wav"));
                 put("groan", AudioHandler.loadSound(RESOURCES_PATH + "sounds/Groan.wav"));
+                put("default", AudioHandler.loadSound(RESOURCES_PATH + "sounds/Woah.wav"));
+                put("wallMove", AudioHandler.loadSound(RESOURCES_PATH + "sounds/WallMove.wav"));
             }
         };
     }
