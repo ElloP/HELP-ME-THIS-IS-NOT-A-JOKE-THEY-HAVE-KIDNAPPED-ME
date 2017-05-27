@@ -22,6 +22,7 @@ public class Source {
     public void play() {
         AL10.alSourcei(sourceId, AL10.AL_BUFFER, buffer);
         AL10.alSourcePlay(sourceId);
+        System.out.println("Playing a sound. \n My source id is: " + sourceId + "\n My buffer is: " + buffer);
     }
 
     public void delete(){

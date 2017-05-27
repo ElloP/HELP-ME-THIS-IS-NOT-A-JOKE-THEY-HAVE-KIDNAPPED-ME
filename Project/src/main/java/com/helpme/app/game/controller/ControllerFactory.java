@@ -35,10 +35,10 @@ final class ControllerFactory {
         Resources.getSound("footstep").run(b -> walkSource[0] = new Source(b));
         final Source[] groanSource = new Source[1];
         Resources.getSound("groan").run(b -> groanSource[0] = new Source(b));
-        final Source[] defaultSource = new Source[1];
-        Resources.getSound("default").run(b -> defaultSource[0] = new Source(b));
         final Source[] blockedSource = new Source[1];
         Resources.getSound("wallMove").run(b -> blockedSource[0] = new Source(b));
+        final Source[] defaultSource = new Source[1];
+        Resources.getSound("default").run(b -> defaultSource[0] = new Source(b));
 
         HashMap<String, Source> sourceMap = new HashMap<>();
         sourceMap.put(AbstractBodySource.WALKING, walkSource[0]);
