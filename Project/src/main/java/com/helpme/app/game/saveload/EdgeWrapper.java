@@ -28,7 +28,7 @@ public class EdgeWrapper implements ILoadable<IEdge> {
         Tuple3<String, Boolean, IReadItem> edgeInfo = edge.accept(new GetEdgeInfo());
         type = edgeInfo.a;
         locked = edgeInfo.b;
-        key = new KeyWrapper(edgeInfo.c);
+        key = new KeyWrapper(Maybe.wrap(edgeInfo.c));
     }
 
     @XmlElement(name = "type")

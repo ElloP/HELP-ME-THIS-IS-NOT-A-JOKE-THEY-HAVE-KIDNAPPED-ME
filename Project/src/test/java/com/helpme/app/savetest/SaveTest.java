@@ -131,14 +131,17 @@ public class SaveTest {
         loadedInventory = inventoryWrapper.getObject();
         loadedKeyChain = loadedInventory.readKeychain();
 
-        assert (loadedInventory.readItem(0).check(item -> item.equals(ItemFactory.potion())) &&
+        assert (loadedInventory.readSize() == 4 &&
+                loadedInventory.readItem(0).check(item -> item.equals(ItemFactory.potion())) &&
                 loadedInventory.readItem(1).check(item -> item.equals(ItemFactory.fists())) &&
                 loadedInventory.readItem(2).check(item -> item.equals(ItemFactory.club())) &&
                 loadedInventory.readItem(3).isNothing() &&
                 loadedInventory.readDefaultItem().check(item -> item.equals(ItemFactory.fists())) &&
-                loadedKeyChain.contains(new Just<>((IReadItem) ItemFactory.createKey("key0"))) &&
-                loadedKeyChain.contains(new Just<>((IReadItem) ItemFactory.createKey("key1"))) &&
-                loadedKeyChain.contains(new Just<>((IReadItem) ItemFactory.createKey("key0"))));
+                loadedKeyChain.size() == 4 &&
+                loadedKeyChain.get(0).equals(new Just<>((IReadItem) ItemFactory.createKey("key0"))) &&
+                loadedKeyChain.get(1).equals(new Just<>((IReadItem) ItemFactory.createKey("key1"))) &&
+                loadedKeyChain.get(2).equals(new Just<>((IReadItem) ItemFactory.createKey("key2"))) &&
+                loadedKeyChain.get(3).isNothing());
     }
 
     @Test

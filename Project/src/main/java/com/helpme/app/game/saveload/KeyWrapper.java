@@ -14,14 +14,14 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by kopa on 2017-05-27.
  */
 public class KeyWrapper implements ILoadable<Maybe<IItem>> {
-    private String name;
+    private String name = null;
 
 
 
     public KeyWrapper(){}
 
-    public KeyWrapper(IReadItem item){
-        name = item == null ? "Nothing" : item.readName();
+    public KeyWrapper(Maybe<IReadItem> maybeKey){
+        maybeKey.run(key -> name = key.readName());
     }
     public KeyWrapper(String name){
         this.name = name;
@@ -42,6 +42,6 @@ public class KeyWrapper implements ILoadable<Maybe<IItem>> {
 
     @Override
     public Maybe<IItem> getObject() {
-        return name == "Nothing" ? new Nothing<>() : new Just<>(ItemFactory.createKey(name)); //(TODO) klas. Create item from name
+        return name == null ? new Nothing<>() : new Just<>(ItemFactory.createKey(name)); //(TODO) klas. Create item from name
     }
 }

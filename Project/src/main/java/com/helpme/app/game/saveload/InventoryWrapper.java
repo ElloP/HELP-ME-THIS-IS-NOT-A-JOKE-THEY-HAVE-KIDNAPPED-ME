@@ -40,8 +40,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
         }
 
         for (int i = 0; i < inventoryKeys.size(); i++) {
-            int index = i;
-            inventoryKeys.get(i).run(item -> this.keyWrappers[index] = new KeyWrapper(item));
+            this.keyWrappers[i] = new KeyWrapper(inventoryKeys.get(i));
         }
     }
 
