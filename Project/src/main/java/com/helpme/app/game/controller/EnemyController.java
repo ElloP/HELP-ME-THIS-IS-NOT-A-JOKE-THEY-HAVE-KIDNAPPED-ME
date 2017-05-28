@@ -9,6 +9,7 @@ import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-05-25.
+ * An observer class that observes an enemy and updates the a BodyView.
  */
 public class EnemyController implements Observer{
     private BodyView enemyBody;

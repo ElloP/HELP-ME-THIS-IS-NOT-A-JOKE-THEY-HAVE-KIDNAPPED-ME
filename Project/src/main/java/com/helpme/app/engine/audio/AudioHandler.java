@@ -17,12 +17,17 @@ import static org.lwjgl.openal.EXTEfx.ALC_MAX_AUXILIARY_SENDS;
 
 /**
  * Created by Jesper on 2017-04-21.
+ * Class that sets up a lot of the groundwork for the audio using ALC so that it is possible to play sounds.
  */
 public class AudioHandler {
     private static final String PATH = new File("").getAbsolutePath();
 
     private static List<Integer> buffers = new ArrayList<>();
     private static long device;
+
+    private AudioHandler() {
+
+    }
 
     public static void init() throws ExceptionInInitializerError {
 
