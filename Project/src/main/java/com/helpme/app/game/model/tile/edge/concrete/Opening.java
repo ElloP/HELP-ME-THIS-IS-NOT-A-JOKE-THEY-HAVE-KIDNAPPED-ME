@@ -31,4 +31,14 @@ public class Opening implements IOpening {
     public IEdge copy() {
         return new Opening();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Opening;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

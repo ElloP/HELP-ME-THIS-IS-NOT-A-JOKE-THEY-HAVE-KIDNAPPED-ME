@@ -8,6 +8,7 @@ import com.helpme.app.utils.mathl.Vector3f;
  * Authored by Olle on 2017-04-11.
  */
 
+//Note(Olle): the transform class keeps track of an objects rotation, position and scale
 public class Transform {
     // ----------- Transform variables -----------
     private Transform parent;
@@ -88,7 +89,11 @@ public class Transform {
 
     // ----------- Transform operations (mostly setters) -----------
 
-    public Matrix4f getModelMatrix() { //Note(Olle): combine a matrix for the translation, rotation and scale of a transform
+    /* Note(Olle): combine a matrix for the translation, rotation and scale of a transform
+     * thus translating objects into world space, rendering the in set positions, rotations
+     * and scales in the rendered world
+     */
+    public Matrix4f getModelMatrix() {
         Matrix4f transformMatrix = new Matrix4f()
                 .translate(position)
                 .rotate(rotation)
@@ -99,10 +104,15 @@ public class Transform {
         return transformMatrix;
     }
 
+    /* Note(Olle): gets the perspective matrix used to translate objects into
+     * clip space, set positions on the end users screen. Perspective matrix
+     * enables 3d objects to be rendered
+     */
     public static Matrix4f getPerspectiveMatrix(float fov, float width, float height, float zNear, float zFar) {
         return new Matrix4f().perspective(fov, width/height, zNear, zFar);
     }
 
+    //Note(Olle): the orthographic projection matrix is used to render 2d objects on the screen, used for UI
     public static Matrix4f getOrthoMatrix(float left, float right, float bottom, float top, float zNear, float zFar) {
         return new Matrix4f().ortho(left, right, bottom, top, zNear, zFar);
     }

@@ -10,6 +10,8 @@ import java.nio.ByteBuffer;
 /**
  * Authored by Olle on 2017-04-19.
  */
+
+//Note(Olle): this class loads an image and creates a texture from it, ready to be used by OpenGL
 public class TextureLoader {
     private static final String PATH = new File("").getAbsolutePath();
 

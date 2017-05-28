@@ -6,6 +6,8 @@ import com.helpme.app.game.model.tile.IReadTile;
 import com.helpme.app.game.model.tile.ITile;
 import com.helpme.app.game.model.tile.concrete.TileFactory;
 import com.helpme.app.game.model.tile.edge.IEdge;
+import com.helpme.app.game.saveload.edge.EdgeWrapper;
+import com.helpme.app.game.saveload.item.ItemWrapper;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
@@ -25,8 +27,15 @@ import java.util.Map;
 @XmlRootElement(name="tile")
 public class TileWrapper implements ILoadable<ITile> {
 
+    @XmlElement(name = "position")
     private Vector2Wrapper positionWrapper;
+
+    @XmlElementWrapper(name = "items")
+    @XmlElement(name = "item")
     private ItemWrapper[] itemWrappers;
+
+    @XmlElementWrapper(name = "edges")
+    @XmlElement(name = "edge")
     private Map<Vector2Wrapper, EdgeWrapper> edgeWrappers;
 
 
@@ -48,68 +57,15 @@ public class TileWrapper implements ILoadable<ITile> {
         }
     }
 
-    @XmlElement(name = "position")
-    public Vector2Wrapper getPosition() {
-        return this.positionWrapper;
-    }
-
-    public void setPosition(Vector2Wrapper pos) {
-        this.positionWrapper = pos;
-
-    }
-
-
-
-    @XmlElementWrapper(name="itemWrappers")
-    @XmlElement(name = "item")
-    public ItemWrapper[] getItems() {
-        return this.itemWrappers.clone();
-    }
-
-    public void setItems(ItemWrapper[] itemWrappers) {
-        this.itemWrappers = new ItemWrapper[itemWrappers.length];
-        for (int i = 0; i < itemWrappers.length; i++) {
-            this.itemWrappers[i] = new ItemWrapper(itemWrappers[i].getName());
-        }
-    }
-
-    @XmlElementWrapper(name="edges")
-    @XmlElement(name = "edge")
-    public Map<Vector2Wrapper, EdgeWrapper> getEdges() {
-        return this.edgeWrappers;
-    }
-
-    public void setEdges(Map<Vector2Wrapper, EdgeWrapper> edges) {
-        this.edgeWrappers = edges;
-
-    }
-
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("Tile at ").append(positionWrapper);
-        if (itemWrappers != null) {
-            for (ItemWrapper item : itemWrappers) {
-                if (item != null) result.append("\nItem: ").append(item.getName());
-            }
-        }
-
-        if(edgeWrappers != null){
-            for(Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()){
-                if(entry != null) result.append("\nEdge: ").append(entry.getValue().toString()).append(" facing ").append(entry.getKey().toString());
-            }
-        }
-        return result.toString();
-    }
-
     @Override
     public ITile getObject() {
         List<Maybe<IItem>> items = new ArrayList<>();
+        Map<Vector2f, IEdge> edges = new HashMap<>();
 
         for (ItemWrapper itemWrapper : itemWrappers) {
             items.add(itemWrapper.getObject());
         }
 
-        Map<Vector2f, IEdge> edges = new HashMap<>();
         for (Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()) {
             edges.put(entry.getKey().getObject(), entry.getValue().getObject());
         }

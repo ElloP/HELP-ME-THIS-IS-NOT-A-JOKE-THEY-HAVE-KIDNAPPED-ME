@@ -6,6 +6,7 @@ import com.helpme.app.utils.mathl.Vector3f;
  * Authored by Olle on 2017-05-15.
  */
 
+//Note(Olle): this class provides methods for interpolating a vector from one point to another in a set time
 public class Lerper {
     private Vector3f startPoint;
     private Vector3f endPoint;

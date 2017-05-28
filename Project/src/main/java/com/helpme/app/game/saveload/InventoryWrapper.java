@@ -6,6 +6,8 @@ import com.helpme.app.game.model.body.inventory.IReadInventory;
 import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.saveload.item.ItemWrapper;
+import com.helpme.app.game.saveload.item.KeyWrapper;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.maybe.Maybe;
 
@@ -21,8 +23,15 @@ import java.util.List;
 @XmlRootElement(name = "inventory")
 public class InventoryWrapper implements ILoadable<IInventory> {
 
+    @XmlElement(name = "default_weapon")
     private ItemWrapper defaultItemWrapper;
+
+    @XmlElementWrapper(name = "items")
+    @XmlElement(name = "item")
     private ItemWrapper[] itemWrappers;
+
+    @XmlElementWrapper(name = "keychain")
+    @XmlElement(name = "key")
     private KeyWrapper[] keyWrappers;
 
     public InventoryWrapper() {
@@ -42,58 +51,6 @@ public class InventoryWrapper implements ILoadable<IInventory> {
         for (int i = 0; i < inventoryKeys.size(); i++) {
             this.keyWrappers[i] = new KeyWrapper(inventoryKeys.get(i));
         }
-    }
-
-    @XmlElement(name = "default_weapon")
-    public ItemWrapper getDefaultItem() {
-        return defaultItemWrapper;
-    }
-
-    public void setDefaultItem(ItemWrapper itemWrapper) {
-        this.defaultItemWrapper = itemWrapper;
-    }
-
-    @XmlElementWrapper(name = "keys")
-    @XmlElement(name = "key")
-    public KeyWrapper[] getKeys() {
-        return keyWrappers == null ? null : keyWrappers.clone();
-    }
-
-    public void setKeys(KeyWrapper[] keys) {
-        this.keyWrappers = new KeyWrapper[keys.length];
-        for (int i = 0; i < keys.length; i++) {
-            this.keyWrappers[i] = new KeyWrapper(keys[i].getName());
-        }
-    }
-
-    @XmlElementWrapper(name = "items")
-    @XmlElement(name = "item")
-    public ItemWrapper[] getItems() {
-        return itemWrappers == null ? null : itemWrappers.clone();
-    }
-
-    public void setItems(ItemWrapper[] items) {
-        this.itemWrappers = new ItemWrapper[items.length];
-        for (int i = 0; i < items.length; i++) {
-            this.itemWrappers[i] = new ItemWrapper(items[i].getName());
-        }
-    }
-
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\nInventory: ");
-
-        if (itemWrappers != null) {
-            for (ItemWrapper item : itemWrappers) {
-                if (item != null) result.append("\n\tItem:\t").append(item.getName());
-            }
-        }
-        if (keyWrappers != null) {
-            for (KeyWrapper key : keyWrappers) {
-                if (key != null) result.append("\n\tKey:\t").append(key.getName());
-            }
-        }
-        return result.toString();
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.helpme.app.utils.mathl.Matrix4f;
 /**
  * Authored by Olle on 2017-04-21.
  */
+
+//Note(Olle): the default shader, with the default variables
 public class DefaultShader extends Shader {
 
     private static DefaultShader ds;

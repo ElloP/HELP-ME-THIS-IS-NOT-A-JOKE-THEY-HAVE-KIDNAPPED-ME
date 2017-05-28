@@ -35,6 +35,9 @@ public class Mesh3D implements Mesh {
     }
 
     private void addVertices(Vertex3D[] vertices, int[] indices) {
+        /* Note(Olle): creates a vertex and element buffer and sends the data to the graphics card to be processed
+         * also creates a vao that is used later to load the vertex and element buffer while rendering
+         */
         vertexCount = indices.length;
 
         FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertexCount * Vertex3D.VERTEXSIZE);
@@ -66,6 +69,7 @@ public class Mesh3D implements Mesh {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+        //Note(Olle): erase the floatbuffers from memory, preventing memory leaks
         MemoryUtil.memFree(vertexBuffer);
         MemoryUtil.memFree(indexBuffer);
     }

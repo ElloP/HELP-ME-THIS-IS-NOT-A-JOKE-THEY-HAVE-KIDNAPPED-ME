@@ -20,6 +20,7 @@ public class Texture {
     private int width;
     private  int height;
 
+    //Note(Olle): enables mipmapping, causing textures further away from the camera to be rendered as smaller images
     public void enableMipMapping() {
         mipMapping = true;
     }
@@ -28,6 +29,7 @@ public class Texture {
         mipMapping = false;
     }
 
+    //Note(Olle): activates the current texture for rendering
     public void bind() {
         glBindTexture(GL_TEXTURE_2D, id);
     }
@@ -43,8 +45,10 @@ public class Texture {
 
         bind();
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height ,0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+            //Note(Olle): setting the magnification filters
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, maxFilter);
+            //Note(Olle): setting the texture wrapping settings
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT);
             if(mipMapping) {

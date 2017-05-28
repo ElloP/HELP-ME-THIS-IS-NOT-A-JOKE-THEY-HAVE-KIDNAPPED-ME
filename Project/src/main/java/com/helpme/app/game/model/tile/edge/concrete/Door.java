@@ -53,5 +53,15 @@ public class Door implements IDoor {
     public IEdge copy() {
         return new Door(locked, key.copy());
     }
+
+    @Override
+    public boolean equals(Object o){
+        return o instanceof Door && ((Door) o).locked == locked && ((Door) o).key.equals(key);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
 

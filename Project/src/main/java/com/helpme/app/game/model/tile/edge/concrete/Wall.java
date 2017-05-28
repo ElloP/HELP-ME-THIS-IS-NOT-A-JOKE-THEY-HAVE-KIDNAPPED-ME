@@ -32,4 +32,14 @@ public class Wall implements IWall {
     public IEdge copy() {
         return new Wall();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Wall;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

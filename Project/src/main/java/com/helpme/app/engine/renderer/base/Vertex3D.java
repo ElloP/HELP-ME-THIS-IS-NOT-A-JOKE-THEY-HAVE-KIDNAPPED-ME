@@ -9,6 +9,7 @@ import java.nio.FloatBuffer;
 /**
  * Authored by Olle on 2017-04-19.
  */
+//Note(Olle): a point in 3d space complete with texture coordinates to map against the texture position on a given object
 public class Vertex3D implements Vertex {
     public final static int VERTEXSIZE = 5; //NOTE(Olle): Number of floats in a vertex
 

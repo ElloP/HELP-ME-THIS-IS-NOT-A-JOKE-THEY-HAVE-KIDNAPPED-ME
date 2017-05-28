@@ -15,11 +15,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="Body")
 public class BodyWrapper implements ILoadable<IBody> {
+    @XmlElement(name = "hitpoints")
     private Vector2Wrapper hitpointsWrapper;
+
+    @XmlElement(name = "inventory")
     private InventoryWrapper inventoryWrapper;
+
+    @XmlElement(name = "position")
     private Vector2Wrapper positionWrapper;
+
+    @XmlElement(name = "direction")
     private Vector2Wrapper directionWrapper;
 
+    @XmlElement(name="dead")
     private boolean dead;
 
     public BodyWrapper(){}
@@ -32,54 +40,6 @@ public class BodyWrapper implements ILoadable<IBody> {
         this.inventoryWrapper = new InventoryWrapper(body.readInventory());
         this.positionWrapper = new Vector2Wrapper(body.readPosition());
         this.directionWrapper = new Vector2Wrapper(body.readDirection());
-    }
-
-    @XmlElement(name="dead")
-    public boolean getDead() {
-        return dead;
-    }
-    public void setDead(boolean dead){
-        this.dead = dead;
-    }
-    @XmlElement(name="hitpoints")
-    public Vector2Wrapper getHitpoints() {
-        return this.hitpointsWrapper;
-    }
-    public void setHitpoints(Vector2Wrapper hitpoints) {
-        this.hitpointsWrapper = hitpoints;
-    }
-    @XmlElement(name="inventory")
-    public InventoryWrapper getInventory() {
-        return inventoryWrapper;
-    }
-    public void setInventory(InventoryWrapper inventory) {
-        this.inventoryWrapper = inventory;
-    }
-
-    @XmlElement(name="position")
-    public Vector2Wrapper getPosition(){
-        return this.positionWrapper;
-    }
-    @XmlElement(name="direction")
-    public Vector2Wrapper getDirection(){
-        return this.directionWrapper;
-    }
-    public void setPosition(Vector2Wrapper vec){
-        this.positionWrapper = vec;
-    }
-    public void setDirection(Vector2Wrapper dir){
-        this.directionWrapper = dir;
-    }
-
-    @Override
-    public String toString(){
-        String result = "";
-        result += "maxHitpoints: " + hitpointsWrapper.getX();
-        result += "\ncurrHitpoints: " + hitpointsWrapper.getY();
-        result += inventoryWrapper.toString();
-        result += "\nposition: " + positionWrapper;
-        result += "\ndirection: " + directionWrapper;
-        return result;
     }
 
     @Override

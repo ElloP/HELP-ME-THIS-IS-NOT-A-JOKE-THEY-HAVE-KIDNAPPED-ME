@@ -9,6 +9,11 @@ import java.util.Observable;
 /**
  * Authored by Olle on 2017-04-20.
  */
+
+    /* Note(Olle): game objects are objects that can be drawn onto the screen or act as a folder
+     * (or group) for other game objects enabling the engine user to use the same transform for multiple objects
+     * and to draw objects in groups
+     */
 public abstract class GameObject extends Observable {
     public Transform transform;
 
