@@ -11,6 +11,10 @@ import org.junit.Test;
  */
 public class EdgeTest {
 
+    /**
+     * Testing that accept works
+     */
+
     @Test
     public void testOpening(){
         IEdge opening = new Opening();

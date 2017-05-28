@@ -9,7 +9,7 @@ import com.helpme.app.game.model.item.effect.IEffect;
  * Created by kopa on 2017-05-19.
  */
 public class MockConsumable implements IConsumable {
-    String name;
+    private String name;
     int stacks;
 
     public MockConsumable(String name){

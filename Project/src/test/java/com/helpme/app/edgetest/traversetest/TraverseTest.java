@@ -19,28 +19,45 @@ public class TraverseTest {
         mockWall = new MockWall();
     }
 
+    /**
+     * Testing if attempting to walk through an opening yields true
+     */
     @Test
     public void testTraverseOpening(){
         assert (mockOpening.accept(new Traverse()));
     }
 
+    /**
+     * Testing if attempting to walk through a wall yields false
+     */
     @Test
     public void testTraverseWall(){
         assert (!mockWall.accept(new Traverse()));
     }
 
+
+    /**
+     * Testing if attempting to walk through a locked door without a key yields false
+     */
     @Test
     public void testTraverseLockedDoorNoKey(){
         mockDoor.locked = true;
         assert (!mockDoor.accept(new Traverse()));
     }
 
+    /**
+     * Testing if attempting to walk through a locked door with the correct key yields false
+     * (Unlocking is a separate visitor)
+     */
     @Test
     public void testTraverseLockedDoorHasKey(){
         mockDoor.locked = true;
         assert (!mockDoor.accept(new Traverse()));
     }
 
+    /**
+     * Testing if attempting to walk through an unlocked door yields true
+     */
     @Test
     public void testTraverseUnlockedDoor(){
         mockDoor.locked = false;

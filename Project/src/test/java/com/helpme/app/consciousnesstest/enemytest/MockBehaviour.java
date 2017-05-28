@@ -59,7 +59,9 @@ public class MockBehaviour implements IBehaviour {
 
     @Override
     public Maybe<IAction<IConsciousness>> execute(IReadBody body, IReadSurroundings surroundings, IShortTerm memory) {
-        execute++;
+        if(reset == 1){
+            execute++;
+        }
         return new Nothing<>();
     }
 }

@@ -42,19 +42,27 @@ public class LevelTest {
         level = new Level(mockPlayer, Vector2f.ZERO, tiles, bodies);
     }
 
+    /**
+     * Tests that if a direction is not traversable by a given body, it returns false
+     */
     @Test
     public void testDirectionBlockedFalse() {
         mockBody.traversable = true;
         assert (!level.isDirectionBlocked(mockBody, null));
     }
 
-
+    /**
+     * Test that if a direction is traversable by a given body, it returns true
+     */
     @Test
     public void testDirectionBlockedTrue() {
         mockBody.traversable = false;
         assert (level.isDirectionBlocked(mockBody, null));
     }
 
+    /**
+     * Tests that given that a direction is blocked that the edge is returned as a target
+     */
     @Test
     public void testGetTargetEdge() {
         mockPlayer.traversable = false;
@@ -62,6 +70,9 @@ public class LevelTest {
         assert (target.getValue() instanceof MockEdge);
     }
 
+    /**
+     * Tests that given that a direction is not blocked and there is a body on the next tile that it is returned as a target
+     */
     @Test
     public void testGetTargetBody() {
         mockPlayer.traversable = true;
@@ -69,6 +80,9 @@ public class LevelTest {
         assert (target.getValue() instanceof MockBody);
     }
 
+    /**
+     * Tests that given that a direction is not blocked and that there is no body there that nothing is returned
+     */
     @Test
     public void testGetTargetNothing() {
         mockPlayer.traversable = true;
@@ -76,6 +90,9 @@ public class LevelTest {
         assert (target instanceof Nothing);
     }
 
+    /**
+     * Tests that the body in a reachable tile that a given body is facing is returned
+     */
     @Test
     public void testReadFacing() {
         mockBody.traversable = true;
@@ -83,6 +100,9 @@ public class LevelTest {
         assert (facing.getValue() instanceof MockPlayer);
     }
 
+    /**
+     * Tests that if a given body is facing a reachable tile and it contains nothing, then it returns nothing
+     */
     @Test
     public void testReadFacingNoBody() {
         mockPlayer.traversable = true;
@@ -90,6 +110,9 @@ public class LevelTest {
         assert (facing instanceof Nothing);
     }
 
+    /**
+     * Tests that if a given body's facing direction is blocked then it returns nothing
+     */
     @Test
     public void testReadFacingDirectionBlocked() {
         mockPlayer.traversable = false;

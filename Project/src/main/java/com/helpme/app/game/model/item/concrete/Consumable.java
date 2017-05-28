@@ -62,7 +62,6 @@ public class Consumable extends Item implements IConsumable {
     public boolean equals(Object o) {
         return o != null &&
                 o instanceof Consumable &&
-                ((Consumable) o).stacks == stacks &&
                 super.equals(o);
     }
 

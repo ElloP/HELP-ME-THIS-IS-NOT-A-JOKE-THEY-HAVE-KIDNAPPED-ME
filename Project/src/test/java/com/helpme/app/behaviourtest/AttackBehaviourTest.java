@@ -41,6 +41,9 @@ public class AttackBehaviourTest {
         assert (attackConcrete.getAttackEvent().equals("attack"));
     }
 
+    /**
+     * Tests that the attackEvent is set to 0 in the Memory when reset() is run
+     */
     @Test
     public void testReset(){
         mockMemory.memory = new HashMap<>();
@@ -48,6 +51,9 @@ public class AttackBehaviourTest {
         assert (mockMemory.memory.size() == 1 && mockMemory.memory.get("attack") == 0);
     }
 
+    /**
+     * Tests that the behaviour will keep attacking given that it is still facing the target
+     */
     @Test
     public void testAttackFacing() {
         mockMemory.memory = new HashMap<>();
@@ -61,6 +67,9 @@ public class AttackBehaviourTest {
                 mockMemory.readMemory().get("attack").equals(1));
     }
 
+    /**
+     * Tests that the behaviour stops its attack behaviour given that it's not facing its target anymore
+     */
     @Test
     public void testAttackNotFacing() {
         mockMemory.memory = new HashMap<>();

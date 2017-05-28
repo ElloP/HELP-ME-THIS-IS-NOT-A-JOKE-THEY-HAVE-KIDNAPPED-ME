@@ -63,6 +63,9 @@ public class FollowBehaviourTest {
         assert (followConcrete.getLostEvent().equals("lost"));
     }
 
+    /**
+     * Tests that the followingEvent, foundEvent and lostEvent is set to 0 in the Memory when reset() is run
+     */
     @Test
     public void testReset() {
         Map<String, Integer> memory;
@@ -76,6 +79,9 @@ public class FollowBehaviourTest {
                 memory.get("lost") == 0);
     }
 
+    /**
+     * Tests that the foundEvent is set to 1 when the target is reached
+     */
     @Test
     public void testFound() {
         mockPlayer.position = new Vector2f(0, 2);
@@ -90,6 +96,9 @@ public class FollowBehaviourTest {
                 mockMemory.readMemory().get("found").equals(1));
     }
 
+    /**
+     * Tests that the lostEvent is set to 1 when the target is lost
+     */
     @Test
     public void testLost() {
         mockSurroundings.pathCost = 3;
@@ -109,6 +118,10 @@ public class FollowBehaviourTest {
                 mockMemory.readMemory().get("lost").equals(1));
     }
 
+    /**
+     * Tests that the followingEvent is set to 1 when following the target and that
+     * it returns an action that actually moves it closer to the target
+     */
     @Test
     public void testFollowingFacing() {
         mockMemory.memory = new HashMap<>();

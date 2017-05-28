@@ -57,6 +57,10 @@ public class ReturnBehaviourTest {
                 mockMemory.memory.get("returned") == 0);
     }
 
+
+    /**
+     * Tests that the returnedEvent is set to 1 if returned to the startPosition
+     */
     @Test
     public void testReturned() {
         mockMemory.memory = new HashMap<>();
@@ -69,6 +73,10 @@ public class ReturnBehaviourTest {
                 mockMemory.readMemory().get("returned").equals(1));
     }
 
+    /**
+     * Tests that the returningEvent is set to 1 if returning and that
+     * it returns an action that actually moves it closer to the startPosition
+     */
     @Test
     public void testReturningFacing() {
         mockMemory.memory = new HashMap<>();

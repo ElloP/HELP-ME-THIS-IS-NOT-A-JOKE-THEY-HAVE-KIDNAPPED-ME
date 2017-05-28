@@ -54,6 +54,9 @@ public class InventoryTest {
     }
 
 
+    /**
+     * Tests that an inventory that becomes full doesn't pick up any more items
+     */
     @Test
     public void testAddItemFull() {
         IItem mockPickup0 = new MockSingle("Pickup0");
@@ -75,6 +78,10 @@ public class InventoryTest {
         assert (inventory.hasKey(mockPickup));
     }
 
+    /**
+     * Tests that stacks are added, given that the same type of item are in the inventory
+     * (Don't confuse this with picking up an item)
+     */
     @Test
     public void testAddStack() {
         MockConsumable consumable = new MockConsumable("Consumable0");
@@ -84,16 +91,23 @@ public class InventoryTest {
                 consumable.stacks == 0);
     }
 
+    /**
+     * Tests that stacks are not added if there isn't a matching item in the inventory
+     */
     @Test
     public void testAddStackNoMatch() {
-        assert (!inventory.addStack(mockConsumable0, 0));
+        assert (!inventory.addStack(mockConsumable0, 1));
     }
 
+    /**
+     * Tests that other items aren't accepted as stackable, even if the names are the same
+     */
     @Test
     public void testAddStackNotConsumable() {
         MockSingle single = new MockSingle("MockSingle0");
         assert (!inventory.addStack(single, 2));
     }
+
 
     @Test
     public void testDeleteItemSuccess(){
@@ -105,12 +119,18 @@ public class InventoryTest {
         assert (!inventory.deleteItem(mockConsumable0));
     }
 
+    /**
+     * Tests that if an item is dropped, it is returned from the method but also removed from the inventory
+     */
     @Test
     public void testDropItem() {
         Maybe<IItem> maybeItem = inventory.dropItem(0);
         assert (inventory.getItem(0).isNothing() && maybeItem.check(i -> i.readName().equals(mockSingle0.readName())));
     }
 
+    /**
+     * Tests that if all items are dropped they're returned from the method but also removed from the inventory
+     */
     @Test
     public void testDropItems() {
         List<Maybe<IItem>> items = inventory.dropItems();
@@ -162,6 +182,10 @@ public class InventoryTest {
         assert (inventory.readActiveItemIndex() == 2);
     }
 
+    /**
+     * Tests that it's not possible to set the ActiveItemIndex outside of the range
+     * (Should be floor modular)
+     */
     @Test
     public void testSetActiveItemLowerBound() {
         inventory.setActiveItem(-2);
@@ -174,6 +198,9 @@ public class InventoryTest {
         assert (inventory.readActiveItemIndex() == 1);
     }
 
+    /**
+     * Tests that the right active item (or no item) will be returned, given different item indexes
+     */
     @Test
     public void testGetActiveItem() {
         Maybe<IItem> maybeActive = inventory.getActiveItem();
@@ -188,6 +215,9 @@ public class InventoryTest {
         assert (maybeActive.check(item -> item.equals(mockSingle1)));
     }
 
+    /**
+     * Tests that Nothing is returned given that the inventory has size 0
+     */
     @Test
     public void testGetActiveItemNoSize() {
         inventory.setItems(new ArrayList<>());

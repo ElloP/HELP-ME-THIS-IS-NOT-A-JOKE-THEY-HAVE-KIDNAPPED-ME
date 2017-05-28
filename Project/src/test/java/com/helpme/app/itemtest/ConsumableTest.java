@@ -23,12 +23,18 @@ public class ConsumableTest {
         assert (consumable.getStacks() == 5);
     }
 
+    /**
+     * Tests that it's not possible to add negative numbers
+     */
     @Test
     public void testAddStacksNegativeNumber(){
         consumable.addStacks(-1);
         assert (consumable.getStacks() == 2);
     }
 
+    /**
+     * Tests that removeStack only decrements 1 stack
+     */
     @Test
     public void removeStack(){
         consumable.removeStack();

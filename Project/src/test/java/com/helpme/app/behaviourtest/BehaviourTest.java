@@ -66,37 +66,13 @@ public class BehaviourTest {
                 preconditions1.get("memory1").equals(new Tuple2<>(4, Comparison.LESS_THAN)));
     }
 
+    /**
+     * Tests if the comparison "MORE THAN" is valid for preconditions
+     */
     @Test
     public void testMoreThanValid() {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
         preconditions.put("memory0", new Tuple2<>(5, Comparison.MORE_THAN));
-
-        behaviour = new Stay(0, preconditions);
-        assert (behaviour.valid(mockMemory.readMemory()));
-    }
-
-    @Test
-    public void testLessThanValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
-        preconditions.put("memory1", new Tuple2<>(3, Comparison.LESS_THAN));
-
-        behaviour =new Stay(0, preconditions);
-        assert (behaviour.valid(mockMemory.readMemory()));
-    }
-
-    @Test
-    public void testEqualValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
-        preconditions.put("memory2", new Tuple2<>(1, Comparison.EQUAL));
-
-        behaviour = new Stay(0, preconditions);
-        assert (behaviour.valid(mockMemory.readMemory()));
-    }
-
-    @Test
-    public void testNotEqualValid() {
-        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
-        preconditions.put("memory3", new Tuple2<>(6, Comparison.NOT_EQUAL));
 
         behaviour = new Stay(0, preconditions);
         assert (behaviour.valid(mockMemory.readMemory()));
@@ -111,6 +87,18 @@ public class BehaviourTest {
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
+    /**
+     * Tests if the comparison "LESS THAN" is valid for preconditions
+     */
+    @Test
+    public void testLessThanValid() {
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory1", new Tuple2<>(3, Comparison.LESS_THAN));
+
+        behaviour =new Stay(0, preconditions);
+        assert (behaviour.valid(mockMemory.readMemory()));
+    }
+
     @Test
     public void testLessThanNotValid() {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
@@ -118,6 +106,18 @@ public class BehaviourTest {
 
         behaviour = new Stay(0, preconditions);
         assert (!behaviour.valid(mockMemory.readMemory()));
+    }
+
+    /**
+     * Tests if the comparison "EQUAL" is valid for preconditions
+     */
+    @Test
+    public void testEqualValid() {
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory2", new Tuple2<>(1, Comparison.EQUAL));
+
+        behaviour = new Stay(0, preconditions);
+        assert (behaviour.valid(mockMemory.readMemory()));
     }
 
     @Test
@@ -129,6 +129,17 @@ public class BehaviourTest {
         assert (!behaviour.valid(mockMemory.readMemory()));
     }
 
+    /**
+     * Tests if the comparison "NOT EQUAL" is valid for preconditions
+     */
+    @Test
+    public void testNotEqualValid() {
+        Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
+        preconditions.put("memory3", new Tuple2<>(6, Comparison.NOT_EQUAL));
+
+        behaviour = new Stay(0, preconditions);
+        assert (behaviour.valid(mockMemory.readMemory()));
+    }
 
     @Test
     public void testNotEqualNotValid() {
@@ -139,7 +150,9 @@ public class BehaviourTest {
         assert (!behaviour.valid(new MockMemory().readMemory()));
     }
 
-
+    /**
+     * Tests so that the precondition fails if there's no match
+     */
     @Test
     public void testNoMatchNotValid() {
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();

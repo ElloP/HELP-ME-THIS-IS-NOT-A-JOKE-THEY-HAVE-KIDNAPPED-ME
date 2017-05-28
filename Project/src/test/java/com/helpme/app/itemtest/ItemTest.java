@@ -53,6 +53,11 @@ public class ItemTest {
         assert (consumable.accept(new MockVisitor()));
     }
 
+    /**
+     * Testing equality between different items given that it's used in other tests
+     * (new MockEffect(true) means that MockEffect's equals method will return true)
+     */
+
     @Test
     public void testSingleEquals() {
         IItem single0 = new Single("test",new MockEffect(true), new MockEffect(true));
@@ -103,16 +108,16 @@ public class ItemTest {
     }
 
     @Test
-    public void testConsumableEqualsDifferentName() {
-        IItem consumable0 = new Consumable("test0", 2, new MockEffect(true), new MockEffect(true));
-        IItem consumable1 = new Consumable("test1", 2, new MockEffect(true), new MockEffect(true));
-        assert (!consumable0.equals(consumable1));
+    public void testConsumableEqualsDifferentStacks() {
+        IItem consumable0 = new Consumable("test", 2, new MockEffect(true), new MockEffect(true));
+        IItem consumable1 = new Consumable("test", 4, new MockEffect(true), new MockEffect(true));
+        assert (consumable0.equals(consumable1));
     }
 
     @Test
-    public void testConsumableNotEqualsDifferentStacks() {
-        IItem consumable0 = new Consumable("test", 2, new MockEffect(true), new MockEffect(true));
-        IItem consumable1 = new Consumable("test", 4, new MockEffect(true), new MockEffect(true));
+    public void testConsumableNotEqualsDifferentName() {
+        IItem consumable0 = new Consumable("test0", 2, new MockEffect(true), new MockEffect(true));
+        IItem consumable1 = new Consumable("test1", 2, new MockEffect(true), new MockEffect(true));
         assert (!consumable0.equals(consumable1));
     }
 

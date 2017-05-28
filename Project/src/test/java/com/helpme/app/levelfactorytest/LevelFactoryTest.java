@@ -24,6 +24,12 @@ import java.util.Map;
  */
 public class LevelFactoryTest {
 
+    /**
+     * Test on the following constructor
+     * public static ILevel createLevel(Map<Vector2f, IItem[]> tileInfo, List<Tuple3<Vector2f, Vector2f, IDoor>> doorInfo, List<IBody> bodies, Vector2f startingPosition)
+     * Tests that two neighbouring tiles generate properly,
+     * that is an opening between them and the rest walls
+     */
     @Test
     public void testGenerateOpeningBetweenTwoTiles() {
         Map<Vector2f, IItem[]> tileInfo = new HashMap<>();
@@ -50,6 +56,11 @@ public class LevelFactoryTest {
                 tile10.getEdge(Vector2f.WEST).getValue() instanceof IOpening);
     }
 
+    /**
+     * Test on the following constructor
+     * public static ILevel createLevel(Map<Vector2f, IItem[]> tileInfo, List<Tuple3<Vector2f, Vector2f, IDoor>> doorInfo, List<IBody> bodies, Vector2f startingPosition)
+     * Tests that a tile is generated with the sent in items
+     */
     @Test
     public void testGenerateTileWithItems() {
         Map<Vector2f, IItem[]> tileInfo = new HashMap<>();
@@ -72,6 +83,12 @@ public class LevelFactoryTest {
                 items.get(1).equals(new Just<>(mockItem1)));
     }
 
+    /**
+     * Test on the following constructor
+     * public static ILevel createLevel(Map<Vector2f, IItem[]> tileInfo, List<Tuple3<Vector2f, Vector2f, IDoor>> doorInfo, List<IBody> bodies, Vector2f startingPosition)
+     * Tests that a door is generated on both sides of two neighbouring two tiles,
+     * given that a door is specified on one tile and directed against the other
+     */
     @Test
     public void testGenerateDoorBetweenTwoTiles(){
         Map<Vector2f, IItem[]> tileInfo = new HashMap<>();

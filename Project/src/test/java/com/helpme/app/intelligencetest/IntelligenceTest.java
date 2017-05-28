@@ -18,6 +18,10 @@ public class IntelligenceTest {
         mockSurroundings = new MockSurroundings();
     }
 
+    /**
+     * Tests that it returns true given that two bodies next to each other (exactly one tile away)
+     * (Tiles diagonal to each other are not neighbours)
+     */
     @Test
     public void testIsNextToNorth(){
         MockBody neighbour = new MockBody(Vector2f.NORTH);
@@ -50,6 +54,10 @@ public class IntelligenceTest {
         assert (Intelligence.isNextTo(mockBody, neighbour, mockSurroundings));
     }
 
+    /**
+     * Tests that it returns false given that two bodies are not neighbours (more than one tile away)
+     * (Tiles diagonal to each other are not neighbours)
+     */
     @Test
     public void testIsNotNextTo(){
         MockBody neighbour = new MockBody(new Vector2f(0,2));

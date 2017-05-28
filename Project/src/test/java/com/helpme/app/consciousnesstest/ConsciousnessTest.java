@@ -92,6 +92,9 @@ public class ConsciousnessTest {
         assert (mockBody.selfied == 1);
     }
 
+    /**
+     * Tests that all items are picked up, given that it doesn't fill up the body's inventory
+     */
     @Test
     public void testPickupAllNotFull() {
         mockSurroundings.tileItems = 3;
@@ -100,6 +103,9 @@ public class ConsciousnessTest {
         assert (mockBody.items == 3 && mockSurroundings.tileItems == 0);
     }
 
+    /**
+     * Tests that all items are returned, given that the body's inventory is full
+     */
     @Test
     public void testPickupAllFull() {
         mockSurroundings.tileItems = 3;
@@ -108,6 +114,9 @@ public class ConsciousnessTest {
         assert (mockBody.items == 0 && mockSurroundings.tileItems == 3);
     }
 
+    /**
+     * Tests that only one item is picked up and the rest unchanged
+     */
     @Test
     public void testPickupSingle() {
         mockSurroundings.tileItems = 3;

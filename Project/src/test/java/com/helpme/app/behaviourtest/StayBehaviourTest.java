@@ -29,6 +29,9 @@ public class StayBehaviourTest {
     }
 
 
+    /**
+     * Testing that stay doesn't update anything
+     */
     @Test
     public void testStay() {
         mockMemory.memory = new HashMap<>();

@@ -17,6 +17,9 @@ public class EffectTest {
         mockTarget = new MockTarget();
     }
 
+    /**
+     * Tests that heal and damage is applied appropriately to the target
+     */
     @Test
     public void testDamageApply() {
         IEffect damage = new Damage(3);

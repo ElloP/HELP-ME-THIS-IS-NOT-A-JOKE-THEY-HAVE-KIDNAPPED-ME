@@ -30,6 +30,9 @@ public class EnemyTest {
         enemy = new Enemy(new MockBody(), null, mockMemory, new SortedList<>(FXCollections.observableList(mockBehaviours), Comparator.comparingInt(IBehaviour::getPriority)));
     }
 
+    /**
+     * Tests that the behaviour with the highest priority (lowest number) will reset and execute, in that order
+     */
     @Test
     public void testPriority(){
         enemy.update();
@@ -41,6 +44,10 @@ public class EnemyTest {
                 mockBehaviours.get(2).reset == 0);
     }
 
+
+    /**
+     * Tests that the first valid behaviour will reset and execute, in that order
+     */
     @Test
     public void testValid(){
         mockBehaviours.get(1).valid = false;
