@@ -13,6 +13,9 @@ import java.util.Map;
 
 /**
  * Created by kopa on 2017-04-10.
+ *
+ * Factory for creating tiles
+ *
  */
 public final class TileFactory {
     private TileFactory(){

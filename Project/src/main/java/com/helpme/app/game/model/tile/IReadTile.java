@@ -10,11 +10,12 @@ import java.util.Map;
 
 /**
  * Created by kopa on 2017-04-21.
+ *
+ * Interface for reading a ITiles information
+ *
  */
 public interface IReadTile {
     List<Maybe<IReadItem>> readItems();
     Maybe<IReadItem> readItem(int index);
     Map<Vector2f,IEdge> readEdges();
-    //IEdge readEdge(Vector2f direction);
-
 }

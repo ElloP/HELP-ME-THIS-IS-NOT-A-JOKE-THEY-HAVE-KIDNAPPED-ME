@@ -19,13 +19,12 @@ public class Wall implements IWall {
 
     @Override
     public void damage(float amount) {
-        System.out.println("Hit wall");
-        return; //TODO (klas)
+        return;
     }
 
     @Override
     public void heal(float amount) {
-        return; //TODO (klas)
+        return;
     }
 
     @Override

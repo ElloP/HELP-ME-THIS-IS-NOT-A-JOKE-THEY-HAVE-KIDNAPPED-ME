@@ -17,8 +17,8 @@ import java.util.Map;
  * Created by Jacob on 2017-03-30.
  */
 public class Tile implements ITile {
-    private Map<Vector2f, IEdge> edges;
-    private List<Maybe<IItem>> items;
+    private Map<Vector2f, IEdge> edges;     //Map of tiles 4 edges. Takes a direction, returns IEdge
+    private List<Maybe<IItem>> items;       //The items located on tile
 
     public Tile(List<Maybe<IItem>> items, Map<Vector2f, IEdge> edges){
         this.items = items;

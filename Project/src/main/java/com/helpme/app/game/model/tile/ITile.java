@@ -9,6 +9,9 @@ import java.util.List;
 
 /**
  * Created by Jacob on 2017-04-08.
+ *
+ * Interface for Tiles
+ *
  */
 public interface ITile extends IReadTile{
     Maybe<IEdge> getEdge(Vector2f direction);

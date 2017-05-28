@@ -5,7 +5,10 @@ import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.tile.edge.IEdge;
 
 /**
- * Created by kopa on 2017-05-15.
+ * Created by kopa on 2017-05-
+ *
+ * Factory for creating Edges
+ *
  */
 public final class EdgeFactory {
     private EdgeFactory(){
