@@ -55,8 +55,8 @@ public class EngineCore {
 
             /*
              * Note(Olle): the game loop uses a catch up mechanic
-             * ensuring that the model is updated atleast 60 times per second,
-             * so even if the framerate is below 60 fps the model is still updated 60 times per second
+             * ensuring that the model is updated at least 60 times per second,
+             * so even if the frame rate is below 60 fps the model is still updated 60 times per second
              */
             while(frameTime > 0.0) {
                 //Note(Olle): if the model needs to catch up, update the model
