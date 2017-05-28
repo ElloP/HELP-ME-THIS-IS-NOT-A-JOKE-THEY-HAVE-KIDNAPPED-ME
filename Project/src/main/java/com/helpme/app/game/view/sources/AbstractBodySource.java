@@ -16,18 +16,13 @@ public abstract class AbstractBodySource {
     public static final String HURTING = "hurting";
     public static final String BLOCKED = "blocked";
 
-    protected HashMap<String, Source> sourceMap;
     protected IReadBody body;
-    protected float x;
-    protected float y;
-    protected float z;
-    protected Source defaultSource;
 
-    public AbstractBodySource(IReadBody body, float x, float y, float z, HashMap sourceMap, Source defaultSource) {
+    private HashMap<String, Source> sourceMap;
+    private Source defaultSource;
+
+    public AbstractBodySource(IReadBody body, float x, float y, float z, HashMap<String, Source> sourceMap, Source defaultSource) {
         this.body = body;
-        this.x = x;
-        this.y = y;
-        this.z = z;
         this.sourceMap = sourceMap;
         this.defaultSource = defaultSource;
     }
