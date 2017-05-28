@@ -1,10 +1,8 @@
 package com.helpme.app.game.view.sources;
 
 import com.helpme.app.game.model.body.IReadBody;
-import com.helpme.app.utils.mathl.Vector2f;
 
 import java.util.HashMap;
-import java.util.Map;
 
 
 /**
