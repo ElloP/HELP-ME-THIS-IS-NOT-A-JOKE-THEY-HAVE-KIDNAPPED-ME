@@ -18,6 +18,7 @@ import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-05-22.
+ * The main scene for when in-game. Adds a LevelView, BodyViews and PlayerController as children that it then draws.
  */
 public class LevelController extends Scene {
     private PlayerCameraView playerCameraView;

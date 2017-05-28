@@ -13,6 +13,8 @@ import java.util.Observer;
 
 /**
  * Created by Jesper on 2017-05-20.
+ * A controller that observes both a the PlayerCameraView and IConsciousness.
+ * Updates the PlayerCameraView and HealthView depending on changes to the Player and vice versa.
  */
 public class PlayerController extends GameObject implements Observer {
     private PlayerCameraView playerCameraView;
