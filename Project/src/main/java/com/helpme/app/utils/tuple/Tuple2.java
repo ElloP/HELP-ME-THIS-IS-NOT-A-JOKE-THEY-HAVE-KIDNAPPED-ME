@@ -3,7 +3,7 @@ package com.helpme.app.utils.tuple;
 import com.helpme.app.utils.interfaces.ICopyable;
 
 /**
- * Created by og on 2017-04-06.
+ * Created by Klas on 2017-04-06.
  */
 public class Tuple2<A,B> implements ICopyable{
     public A a;

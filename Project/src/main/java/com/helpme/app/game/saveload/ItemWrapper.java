@@ -43,6 +43,7 @@ public class ItemWrapper implements ILoadable<Maybe<IItem>> {
 
     @Override
     public Maybe<IItem> getObject() {
-        return name == null ? new Nothing<>() : new Just<>(ItemFactory.createItem(name)); //(TODO) klas. Create item from name
+        //If the item has a name, it creates one from the ItemFactory
+        return name == null ? new Nothing<>() : new Just<>(ItemFactory.createItem(name));
     }
 }

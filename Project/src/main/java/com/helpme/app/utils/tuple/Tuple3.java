@@ -1,7 +1,7 @@
 package com.helpme.app.utils.tuple;
 
 /**
- * Created by og on 2017-04-06.
+ * Created by Klas on 2017-04-06.
  */
 public class Tuple3 <A,B,C> {
     public A a;
