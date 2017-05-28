@@ -51,18 +51,20 @@ public class Consumable extends Item implements IConsumable {
     }
 
     @Override
-    public IItem copy(){
+    public IItem copy() {
         return new Consumable(name, stacks, getAttackEffect(), getSelfieEffect());
     }
 
     @Override
     public boolean equals(Object o) {
         return o != null &&
-                o instanceof Consumable && super.equals(o);
+                o instanceof Consumable &&
+                ((Consumable) o).stacks == stacks &&
+                super.equals(o);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return ("consumable" + name).hashCode();
     }
 }

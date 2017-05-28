@@ -3,21 +3,23 @@ package com.helpme.app.savetest;
 import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.concrete.BodyFactory;
 import com.helpme.app.game.model.body.inventory.IInventory;
+import com.helpme.app.game.model.body.inventory.concrete.Inventory;
 import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.game.model.consciousness.behaviour.concrete.Attack;
 import com.helpme.app.game.model.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.game.model.consciousness.behaviour.concrete.Stay;
 import com.helpme.app.game.model.consciousness.memory.IMemory;
 import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
 import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.game.model.consciousness.concrete.Enemy;
 import com.helpme.app.game.model.consciousness.concrete.Player;
+import com.helpme.app.game.model.item.IConsumable;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.item.concrete.Consumable;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
+import com.helpme.app.game.model.item.effect.concrete.EffectFactory;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.LevelFactory;
 import com.helpme.app.game.model.tile.ITile;
@@ -27,6 +29,7 @@ import com.helpme.app.game.model.tile.edge.concrete.Door;
 import com.helpme.app.game.model.tile.edge.concrete.Opening;
 import com.helpme.app.game.model.tile.edge.concrete.Wall;
 import com.helpme.app.game.saveload.*;
+import com.helpme.app.game.saveload.item.ItemWrapper;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
@@ -98,13 +101,60 @@ public class SaveTest {
     }
 
     @Test
+    public void testSaveConsumable() throws JAXBException {
+        File file = new File("test.xml");
+        Marshaller marshaller = this.context.createMarshaller();
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Maybe<IItem> maybeItem = new Just<>(ItemFactory.createConsumable("consumable", 54, EffectFactory.createDamage(10), EffectFactory.createHeal(2)));
+
+        marshaller.marshal(new ItemWrapper(maybeItem), file);
+
+        Maybe<IItem> maybeLoadedItem = ((ItemWrapper)unmarshaller.unmarshal(file)).getObject();
+
+        assert maybeLoadedItem.equals(maybeItem);
+    }
+
+    @Test
+    public void testSaveSingle() throws JAXBException {
+        File file = new File("test.xml");
+        Marshaller marshaller = this.context.createMarshaller();
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Maybe<IItem> maybeItem = new Just<>(ItemFactory.createSingle("single", EffectFactory.createHeal(8), EffectFactory.createDamage(9)));
+
+        marshaller.marshal(new ItemWrapper(maybeItem), file);
+
+        Maybe<IItem> maybeLoadedItem = ((ItemWrapper)unmarshaller.unmarshal(file)).getObject();
+
+        assert maybeLoadedItem.equals(maybeItem);
+    }
+
+    @Test
+    public void testSaveKey() throws JAXBException {
+        File file = new File("test.xml");
+        Marshaller marshaller = this.context.createMarshaller();
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Maybe<IItem> maybeItem = new Just<>(ItemFactory.createKey("key"));
+
+        marshaller.marshal(new ItemWrapper(maybeItem), file);
+
+        Maybe<IItem> maybeLoadedItem = ((ItemWrapper)unmarshaller.unmarshal(file)).getObject();
+
+        assert maybeLoadedItem.equals(maybeItem);
+    }
+
+    @Test
+    public void testSaveNothing() throws JAXBException {
+
+    }
+
+    @Test
     public void testSaveInventory() throws JAXBException {
         File file = new File("test.xml");
         List<Maybe<IItem>> items = new ArrayList<>();
         List<Maybe<IItem>> keys = new ArrayList<>();
         IItem defaultItem = ItemFactory.fists();
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
         IInventory inventory;
         InventoryWrapper inventoryWrapper;
         IInventory loadedInventory;
@@ -123,9 +173,6 @@ public class SaveTest {
         inventory = InventoryFactory.createInventory(items, defaultItem, keys);
 
         marshaller.marshal(new InventoryWrapper(inventory), file);
-
-        unmarshaller = this.context.createUnmarshaller();
-
 
         inventoryWrapper = (InventoryWrapper) unmarshaller.unmarshal(file);
         loadedInventory = inventoryWrapper.getObject();
@@ -149,17 +196,11 @@ public class SaveTest {
         IBody body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, 100);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller;
-        BodyWrapper bodyWrapper;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
         IBody loadedBody;
 
         marshaller.marshal(new BodyWrapper(body), file);
-
-        unmarshaller = this.context.createUnmarshaller();
-
-        bodyWrapper = (BodyWrapper) unmarshaller.unmarshal(file);
-        loadedBody = bodyWrapper.getObject();
-
+        loadedBody = ((BodyWrapper) unmarshaller.unmarshal(file)).getObject();
 
         assert (loadedBody.readHitpoints().equals(body.readHitpoints()) &&
                 loadedBody.readPosition().equals(body.readPosition()) &&
@@ -170,14 +211,12 @@ public class SaveTest {
 
     @Test
     public void testSaveTile() throws JAXBException {
-
+        File file = new File("test.xml");;
         List<Maybe<IItem>> items = new ArrayList<>();
         Map<Vector2f, IEdge> edges = new HashMap<>();
         ITile tile;
-        File file;
-        Marshaller marshaller;
-        Unmarshaller unmarshaller;
-        TileWrapper tileWrapper;
+        Marshaller marshaller = this.context.createMarshaller();;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         ITile loadedTile;
         List<Maybe<IReadItem>> loadedItems;
 
@@ -192,14 +231,9 @@ public class SaveTest {
 
         tile = TileFactory.createTile(items, edges);
 
-        file = new File("test.xml");
-        marshaller = this.context.createMarshaller();
-        marshaller.marshal(new TileWrapper(tile, Vector2f.ZERO), file);
+        marshaller.marshal(new TileWrapper(Vector2f.ZERO, tile), file);
 
-        unmarshaller = this.context.createUnmarshaller();
-
-        tileWrapper = (TileWrapper) unmarshaller.unmarshal(file);
-        loadedTile = tileWrapper.getObject();
+        loadedTile = ((TileWrapper) unmarshaller.unmarshal(file)).getObject();
         loadedItems = loadedTile.readItems();
 
         assert (loadedTile.getEdge(Vector2f.NORTH).check(edge -> edge.equals(edges.get(Vector2f.NORTH))) &&
@@ -232,14 +266,12 @@ public class SaveTest {
                 "lost");
 
         List<IBehaviour> behaviours = new ArrayList<>();
-
         SortedList<IBehaviour> sortedBehaviours;
         Map<String, Integer> longTerm = new HashMap<>();
         Map<String, Integer> shortTerm = new HashMap<>();
         IMemory memory;
-        Marshaller marshaller;
-        Unmarshaller unmarshaller;
-        EnemyWrapper enemyWrapper;
+        Marshaller marshaller = this.context.createMarshaller();
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         IBody body;
         ILevel level;
         Enemy enemy;
@@ -274,13 +306,9 @@ public class SaveTest {
 
         enemy = (Enemy) ConsciousnessFactory.createEnemy(body, level, memory, sortedBehaviours);
 
-        marshaller = this.context.createMarshaller();
         marshaller.marshal(new EnemyWrapper(enemy), file);
 
-        unmarshaller = this.context.createUnmarshaller();
-
-        enemyWrapper = (EnemyWrapper) unmarshaller.unmarshal(file);
-        loadedEnemy = (Enemy) enemyWrapper.getObject(level);
+        loadedEnemy = (Enemy) ((EnemyWrapper) unmarshaller.unmarshal(file)).getObject(level);
         loadedMemory = loadedEnemy.readMemory();
         loadedBehaviours = loadedEnemy.getBehaviours();
 

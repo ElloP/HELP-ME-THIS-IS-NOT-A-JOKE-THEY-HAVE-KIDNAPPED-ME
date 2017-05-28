@@ -3,6 +3,7 @@ package com.helpme.app.game.saveload;
 import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.body.concrete.BodyFactory;
+import com.helpme.app.game.model.body.inventory.concrete.Inventory;
 import com.helpme.app.utils.interfaces.ILoadable;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -34,10 +35,10 @@ public class BodyWrapper implements ILoadable<IBody> {
 
 
 
-    public BodyWrapper(IReadBody body){
+    public BodyWrapper(IBody body){
         this.dead = body.isDead();
         this.hitpointsWrapper = new Vector2Wrapper(body.readHitpoints());
-        this.inventoryWrapper = new InventoryWrapper(body.readInventory());
+        this.inventoryWrapper = new InventoryWrapper(body.getInventory());
         this.positionWrapper = new Vector2Wrapper(body.readPosition());
         this.directionWrapper = new Vector2Wrapper(body.readDirection());
     }

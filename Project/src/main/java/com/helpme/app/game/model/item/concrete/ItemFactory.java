@@ -1,7 +1,8 @@
 package com.helpme.app.game.model.item.concrete;
 
 import com.helpme.app.game.model.item.IItem;
-import com.helpme.app.game.model.item.effect.IEffectFactory;
+import com.helpme.app.game.model.item.effect.IEffect;
+import com.helpme.app.game.model.item.effect.concrete.EffectFactory;
 
 /**
  * Created by kopa on 2017-04-10.
@@ -12,7 +13,7 @@ public final class ItemFactory {
     }
 
     public static IItem fists() {
-        return new Single("Fists", IEffectFactory.damage(1), IEffectFactory.damage(1));
+        return new Single("Fists", EffectFactory.createDamage(1), EffectFactory.createDamage(1));
     }
 
     public static IItem nothing(){
@@ -20,19 +21,17 @@ public final class ItemFactory {
     }
 
     public static IItem club() {
-        return new Single("Club", IEffectFactory.damage(10), IEffectFactory.damage(5));
+        return new Single("Club", EffectFactory.createDamage(10), EffectFactory.createDamage(5));
     }
 
-    public static IItem potion() { return new Consumable("Potion", 1, IEffectFactory.heal(10), IEffectFactory.heal(10)); }
+    public static IItem potion() { return new Consumable("Potion", 1, EffectFactory.createHeal(10), EffectFactory.createHeal(10)); }
 
-    public static IItem createItem(String item){
-        switch (item){
-            case "Fists": return fists();
-            case "Club": return club();
-            case "Potion": return potion();
-            case "key0": return createKey("key0");
-            default: return nothing();
-        }
+    public static IItem createConsumable(String name, int stacks, IEffect attack, IEffect selfie){
+        return new Consumable(name, stacks, attack == null ? EffectFactory.createEmpty() : attack, selfie == null ? EffectFactory.createEmpty() : selfie);
+    }
+
+    public static IItem createSingle(String name, IEffect attack, IEffect selfie){
+        return new Single(name, attack == null ? EffectFactory.createEmpty() : attack, selfie == null ? EffectFactory.createEmpty() : selfie);
     }
 
     public static IItem createKey(String name){
