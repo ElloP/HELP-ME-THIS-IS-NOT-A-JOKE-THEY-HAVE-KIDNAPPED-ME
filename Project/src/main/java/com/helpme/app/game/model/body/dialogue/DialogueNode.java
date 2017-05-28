@@ -4,6 +4,11 @@ import com.helpme.app.utils.tuple.Tuple2;
 
 /**
  * Created by Klas on 2017-04-12.
+ *
+ * Each node has a tuple with question and answer.
+ * The question is choosable
+ * For example ("What is your name?", "Klas")
+ *
  */
 public class DialogueNode implements IDialogueNode {
     private Tuple2<String,String> dialogue;

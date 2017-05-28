@@ -4,11 +4,17 @@ import com.helpme.app.utils.tuple.Tuple2;
 
 /**
  * Created by Klas on 2017-04-12.
+ *
+ * Dialogue with tree-structure
+ * Have an initial node that holds a list of alternatives (nodes).
+ * If you choose an alternative you will continue with that nodes list.
+ * You will loop through a dialogue tree until you reach a leaf, then you will return to the root
+ *
  */
 public class Dialogue implements IDialogue{
-    private final IDialogueNode greeting;
-    private final String continuePhrase;
-    private IDialogueNode current;
+    private final IDialogueNode greeting;   // The initial dialogue
+    private final String continuePhrase;    // After reaching a leaf, this will be said before going back to initial node
+    private IDialogueNode current;          // Current node
 
     public Dialogue(String greeting, IDialogueNode[] nodes) {
         this.continuePhrase = "Anything else?";
