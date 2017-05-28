@@ -46,6 +46,7 @@ public class LevelAudioController implements Observer {
                 break;
             case UNLOCK:
                 unlockEvent(consciousness.readBody());
+                break;
             default:
                 break;
         }

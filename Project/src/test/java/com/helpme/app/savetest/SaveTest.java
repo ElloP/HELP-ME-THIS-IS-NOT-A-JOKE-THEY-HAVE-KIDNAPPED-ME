@@ -61,7 +61,6 @@ public class SaveTest {
     @Before
     public void init() throws JAXBException {
         this.context = JAXBContext.newInstance(SaveRoot.class, BodyWrapper.class, EnemyWrapper.class);
-        // this.context = JAXBContext.newInstance(BodyWrapper.class);
     }
 
     @Test
@@ -79,7 +78,6 @@ public class SaveTest {
     @Test
     public void saveTest2() throws JAXBException {
         TestWorld mock = new TestWorld();
-        // mock.player.setPlayerPosition(new Vector2f(1,1));
         IConsciousness[] enemy = mock.enemyConsciousnesses.toArray(new IConsciousness[mock.enemyConsciousnesses.size()]);
         SaveRoot saveroot = new SaveRoot(mock.level, mock.player.getBody(), enemy);
         File file = new File("test.xml");
