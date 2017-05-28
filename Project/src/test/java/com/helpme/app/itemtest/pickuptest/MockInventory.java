@@ -81,10 +81,7 @@ public class MockInventory implements IInventory {
 
     @Override
     public boolean addItem(IItem item) {
-        if (fullInventory) {
-            return false;
-        }
-        return true;
+        return !fullInventory;
     }
 
     @Override

@@ -104,7 +104,7 @@ public class SaveTest {
     public void testSaveConsumable() throws JAXBException {
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         Maybe<IItem> maybeItem = new Just<>(ItemFactory.createConsumable("consumable", 54, EffectFactory.createDamage(10), EffectFactory.createHeal(2)));
 
         marshaller.marshal(new ItemWrapper(maybeItem), file);
@@ -118,7 +118,7 @@ public class SaveTest {
     public void testSaveSingle() throws JAXBException {
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         Maybe<IItem> maybeItem = new Just<>(ItemFactory.createSingle("single", EffectFactory.createHeal(8), EffectFactory.createDamage(9)));
 
         marshaller.marshal(new ItemWrapper(maybeItem), file);
@@ -132,7 +132,7 @@ public class SaveTest {
     public void testSaveKey() throws JAXBException {
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         Maybe<IItem> maybeItem = new Just<>(ItemFactory.createKey("key"));
 
         marshaller.marshal(new ItemWrapper(maybeItem), file);
@@ -154,7 +154,7 @@ public class SaveTest {
         List<Maybe<IItem>> keys = new ArrayList<>();
         IItem defaultItem = ItemFactory.fists();
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         IInventory inventory;
         InventoryWrapper inventoryWrapper;
         IInventory loadedInventory;
@@ -196,7 +196,7 @@ public class SaveTest {
         IBody body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, 100);
         File file = new File("test.xml");
         Marshaller marshaller = this.context.createMarshaller();
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();;
+        Unmarshaller unmarshaller = this.context.createUnmarshaller();
         IBody loadedBody;
 
         marshaller.marshal(new BodyWrapper(body), file);
@@ -211,11 +211,11 @@ public class SaveTest {
 
     @Test
     public void testSaveTile() throws JAXBException {
-        File file = new File("test.xml");;
+        File file = new File("test.xml");
         List<Maybe<IItem>> items = new ArrayList<>();
         Map<Vector2f, IEdge> edges = new HashMap<>();
         ITile tile;
-        Marshaller marshaller = this.context.createMarshaller();;
+        Marshaller marshaller = this.context.createMarshaller();
         Unmarshaller unmarshaller = this.context.createUnmarshaller();
         ITile loadedTile;
         List<Maybe<IReadItem>> loadedItems;

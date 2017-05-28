@@ -33,13 +33,13 @@ public class DefaultShader extends Shader {
     {
         setUniform("model", transform.getModelMatrix());
         setUniform("view", camera.getViewMatrix());
-        setUniform("projection", transform.getPerspectiveMatrix(70f, Window.getWidth(), Window.getHeight(), 0.1f, 1000));
+        setUniform("projection", Transform.getPerspectiveMatrix(70f, Window.getWidth(), Window.getHeight(), 0.1f, 1000));
     }
 
     public void updateUniforms(Matrix4f model, Transform transform, ICamera camera)
     {
         setUniform("model", model);
         setUniform("view", camera.getViewMatrix());
-        setUniform("projection", transform.getPerspectiveMatrix(70f, Window.getWidth(), Window.getHeight(), 0.1f, 1000));
+        setUniform("projection", Transform.getPerspectiveMatrix(70f, Window.getWidth(), Window.getHeight(), 0.1f, 1000));
     }
 }

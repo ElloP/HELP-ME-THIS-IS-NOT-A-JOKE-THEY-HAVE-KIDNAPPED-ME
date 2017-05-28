@@ -36,7 +36,7 @@ public class HealthView extends GameObject {
         } else if (healthAmt < 0) {
             healthAmt = 0;
         }
-        float widthPercentage = ((float) healthAmt) / 100;
+        float widthPercentage = healthAmt / 100;
         float newWidth = widthPercentage * (WIDTH - FRAME_PADDING_X *2);
         health.setWidth(newWidth);
     }
