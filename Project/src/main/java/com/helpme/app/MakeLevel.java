@@ -7,9 +7,9 @@ import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
 import com.helpme.app.game.model.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
 import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.game.model.consciousness.concrete.Player;
+import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.level.ILevel;
@@ -49,7 +49,7 @@ public class MakeLevel {
      */
     public static void main(String args[]){
         GameLoader gameLoader = new GameLoader();
-        IBody playerBody = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[]{null,null,null}, ItemFactory.fists(), null), Vector2f.ZERO, Vector2f.WEST, 100);
+        IBody playerBody = BodyFactory.createBody(InventoryFactory.createInventory(new IItem[]{null,null,null}, ItemFactory.fists(), null), Vector2f.ZERO, Vector2f.EAST, 100);
         ILevel level = makeLevel();
         Player player = new Player(playerBody, level);
         IConsciousness[] enemies = addEnemies(level);
@@ -89,10 +89,6 @@ public class MakeLevel {
         level.addBody(enemy0);
         enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy1, level, MemoryFactory.createMemory(), behaviours));
         level.addBody(enemy1);
- /*       enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy2, level, MemoryFactory.createMemory(), behaviours));
-        level.addBody(enemy2);
-        enemyConsciousnesses.add(ConsciousnessFactory.createEnemy(enemy3, level, MemoryFactory.createMemory(), behaviours));
-        level.addBody(enemy3);*/
         IConsciousness[] result = new IConsciousness[2];
         result[0] = enemyConsciousnesses.get(0);
         result[1] = enemyConsciousnesses.get(1);
@@ -137,15 +133,7 @@ public class MakeLevel {
         tiles.put(new Vector2f(1, 12), null);
         tiles.put(new Vector2f(0, 12), null);
 
-
-
-
-
         doors.add(new Tuple3<>(new Vector2f(0, 12), Vector2f.EAST, new Door(true, ItemFactory.createKey("key0"))));
-
-
-
-
 
         ILevel level = LevelFactory.createLevel(tiles, doors, bodies, Vector2f.ZERO);
         return level;

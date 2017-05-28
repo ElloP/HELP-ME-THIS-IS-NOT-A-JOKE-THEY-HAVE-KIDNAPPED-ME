@@ -11,11 +11,11 @@ import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.saveload.SaveLoad;
 import com.helpme.app.game.view.camera.CameraViewFactory;
 import com.helpme.app.game.view.camera.PlayerCameraView;
-import com.helpme.app.game.view.resources.Resources;
+import com.helpme.app.utils.maybe.Maybe;
+import com.helpme.app.utils.maybe.Nothing;
 import com.helpme.app.utils.tuple.Tuple3;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,15 +27,15 @@ public class GameController extends Game implements Observer {
     private static final String START_LEVEL = "level1.xml";
     private static final String SAVED_LEVEL = "saved_game.xml";
     private SaveLoad gameLoader;
+    private Time time;
 
-    Time time;
-
-    private Tuple3<ILevel, Player, IConsciousness[]> currentState;
+    private Maybe<Tuple3<ILevel, Player, IConsciousness[]>> currentState;
 
     public GameController(SaveLoad gameLoader) {
         super(new MenuController(), new Camera());
         this.gameLoader = gameLoader;
         scene.addObserver(this);
+        currentState = new Nothing<>();
     }
 
     public void stop() {
@@ -74,7 +74,7 @@ public class GameController extends Game implements Observer {
     }
 
     private void saveState(String filepath) {
-        gameLoader.saveGame(currentState.a, currentState.b, currentState.c, filepath);
+        currentState.run(state -> gameLoader.saveGame(state.a, state.b, state.c, filepath));
     }
 
     private Tuple3<ILevel, Player, IConsciousness[]> loadState(String filepath) throws FileNotFoundException {
@@ -97,7 +97,7 @@ public class GameController extends Game implements Observer {
         addAudioObserver(player, enemies);
 
         this.setActiveScene(levelScene);
-        currentState = loadedState;
+        currentState = Maybe.wrap(loadedState);
     }
 
     private void addAudioObserver(IConsciousness player, IConsciousness[] enemies) {
