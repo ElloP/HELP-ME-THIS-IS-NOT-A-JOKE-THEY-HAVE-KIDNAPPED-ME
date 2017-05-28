@@ -33,67 +33,76 @@ public class PlayerController extends GameObject implements Observer {
     public void update(Observable o, Object arg) {
         if (arg instanceof BodyEvent) {
             BodyEvent bodyEvent = (BodyEvent) arg;
-            switch (bodyEvent) {
-                case MOVE_FORWARD:
-                    playerCameraView.moveForward();
-                    break;
-                case MOVE_BACKWARD:
-                    playerCameraView.moveBack();
-                    break;
-                case MOVE_LEFT:
-                    playerCameraView.moveLeft();
-                    break;
-                case MOVE_RIGHT:
-                    playerCameraView.moveRight();
-                    break;
-                case ROTATE_LEFT:
-                    playerCameraView.rotateLeft();
-                    break;
-                case ROTATE_RIGHT:
-                    playerCameraView.rotateRight();
-                    break;
-                case HEALTH:
-                    healthView.setHealth(player.readBody().readCurrentHitpoints());
-                    break;
-                case BLOCKED:
-                    System.out.println("I am being blocked");
-                    break;
-                default:
-                    break;
-            }
+            executeBodyEvent(bodyEvent);
+
         } else if (arg instanceof InputKey && o instanceof PlayerCameraView) {
-            InputKey gameEvent = (InputKey) arg;
-            switch (gameEvent) {
-                case MOVE_FORWARD:
-                    player.moveForward();
-                    break;
-                case MOVE_BACKWARD:
-                    player.moveBackward();
-                    break;
-                case MOVE_LEFT:
-                    player.moveLeft();
-                    break;
-                case MOVE_RIGHT:
-                    player.moveRight();
-                    break;
-                case ROTATE_LEFT:
-                    player.rotateLeft();
-                    break;
-                case ROTATE_RIGHT:
-                    player.rotateRight();
-                    break;
-                case ATTACK:
-                    player.useAttack();
-                    break;
-                case SELECT:
-                    player.usePickupAll();
-                    break;
-                case SELFIE:
-                    player.useSelfie();
-                    break;
-                default:
-                    break;
-            }
+            InputKey keyEvent = (InputKey) arg;
+            executeKeyEvent(keyEvent);
+        }
+    }
+
+    private void executeKeyEvent(InputKey keyEvent){
+        switch (keyEvent) {
+            case MOVE_FORWARD:
+                player.moveForward();
+                break;
+            case MOVE_BACKWARD:
+                player.moveBackward();
+                break;
+            case MOVE_LEFT:
+                player.moveLeft();
+                break;
+            case MOVE_RIGHT:
+                player.moveRight();
+                break;
+            case ROTATE_LEFT:
+                player.rotateLeft();
+                break;
+            case ROTATE_RIGHT:
+                player.rotateRight();
+                break;
+            case ATTACK:
+                player.useAttack();
+                break;
+            case SELECT:
+                player.usePickupAll();
+                break;
+            case SELFIE:
+                player.useSelfie();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void executeBodyEvent(BodyEvent bodyEvent){
+        switch (bodyEvent) {
+            case MOVE_FORWARD:
+                playerCameraView.moveForward();
+                break;
+            case MOVE_BACKWARD:
+                playerCameraView.moveBack();
+                break;
+            case MOVE_LEFT:
+                playerCameraView.moveLeft();
+                break;
+            case MOVE_RIGHT:
+                playerCameraView.moveRight();
+                break;
+            case ROTATE_LEFT:
+                playerCameraView.rotateLeft();
+                break;
+            case ROTATE_RIGHT:
+                playerCameraView.rotateRight();
+                break;
+            case HEALTH:
+                healthView.setHealth(player.readBody().readCurrentHitpoints());
+                break;
+            case BLOCKED:
+                System.out.println("I am being blocked");
+                break;
+            default:
+                break;
         }
     }
 
