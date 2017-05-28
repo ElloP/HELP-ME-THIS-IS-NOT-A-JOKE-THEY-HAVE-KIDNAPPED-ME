@@ -19,8 +19,13 @@ import java.util.List;
  */
 @XmlRootElement(name = "Enemy")
 public class EnemyWrapper {
+    @XmlElement(name = "body")
     private BodyWrapper bodyWrapper;
+    @XmlElement(name = "memory")
     private MemoryWrapper memoryWrapper;
+
+    @XmlElementWrapper(name = "behaviours")
+    @XmlElement(name = "behaviour")
     private BehaviourWrapper[] behaviourWrappers;
 
 
@@ -40,27 +45,6 @@ public class EnemyWrapper {
         String result = "";
         result += bodyWrapper.toString();
         return result;
-    }
-    @XmlElement(name="body")
-    public BodyWrapper getBody(){
-        return bodyWrapper;
-    }
-    public void setBody(BodyWrapper body){
-        this.bodyWrapper = body;
-    }
-
-    @XmlElementWrapper(name = "behaviours")
-    @XmlElement(name = "behaviour")
-    public BehaviourWrapper[] getBehaviours() { return behaviourWrappers.clone(); }
-    public void setBehaviours(BehaviourWrapper[] behaviours){
-        this.behaviourWrappers = new BehaviourWrapper[behaviours.length];
-        System.arraycopy(behaviours, 0, this.behaviourWrappers, 0, behaviours.length);
-    }
-
-    @XmlElement(name = "memory")
-    public MemoryWrapper getMemory(){ return memoryWrapper; }
-    public void setMemory(MemoryWrapper memoryWrapper){
-        this.memoryWrapper = memoryWrapper;
     }
 
     public IConsciousness getObject(ISurroundings level) {

@@ -1,4 +1,4 @@
-package com.helpme.app.game.saveload;
+package com.helpme.app.game.saveload.item;
 
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.IReadItem;
@@ -14,26 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by Klas on 2017-04-29.
  */
 public class ItemWrapper implements ILoadable<Maybe<IItem>> {
-
+    @XmlElement(name="name")
     private String name = null;
-
-
 
     public ItemWrapper(){}
 
     public ItemWrapper(Maybe<IReadItem> maybeItem){
         maybeItem.run(item -> name = item.readName());
-    }
-    public ItemWrapper(String name){
-        this.name = name;
-    }
-
-    @XmlElement(name="name")
-    public String getName(){
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

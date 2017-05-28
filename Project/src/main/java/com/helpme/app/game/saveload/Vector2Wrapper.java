@@ -9,29 +9,17 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by Klas on 2017-05-02.
  */
 public class Vector2Wrapper implements ILoadable<Vector2f> {
+    @XmlElement(name = "x")
     private float x;
+
+    @XmlElement(name = "y")
     private float y;
+
     public Vector2Wrapper(){}
 
     public Vector2Wrapper(Vector2f vec){
         this.x = vec.x;
         this.y = vec.y;
-    }
-
-    @XmlElement(name="x")
-    public float getX(){
-        return x;
-    }
-    public void setX(float x){
-        this.x = x;
-    }
-
-    @XmlElement(name="y")
-    public float getY(){
-        return y;
-    }
-    public void setY(float y){
-        this.y = y;
     }
 
     public String toString(){

@@ -179,6 +179,7 @@ public class SaveTest {
         Unmarshaller unmarshaller;
         TileWrapper tileWrapper;
         ITile loadedTile;
+        List<Maybe<IReadItem>> loadedItems;
 
         items.add(new Just<>(ItemFactory.club()));
         items.add(new Just<>(ItemFactory.potion()));
@@ -198,8 +199,17 @@ public class SaveTest {
         unmarshaller = this.context.createUnmarshaller();
 
         tileWrapper = (TileWrapper) unmarshaller.unmarshal(file);
+        loadedTile = tileWrapper.getObject();
+        loadedItems = loadedTile.readItems();
 
-        System.out.println(tileWrapper);
+        assert (loadedTile.getEdge(Vector2f.NORTH).check(edge -> edge.equals(edges.get(Vector2f.NORTH))) &&
+                loadedTile.getEdge(Vector2f.EAST).check(edge -> edge.equals(edges.get(Vector2f.EAST))) &&
+                loadedTile.getEdge(Vector2f.SOUTH).check(edge -> edge.equals(edges.get(Vector2f.SOUTH))) &&
+                loadedTile.getEdge(Vector2f.WEST).check(edge -> edge.equals(edges.get(Vector2f.WEST))) &&
+                loadedItems.size() == items.size() &&
+                loadedItems.get(0).equals(items.get(0)) &&
+                loadedItems.get(1).equals(items.get(1)) &&
+                loadedItems.get(2).equals(items.get(2)));
     }
 
     @Test
