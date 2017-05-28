@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by Klas on 2017-05-09.
  *
  * The "root" of the save graph.
+ *
+ * All the wrapper classes need an empty constructor. It's a JAXB thing
+ *
  */
 @XmlRootElement(name="Root")
 public class SaveRoot {

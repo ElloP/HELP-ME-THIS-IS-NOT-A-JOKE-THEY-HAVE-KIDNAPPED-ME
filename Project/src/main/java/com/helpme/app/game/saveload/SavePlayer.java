@@ -10,6 +10,9 @@ import java.io.File;
 
 /**
  * Created by Klas on 2017-05-01.
+ *
+ * Class to save only the player
+ *
  */
 public class SavePlayer {
 
