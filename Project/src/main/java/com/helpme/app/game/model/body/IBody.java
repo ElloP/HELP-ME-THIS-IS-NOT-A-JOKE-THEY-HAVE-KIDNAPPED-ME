@@ -12,6 +12,9 @@ import java.util.List;
 
 /**
  * Created by Jacob on 2017-04-08.
+ *
+ * Interface for interacting with a body
+ *
  */
 public interface IBody extends IReadBody, ICopyable<IBody> {
     void rotateRight();

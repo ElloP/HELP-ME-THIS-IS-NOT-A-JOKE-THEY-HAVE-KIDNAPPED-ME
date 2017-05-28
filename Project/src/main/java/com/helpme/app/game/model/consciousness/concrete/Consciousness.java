@@ -17,11 +17,14 @@ import java.util.Observable;
 
 /**
  * Created by Jesper on 2017-04-12.
+ *
+ * Controls a body
+ *
  */
 
 public abstract class Consciousness extends Observable implements IConsciousness {
-    protected IBody body;
-    protected ISurroundings surroundings;
+    protected IBody body;                   //The body it controls
+    protected ISurroundings surroundings;   //The bodies surroundings, i.e the level
 
     @Override
     public abstract void update();
@@ -43,16 +46,18 @@ public abstract class Consciousness extends Observable implements IConsciousness
         return body;
     }
 
+    // Check if body can move a certain direction
     private boolean traverse(Vector2f direction) {
         return surroundings.isMovementAllowed(body, direction);
     }
 
+    // Try to unlock door in certain direction
     private boolean unlock(Vector2f direction) {
         if (surroundings.unlockDoor(body, direction)) {
-            notifyEvent(BodyEvent.UNLOCK);
+            notifyEvent(BodyEvent.UNLOCK);              //Notifies observers of event
             return true;
         }
-        notifyEvent(BodyEvent.BLOCKED);
+        notifyEvent(BodyEvent.BLOCKED);                 //Notifies observers of event
         return false;
     }
 
@@ -129,11 +134,13 @@ public abstract class Consciousness extends Observable implements IConsciousness
         body.setPosition(position);
     }
 
+    //Use current item on self
     @Override
     public void useSelfie() {
         body.selfie();
     }
-
+    //Use current item on the tile/edge the body is facing.
+    //If there is an IBody there and it is not blocked, use current item on it
     @Override
     public void useAttack() {
         Vector2f direction = body.readDirection();

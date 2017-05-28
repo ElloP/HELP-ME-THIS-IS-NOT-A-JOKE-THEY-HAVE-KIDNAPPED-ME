@@ -15,10 +15,10 @@ import java.util.List;
  * Created by Jacob on 2017-04-09.
  */
 public class Inventory implements IInventory {
-    private IItem defaultItem;
-    private List<Maybe<IItem>> keyChain;
-    private List<Maybe<IItem>> items;
-    private int activeItemIndex = 0;
+    private IItem defaultItem;              //The item that is active when you have no other item equipped, like hands
+    private List<Maybe<IItem>> keyChain;    //All keys in inventory
+    private List<Maybe<IItem>> items;       //All items in inventory, excluding keys
+    private int activeItemIndex = 0;        //Index of current active item
 
     public Inventory(List<Maybe<IItem>> items, IItem defaultItem, List<Maybe<IItem>> keyChain) {
         this.defaultItem = defaultItem;
@@ -47,7 +47,7 @@ public class Inventory implements IInventory {
         return index < 0 || index >= items.size() ? new Nothing<>() : Maybe.wrap(items.get(index));
     }
 
-    //TODO check using not exception
+
     @Override
     public Maybe<IItem> getActiveItem() {
         return items.size() == 0 ? new Nothing() : Maybe.wrap(items.get(activeItemIndex));
@@ -96,6 +96,7 @@ public class Inventory implements IInventory {
         setActiveItem(0);
     }
 
+    //Add item to stack. Item have to be of same type and stackable
     @Override
     public boolean addStack(IItem item, int amount) {
         for (Maybe<IItem> maybeStack : items) {

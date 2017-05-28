@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * Created by kopa on 2017-04-21.
+ *
+ * Interface for reading inventory
+ *
  */
 public interface IReadInventory {
     int readSize();

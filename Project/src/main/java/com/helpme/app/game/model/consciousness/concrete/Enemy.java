@@ -14,9 +14,12 @@ import java.util.List;
 
 /**
  * Created by Jesper on 2017-04-12.
+ *
+ * Enemy consciousness. AI
+ *
  */
 public class Enemy extends Consciousness {
-    private SortedList<IBehaviour> behaviours;
+    private SortedList<IBehaviour> behaviours;  //The enemy's different behaviours
     private IMemory memory;
 
     public Enemy(IBody body, ISurroundings surroundings, IMemory memory, SortedList<IBehaviour> behaviours) {

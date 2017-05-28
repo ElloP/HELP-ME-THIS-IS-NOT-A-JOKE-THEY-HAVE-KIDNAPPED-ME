@@ -9,6 +9,9 @@ import com.helpme.app.utils.tuple.Tuple2;
 
 /**
  * Created by kopa on 2017-04-14.
+ *
+ * Interface for reading the values of a body
+ *
  */
 public interface IReadBody extends ITarget, IObservable {
     Vector2f readPosition();

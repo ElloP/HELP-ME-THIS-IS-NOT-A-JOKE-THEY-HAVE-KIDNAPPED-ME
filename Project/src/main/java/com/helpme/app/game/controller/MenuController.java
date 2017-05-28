@@ -11,6 +11,9 @@ import com.helpme.app.utils.mathl.Vector2f;
 
 /**
  * Created by Klas on 2017-05-20.
+ *
+ * Created to handle the menu options
+ *
  */
 public class MenuController extends Scene{
     private UIObjectView menu;
