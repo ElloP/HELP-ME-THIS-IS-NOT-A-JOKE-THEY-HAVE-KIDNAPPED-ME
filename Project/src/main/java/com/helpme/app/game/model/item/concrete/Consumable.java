@@ -7,6 +7,9 @@ import com.helpme.app.game.model.item.effect.IEffect;
 
 /**
  * Created by kopa on 2017-04-09.
+ *
+ * Consumable item. Can be stacked
+ *
  */
 public class Consumable extends Item implements IConsumable {
     private int stacks;

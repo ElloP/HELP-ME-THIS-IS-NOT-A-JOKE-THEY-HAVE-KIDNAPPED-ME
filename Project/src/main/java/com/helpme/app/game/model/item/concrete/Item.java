@@ -8,8 +8,8 @@ import java.util.Objects;
  * Created by Jacob on 2017-03-30.
  */
 public abstract class Item {
-    private IEffect attackEffect;
-    private IEffect selfieEffect;
+    private IEffect attackEffect;   //Effect when using on others
+    private IEffect selfieEffect;   //Effect when using on self
 
     protected String name;
 

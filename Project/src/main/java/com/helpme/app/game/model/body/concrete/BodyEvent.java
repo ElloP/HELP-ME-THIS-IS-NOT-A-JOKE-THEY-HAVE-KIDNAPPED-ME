@@ -2,6 +2,9 @@ package com.helpme.app.game.model.body.concrete;
 
 /**
  * Created by Jesper on 2017-04-23.
+ *
+ * Events for body to notify its obeservers with
+ *
  */
 public enum BodyEvent {
     DEAD,

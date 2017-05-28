@@ -19,6 +19,9 @@ import java.util.Observable;
 
 /**
  * Created by Jacob on 2017-03-30.
+ *
+ * A passive body. Often controlled by a consciousness
+ *
  */
 public class Body extends Observable implements IBody {
     private IInventory inventory;

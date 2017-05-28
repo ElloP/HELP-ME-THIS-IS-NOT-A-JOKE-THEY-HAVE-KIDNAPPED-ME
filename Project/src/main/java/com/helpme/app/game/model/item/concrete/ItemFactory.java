@@ -6,6 +6,9 @@ import com.helpme.app.game.model.item.effect.concrete.EffectFactory;
 
 /**
  * Created by kopa on 2017-04-10.
+ *
+ * Factory for creating items
+ *
  */
 public final class ItemFactory {
     private ItemFactory(){

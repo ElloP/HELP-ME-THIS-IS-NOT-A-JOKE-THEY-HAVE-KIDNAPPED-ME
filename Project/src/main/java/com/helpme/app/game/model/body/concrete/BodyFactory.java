@@ -9,6 +9,9 @@ import com.helpme.app.utils.mathl.Vector2f;
 
 /**
  * Created by kopa on 2017-05-12.
+ *
+ * Factory for creating bodies
+ *
  */
 public final class BodyFactory {
     private BodyFactory(){
