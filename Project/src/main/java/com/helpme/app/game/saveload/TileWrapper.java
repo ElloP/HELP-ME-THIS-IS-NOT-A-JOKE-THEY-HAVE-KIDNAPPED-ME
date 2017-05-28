@@ -39,7 +39,6 @@ public class TileWrapper implements ILoadable<ITile> {
     private Map<Vector2Wrapper, EdgeWrapper> edgeWrappers;
 
 
-    //TODO (klas) Save edgeWrappers
     public TileWrapper() {
     }
 
