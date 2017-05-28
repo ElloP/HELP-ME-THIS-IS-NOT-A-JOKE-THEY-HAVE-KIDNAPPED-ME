@@ -2,7 +2,6 @@ package com.helpme.app.game.controller;
 
 import com.helpme.app.engine.audio.AudioHandler;
 import com.helpme.app.engine.base.Scene;
-import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.view.BodyView;
@@ -14,11 +13,9 @@ import com.helpme.app.game.view.sources.BodySource;
 import com.helpme.app.game.view.sources.PlayerBodySource;
 import com.helpme.app.game.view.sources.Source;
 import com.helpme.app.utils.mathl.Vector2f;
-import com.helpme.app.utils.maybe.Maybe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Observer;
 
 /**
@@ -61,6 +58,7 @@ final class ControllerFactory {
 
     static PlayerController createPlayerController(PlayerCameraView playerCameraView, IConsciousness player){
         HealthView healthView = new HealthView(new Vector2f(1200, 800));
+        healthView.setHealth(player.readBody().readCurrentHitpoints());
         return new PlayerController(playerCameraView, player, healthView);
     }
 
