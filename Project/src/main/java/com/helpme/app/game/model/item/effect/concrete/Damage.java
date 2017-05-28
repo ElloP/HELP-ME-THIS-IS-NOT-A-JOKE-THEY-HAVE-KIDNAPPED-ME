@@ -24,7 +24,7 @@ public class Damage implements IEffect {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof Damage && ((Damage) o).damage == damage;
+        return o instanceof Damage && Math.abs(((Damage) o).damage - damage) < .0000001;
     }
 
     @Override

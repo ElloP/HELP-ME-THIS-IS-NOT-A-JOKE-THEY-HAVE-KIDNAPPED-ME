@@ -25,7 +25,7 @@ public class Heal implements IEffect {
     @Override
     public boolean equals(Object o) {
         return o instanceof Heal &&
-                ((Heal) o).healing == healing;
+                Math.abs(((Heal) o).healing - healing) < .0000001;
     }
 
     @Override
