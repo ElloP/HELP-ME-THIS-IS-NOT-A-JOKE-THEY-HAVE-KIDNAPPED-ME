@@ -32,7 +32,7 @@ public class EnemyWrapper {
     public EnemyWrapper(){}
 
     public EnemyWrapper(Enemy enemy){
-        this.bodyWrapper = new BodyWrapper(enemy.readBody());
+        this.bodyWrapper = new BodyWrapper(enemy.getBody());
         this.memoryWrapper = new MemoryWrapper(enemy.readMemory());
         List<IBehaviour> behaviours = enemy.getBehaviours();
         behaviourWrappers = new BehaviourWrapper[behaviours.size()];

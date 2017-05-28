@@ -32,8 +32,12 @@ public abstract class Item {
     }
 
     @Override
-    public boolean equals(Object o){
-        return o != null && o instanceof Item && Objects.equals(name, ((Item) o).name);
+    public boolean equals(Object o) {
+        return o != null &&
+                o instanceof Item &&
+                Objects.equals(name, ((Item) o).name) &&
+                ((Item) o).attackEffect.equals(attackEffect) &&
+                ((Item) o).selfieEffect.equals(selfieEffect);
     }
 
     @Override

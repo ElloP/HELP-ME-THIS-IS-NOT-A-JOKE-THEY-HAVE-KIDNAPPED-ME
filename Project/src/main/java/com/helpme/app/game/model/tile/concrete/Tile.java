@@ -25,6 +25,9 @@ public class Tile implements ITile {
         this.edges = edges;
     }
 
+    public List<Maybe<IItem>> getItems(){
+        return items;
+    }
 
     @Override
     public Maybe<IEdge> getEdge(Vector2f direction) {

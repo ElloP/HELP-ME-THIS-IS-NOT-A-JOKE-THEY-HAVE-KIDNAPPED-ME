@@ -3,9 +3,11 @@ package com.helpme.app.game.saveload;
 
 import com.helpme.app.game.model.body.inventory.IInventory;
 import com.helpme.app.game.model.body.inventory.IReadInventory;
+import com.helpme.app.game.model.body.inventory.concrete.Inventory;
 import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.IReadItem;
+import com.helpme.app.game.model.item.concrete.Item;
 import com.helpme.app.game.saveload.item.ItemWrapper;
 import com.helpme.app.game.saveload.item.KeyWrapper;
 import com.helpme.app.utils.interfaces.ILoadable;
@@ -32,24 +34,29 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
     @XmlElementWrapper(name = "keychain")
     @XmlElement(name = "key")
-    private KeyWrapper[] keyWrappers;
+    private ItemWrapper[] keyWrappers;
 
     public InventoryWrapper() {
     }
 
-    public InventoryWrapper(IReadInventory inventory) {
-        List<Maybe<IReadItem>> inventoryItems = inventory.readItems();
-        List<Maybe<IReadItem>> inventoryKeys = inventory.readKeychain();
+    public InventoryWrapper(IInventory inventoryInterface) {
+        if(!(inventoryInterface instanceof  Inventory)) {
+            return;
+        }
+
+        Inventory inventory = (Inventory) inventoryInterface;
+        List<Maybe<IItem>> inventoryItems = inventory.getItems();
+        List<Maybe<IItem>> inventoryKeys = inventory.getKeyChain();
         this.itemWrappers = new ItemWrapper[inventoryItems.size()];
-        this.keyWrappers = new KeyWrapper[inventoryKeys.size()];
-        inventory.readDefaultItem().run(item -> this.defaultItemWrapper = new ItemWrapper(Maybe.wrap(item)));
+        this.keyWrappers = new ItemWrapper[inventoryKeys.size()];
+        inventory.getDefaultItem().run(item -> this.defaultItemWrapper = new ItemWrapper(Maybe.wrap(item)));
 
         for (int i = 0; i < inventoryItems.size(); i++) {
             this.itemWrappers[i] = new ItemWrapper(inventoryItems.get(i));
         }
 
         for (int i = 0; i < inventoryKeys.size(); i++) {
-            this.keyWrappers[i] = new KeyWrapper(inventoryKeys.get(i));
+            this.keyWrappers[i] = new ItemWrapper(inventoryKeys.get(i));
         }
     }
 
@@ -63,7 +70,7 @@ public class InventoryWrapper implements ILoadable<IInventory> {
             items.add(itemWrapper.getObject());
         }
 
-        for (KeyWrapper keyWrapper : keyWrappers) {
+        for (ItemWrapper keyWrapper : keyWrappers) {
             keys.add(keyWrapper.getObject());
         }
 

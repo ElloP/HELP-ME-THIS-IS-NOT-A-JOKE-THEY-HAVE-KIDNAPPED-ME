@@ -5,6 +5,7 @@ import com.helpme.app.game.model.consciousness.IReadSurroundings;
 import com.helpme.app.game.model.level.ILevel;
 import com.helpme.app.game.model.level.concrete.LevelFactory;
 import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.model.tile.concrete.Tile;
 import com.helpme.app.utils.interfaces.ILoadable;
 import com.helpme.app.utils.mathl.Vector2f;
 
@@ -29,7 +30,7 @@ public class LevelWrapper implements ILoadable<ILevel> {
         this.tiles = new TileWrapper[levelTiles.size()];
         int i = 0;
         for(Map.Entry<Vector2f, ITile> entry: levelTiles.entrySet()){
-            this.tiles[i] = new TileWrapper(entry.getValue(), entry.getKey());
+            this.tiles[i] = new TileWrapper(entry.getKey(), entry.getValue());
             i++;
         }
     }

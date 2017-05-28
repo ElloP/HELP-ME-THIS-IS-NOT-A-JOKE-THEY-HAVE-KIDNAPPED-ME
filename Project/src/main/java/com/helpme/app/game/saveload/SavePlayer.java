@@ -1,5 +1,6 @@
 package com.helpme.app.game.saveload;
 
+import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.body.IReadBody;
 
 import javax.xml.bind.JAXBContext;
@@ -26,7 +27,7 @@ public class SavePlayer {
         this.unmarshaller = this.context.createUnmarshaller();
     }
 
-    public void marshall(IReadBody player, String filePath) throws JAXBException {
+    public void marshall(IBody player, String filePath) throws JAXBException {
         File file = new File(filePath);
         marshaller.marshal(new BodyWrapper(player), file);
     }

@@ -7,6 +7,7 @@ import com.helpme.app.consciousnesstest.enemytest.EnemyTest;
 import com.helpme.app.edgetest.EdgeTest;
 import com.helpme.app.edgetest.traversetest.TraverseTest;
 import com.helpme.app.edgetest.unlocktest.UnlockTest;
+import com.helpme.app.effecttest.EffectTest;
 import com.helpme.app.intelligencetest.IntelligenceTest;
 import com.helpme.app.inventorytest.InventoryTest;
 import com.helpme.app.itemtest.ConsumableTest;
@@ -64,7 +65,8 @@ import org.junit.runners.Suite;
         UnlockTest.class,
         SaveTest.class,
         MaybeTest.class,
-        Vector2fTest.class})
+        Vector2fTest.class,
+        EffectTest.class})
 public class TestSuite {
     // Nothing
 }

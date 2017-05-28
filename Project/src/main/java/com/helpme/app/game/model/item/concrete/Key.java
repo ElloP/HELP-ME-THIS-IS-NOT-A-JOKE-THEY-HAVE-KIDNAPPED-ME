@@ -31,7 +31,8 @@ public class Key extends Item implements IKey {
     @Override
     public boolean equals(Object o) {
         return o != null &&
-                o instanceof Key && super.equals(o);
+                o instanceof Key &&
+                ((Key) o).readName().equals(readName());
     }
 
     @Override

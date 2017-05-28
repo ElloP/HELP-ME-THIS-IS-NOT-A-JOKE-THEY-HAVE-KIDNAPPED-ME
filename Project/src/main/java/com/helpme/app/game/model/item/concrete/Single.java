@@ -26,11 +26,12 @@ public class Single extends Item implements ISingle {
     @Override
     public boolean equals(Object o) {
         return o != null &&
-                o instanceof Single && super.equals(o);
+                o instanceof Single &&
+                super.equals(o);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return ("single" + name.hashCode()).hashCode();
     }
 }

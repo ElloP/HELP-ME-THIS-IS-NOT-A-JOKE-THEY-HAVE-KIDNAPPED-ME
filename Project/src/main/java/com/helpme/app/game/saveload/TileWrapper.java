@@ -1,9 +1,8 @@
 package com.helpme.app.game.saveload;
 
 import com.helpme.app.game.model.item.IItem;
-import com.helpme.app.game.model.item.IReadItem;
-import com.helpme.app.game.model.tile.IReadTile;
 import com.helpme.app.game.model.tile.ITile;
+import com.helpme.app.game.model.tile.concrete.Tile;
 import com.helpme.app.game.model.tile.concrete.TileFactory;
 import com.helpme.app.game.model.tile.edge.IEdge;
 import com.helpme.app.game.saveload.edge.EdgeWrapper;
@@ -24,7 +23,7 @@ import java.util.Map;
  * Created by Klas on 2017-05-01.
  */
 
-@XmlRootElement(name="tile")
+@XmlRootElement(name = "tile")
 public class TileWrapper implements ILoadable<ITile> {
 
     @XmlElement(name = "position")
@@ -42,9 +41,14 @@ public class TileWrapper implements ILoadable<ITile> {
     public TileWrapper() {
     }
 
-    public TileWrapper(IReadTile tile, Vector2f position) {
+    public TileWrapper(Vector2f position, ITile tileInterface) {
+        if (!(tileInterface instanceof Tile)) {
+            return;
+        }
+
+        Tile tile = (Tile) tileInterface;
         this.positionWrapper = new Vector2Wrapper(position);
-        List<Maybe<IReadItem>> tileItems = tile.readItems(); //TODO (klas) Fix maybe nothing case?
+        List<Maybe<IItem>> tileItems = tile.getItems();
         this.itemWrappers = new ItemWrapper[tileItems.size()];
         this.edgeWrappers = new HashMap<>();
         for (int i = 0; i < itemWrappers.length; i++) {
@@ -73,7 +77,8 @@ public class TileWrapper implements ILoadable<ITile> {
 
 
     }
-    public Vector2f getLocation(){
+
+    public Vector2f getLocation() {
         return this.positionWrapper.getObject();
     }
 }

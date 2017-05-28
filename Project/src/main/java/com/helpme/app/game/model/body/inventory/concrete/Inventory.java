@@ -16,14 +16,22 @@ import java.util.List;
  */
 public class Inventory implements IInventory {
     private IItem defaultItem;
-    private List<Maybe<IItem>> keychain;
+    private List<Maybe<IItem>> keyChain;
     private List<Maybe<IItem>> items;
     private int activeItemIndex = 0;
 
-    public Inventory(List<Maybe<IItem>> items, IItem defaultItem, List<Maybe<IItem>> keychain) {
+    public Inventory(List<Maybe<IItem>> items, IItem defaultItem, List<Maybe<IItem>> keyChain) {
         this.defaultItem = defaultItem;
         this.items = items;
-        this.keychain = keychain;
+        this.keyChain = keyChain;
+    }
+
+    public List<Maybe<IItem>> getItems(){
+        return items;
+    }
+
+    public List<Maybe<IItem>> getKeyChain(){
+        return keyChain;
     }
 
     @Override
@@ -52,7 +60,7 @@ public class Inventory implements IInventory {
 
     @Override
     public void addKey(IItem key) {
-        keychain.add(Maybe.wrap(key));
+        keyChain.add(Maybe.wrap(key));
     }
 
     @Override
@@ -128,7 +136,7 @@ public class Inventory implements IInventory {
 
     @Override
     public List<Maybe<IReadItem>> readKeychain() {
-        return Maybe.cast(keychain);
+        return Maybe.cast(keyChain);
     }
 
     @Override
@@ -143,7 +151,7 @@ public class Inventory implements IInventory {
 
     @Override
     public boolean hasKey(IItem key) {
-        for(Maybe<IItem> maybeKey : keychain){
+        for(Maybe<IItem> maybeKey : keyChain){
             if(maybeKey.equals(Maybe.wrap(key))) {
                 return true;
             }
@@ -153,6 +161,6 @@ public class Inventory implements IInventory {
 
     @Override
     public IInventory copy() {
-        return InventoryFactory.createInventory(Copy.maybeList(items), defaultItem.copy(), Copy.maybeList(keychain));
+        return InventoryFactory.createInventory(Copy.maybeList(items), defaultItem.copy(), Copy.maybeList(keyChain));
     }
 }
