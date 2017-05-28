@@ -23,6 +23,7 @@ public class RenderCore implements IRenderCore {
         setClearColor();
         enableFaceCulling();
         enableDepthTest();
+        enableTransparentTextures();
     }
 
     public void setClearColor() {
@@ -33,6 +34,7 @@ public class RenderCore implements IRenderCore {
         glFrontFace(GL_CW);
         glCullFace(GL_BACK);
         glEnable(GL_CULL_FACE);
+
     }
 
     public void disableFaceCulling() {
@@ -53,6 +55,15 @@ public class RenderCore implements IRenderCore {
 
     public void disableGammaCorrection() {
         glDisable(GL_FRAMEBUFFER_SRGB);
+    }
+
+    public void enableTransparentTextures() {
+        glEnable(GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    public void disableTransparentTextures() {
+        glDisable(GL_BLEND);
     }
 
     public void clearWindow() {

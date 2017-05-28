@@ -19,8 +19,8 @@ public class BodyView extends GameObject {
     private Texture texture;
 
     private static Vertex3D[] vertices = new Vertex3D[] {
-            new Vertex3D(-1.5f, -1.0f,  0.0f, 0.0f, 0.0f),
-            new Vertex3D(1.5f, -1.0f,  0.0f, 1.0f, 0.0f),
+            new Vertex3D(-1.5f, -1.15f,  0.0f, 0.0f, 0.0f),
+            new Vertex3D(1.5f, -1.15f,  0.0f, 1.0f, 0.0f),
             new Vertex3D(1.5f,  2.0f,  0.0f, 1.0f, 1.0f),
             new Vertex3D(-1.5f,  2.0f,  0.0f, 0.0f,1.0f)
     };
