@@ -4,7 +4,7 @@ import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.IReadSurroundings;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IShortTerm;
+import com.helpme.app.game.model.consciousness.memory.IShortTerm;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Maybe;
@@ -84,5 +84,27 @@ public class Follow extends Behaviour {
             int cost = surroundings.getPath(body.readPosition(), player.readPosition()).c;
             return cost > 0 && cost <= followingDistance;
         });
+    }
+
+    @Override
+    public boolean equals(Object o){
+        Follow other;
+
+        if(!(o instanceof Follow)) {
+            return false;
+        }
+
+        other = (Follow) o;
+
+        return other.followingDistance == followingDistance &&
+                other.foundEvent.equals(foundEvent) &&
+                other.followingEvent.equals(followingEvent) &&
+                other.lostEvent.equals(lostEvent) &&
+                super.equals(o);
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

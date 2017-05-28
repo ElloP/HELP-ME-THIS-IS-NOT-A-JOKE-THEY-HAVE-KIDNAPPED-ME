@@ -4,7 +4,7 @@ import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.IReadSurroundings;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IShortTerm;
+import com.helpme.app.game.model.consciousness.memory.IShortTerm;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Just;
 import com.helpme.app.utils.maybe.Maybe;
@@ -38,5 +38,23 @@ public class Attack extends Behaviour {
             memory.updateShortTermMemory(attackEvent, 1);
         }
         return new Just<>(IConsciousness::useAttack);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Attack other;
+
+        if(!(o instanceof Attack)) {
+            return false;
+        }
+
+        other = (Attack) o;
+
+        return other.attackEvent.equals(attackEvent) && super.equals(o);
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

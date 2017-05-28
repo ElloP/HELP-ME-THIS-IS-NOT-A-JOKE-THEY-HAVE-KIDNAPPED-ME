@@ -16,8 +16,9 @@ import java.util.Observer;
  * Created by Jesper on 2017-04-23.
  */
 public class LevelAudioController implements Observer {
-    ArrayList<AbstractBodySource> bodySources;
-    public LevelAudioController(ArrayList<AbstractBodySource> bodySources) {
+    private ArrayList<AbstractBodySource> bodySources;
+
+    LevelAudioController(ArrayList<AbstractBodySource> bodySources) {
         this.bodySources = bodySources;
     }
 
@@ -43,6 +44,8 @@ public class LevelAudioController implements Observer {
             case BLOCKED:
                 System.out.println("Being blocked");
                 getSource(consciousness.readBody()).play(AbstractBodySource.BLOCKED);
+                break;
+            default:
                 break;
         }
     }

@@ -3,7 +3,7 @@ package com.helpme.app.game.model.consciousness.behaviour;
 import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.IReadSurroundings;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IShortTerm;
+import com.helpme.app.game.model.consciousness.memory.IShortTerm;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.tuple.Tuple2;

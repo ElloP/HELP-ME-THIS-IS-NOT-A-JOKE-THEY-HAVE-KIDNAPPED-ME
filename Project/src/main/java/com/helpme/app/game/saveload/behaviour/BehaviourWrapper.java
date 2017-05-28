@@ -33,7 +33,6 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
     public BehaviourWrapper(IBehaviour behaviour) {
         this.priority = behaviour.getPriority();
 
-
         if (behaviour instanceof Follow) {
             this.followWrapper = new FollowWrapper((Follow) behaviour);
         } else if (behaviour instanceof Return) {
@@ -42,6 +41,14 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
             this.stayWrapper = new StayWrapper((Stay) behaviour);
         } else if (behaviour instanceof Attack) {
             this.attackWrapper = new AttackWrapper((Attack) behaviour);
+        }
+
+        this.preconditionWrappers = new PreconditionWrapper[behaviour.getPreconditions().size()];
+        int i = 0;
+        for(Map.Entry<String, Tuple2<Integer, Comparison>> entry : behaviour.getPreconditions().entrySet()){
+            Tuple2<Integer, Comparison> tuple = entry.getValue();
+            this.preconditionWrappers[i] = new PreconditionWrapper(entry.getKey(), tuple.a, tuple.b);
+            i++;
         }
     }
 
@@ -61,9 +68,7 @@ public class BehaviourWrapper implements ILoadable<IBehaviour> {
     }
     public void setPreconditions(PreconditionWrapper[] preconditionWrappers){
         this.preconditionWrappers = new PreconditionWrapper[preconditionWrappers.length];
-        for(int i = 0; i < preconditionWrappers.length; i++){
-            this.preconditionWrappers[i] = preconditionWrappers[i];
-        }
+        System.arraycopy(preconditionWrappers, 0, this.preconditionWrappers, 0, preconditionWrappers.length);
     }
 
     @XmlElement(name = "follow")

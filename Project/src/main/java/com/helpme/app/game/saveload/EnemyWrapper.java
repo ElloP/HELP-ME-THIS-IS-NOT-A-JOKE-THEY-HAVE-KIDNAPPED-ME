@@ -10,12 +10,14 @@ import com.helpme.app.game.saveload.memory.MemoryWrapper;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Klas on 2017-05-01.
  */
+@XmlRootElement(name = "Enemy")
 public class EnemyWrapper {
     private BodyWrapper bodyWrapper;
     private MemoryWrapper memoryWrapper;
@@ -52,9 +54,7 @@ public class EnemyWrapper {
     public BehaviourWrapper[] getBehaviours() { return behaviourWrappers.clone(); }
     public void setBehaviours(BehaviourWrapper[] behaviours){
         this.behaviourWrappers = new BehaviourWrapper[behaviours.length];
-        for(int i = 0; i < behaviours.length; i++){
-            this.behaviourWrappers[i] = behaviours[i];
-        }
+        System.arraycopy(behaviours, 0, this.behaviourWrappers, 0, behaviours.length);
     }
 
     @XmlElement(name = "memory")

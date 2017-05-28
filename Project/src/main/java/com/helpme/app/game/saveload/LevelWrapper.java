@@ -48,7 +48,7 @@ public class LevelWrapper implements ILoadable<ILevel> {
     public String toString(){
         StringBuilder result = new StringBuilder();
         for(TileWrapper t : tiles){
-            result.append("\n" + t);
+            result.append("\n").append(t);
         }
         return result.toString();
     }

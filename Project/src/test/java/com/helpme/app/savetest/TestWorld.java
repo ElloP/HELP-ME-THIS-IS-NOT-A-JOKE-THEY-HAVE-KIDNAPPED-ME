@@ -7,7 +7,7 @@ import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
 import com.helpme.app.game.model.consciousness.behaviour.concrete.BehaviourFactory;
-import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryFactory;
+import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
 import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.item.IItem;

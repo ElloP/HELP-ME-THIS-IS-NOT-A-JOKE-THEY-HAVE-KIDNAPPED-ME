@@ -1,6 +1,6 @@
-package com.helpme.app.game.model.consciousness.behaviour.memory.concrete;
+package com.helpme.app.game.model.consciousness.memory.concrete;
 
-import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.game.model.consciousness.memory.IMemory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,5 +63,39 @@ public class Memory implements IMemory {
     @Override
     public IMemory copy() {
         return new Memory(readShortTerm(), readLongTerm());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Memory other;
+
+        if (!(o instanceof Memory)) {
+            return false;
+        }
+
+        other = (Memory) o;
+
+        if (other.longTerm.size() != longTerm.size() || other.shortTerm.size() != shortTerm.size()) {
+            return false;
+        }
+
+        for (Map.Entry<String, Integer> entry : other.longTerm.entrySet()){
+            if(!longTerm.get(entry.getKey()).equals(entry.getValue())){
+                return false;
+            }
+        }
+
+        for (Map.Entry<String, Integer> entry : other.shortTerm.entrySet()){
+            if(!shortTerm.get(entry.getKey()).equals(entry.getValue())){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

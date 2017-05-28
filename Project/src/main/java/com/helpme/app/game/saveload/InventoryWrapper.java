@@ -21,9 +21,9 @@ import java.util.List;
 @XmlRootElement(name = "inventory")
 public class InventoryWrapper implements ILoadable<IInventory> {
 
-    ItemWrapper defaultItemWrapper;
-    ItemWrapper[] itemWrappers;
-    KeyWrapper[] keyWrappers;
+    private ItemWrapper defaultItemWrapper;
+    private ItemWrapper[] itemWrappers;
+    private KeyWrapper[] keyWrappers;
 
     public InventoryWrapper() {
     }
@@ -85,12 +85,12 @@ public class InventoryWrapper implements ILoadable<IInventory> {
 
         if (itemWrappers != null) {
             for (ItemWrapper item : itemWrappers) {
-                if (item != null) result.append("\n\tItem:\t" + (item.getName()));
+                if (item != null) result.append("\n\tItem:\t").append(item.getName());
             }
         }
         if (keyWrappers != null) {
             for (KeyWrapper key : keyWrappers) {
-                if (key != null) result.append("\n\tKey:\t" + (key.getName()));
+                if (key != null) result.append("\n\tKey:\t").append(key.getName());
             }
         }
         return result.toString();
@@ -102,12 +102,12 @@ public class InventoryWrapper implements ILoadable<IInventory> {
         List<Maybe<IItem>> keys = new ArrayList<>();
         Maybe<IItem> defaultWeapon = defaultItemWrapper.getObject();
 
-        for (int i = 0; i < itemWrappers.length; i++) {
-            items.add(itemWrappers[i].getObject());
+        for (ItemWrapper itemWrapper : itemWrappers) {
+            items.add(itemWrapper.getObject());
         }
 
-        for (int i = 0; i < keyWrappers.length; i++) {
-            keys.add(keyWrappers[i].getObject());
+        for (KeyWrapper keyWrapper : keyWrappers) {
+            keys.add(keyWrapper.getObject());
         }
 
         return InventoryFactory.createInventory(items, defaultWeapon.isJust() ? defaultWeapon.getValue() : null, keys);

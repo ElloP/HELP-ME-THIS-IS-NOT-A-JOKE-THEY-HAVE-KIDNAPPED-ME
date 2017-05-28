@@ -39,7 +39,7 @@ public class FollowWrapper implements ILoadable<IBehaviour> {
 
     @XmlElement(name = "found_event")
     public String getFoundEvent() {
-        return followingEvent;
+        return foundEvent;
     }
 
     public void setFoundEvent(String foundEvent) {

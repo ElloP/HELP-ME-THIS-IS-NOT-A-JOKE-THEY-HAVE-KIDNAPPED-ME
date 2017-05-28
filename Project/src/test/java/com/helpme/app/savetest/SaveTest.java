@@ -1,26 +1,25 @@
 package com.helpme.app.savetest;
 
 import com.helpme.app.game.model.body.IBody;
-import com.helpme.app.game.model.body.concrete.Body;
 import com.helpme.app.game.model.body.concrete.BodyFactory;
 import com.helpme.app.game.model.body.inventory.IInventory;
-import com.helpme.app.game.model.body.inventory.IReadInventory;
-import com.helpme.app.game.model.body.inventory.concrete.Inventory;
 import com.helpme.app.game.model.body.inventory.concrete.InventoryFactory;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
 import com.helpme.app.game.model.consciousness.behaviour.concrete.Attack;
+import com.helpme.app.game.model.consciousness.behaviour.concrete.BehaviourFactory;
 import com.helpme.app.game.model.consciousness.behaviour.concrete.Stay;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
-import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryFactory;
+import com.helpme.app.game.model.consciousness.memory.IMemory;
+import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
+import com.helpme.app.game.model.consciousness.concrete.ConsciousnessFactory;
 import com.helpme.app.game.model.consciousness.concrete.Enemy;
 import com.helpme.app.game.model.consciousness.concrete.Player;
 import com.helpme.app.game.model.item.IItem;
 import com.helpme.app.game.model.item.IReadItem;
 import com.helpme.app.game.model.item.concrete.ItemFactory;
 import com.helpme.app.game.model.level.ILevel;
-import com.helpme.app.game.model.level.concrete.Level;
+import com.helpme.app.game.model.level.concrete.LevelFactory;
 import com.helpme.app.game.model.tile.ITile;
 import com.helpme.app.game.model.tile.concrete.TileFactory;
 import com.helpme.app.game.model.tile.edge.IEdge;
@@ -58,7 +57,7 @@ public class SaveTest {
 
     @Before
     public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(SaveRoot.class, BodyWrapper.class);
+        this.context = JAXBContext.newInstance(SaveRoot.class, BodyWrapper.class, EnemyWrapper.class);
         // this.context = JAXBContext.newInstance(BodyWrapper.class);
     }
 
@@ -100,15 +99,16 @@ public class SaveTest {
 
     @Test
     public void testSaveInventory() throws JAXBException {
+        File file = new File("test.xml");
         List<Maybe<IItem>> items = new ArrayList<>();
         List<Maybe<IItem>> keys = new ArrayList<>();
-        File file = new File("test.xml");
-        List<Maybe<IReadItem>> loadedKeyChain;
+        IItem defaultItem = ItemFactory.fists();
         Marshaller marshaller = this.context.createMarshaller();
         Unmarshaller unmarshaller;
         IInventory inventory;
         InventoryWrapper inventoryWrapper;
         IInventory loadedInventory;
+        List<Maybe<IReadItem>> loadedKeyChain;
 
         items.add(new Just<>(ItemFactory.potion()));
         items.add(new Just<>(ItemFactory.fists()));
@@ -120,7 +120,7 @@ public class SaveTest {
         keys.add(new Just<>(ItemFactory.createKey("key2")));
         keys.add(new Nothing<>());
 
-        inventory = InventoryFactory.createInventory(items, ItemFactory.fists(), keys);
+        inventory = InventoryFactory.createInventory(items, defaultItem, keys);
 
         marshaller.marshal(new InventoryWrapper(inventory), file);
 
@@ -132,16 +132,16 @@ public class SaveTest {
         loadedKeyChain = loadedInventory.readKeychain();
 
         assert (loadedInventory.readSize() == 4 &&
-                loadedInventory.readItem(0).check(item -> item.equals(ItemFactory.potion())) &&
-                loadedInventory.readItem(1).check(item -> item.equals(ItemFactory.fists())) &&
-                loadedInventory.readItem(2).check(item -> item.equals(ItemFactory.club())) &&
-                loadedInventory.readItem(3).isNothing() &&
-                loadedInventory.readDefaultItem().check(item -> item.equals(ItemFactory.fists())) &&
+                loadedInventory.readItem(0).equals(items.get(0)) &&
+                loadedInventory.readItem(1).equals(items.get(1)) &&
+                loadedInventory.readItem(2).equals(items.get(2)) &&
+                loadedInventory.readItem(3).equals(items.get(3)) &&
+                loadedInventory.readDefaultItem().check(item -> item.equals(defaultItem)) &&
                 loadedKeyChain.size() == 4 &&
-                loadedKeyChain.get(0).equals(new Just<>((IReadItem) ItemFactory.createKey("key0"))) &&
-                loadedKeyChain.get(1).equals(new Just<>((IReadItem) ItemFactory.createKey("key1"))) &&
-                loadedKeyChain.get(2).equals(new Just<>((IReadItem) ItemFactory.createKey("key2"))) &&
-                loadedKeyChain.get(3).isNothing());
+                loadedKeyChain.get(0).equals(keys.get(0)) &&
+                loadedKeyChain.get(1).equals(keys.get(1)) &&
+                loadedKeyChain.get(2).equals(keys.get(2))) &&
+                loadedKeyChain.get(3).equals(keys.get(3));
     }
 
     @Test
@@ -161,10 +161,10 @@ public class SaveTest {
         loadedBody = bodyWrapper.getObject();
 
 
-        assert (loadedBody.readHitpoints().equals(new Vector2f(100, 100)) &&
-                loadedBody.readPosition().equals(Vector2f.ZERO) &&
-                loadedBody.readDirection().equals(Vector2f.NORTH) &&
-                loadedBody.isDead() == false);
+        assert (loadedBody.readHitpoints().equals(body.readHitpoints()) &&
+                loadedBody.readPosition().equals(body.readPosition()) &&
+                loadedBody.readDirection().equals(body.readDirection()) &&
+                loadedBody.isDead() == body.isDead());
 
     }
 
@@ -204,18 +204,46 @@ public class SaveTest {
 
     @Test
     public void testSaveEnemy() throws JAXBException {
+        File file = new File("test.xml");
         Map<String, Tuple2<Integer, Comparison>> preconditions = new HashMap<>();
-        IBehaviour attack = new Attack(2, preconditions, "test");
-        IBehaviour stay = new Stay(1, null);
+        IBehaviour attack = BehaviourFactory.createAttack(
+                2,
+                preconditions,
+                "test");
+        IBehaviour stay = BehaviourFactory.createStay(
+                1,
+                null);
+        IBehaviour follow = BehaviourFactory.createFollow(
+                3,
+                null,
+                2,
+                "found",
+                "following",
+                "lost");
+
         List<IBehaviour> behaviours = new ArrayList<>();
+
+        SortedList<IBehaviour> sortedBehaviours;
         Map<String, Integer> longTerm = new HashMap<>();
         Map<String, Integer> shortTerm = new HashMap<>();
+        IMemory memory;
+        Marshaller marshaller;
+        Unmarshaller unmarshaller;
+        EnemyWrapper enemyWrapper;
         IBody body;
         ILevel level;
-        IConsciousness enemy;
+        Enemy enemy;
+        Enemy loadedEnemy;
+        IMemory loadedMemory;
+        List<IBehaviour> loadedBehaviours;
 
         behaviours.add(attack);
         behaviours.add(stay);
+        behaviours.add(follow);
+
+        sortedBehaviours = new SortedList<>(
+                FXCollections.observableList(behaviours),
+                Comparator.comparingInt(IBehaviour::getPriority));
 
         preconditions.put("name0", new Tuple2<>(1, Comparison.EQUAL));
         preconditions.put("name1", new Tuple2<>(4, Comparison.LESS_THAN));
@@ -228,18 +256,29 @@ public class SaveTest {
         shortTerm.put("shortterm0", 3);
         shortTerm.put("shortterm1", 0);
 
-        IMemory memory = MemoryFactory.createMemory(shortTerm, longTerm);
+        memory = MemoryFactory.createMemory(shortTerm, longTerm);
 
         body = BodyFactory.createBody(null, Vector2f.ZERO, Vector2f.NORTH, new Vector2f(100, 100), Vector2f.ZERO, null, false);
 
-        level = new Level(null, Vector2f.ZERO, new HashMap<>(), new ArrayList<>());
+        level = LevelFactory.createLevel(null, Vector2f.ZERO, new HashMap<>(), new ArrayList<>());
 
-        enemy = new Enemy(body, level, memory, new SortedList<>(FXCollections.observableList(behaviours), Comparator.comparingInt(IBehaviour::getPriority)));
+        enemy = (Enemy) ConsciousnessFactory.createEnemy(body, level, memory, sortedBehaviours);
 
-        File file = new File("test.xml");
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new SaveRoot(level, body, new IConsciousness[]{enemy}), file);
+        marshaller = this.context.createMarshaller();
+        marshaller.marshal(new EnemyWrapper(enemy), file);
 
+        unmarshaller = this.context.createUnmarshaller();
+
+        enemyWrapper = (EnemyWrapper) unmarshaller.unmarshal(file);
+        loadedEnemy = (Enemy) enemyWrapper.getObject(level);
+        loadedMemory = loadedEnemy.readMemory();
+        loadedBehaviours = loadedEnemy.getBehaviours();
+
+        assert (loadedBehaviours.size() == behaviours.size() &&
+                loadedBehaviours.get(0).equals(sortedBehaviours.get(0)) &&
+                loadedBehaviours.get(1).equals(sortedBehaviours.get(1)) &&
+                loadedBehaviours.get(2).equals(sortedBehaviours.get(2)) &&
+                loadedMemory.equals(memory));
     }
 }
 

@@ -1,18 +1,16 @@
 package com.helpme.app.game.model.consciousness.concrete;
 
 import com.helpme.app.game.model.body.IBody;
-import com.helpme.app.game.model.body.concrete.BodyFactory;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.ISurroundings;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
-import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryFactory;
+import com.helpme.app.game.model.consciousness.memory.IMemory;
+import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.SortedList;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 /**

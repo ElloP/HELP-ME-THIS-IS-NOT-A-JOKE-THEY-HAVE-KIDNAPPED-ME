@@ -4,7 +4,7 @@ import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.IReadSurroundings;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IShortTerm;
+import com.helpme.app.game.model.consciousness.memory.IShortTerm;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.maybe.Just;
@@ -56,5 +56,25 @@ public class Return extends Behaviour {
     private boolean returned(IReadBody body, IReadSurroundings surroundings) {
         int cost = surroundings.getPath(body.readPosition(), body.readStartingPosition()).c;
         return cost <= 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Return other;
+
+        if (!(o instanceof Return)) {
+            return false;
+        }
+
+        other = (Return) o;
+
+        return other.returnedEvent.equals(returnedEvent) &&
+                other.returningEvent.equals(returningEvent) &&
+                super.equals(o);
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

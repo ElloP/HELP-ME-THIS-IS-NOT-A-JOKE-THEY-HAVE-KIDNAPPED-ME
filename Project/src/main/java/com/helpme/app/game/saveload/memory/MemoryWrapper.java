@@ -1,7 +1,7 @@
 package com.helpme.app.game.saveload.memory;
 
-import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
-import com.helpme.app.game.model.consciousness.behaviour.memory.concrete.MemoryFactory;
+import com.helpme.app.game.model.consciousness.memory.IMemory;
+import com.helpme.app.game.model.consciousness.memory.concrete.MemoryFactory;
 import com.helpme.app.utils.interfaces.ILoadable;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,8 +13,8 @@ import java.util.Map;
  * Created by kopa on 2017-05-19.
  */
 public class MemoryWrapper implements ILoadable<IMemory> {
-    MemoryEntryWrapper[] longTermWrapper;
-    MemoryEntryWrapper[] shortTermWrapper;
+    private MemoryEntryWrapper[] longTermWrapper;
+    private MemoryEntryWrapper[] shortTermWrapper;
 
     public MemoryWrapper() {
 
@@ -49,9 +49,8 @@ public class MemoryWrapper implements ILoadable<IMemory> {
     }
 
     public void setLongTerm(MemoryEntryWrapper[] longTermWrapper) {
-        for (int i = 0; i < longTermWrapper.length; i++) {
-            this.longTermWrapper[i] = longTermWrapper[i];
-        }
+        this.longTermWrapper = new MemoryEntryWrapper[longTermWrapper.length];
+        System.arraycopy(longTermWrapper, 0, this.longTermWrapper, 0, longTermWrapper.length);
     }
 
     @XmlElementWrapper(name = "short_term")
@@ -61,9 +60,8 @@ public class MemoryWrapper implements ILoadable<IMemory> {
     }
 
     public void setShortTerm(MemoryEntryWrapper[] shortTermWrapper) {
-        for (int i = 0; i < shortTermWrapper.length; i++) {
-            this.shortTermWrapper[i] = shortTermWrapper[i];
-        }
+        this.shortTermWrapper = new MemoryEntryWrapper[shortTermWrapper.length];
+        System.arraycopy(shortTermWrapper, 0, this.shortTermWrapper, 0, shortTermWrapper.length);
     }
 
 
@@ -75,7 +73,7 @@ public class MemoryWrapper implements ILoadable<IMemory> {
         return MemoryFactory.createMemory(shortTerm, longTerm);
     }
 
-    private Map<String, Integer> memoryWrapperToMap(MemoryEntryWrapper[] memoryWrapper){
+    private Map<String, Integer> memoryWrapperToMap(MemoryEntryWrapper[] memoryWrapper) {
         Map<String, Integer> map = new HashMap<>();
         if (memoryWrapper != null) {
             for (MemoryEntryWrapper memoryEntryWrapper : memoryWrapper) {

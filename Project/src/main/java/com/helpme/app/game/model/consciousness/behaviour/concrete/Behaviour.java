@@ -4,7 +4,7 @@ import com.helpme.app.game.model.body.IReadBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.behaviour.Comparison;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IShortTerm;
+import com.helpme.app.game.model.consciousness.memory.IShortTerm;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.mathl.Vector2f;
 import com.helpme.app.utils.tuple.Tuple2;
@@ -100,5 +100,32 @@ public abstract class Behaviour implements IBehaviour {
         } else {
             return IConsciousness::rotateLeft;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Behaviour other;
+
+        if (!(o instanceof Behaviour)){
+            return false;
+        }
+
+        other = (Behaviour) o;
+
+        if(((Behaviour) o).preconditions.size() != preconditions.size() || priority != other.priority){
+            return false;
+        }
+
+        for (Map.Entry<String, Tuple2<Integer, Comparison>> entry : other.preconditions.entrySet()) {
+            if (!preconditions.get(entry.getKey()).equals(entry.getValue())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode();
     }
 }

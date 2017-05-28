@@ -42,6 +42,6 @@ public class KeyWrapper implements ILoadable<Maybe<IItem>> {
 
     @Override
     public Maybe<IItem> getObject() {
-        return name == null ? new Nothing<>() : new Just<>(ItemFactory.createKey(name)); //(TODO) klas. Create item from name
+        return name == null ? new Nothing<>() : new Just<>(ItemFactory.createKey(name));
     }
 }

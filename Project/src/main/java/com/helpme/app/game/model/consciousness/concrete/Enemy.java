@@ -4,7 +4,7 @@ import com.helpme.app.game.model.body.IBody;
 import com.helpme.app.game.model.consciousness.IConsciousness;
 import com.helpme.app.game.model.consciousness.ISurroundings;
 import com.helpme.app.game.model.consciousness.behaviour.IBehaviour;
-import com.helpme.app.game.model.consciousness.behaviour.memory.IMemory;
+import com.helpme.app.game.model.consciousness.memory.IMemory;
 import com.helpme.app.utils.functions.IAction;
 import com.helpme.app.utils.maybe.Maybe;
 import com.helpme.app.utils.maybe.Nothing;

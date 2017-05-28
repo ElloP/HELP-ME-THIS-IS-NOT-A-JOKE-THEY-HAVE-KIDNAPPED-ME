@@ -86,16 +86,16 @@ public class TileWrapper implements ILoadable<ITile> {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Tile at " + positionWrapper);
+        result.append("Tile at ").append(positionWrapper);
         if (itemWrappers != null) {
             for (ItemWrapper item : itemWrappers) {
-                if (item != null) result.append("\nItem: " + (item.getName()));
+                if (item != null) result.append("\nItem: ").append(item.getName());
             }
         }
 
         if(edgeWrappers != null){
             for(Map.Entry<Vector2Wrapper, EdgeWrapper> entry : edgeWrappers.entrySet()){
-                if(entry != null) result.append("\nEdge: " + (entry.getValue().toString()) + " facing " + entry.getKey().toString());
+                if(entry != null) result.append("\nEdge: ").append(entry.getValue().toString()).append(" facing ").append(entry.getKey().toString());
             }
         }
         return result.toString();
@@ -105,8 +105,8 @@ public class TileWrapper implements ILoadable<ITile> {
     public ITile getObject() {
         List<Maybe<IItem>> items = new ArrayList<>();
 
-        for (int i = 0; i < itemWrappers.length; i++) {
-            items.add(itemWrappers[i].getObject());
+        for (ItemWrapper itemWrapper : itemWrappers) {
+            items.add(itemWrapper.getObject());
         }
 
         Map<Vector2f, IEdge> edges = new HashMap<>();

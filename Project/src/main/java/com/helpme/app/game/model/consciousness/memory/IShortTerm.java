@@ -1,4 +1,4 @@
-package com.helpme.app.game.model.consciousness.behaviour.memory;
+package com.helpme.app.game.model.consciousness.memory;
 
 import java.util.Map;
 
