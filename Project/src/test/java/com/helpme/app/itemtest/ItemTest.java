@@ -6,6 +6,7 @@ import com.helpme.app.game.model.item.concrete.Item;
 import com.helpme.app.game.model.item.concrete.Key;
 import com.helpme.app.game.model.item.concrete.Single;
 import com.helpme.app.game.model.item.effect.IEffect;
+import com.helpme.app.game.model.item.effect.IEffectFactory;
 import org.junit.Test;
 
 /**
@@ -15,7 +16,7 @@ import org.junit.Test;
 public class ItemTest {
 
     @Test
-    public void testGetAttackEffect(){
+    public void testGetAttackEffect() {
         MockTarget target = new MockTarget();
         Item item = new Single("item", t -> t.damage(10), t -> t.heal(3));
         IEffect attackEffect = item.getAttackEffect();
@@ -24,7 +25,7 @@ public class ItemTest {
     }
 
     @Test
-    public void testGetSelfieEffect(){
+    public void testGetSelfieEffect() {
         MockTarget target = new MockTarget();
         Item item = new Single("item", t -> t.damage(4), t -> t.heal(7));
         IEffect selfieEffect = item.getSelfieEffect();
@@ -57,7 +58,9 @@ public class ItemTest {
 
     @Test
     public void testEqualsSingle() {
-        IItem single0 = new Single("test", IEffect.empty(), IEffect.empty());
+        IItem single0 = new Single("test", t -> {
+        }, t -> {
+        });
         IItem single1 = new Single("test", t -> t.damage(2), t -> t.heal(4));
         assert (single0.equals(single1));
     }
@@ -71,7 +74,9 @@ public class ItemTest {
 
     @Test
     public void testEqualsConsumable() {
-        IItem consumable0 = new Consumable("test", 4, IEffect.empty(), IEffect.empty());
+        IItem consumable0 = new Consumable("test", 4, t -> {
+        }, t -> {
+        });
         IItem consumable1 = new Consumable("test", 2, t -> t.damage(2), t -> t.heal(4));
         assert (consumable0.equals(consumable1));
     }

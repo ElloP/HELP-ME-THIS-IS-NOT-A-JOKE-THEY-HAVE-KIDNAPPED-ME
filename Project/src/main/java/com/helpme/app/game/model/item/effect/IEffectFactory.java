@@ -15,4 +15,9 @@ public final class IEffectFactory {
     public static IEffect heal(float amount) {
         return target -> target.heal(amount);
     }
+
+    public static IEffect empty() {
+        return t -> {
+        };
+    }
 }

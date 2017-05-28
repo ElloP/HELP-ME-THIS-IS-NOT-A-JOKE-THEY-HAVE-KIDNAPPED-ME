@@ -6,8 +6,4 @@ import com.helpme.app.utils.functions.IAction;
  * Created by kopa on 2017-04-12.
  */
 public interface IEffect extends IAction<ITarget> {
-    static IEffect empty() {
-        return t -> {
-        };
-    }
 }
