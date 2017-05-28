@@ -3,13 +3,13 @@
 This is our project for the course Object oriented programming project (DIT212/TDA367)
 
 Members and Aliases:
-Klas Ludvigsson: Klas, og
+Klas Ludvigsson: enlitengas, og
  
-Jesper Persson: Jesper, jesper
+Jesper Persson: FanOfSilence
 
-Olle Persson: Olle, olle 
+Olle Persson: ElloP
 
-Jacob Torrång: Jacob, kopa
+Jacob Torrång: kopa, mewhhaha
 
 
 Controls for game: 
