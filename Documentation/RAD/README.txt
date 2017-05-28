@@ -1,1 +1,2 @@
-Final Use Cases Status.pdf has added statuses to each use case if we managed to implement them or not
+StatusUseCases has the status of every use cases if they were implemented
+CompletedUseCases only has the completed ones
