@@ -23,7 +23,6 @@ import static org.lwjgl.opengl.GL20.*;
 public abstract class Shader {
     // ----------- Shader variables -----------
 
-    //TODO(Olle): Find better way of finding the path string
     private final String SHADERPATH = new File("").getAbsolutePath() + "/src/main/java/com/helpme/app/engine/renderer/shaders/";
 
     private int shaderProgram;
@@ -115,6 +114,8 @@ public abstract class Shader {
     }
 
     // ----------- Shader usage functions -----------
+
+    //Note(Olle): add a shader uniform variable to the uniform hashmap
     public void addUniform(String uniform) {
         try {
             int uniformLocation = glGetUniformLocation(shaderProgram, uniform);
@@ -128,6 +129,8 @@ public abstract class Shader {
         }
     }
 
+
+    //Note(Olle): sets a value for the provided shader uniform variable
     public void setUniform(String uniformName, int value) {
         glUniform1i(uniforms.get(uniformName), value);
     }

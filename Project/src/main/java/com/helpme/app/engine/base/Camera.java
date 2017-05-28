@@ -13,7 +13,6 @@ import com.helpme.app.utils.mathl.Vector3f;
 
 public class Camera implements ICamera {
     // ----------- Variables -----------
-    //TODO(Olle): Add some sort of parent child structure with transforms
     private Vector3f position;
     private Vector3f up;
     private Vector3f forward;
@@ -25,6 +24,7 @@ public class Camera implements ICamera {
         this.position = new Vector3f(0,1,0);
         this.forward = new Vector3f(0,0.0f,-1.0f); //Note(Olle): -z is forward in OpenGL
         this.up = new Vector3f(Vector3f.UP);
+        //Note(Olle): you always set the directional vectors to enable the camera to move in every direction in 3d space
         setRight();
         normalizeVectors();
     }
@@ -94,9 +94,10 @@ public class Camera implements ICamera {
     }
 
     // ----------- Operations -----------
+    //Note(Olle): gets the view matrix to translate the objects into view space thus rendering the objects from the cameras point of view
     public Matrix4f getViewMatrix() {
         Vector3f target = new Vector3f();
-        //Note(Olle): look at the point that is one forward vector infront of the camera position
+        //Note(Olle): look at the point that is one forward vector in front of the camera position
         position.add(forward, target);
         return new Matrix4f().lookAt(position, target, up);
     }

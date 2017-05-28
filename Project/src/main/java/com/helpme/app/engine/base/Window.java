@@ -12,6 +12,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * Authored by Olle on 2017-04-02.
  */
+
+//Note(Olle): the window class enables the use of a window while also providing an OpenGL context where rendering is enabled
 public class Window {
 
     // ----------- Window essentials -----------

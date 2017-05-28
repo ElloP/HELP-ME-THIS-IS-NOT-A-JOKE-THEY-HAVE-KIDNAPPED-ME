@@ -13,6 +13,7 @@ import static org.lwjgl.opengl.GL30.*;
 /**
  * Authored by Olle on 2017-05-23.
  */
+
 public class Mesh2D implements Mesh {
     private int vao; //NOTE(Olle): Vertex2D Array Object (saves drawing settings)
     private int vbo; //NOTE(Olle): Vertex2D Buffer Object (buffer to send vertices to graphics card)
@@ -53,10 +54,13 @@ public class Mesh2D implements Mesh {
         glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
 
         glBindVertexArray(vao);
+
         glVertexAttribPointer(0, 2, GL_FLOAT, false, Vertex2D.VERTEXSIZE * FLOATSIZE, 0);
         glEnableVertexAttribArray(0);
+
         glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex2D.VERTEXSIZE * FLOATSIZE, 2 * FLOATSIZE);
         glEnableVertexAttribArray(1);
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
 

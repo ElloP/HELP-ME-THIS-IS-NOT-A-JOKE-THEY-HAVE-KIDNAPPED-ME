@@ -8,6 +8,7 @@ import com.helpme.app.engine.input.InputHandler;
  * Authored by Olle on 2017-04-02.
  * EngineCore of the engine including the main loop
  */
+
 public class EngineCore {
 
     // ----------- Engine EngineCore variables and constructor -----------
@@ -41,19 +42,24 @@ public class EngineCore {
     }
 
     private void run() {
-        //Time time = new Time();
         int frames = 0;
         long frameCounter = 0;
 
         long currentTime = time.getTime();
 
         while(!engineStopped) {
+            //Note(Olle):initialize variables to keep track of frametimes
             long newTime = time.getTime();
             long frameTime = newTime - currentTime;
             currentTime = newTime;
 
+            /*
+             * Note(Olle): the game loop uses a catch up mechanic
+             * ensuring that the model is updated atleast 60 times per second,
+             * so even if the framerate is below 60 fps the model is still updated 60 times per second
+             */
             while(frameTime > 0.0) {
-
+                //Note(Olle): if the model needs to catch up, update the model
                 time.deltaTime = Math.min(frameTime, OPTIMAL_FRAMERATE);
                 frameCounter += time.deltaTime;
                 frameTime -= time.deltaTime;
@@ -62,7 +68,8 @@ public class EngineCore {
                     stop();
                 }
 
-                time.deltaTime = time.deltaTime / Time.SECOND; //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
+                //Note(Olle): convert deltaTime to seconds to get the correct ratios of things
+                time.deltaTime = time.deltaTime / Time.SECOND;
 
                 game.input(time);
 
@@ -71,16 +78,17 @@ public class EngineCore {
                 game.update(time);
 
                 if (frameCounter >= Time.SECOND) {
-                    //TODO(Olle): render frames ingame instead of sout
-                    //System.out.println(frames);
+                    System.out.println(frames);
                     frames = 0;
                     frameCounter = 0;
                 }
             }
+            //Note(Olle): render the frame
             render();
             frames++;
             }
-        cleanUp(); //NOTE(Olle): clean up after main loop
+        //NOTE(Olle): clean up after main loop
+        cleanUp();
     }
 
     private void stop() {

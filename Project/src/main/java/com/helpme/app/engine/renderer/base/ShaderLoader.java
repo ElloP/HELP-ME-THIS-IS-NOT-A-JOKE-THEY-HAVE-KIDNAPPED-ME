@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 /**
  * Authored by Olle on 2017-04-04.
  */
+
+//Note(Olle): loads a file as a shader
 public class ShaderLoader {
     public static String readShader(String fileName) throws ShaderLoadingException {
         StringBuilder fileText = new StringBuilder();

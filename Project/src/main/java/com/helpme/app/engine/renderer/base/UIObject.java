@@ -5,6 +5,8 @@ import com.helpme.app.utils.mathl.Vector2f;
 /**
  * Authored by Olle on 2017-05-23.
  */
+
+//Note(Olle): a 2d object to be rendered as UI
 public class UIObject {
     private Shader shader;
     private Mesh2D mesh;

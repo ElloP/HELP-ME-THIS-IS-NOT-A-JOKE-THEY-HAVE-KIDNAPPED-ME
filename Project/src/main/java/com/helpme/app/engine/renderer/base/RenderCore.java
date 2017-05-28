@@ -30,6 +30,9 @@ public class RenderCore implements IRenderCore {
         glClearColor(0.0f,0.0f,0.0f,0.0f);
     }
 
+    /* Note(Olle): enables face culling, preventing objects turned away from the camera to be rendered
+     * as long as the objects vertices are rendered in counter clock-wise order
+     */
     public void enableFaceCulling() {
         glFrontFace(GL_CW);
         glCullFace(GL_BACK);
@@ -41,6 +44,7 @@ public class RenderCore implements IRenderCore {
         glDisable(GL_CULL_FACE);
     }
 
+    //Note(Olle): enables depth test, which prevent objects behind other objects to be rendered
     public void enableDepthTest() {
         glEnable(GL_DEPTH_TEST);
     }
