@@ -188,7 +188,6 @@ public class Body extends Observable implements IBody {
 
     @Override
     public void damage(float amount) {
-        System.out.println("OWWW I AM BEING HURT");
         amount = Math.abs(amount);
         hitpoints.y -= amount;
         notifyEvent(BodyEvent.HEALTH);

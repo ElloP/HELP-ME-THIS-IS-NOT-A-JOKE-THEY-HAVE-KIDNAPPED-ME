@@ -34,6 +34,8 @@ final class ControllerFactory {
         Resources.getSound("groan").run(b -> groanSource[0] = new Source(b));
         final Source[] blockedSource = new Source[1];
         Resources.getSound("wallMove").run(b -> blockedSource[0] = new Source(b));
+        final Source[] unlockSource = new Source[1];
+        Resources.getSound("unlock").run(b -> unlockSource[0] = new Source(b));
         final Source[] defaultSource = new Source[1];
         Resources.getSound("default").run(b -> defaultSource[0] = new Source(b));
 
@@ -41,6 +43,7 @@ final class ControllerFactory {
         sourceMap.put(AbstractBodySource.WALKING, walkSource[0]);
         sourceMap.put(AbstractBodySource.BREATHING, groanSource[0]);
         sourceMap.put(AbstractBodySource.BLOCKED, blockedSource[0]);
+        sourceMap.put(AbstractBodySource.UNLOCK, unlockSource[0]);
 
 
         ArrayList<AbstractBodySource> bodySources = new ArrayList<>();

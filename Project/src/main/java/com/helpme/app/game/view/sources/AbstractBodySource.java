@@ -15,7 +15,7 @@ public abstract class AbstractBodySource {
     public static final String BREATHING = "breathing";
     public static final String HURTING = "hurting";
     public static final String BLOCKED = "blocked";
-
+    public static final String UNLOCK = "unlock";
     protected IReadBody body;
 
     private HashMap<String, Source> sourceMap;

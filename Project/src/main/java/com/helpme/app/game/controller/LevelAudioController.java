@@ -42,9 +42,10 @@ public class LevelAudioController implements Observer {
             case DIRECTION:
                 break;
             case BLOCKED:
-                System.out.println("Being blocked");
-                getSource(consciousness.readBody()).play(AbstractBodySource.BLOCKED);
+                blockedEvent(consciousness.readBody());
                 break;
+            case UNLOCK:
+                unlockEvent(consciousness.readBody());
             default:
                 break;
         }
@@ -66,5 +67,13 @@ public class LevelAudioController implements Observer {
 
     private void healthEvent(IReadBody body) {
         getSource(body).play(AbstractBodySource.HURTING);
+    }
+
+    private void unlockEvent(IReadBody body) {
+        getSource(body).play(AbstractBodySource.UNLOCK);
+    }
+
+    private void blockedEvent(IReadBody body) {
+        getSource(body).play(AbstractBodySource.BLOCKED);
     }
 }

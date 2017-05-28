@@ -49,13 +49,11 @@ public class MenuController extends Scene{
 
     public void up(){
         current = 0;
-        //menuEvent.getPrevious
         menu.setTexture(options[current]);
     }
 
     public void down(){
         current = 1;
-        //menuEvent.getNext
         menu.setTexture(options[current]);
     }
 
